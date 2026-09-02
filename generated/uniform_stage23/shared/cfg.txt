@@ -1,0 +1,35 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp
+initial: L_assign_2
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: r, x
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(0 <= x and x < 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp:27:1
+  L_while_1 [while] invariant=(0 <= x) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp:17:1
+  L_assign_1 [assign] invariant=(1 <= x and 0 <= r and r <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp:22:3
+  L_sample_1 [sample] invariant=(1 <= x) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp:19:3
+  L_assign_2 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp:14:8
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(not x <= 0.5)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(x <= 0.5)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := r * x
+  T_4: L_sample_1 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: r := __sample_r_1; samples: __sample_r_1 ~ Uniform(0, 2) [fresh]
+  T_5: L_while_1 guard=(x >= 1)
+    branch 1: p=1 -> L_sample_1; update: identity
+  T_6: L_while_1 guard=(not x >= 1)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_7: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := 1

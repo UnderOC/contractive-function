@@ -1,0 +1,58 @@
+analysis: uniform_assertion
+goal: assertion_violation
+objective: minimize theta_L_assign_2_0 + theta_L_assign_2_1 + theta_L_assign_2_3
+
+[assert_failure_boundary_l_f] tags=failure_boundary
+  domain: true
+  prove: 1 >= 1
+[assert_normal_boundary_l_t] tags=normal_boundary
+  domain: true
+  prove: 0 = 0
+[assert_nonnegative_l_t] tags=nonnegative
+  domain: true
+  prove: 0 >= 0
+[assert_nonnegative_l_f] tags=nonnegative
+  domain: true
+  prove: 1 >= 0
+[assert_nonnegative_L_refute_1] tags=nonnegative
+  domain: 0 <= x and x < 1
+  prove: r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2 >= 0
+[assert_nonnegative_L_while_1] tags=nonnegative
+  domain: 0 <= x
+  prove: r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2 >= 0
+[assert_nonnegative_L_assign_1] tags=nonnegative
+  domain: 1 <= x and 0 <= r and r <= 2
+  prove: r**2*theta_L_assign_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2 >= 0
+[assert_nonnegative_L_sample_1] tags=nonnegative
+  domain: 1 <= x
+  prove: r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2 >= 0
+[assert_nonnegative_L_assign_2] tags=nonnegative
+  domain: true
+  prove: r**2*theta_L_assign_2_5 + r*theta_L_assign_2_2 + r*theta_L_assign_2_4*x + theta_L_assign_2_0 + theta_L_assign_2_1*x + theta_L_assign_2_3*x**2 >= 0
+[assert_prefixed_T_absorb_normal] tags=prefixed_point
+  domain: true and true
+  prove: 0 >= 0
+[assert_prefixed_T_absorb_failure] tags=prefixed_point
+  domain: true and true
+  prove: 1 >= 1
+[assert_prefixed_T_1] tags=prefixed_point
+  domain: 0 <= x and x < 1 and not x <= 0.5
+  prove: r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2 >= 0
+[assert_prefixed_T_2] tags=prefixed_point
+  domain: 0 <= x and x < 1 and x <= 0.5
+  prove: r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2 >= 1
+[assert_prefixed_T_3] tags=prefixed_point
+  domain: 1 <= x and 0 <= r and r <= 2 and true
+  prove: r**2*theta_L_assign_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2 >= r**2*theta_L_while_1_3*x**2 + r**2*theta_L_while_1_4*x + r**2*theta_L_while_1_5 + r*theta_L_while_1_1*x + r*theta_L_while_1_2 + theta_L_while_1_0
+[assert_prefixed_T_4] tags=prefixed_point
+  domain: 1 <= x and true
+  prove: r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2 >= theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_2 + theta_L_assign_1_3*x**2 + theta_L_assign_1_4*x + 4*theta_L_assign_1_5/3
+[assert_prefixed_T_5] tags=prefixed_point
+  domain: 0 <= x and x >= 1
+  prove: r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2 >= r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2
+[assert_prefixed_T_6] tags=prefixed_point
+  domain: 0 <= x and not x >= 1
+  prove: r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2 >= r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2
+[assert_prefixed_T_7] tags=prefixed_point
+  domain: true and true
+  prove: r**2*theta_L_assign_2_5 + r*theta_L_assign_2_2 + r*theta_L_assign_2_4*x + theta_L_assign_2_0 + theta_L_assign_2_1*x + theta_L_assign_2_3*x**2 >= r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4 + theta_L_while_1_0 + theta_L_while_1_1 + theta_L_while_1_3

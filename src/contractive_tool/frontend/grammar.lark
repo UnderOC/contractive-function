@@ -1,0 +1,63 @@
+start: program
+program: random_decl* block
+
+random_decl: "random" NAME "~" distribution ";"
+
+block: block_item*
+?block_item: annotation
+           | simple_stmt ";"?
+           | compound_stmt ";"?
+
+?simple_stmt: "skip"                         -> skip_stmt
+            | NAME ":=" assignment_rhs      -> assign_stmt
+            | "assert" condition             -> assert_stmt
+            | "refute" condition             -> refute_stmt
+            | "assume" condition             -> assume_stmt
+
+?compound_stmt: if_stmt | while_stmt
+if_stmt: "if" condition "then" block "else" block "fi"
+while_stmt: "while" condition ["invariant" condition] "do" block "od"
+annotation: "{" condition "}"
+
+?assignment_rhs: distribution | arith_expr
+distribution: DIST_NAME "(" [arith_expr ("," arith_expr)*] ")"
+
+?condition: disjunction
+?disjunction: conjunction (OR conjunction)*
+?conjunction: negation (AND negation)*
+?negation: NOT negation                       -> not_expr
+         | bool_atom
+?bool_atom: TRUE                              -> true_expr
+          | FALSE                             -> false_expr
+          | "prob" "(" arith_expr ")"       -> prob_expr
+          | arith_expr COMP arith_expr        -> compare_expr
+          | "(" condition ")"
+
+?arith_expr: sum
+?sum: product ((PLUS|MINUS) product)*
+?product: unary (TIMES unary)*
+?unary: MINUS unary                           -> neg_expr
+      | PLUS unary                            -> pos_expr
+      | atom
+?atom: NUMBER                                 -> number_expr
+     | NAME                                   -> variable_expr
+     | "(" arith_expr ")"
+
+COMP: "<=" | ">=" | "!=" | "==" | "=" | "<" | ">" | "≤" | "≥" | "≠"
+PLUS: "+"
+MINUS: "-"
+TIMES: "*"
+AND.3: "and"i | "&&" | "∧"
+OR.3: "or"i | "||" | "∨"
+NOT.3: "not"i | "!" | "¬"
+TRUE.3: "true"i
+FALSE.3: "false"i
+DIST_NAME.3: "Unif" | "Uniform" | "Normal" | "Bernoulli"
+NAME: /[A-Za-z_][A-Za-z0-9_]*/
+NUMBER: /(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?/
+
+%import common.WS
+%ignore WS
+%ignore /\/\*(?s:.*?)\*\//
+%ignore /\/\/[^\n]*/
+%ignore /#[^\n]*/

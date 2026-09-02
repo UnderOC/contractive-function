@@ -1,0 +1,57 @@
+{
+  "analysis": {
+    "analysis_id": "kelly_tail_3",
+    "event": "wealth <= 0.6",
+    "event_mode": "at_horizon",
+    "horizon": 3,
+    "initial_location": "L_while_1",
+    "initial_valuation": {
+      "round": "0",
+      "wealth": "1"
+    },
+    "kind": "tail_bound",
+    "normalization": "certificate_geq_one_on_event"
+  },
+  "artifacts": {
+    "analyses/kelly_tail_3/certificates/kelly/result.json": "e26de14900a048ad82f3b5ddb72d7ec9c03660ede60df0f928b610e8f960d85b",
+    "analyses/kelly_tail_3/certificates/kelly/scalar_model.json": "b94a24c6cbfc4d3a2c869391f76c219c290e812d5f9d0c69a9ccccaf58295f31",
+    "analyses/kelly_tail_3/goal.json": "1c447f1cf82376e45ba9022596c23e063e2942676bd6b58a869ec71365fc3655",
+    "analyses/kelly_tail_3/summary.json": "5e9a2246ed3d5708fdb71604fc1246656e3ece0c0e9e8d95e85aab2a16d45934",
+    "shared/ast.json": "7239fed9f0879d66cf334e94c1fa3f8379c7569ec24f0eb5767bf3cf48f13113",
+    "shared/cfg.dot": "cf189c4858c6be22b3913262c029f842356419b8b1375742fae2625c86db83da",
+    "shared/cfg.json": "ea4fada0f65a39b097056f83f3cd481a5df5e1fb9d96c1b8470616fb1f358446",
+    "shared/cfg.txt": "60e0ad1b2b9e398ac98791a317da2d7f5973a7d891334502e7750a75387af889",
+    "shared/manifest.json": "b63fe3c4e122043c6c106ebe158a3a1b97bb74581f1537dc6e16115b95904768",
+    "shared/source.normalized.pp": "91483b1f2ccc2d6e3efc748a36537f3aef664c91bf493e3d3acae698aa525e92",
+    "shared/validation.json": "f290936e30ca70d107137e51a70f5c5b8d05cccc0280fda7a70d3912850ce378",
+    "summary.json": "c972bf98c37c19222f78441a8ac724735d894845131739fb809815ffc97e177c"
+  },
+  "backend": {
+    "matlab_invoked": false,
+    "route": "exact_scalar_moment"
+  },
+  "certificate": {
+    "degree": null,
+    "fixed_factor_q": null,
+    "k": 1,
+    "kind": "kelly",
+    "lambda": "1/2"
+  },
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp",
+    "sha256": "41ee86d43ff7e206e82a59759f641529c5506de177c11604a4b5ad50711c8cbb"
+  },
+  "phase": "stages_2_3_obligation_generation",
+  "python_version": "3.11.15",
+  "schema_version": 2,
+  "semantics": {
+    "arithmetic": "exact rational/symbolic until numeric display",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "updates": "simultaneous"
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.2.0"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "artifacts": {
+    "ast.json": "99ad21e94959d4ab3b6a1363df9ad839fba0f1e0857945e3e76e675911604d0d",
+    "cfg.dot": "b0656ddf6a0a694d88c9136f2f45343bfc0fb5f4d88ca1b16bdc91404a7d47eb",
+    "cfg.json": "9a844d056ff4c5b6d6fa3f11fceace79cee8160c4b172f9597810921ccc239e1",
+    "cfg.txt": "1a1234616e899b0a95a6d1f6d626ff3d2bbf5fffa82a12519a6601eea77987d9",
+    "source.normalized.pp": "c79e04a8737efa590708ac6cd7d00a01a938923cfa3d1b0ca99f40e57a221b33",
+    "validation.json": "ab6fd86e9c2dc519855f8d939fdf0b5cb3ae2901f8aca0d592bd40efcde088aa"
+  },
+  "generated_at": "2026-08-14T15:23:42.710473+00:00",
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+    "sha256": "a12bfc1d1076e8f35c33e7e6b560840e29c241f0fb9f4152e10db9afdeb6b2dd"
+  },
+  "phase": "frontend_pcfg",
+  "python_version": "3.11.15",
+  "random_samples": [
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 14,
+              "end_line": 19,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+              "node": "SourceSpan",
+              "start_column": 13,
+              "start_line": 19
+            },
+            "text": "0"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 17,
+              "end_line": 19,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+              "node": "SourceSpan",
+              "start_column": 16,
+              "start_line": 19
+            },
+            "text": "2"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 18,
+          "end_line": 19,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 19
+        }
+      },
+      "fresh": true,
+      "symbol": "__sample_r_1",
+      "transition_id": "T_4"
+    }
+  ],
+  "schema_version": 1,
+  "semantics": {
+    "failure_terminal": "l_f",
+    "normal_terminal": "l_t",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "refute": "predicate true transitions to failure terminal",
+    "strict_inequalities": "preserved exactly in pCFG guards; no SOS margin applied",
+    "updates": "simultaneous within a transition; source statements remain sequential"
+  },
+  "statistics": {
+    "branches": 9,
+    "locations": 7,
+    "probability_obligations": 0,
+    "program_variables": 2,
+    "random_samples": 1,
+    "transition_groups": 9
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.1.0"
+  }
+}

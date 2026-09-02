@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contractive-tool"
+version = "0.2.0"
+description = "Probabilistic CFG, exact pre-expectation, and contractive obligation generator"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "lark==1.2.2",
+  "sympy==1.14.0",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest==8.3.5",
+]
+
+[project.scripts]
+contractive = "contractive_tool.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"contractive_tool.frontend" = ["grammar.lark"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]

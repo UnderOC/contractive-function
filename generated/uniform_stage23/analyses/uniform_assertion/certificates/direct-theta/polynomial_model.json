@@ -1,0 +1,731 @@
+{
+  "actual_tags": [
+    "failure_boundary",
+    "nonnegative",
+    "normal_boundary",
+    "prefixed_point"
+  ],
+  "analysis_id": "uniform_assertion",
+  "decision_variables": [
+    "theta_L_assign_1_0",
+    "theta_L_assign_1_1",
+    "theta_L_assign_1_2",
+    "theta_L_assign_1_3",
+    "theta_L_assign_1_4",
+    "theta_L_assign_1_5",
+    "theta_L_assign_2_0",
+    "theta_L_assign_2_1",
+    "theta_L_assign_2_2",
+    "theta_L_assign_2_3",
+    "theta_L_assign_2_4",
+    "theta_L_assign_2_5",
+    "theta_L_refute_1_0",
+    "theta_L_refute_1_1",
+    "theta_L_refute_1_2",
+    "theta_L_refute_1_3",
+    "theta_L_refute_1_4",
+    "theta_L_refute_1_5",
+    "theta_L_sample_1_0",
+    "theta_L_sample_1_1",
+    "theta_L_sample_1_2",
+    "theta_L_sample_1_3",
+    "theta_L_sample_1_4",
+    "theta_L_sample_1_5",
+    "theta_L_while_1_0",
+    "theta_L_while_1_1",
+    "theta_L_while_1_2",
+    "theta_L_while_1_3",
+    "theta_L_while_1_4",
+    "theta_L_while_1_5"
+  ],
+  "goal_kind": "assertion_violation",
+  "model_kind": "polynomial_obligations",
+  "objective": {
+    "expression": "theta_L_assign_2_0 + theta_L_assign_2_1 + theta_L_assign_2_3",
+    "meaning": "Theta(initial), bounding eventual assertion-failure probability",
+    "numeric_value": null,
+    "sense": "minimize"
+  },
+  "obligations": [
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "assert_failure_boundary_l_f",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "l_f",
+        "source_span": null,
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "1",
+        "normalized_left_minus_right": "0",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "failure_boundary"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "assert_normal_boundary_l_t",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "l_t",
+        "source_span": null,
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "0",
+        "normalized_left_minus_right": "0",
+        "relation": "=",
+        "right": "0"
+      },
+      "tags": [
+        "normal_boundary"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "assert_nonnegative_l_t",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "l_t",
+        "source_span": null,
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "0",
+        "normalized_left_minus_right": "0",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "assert_nonnegative_l_f",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "l_f",
+        "source_span": null,
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "1",
+        "normalized_left_minus_right": "1",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 <= x and x < 1"
+        ]
+      },
+      "id": "assert_nonnegative_L_refute_1",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 18,
+          "end_line": 27,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 27
+        },
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 <= x"
+        ]
+      },
+      "id": "assert_nonnegative_L_while_1",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 23,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 17
+        },
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "1 <= x and 0 <= r and r <= 2"
+        ]
+      },
+      "id": "assert_nonnegative_L_assign_1",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_assign_1",
+        "source_span": {
+          "end_column": 13,
+          "end_line": 22,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 22
+        },
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "r**2*theta_L_assign_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_assign_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "1 <= x"
+        ]
+      },
+      "id": "assert_nonnegative_L_sample_1",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_sample_1",
+        "source_span": {
+          "end_column": 18,
+          "end_line": 19,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 19
+        },
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "assert_nonnegative_L_assign_2",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_assign_2",
+        "source_span": {
+          "end_column": 14,
+          "end_line": 14,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 14
+        },
+        "template_kind": "direct_theta",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "r**2*theta_L_assign_2_5 + r*theta_L_assign_2_2 + r*theta_L_assign_2_4*x + theta_L_assign_2_0 + theta_L_assign_2_1*x + theta_L_assign_2_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_assign_2_5 + r*theta_L_assign_2_2 + r*theta_L_assign_2_4*x + theta_L_assign_2_0 + theta_L_assign_2_1*x + theta_L_assign_2_3*x**2",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "0",
+            "after_simultaneous_substitution": "0",
+            "branch_probability": "1",
+            "destination_function": "0",
+            "weighted_expectation": "0"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "true"
+        ]
+      },
+      "id": "assert_prefixed_T_absorb_normal",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "l_t",
+        "source_span": null,
+        "template_kind": "direct_theta",
+        "transition_id": "T_absorb_normal"
+      },
+      "relation": {
+        "left": "0",
+        "normalized_left_minus_right": "0",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "1",
+            "after_simultaneous_substitution": "1",
+            "branch_probability": "1",
+            "destination_function": "1",
+            "weighted_expectation": "1"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "true"
+        ]
+      },
+      "id": "assert_prefixed_T_absorb_failure",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "l_f",
+        "source_span": null,
+        "template_kind": "direct_theta",
+        "transition_id": "T_absorb_failure"
+      },
+      "relation": {
+        "left": "1",
+        "normalized_left_minus_right": "0",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "0",
+            "after_simultaneous_substitution": "0",
+            "branch_probability": "1",
+            "destination_function": "0",
+            "weighted_expectation": "0"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 <= x and x < 1",
+          "not x <= 0.5"
+        ]
+      },
+      "id": "assert_prefixed_T_1",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 18,
+          "end_line": 27,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 27
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_1"
+      },
+      "relation": {
+        "left": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "1",
+            "after_simultaneous_substitution": "1",
+            "branch_probability": "1",
+            "destination_function": "1",
+            "weighted_expectation": "1"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 <= x and x < 1",
+          "x <= 0.5"
+        ]
+      },
+      "id": "assert_prefixed_T_2",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 18,
+          "end_line": 27,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 27
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_2"
+      },
+      "relation": {
+        "left": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2 - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "r**2*theta_L_while_1_3*x**2 + r**2*theta_L_while_1_4*x + r**2*theta_L_while_1_5 + r*theta_L_while_1_1*x + r*theta_L_while_1_2 + theta_L_while_1_0",
+            "after_simultaneous_substitution": "r**2*theta_L_while_1_3*x**2 + r**2*theta_L_while_1_4*x + r**2*theta_L_while_1_5 + r*theta_L_while_1_1*x + r*theta_L_while_1_2 + theta_L_while_1_0",
+            "branch_probability": "1",
+            "destination_function": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+            "weighted_expectation": "r**2*theta_L_while_1_3*x**2 + r**2*theta_L_while_1_4*x + r**2*theta_L_while_1_5 + r*theta_L_while_1_1*x + r*theta_L_while_1_2 + theta_L_while_1_0"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "1 <= x and 0 <= r and r <= 2",
+          "true"
+        ]
+      },
+      "id": "assert_prefixed_T_3",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_assign_1",
+        "source_span": {
+          "end_column": 13,
+          "end_line": 22,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 22
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_3"
+      },
+      "relation": {
+        "left": "r**2*theta_L_assign_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_assign_1_5 - r**2*theta_L_while_1_3*x**2 - r**2*theta_L_while_1_4*x - r**2*theta_L_while_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x - r*theta_L_while_1_1*x - r*theta_L_while_1_2 + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2 - theta_L_while_1_0",
+        "relation": ">=",
+        "right": "r**2*theta_L_while_1_3*x**2 + r**2*theta_L_while_1_4*x + r**2*theta_L_while_1_5 + r*theta_L_while_1_1*x + r*theta_L_while_1_2 + theta_L_while_1_0"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_2 + theta_L_assign_1_3*x**2 + theta_L_assign_1_4*x + 4*theta_L_assign_1_5/3",
+            "after_simultaneous_substitution": "__sample_r_1**2*theta_L_assign_1_5 + __sample_r_1*theta_L_assign_1_2 + __sample_r_1*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2",
+            "branch_probability": "1",
+            "destination_function": "r**2*theta_L_assign_1_5 + r*theta_L_assign_1_2 + r*theta_L_assign_1_4*x + theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_3*x**2",
+            "weighted_expectation": "theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_2 + theta_L_assign_1_3*x**2 + theta_L_assign_1_4*x + 4*theta_L_assign_1_5/3"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "1 <= x",
+          "true"
+        ]
+      },
+      "id": "assert_prefixed_T_4",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_sample_1",
+        "source_span": {
+          "end_column": 18,
+          "end_line": 19,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 19
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_4"
+      },
+      "relation": {
+        "left": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x - theta_L_assign_1_0 - theta_L_assign_1_1*x - theta_L_assign_1_2 - theta_L_assign_1_3*x**2 - theta_L_assign_1_4*x - 4*theta_L_assign_1_5/3 + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+        "relation": ">=",
+        "right": "theta_L_assign_1_0 + theta_L_assign_1_1*x + theta_L_assign_1_2 + theta_L_assign_1_3*x**2 + theta_L_assign_1_4*x + 4*theta_L_assign_1_5/3"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+            "after_simultaneous_substitution": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+            "branch_probability": "1",
+            "destination_function": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2",
+            "weighted_expectation": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 <= x",
+          "x >= 1"
+        ]
+      },
+      "id": "assert_prefixed_T_5",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 23,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 17
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_5"
+      },
+      "relation": {
+        "left": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+        "normalized_left_minus_right": "-r**2*theta_L_sample_1_5 + r**2*theta_L_while_1_5 - r*theta_L_sample_1_2 - r*theta_L_sample_1_4*x + r*theta_L_while_1_2 + r*theta_L_while_1_4*x - theta_L_sample_1_0 - theta_L_sample_1_1*x - theta_L_sample_1_3*x**2 + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+        "relation": ">=",
+        "right": "r**2*theta_L_sample_1_5 + r*theta_L_sample_1_2 + r*theta_L_sample_1_4*x + theta_L_sample_1_0 + theta_L_sample_1_1*x + theta_L_sample_1_3*x**2"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+            "after_simultaneous_substitution": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+            "branch_probability": "1",
+            "destination_function": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2",
+            "weighted_expectation": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 <= x",
+          "not x >= 1"
+        ]
+      },
+      "id": "assert_prefixed_T_6",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 23,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 17
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_6"
+      },
+      "relation": {
+        "left": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+        "normalized_left_minus_right": "-r**2*theta_L_refute_1_5 + r**2*theta_L_while_1_5 - r*theta_L_refute_1_2 - r*theta_L_refute_1_4*x + r*theta_L_while_1_2 + r*theta_L_while_1_4*x - theta_L_refute_1_0 - theta_L_refute_1_1*x - theta_L_refute_1_3*x**2 + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+        "relation": ">=",
+        "right": "r**2*theta_L_refute_1_5 + r*theta_L_refute_1_2 + r*theta_L_refute_1_4*x + theta_L_refute_1_0 + theta_L_refute_1_1*x + theta_L_refute_1_3*x**2"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4 + theta_L_while_1_0 + theta_L_while_1_1 + theta_L_while_1_3",
+            "after_simultaneous_substitution": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4 + theta_L_while_1_0 + theta_L_while_1_1 + theta_L_while_1_3",
+            "branch_probability": "1",
+            "destination_function": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4*x + theta_L_while_1_0 + theta_L_while_1_1*x + theta_L_while_1_3*x**2",
+            "weighted_expectation": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4 + theta_L_while_1_0 + theta_L_while_1_1 + theta_L_while_1_3"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "true"
+        ]
+      },
+      "id": "assert_prefixed_T_7",
+      "origin": {
+        "analysis_id": "uniform_assertion",
+        "goal_kind": "assertion_violation",
+        "source_location": "L_assign_2",
+        "source_span": {
+          "end_column": 14,
+          "end_line": 14,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/uniform_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 14
+        },
+        "template_kind": "direct_theta",
+        "transition_id": "T_7"
+      },
+      "relation": {
+        "left": "r**2*theta_L_assign_2_5 + r*theta_L_assign_2_2 + r*theta_L_assign_2_4*x + theta_L_assign_2_0 + theta_L_assign_2_1*x + theta_L_assign_2_3*x**2",
+        "normalized_left_minus_right": "r**2*theta_L_assign_2_5 - r**2*theta_L_while_1_5 + r*theta_L_assign_2_2 + r*theta_L_assign_2_4*x - r*theta_L_while_1_2 - r*theta_L_while_1_4 + theta_L_assign_2_0 + theta_L_assign_2_1*x + theta_L_assign_2_3*x**2 - theta_L_while_1_0 - theta_L_while_1_1 - theta_L_while_1_3",
+        "relation": ">=",
+        "right": "r**2*theta_L_while_1_5 + r*theta_L_while_1_2 + r*theta_L_while_1_4 + theta_L_while_1_0 + theta_L_while_1_1 + theta_L_while_1_3"
+      },
+      "tags": [
+        "prefixed_point"
+      ]
+    }
+  ],
+  "required_tags": [
+    "failure_boundary",
+    "nonnegative",
+    "normal_boundary",
+    "prefixed_point"
+  ],
+  "required_tags_present": true,
+  "state_symbols": [
+    "r",
+    "x"
+  ]
+}

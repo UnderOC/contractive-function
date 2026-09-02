@@ -1,0 +1,52 @@
+{
+  "analysis_id": "kelly_tail_3",
+  "arithmetic": "exact symbolic",
+  "assumptions": [
+    "the listed gains are iid multiplicative updates of the base variable",
+    "lambda, horizon, threshold and rho are fixed",
+    "event is base_variable <= threshold at the fixed horizon"
+  ],
+  "constraints": [
+    {
+      "left": "sqrt(5)/5 + sqrt(30)/10",
+      "left_numeric": 0.9949361530051241,
+      "origin": {
+        "analysis_id": "kelly_tail_3",
+        "goal_kind": "tail_bound",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 28,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 16
+        },
+        "template_kind": "kelly_power",
+        "transition_id": null
+      },
+      "relation": "<=",
+      "right": "sqrt(5)/5 + sqrt(30)/10",
+      "right_numeric": 0.9949361530051241,
+      "tags": [
+        "contraction",
+        "fixed_lambda",
+        "scalar_moment"
+      ]
+    }
+  ],
+  "goal_kind": "tail_bound",
+  "model_kind": "scalar_moment",
+  "objective": {
+    "expression": "11*sqrt(3)/50 + 27*sqrt(2)/100",
+    "meaning": "rho^3 * (wealth_initial / threshold)^(-lambda)",
+    "numeric_value": 0.7628888395058887,
+    "sense": "evaluate"
+  },
+  "parameters": {
+    "horizon": "3",
+    "lambda": "1/2",
+    "rho": "sqrt(5)/5 + sqrt(30)/10",
+    "threshold": "3/5"
+  }
+}

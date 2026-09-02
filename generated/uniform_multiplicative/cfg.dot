@@ -1,0 +1,22 @@
+digraph pcfg {
+  rankdir=LR;
+  node [shape=box, fontname="monospace"];
+  "l_t" [shape=doublecircle, label="l_t\\nterminal\\nI: true"];
+  "l_f" [shape=doublecircle, label="l_f\\nterminal\\nI: true"];
+  "L_refute_1" [shape=box, label="L_refute_1\\nrefute\\nI: 0 <= x and x < 1"];
+  "L_while_1" [shape=box, label="L_while_1\\nwhile\\nI: 0 <= x"];
+  "L_assign_1" [shape=box, label="L_assign_1\\nassign\\nI: 1 <= x and 0 <= r and r <= 2"];
+  "L_sample_1" [shape=box, label="L_sample_1\\nsample\\nI: 1 <= x"];
+  "L_assign_2" [shape=box, label="L_assign_2\\nassign\\nI: true"];
+  start [shape=point, label=""];
+  start -> "L_assign_2";
+  "l_t" -> "l_t" [label="T_absorb_normal.1\\ng: true\\np: 1\\nid"];
+  "l_f" -> "l_f" [label="T_absorb_failure.1\\ng: true\\np: 1\\nid"];
+  "L_refute_1" -> "l_t" [label="T_1.1\\ng: not x <= 0.5\\np: 1\\nid"];
+  "L_refute_1" -> "l_f" [label="T_2.1\\ng: x <= 0.5\\np: 1\\nid"];
+  "L_assign_1" -> "L_while_1" [label="T_3.1\\ng: true\\np: 1\\nx:=r * x"];
+  "L_sample_1" -> "L_assign_1" [label="T_4.1\\ng: true\\np: 1\\nr:=__sample_r_1; __sample_r_1~Uniform(0, 2)"];
+  "L_while_1" -> "L_sample_1" [label="T_5.1\\ng: x >= 1\\np: 1\\nid"];
+  "L_while_1" -> "L_refute_1" [label="T_6.1\\ng: not x >= 1\\np: 1\\nid"];
+  "L_assign_2" -> "L_while_1" [label="T_7.1\\ng: true\\np: 1\\nx:=1"];
+}
