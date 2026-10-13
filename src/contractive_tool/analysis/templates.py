@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from itertools import product
 from typing import Iterable
 
 import sympy as sp
@@ -14,8 +13,18 @@ from contractive_tool.ir.cfg import ProgramCFG
 def total_degree_exponents(variable_count: int, degree: int) -> tuple[tuple[int, ...], ...]:
     if degree < 0:
         raise AnalysisError("polynomial degree must be nonnegative")
-    candidates = product(range(degree + 1), repeat=variable_count)
-    return tuple(sorted((item for item in candidates if sum(item) <= degree), key=lambda x: (sum(x), x)))
+    if variable_count < 0:
+        raise AnalysisError("variable count must be nonnegative")
+
+    def bounded_tuples(count, remaining):
+        if count == 0:
+            yield ()
+        else:
+            for head in range(remaining + 1):
+                for tail in bounded_tuples(count - 1, remaining - head):
+                    yield (head, *tail)
+
+    return tuple(sorted(bounded_tuples(variable_count, degree), key=lambda x: (sum(x), x)))
 
 
 @dataclass(frozen=True)
@@ -58,6 +67,9 @@ class PolynomialTemplateFactory:
     ) -> PolynomialTemplateInstance:
         selected = tuple(locations if locations is not None else cfg.locations)
         variables = tuple(sp.Symbol(name) for name in cfg.symbols.program_variables)
+        # Keep program variables and synthesis symbols disjoint, including unusual source names.
+        while any(str(x).startswith(prefix + '_') for x in variables):
+            prefix = '_' + prefix
         exponents = total_degree_exponents(len(variables), degree)
         expressions: dict[str, Polynomial] = {}
         decisions: list[str] = []

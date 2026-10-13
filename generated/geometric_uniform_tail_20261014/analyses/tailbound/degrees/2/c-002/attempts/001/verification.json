@@ -1,0 +1,203 @@
+{
+  "attempts": [
+    {
+      "denominator": 1000,
+      "equalities_exact": true,
+      "negative_coefficient_count": 0,
+      "nonpsd_count": 0
+    }
+  ],
+  "bound_exact": "9891655945000/3302641019601",
+  "bound_numeric": 2.9950745134858874,
+  "coverage": {
+    "L_assign_1_positive_0": {
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "strategy": "constant",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "L_assign_2_positive_0": {
+      "origin": {
+        "location": "L_assign_2"
+      },
+      "strategy": "constant",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "L_probabilistic_1_positive_0": {
+      "origin": {
+        "location": "L_probabilistic_1"
+      },
+      "strategy": "constant",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "L_refute_1_positive_0": {
+      "origin": {
+        "location": "L_refute_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "L_while_1_positive_0": {
+      "origin": {
+        "location": "L_while_1"
+      },
+      "strategy": "handelman",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "T_2_0": {
+      "origin": {
+        "line": 9,
+        "location": "L_refute_1",
+        "transition": "T_2"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_3_0": {
+      "origin": {
+        "line": 4,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "strategy": "constant",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_4_0": {
+      "origin": {
+        "line": 6,
+        "location": "L_assign_2",
+        "transition": "T_4"
+      },
+      "strategy": "constant",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_5_0": {
+      "origin": {
+        "line": 3,
+        "location": "L_probabilistic_1",
+        "transition": "T_5"
+      },
+      "strategy": "constant",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_6_0": {
+      "origin": {
+        "line": 2,
+        "location": "L_while_1",
+        "transition": "T_6"
+      },
+      "strategy": "constant",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_7_0": {
+      "origin": {
+        "line": 2,
+        "location": "L_while_1",
+        "transition": "T_7"
+      },
+      "strategy": "handelman",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_7_1": {
+      "origin": {
+        "line": 2,
+        "location": "L_while_1",
+        "transition": "T_7"
+      },
+      "strategy": "constant",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    }
+  },
+  "exact_values": {
+    "o0_constant": "4530378422810/3302641019601",
+    "o10_a0": "0",
+    "o10_a1": "377/430",
+    "o10_a2": "0",
+    "o10_a3": "0",
+    "o10_a4": "0",
+    "o10_a5": "0",
+    "o11_constant": "377/430",
+    "o1_constant": "9891655945000/3302641019601",
+    "o2_constant": "98916559450/40773345921",
+    "o3_s0_q_0_0": "631687654681/407733459210",
+    "o3_s0_q_0_1": "-1810/4131",
+    "o3_s0_q_1_1": "3340/7623",
+    "o4_a0": "0",
+    "o4_a1": "989165594500/366960113289",
+    "o4_a2": "0",
+    "o4_a3": "0",
+    "o4_a4": "274390360481/366960113289",
+    "o4_a5": "453037842281/366960113289",
+    "o5_s0_q_0_0": "178650477781/453037176900",
+    "o5_s0_q_0_1": "-181/459",
+    "o5_s0_q_1_1": "334/847",
+    "o6_constant": "0",
+    "o7_constant": "0",
+    "o8_constant": "0",
+    "o9_constant": "0",
+    "v_L_assign_1_0": "4530378422810/3302641019601",
+    "v_L_assign_1_1": "0",
+    "v_L_assign_1_2": "0",
+    "v_L_assign_2_0": "9891655945000/3302641019601",
+    "v_L_assign_2_1": "0",
+    "v_L_assign_2_2": "0",
+    "v_L_probabilistic_1_0": "98916559450/40773345921",
+    "v_L_probabilistic_1_1": "0",
+    "v_L_probabilistic_1_2": "0",
+    "v_L_refute_1_0": "631687654681/407733459210",
+    "v_L_refute_1_1": "-3620/4131",
+    "v_L_refute_1_2": "3340/7623",
+    "v_L_while_1_0": "989165594500/366960113289",
+    "v_L_while_1_1": "-3113987/1598697",
+    "v_L_while_1_2": "33400/68607"
+  },
+  "method": "rational_affine_reconstruction_exact_psd",
+  "recovered_zero_face": [
+    "o10_a0",
+    "o10_a2",
+    "o10_a3",
+    "o10_a4",
+    "o10_a5",
+    "o4_a0",
+    "o4_a2",
+    "o4_a3",
+    "o6_constant",
+    "o7_constant",
+    "o8_constant",
+    "o9_constant"
+  ],
+  "semantic_evidence": "domain_evidence.json",
+  "status": "proved"
+}

@@ -1,0 +1,150 @@
+{
+  "attempts": [
+    {
+      "denominator": 1000,
+      "equalities_exact": true,
+      "negative_coefficient_count": 0,
+      "nonpsd_count": 0
+    }
+  ],
+  "bound_exact": "5597000000/4658405499",
+  "bound_numeric": 1.2014840702900347,
+  "coverage": {
+    "L_assign_1_positive_0": {
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "L_refute_1_positive_0": {
+      "origin": {
+        "location": "L_refute_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "L_while_1_positive_0": {
+      "origin": {
+        "location": "L_while_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    "T_2_0": {
+      "origin": {
+        "line": 5,
+        "location": "L_refute_1",
+        "transition": "T_2"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_3_0": {
+      "origin": {
+        "line": 3,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_4_0": {
+      "origin": {
+        "line": 2,
+        "location": "L_while_1",
+        "transition": "T_4"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    "T_5_0": {
+      "origin": {
+        "line": 2,
+        "location": "L_while_1",
+        "transition": "T_5"
+      },
+      "strategy": "handelman",
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    }
+  },
+  "exact_values": {
+    "o0_s0_q_0_0": "500000/475299",
+    "o0_s0_q_0_1": "0",
+    "o0_s0_q_1_1": "0",
+    "o0_s1_sos": "19900/475299",
+    "o1_s0_q_0_0": "100/99",
+    "o1_s0_q_0_1": "0",
+    "o1_s0_q_1_1": "0",
+    "o2_s0_q_0_0": "10000/9801",
+    "o2_s0_q_0_1": "0",
+    "o2_s0_q_1_1": "0",
+    "o2_s1_sos": "1990000/47054601",
+    "o3_s0_q_0_0": "0",
+    "o3_s0_q_0_1": "0",
+    "o3_s0_q_1_1": "0",
+    "o4_s0_q_0_0": "0",
+    "o4_s0_q_0_1": "0",
+    "o4_s0_q_1_1": "0",
+    "o4_s1_sos": "199/9801",
+    "o5_s0_q_0_0": "0",
+    "o5_s0_q_0_1": "0",
+    "o5_s0_q_1_1": "0",
+    "o5_s1_sos": "0",
+    "o6_a0": "0",
+    "o6_a1": "0",
+    "o6_a2": "0",
+    "o6_a3": "0",
+    "o6_a4": "19900/475299",
+    "o6_a5": "19900/475299",
+    "v_L_assign_1_0": "100/99",
+    "v_L_assign_1_1": "19900/475299",
+    "v_L_refute_1_0": "100/99",
+    "v_L_refute_1_1": "0",
+    "v_L_while_1_0": "10000/9801",
+    "v_L_while_1_1": "1990000/47054601"
+  },
+  "method": "rational_affine_reconstruction_exact_psd",
+  "recovered_zero_face": [
+    "o0_s0_q_0_1",
+    "o0_s0_q_1_1",
+    "o1_s0_q_0_1",
+    "o1_s0_q_1_1",
+    "o2_s0_q_0_1",
+    "o2_s0_q_1_1",
+    "o3_s0_q_0_0",
+    "o3_s0_q_0_1",
+    "o3_s0_q_1_1",
+    "o4_s0_q_0_0",
+    "o4_s0_q_0_1",
+    "o4_s0_q_1_1",
+    "o5_s0_q_0_0",
+    "o5_s0_q_0_1",
+    "o5_s0_q_1_1",
+    "o5_s1_sos",
+    "o6_a0",
+    "o6_a1",
+    "o6_a2",
+    "o6_a3"
+  ],
+  "semantic_evidence": "domain_evidence.json",
+  "status": "proved"
+}

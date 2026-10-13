@@ -1,354 +1,281 @@
+"""Degree -> contraction parameter -> positivity encoding search."""
 from __future__ import annotations
 
+from dataclasses import dataclass, asdict
+from datetime import datetime, timezone
+from fractions import Fraction
+from importlib import metadata
 import hashlib
 import json
-import platform
-from dataclasses import dataclass
+import math
 from pathlib import Path
-from typing import Mapping
+import time
 
 import sympy as sp
 
 from contractive_tool import __version__
-from contractive_tool.algebra.polynomial import arithmetic_to_symbolic
-from contractive_tool.analysis.goals import (
-    AssertionViolationGoal,
-    AssertionViolationGoalSpec,
-    TailBoundGoal,
-    TailBoundGoalSpec,
-)
-from contractive_tool.analysis.ir import InitialConfig, PolynomialObligationModel, ScalarMomentModel
-from contractive_tool.analysis.templates import PolynomialTemplateFactory
+from contractive_tool.analysis.degree_policy import DegreePolicy
+from contractive_tool.analysis.certificate_families import get_family
+from contractive_tool.analysis.parameter_search import FixedContractionGrid
+from contractive_tool.analysis.semantics import prepare_program, prove_nonnegative
 from contractive_tool.cfg.builder import build_cfg
-from contractive_tool.errors import AnalysisError
-from contractive_tool.frontend.ast import (
-    Binary,
-    BoolBinary,
-    BoolUnary,
-    Compare,
-    Expr,
-    Number,
-    Sequence,
-    Unary,
-    Variable,
-    format_expr,
-)
-from contractive_tool.frontend.parser import parse_file, parse_text
+from contractive_tool.frontend.parser import parse_file
 from contractive_tool.frontend.semantic import check_program
-from contractive_tool.ir.cfg import ProgramCFG
+from contractive_tool.errors import AnalysisError
 from contractive_tool.pipeline import compile_to_cfg
+from contractive_tool.positivity.base import EncodingLimits
+from contractive_tool.positivity.registry import StrategyRegistry
+from contractive_tool.positivity.selector import build_plan
 
 
 @dataclass(frozen=True)
-class AnalysisRequest:
-    goal: str
-    certificate: str
-    analysis_id: str
-    initial: Mapping[str, sp.Expr]
-    initial_location: str | None = None
-    event: str | None = None
-    horizon: int | None = None
-    event_mode: str = "at_horizon"
-    degree: int = 1
-    rho: sp.Expr | None = None
-    normalization_scale: sp.Expr = sp.Integer(1)
-    positivity_margin: sp.Expr = sp.Integer(0)
-    base_variable: str | None = None
-    lambda_value: sp.Expr | None = None
-    threshold: sp.Expr | None = None
-    factor_q: sp.Expr | None = None
-    k: int = 1
+class SearchOptions:
+    initial_degree: int = 2
+    max_degree: int = 6
+    degree_step: int = 1
+    continue_after_success: bool = False
+    c_values: tuple[str,...] = ('1/2','9/10','99/100')
+    max_order: int = 4
+    max_attempts_per_point: int = 2
+    max_parameter_points: int = 32
+    strategy: str = 'auto'
+    enabled_strategies: tuple[str,...] = ('putinar','schmudgen','handelman')
+    max_products: int = 256
+    max_psd_dimension: int = 80
+    max_decisions: int = 20000
+    total_seconds: float = 300
+    per_attempt_seconds: float = 30
+    verbose: bool = True
+    family: str = 'polynomial'
+
+    def validate(self):
+        degrees = DegreePolicy(self.initial_degree,self.max_degree,self.degree_step,self.continue_after_success)
+        list(degrees.degrees())
+        get_family(self.family)
+        cs = FixedContractionGrid(self.c_values).candidates()
+        if self.strategy not in ('auto',)+StrategyRegistry.known:
+            raise AnalysisError('Unknown positivity strategy')
+        StrategyRegistry(self.enabled_strategies)
+        budgets = (self.max_order,self.max_attempts_per_point,self.max_parameter_points,self.max_products,
+                   self.max_psd_dimension,self.max_decisions,self.total_seconds,self.per_attempt_seconds)
+        if any(not math.isfinite(v) or v<=0 for v in budgets) or self.max_order>8:
+            raise AnalysisError('Budgets must be positive and finite; max_order <= 8')
+        return degrees,cs
 
 
-def _sha256(path: Path) -> str:
+def write_json(path, data):
+    path.parent.mkdir(parents=True,exist_ok=True)
+    path.write_text(json.dumps(data,indent=2,ensure_ascii=False,sort_keys=True,allow_nan=False)+'\n',encoding='utf-8')
+
+
+def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _write_json(path: Path, value: object) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+def exact_template_check(problem, numerical_values):
+    """Alternative certificate: rounded coefficients, original-domain exact identities.
 
-
-def _walk_expr(expr: Expr):
-    yield expr
-    if isinstance(expr, (Unary, BoolUnary)):
-        yield from _walk_expr(expr.operand)
-    elif isinstance(expr, (Binary, BoolBinary, Compare)):
-        yield from _walk_expr(expr.left)
-        yield from _walk_expr(expr.right)
-
-
-def parse_event(text: str, cfg: ProgramCFG) -> Expr:
-    parsed = parse_text(f"assume {text};", "<command-line-event>")
-    statement = parsed.body.statements[0]
-    event = statement.condition
-    if not isinstance(event, (Compare, BoolBinary, BoolUnary)):
-        raise AnalysisError("tail event must be a boolean polynomial predicate")
-    unknown = {
-        item.name
-        for item in _walk_expr(event)
-        if isinstance(item, Variable) and item.name not in cfg.symbols.program_variables
-    }
-    if unknown:
-        raise AnalysisError(f"tail event contains unknown variables: {sorted(unknown)}")
-    return event
-
-
-def _multiplicative_gain(rhs: Expr, base_variable: str) -> sp.Expr | None:
-    if not isinstance(rhs, Binary) or rhs.operator != "*":
-        return None
-    if isinstance(rhs.left, Variable) and rhs.left.name == base_variable and isinstance(rhs.right, Number):
-        return arithmetic_to_symbolic(rhs.right)
-    if isinstance(rhs.right, Variable) and rhs.right.name == base_variable and isinstance(rhs.left, Number):
-        return arithmetic_to_symbolic(rhs.left)
-    return None
-
-
-def infer_iid_multiplicative_gains(
-    cfg: ProgramCFG, base_variable: str
-) -> tuple[tuple[sp.Expr, sp.Expr], ...]:
-    """Recognize a grouped probability choice whose destinations multiply one base variable."""
-    candidates: list[tuple[tuple[sp.Expr, sp.Expr], ...]] = []
-    for group in cfg.transitions:
-        if len(group.branches) < 2:
-            continue
-        gains: list[tuple[sp.Expr, sp.Expr]] = []
-        for branch in group.branches:
-            outgoing = cfg.outgoing(branch.destination)
-            if len(outgoing) != 1 or len(outgoing[0].branches) != 1:
+    No time-indexed repair, sampling, or assumption that rounding preserves feasibility.
+    """
+    for denominator in (1000,1000000):
+        values = {sp.Symbol(name):sp.Rational(Fraction(numerical_values[name]).limit_denominator(denominator))
+                  for name in problem.decisions}
+        proofs=[]
+        for obligation in problem.obligations:
+            conclusion=sp.expand(obligation.conclusion.xreplace(values))
+            proof=prove_nonnegative(obligation.domain,conclusion)
+            if proof is None:
                 break
-            assignment = outgoing[0].branches[0].update.assignments.get(base_variable)
-            if assignment is None:
-                break
-            gain = _multiplicative_gain(assignment, base_variable)
-            if gain is None:
-                break
-            gains.append((arithmetic_to_symbolic(branch.probability), gain))
+            proofs.append({'id':obligation.id,'proof':proof})
         else:
-            candidates.append(tuple(gains))
-    unique = []
-    for candidate in candidates:
-        if candidate not in unique:
-            unique.append(candidate)
-    if len(unique) != 1:
-        raise AnalysisError(
-            f"expected one iid multiplicative gain choice for '{base_variable}', found {len(unique)}"
-        )
-    return unique[0]
+            bound=problem.objective.xreplace(values)
+            if bound>=0:
+                return {'status':'proved','method':'exact_original_domain_farkas',
+                        'bound_exact':str(bound),'bound_numeric':float(bound),
+                        'exact_values':{str(x):str(v) for x,v in values.items()},'obligations':proofs}
+    return {'status':'solved_unverified','reason':'No exact original-domain certificate recovered'}
 
 
-def _obligations_text(model: PolynomialObligationModel) -> str:
-    lines = [
-        f"analysis: {model.analysis_id}",
-        f"goal: {model.goal_kind}",
-        f"objective: {model.objective.sense} {sp.sstr(model.objective.expression)}",
-        "",
-    ]
-    for item in model.obligations:
-        domain = " and ".join(item.domain.predicates)
-        lines.extend(
-            [
-                f"[{item.id}] tags={','.join(sorted(item.tags))}",
-                f"  domain: {domain}",
-                f"  prove: {item.relation.left} {item.relation.relation} {item.relation.right}",
-            ]
-        )
-    return "\n".join(lines) + "\n"
+def selected_bound(candidate, problem, cfg):
+    return {'degree':problem.degree,'c':str(problem.c),'A_exact':candidate['bound_exact'],
+            'A_numeric':candidate['bound_numeric'],'lambda_expression':f'-log({problem.c})',
+            'lambda_numeric':float(-sp.log(problem.c)),
+            'expression':f"({candidate['bound_exact']}) * ({problem.c})**n",
+            'exponential_expression':f"({candidate['bound_exact']}) * exp(-(-log({problem.c}))*n)",
+            'n_domain':'nonnegative integers','time_unit':'pcfg_transition_from_program_entry',
+            'event':f'T < infinity and T > n and terminal_location == {cfg.failure_terminal}'}
 
 
-def _goal_initial_location(cfg: ProgramCFG, request: AnalysisRequest) -> str:
-    if request.initial_location:
-        return request.initial_location
-    if request.certificate == "kelly":
-        loops = [location.id for location in cfg.locations.values() if location.kind == "while"]
-        if len(loops) == 1:
-            return loops[0]
-    return cfg.initial_location
+def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
+    options=options or SearchOptions()
+    policy,cs=options.validate()
+    family=get_family(options.family)
+    goal={'tail_bound':'tailbound','exponential_tail':'tailbound'}.get(goal,goal)
+    if goal not in {'tailbound','assertion_violation'}:
+        raise AnalysisError('Goal must be tailbound or assertion_violation')
+    source=Path(source).resolve()
+    if out_dir is None:
+        stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S_%fZ')
+        out_dir=Path('generated')/f'{source.stem}_{goal}_{stamp}'
+    out_dir=Path(out_dir).resolve()
+    if out_dir.exists() and any(out_dir.iterdir()):
+        raise AnalysisError('Use a new or empty output directory')
+    started=time.monotonic()
+    compile_to_cfg(source,out_dir/'shared')
+    cfg=build_cfg(check_program(parse_file(source)))
+    root=out_dir/'analyses'/goal
+    summary={'goal':goal,'status':'unknown','selection':None,'proved_candidates':[],
+             'degrees_attempted':[],'parameter_points':0,'attempt_count':0,
+             'out_dir':str(out_dir),'termination':'unknown','certificate_family':'polynomial'}
+    history=[]
 
+    def finish():
+        summary['elapsed_seconds']=time.monotonic()-started
+        write_json(root/'search_history.json',history)
+        write_json(out_dir/'summary.json',summary)
+        versions={}
+        for package in ('cvxpy','numpy','scipy','mosek'):
+            try: versions[package]=metadata.version(package)
+            except metadata.PackageNotFoundError: versions[package]=None
+        write_json(out_dir/'manifest.json',{'tool_version':__version__,'source_sha256':digest(source),
+            'source':str(source),'options':asdict(options),'goal':goal,'mode':'model_only' if model_only else 'solve',
+            'backend':'cvxpy','solver':'MOSEK','dependencies':versions,'matlab_invoked':False,
+            'budget_policy':'soft checks between symbolic stages; hard solver optimizer time limit',
+            'artifacts':{str(p.relative_to(out_dir)):digest(p) for p in sorted(out_dir.rglob('*')) if p.is_file()}})
+        return summary
 
-def generate_analysis(
-    source: str | Path, out_dir: str | Path, request: AnalysisRequest
-) -> dict[str, object]:
-    source_path = Path(source).resolve()
-    output_path = Path(out_dir).resolve()
-    shared_path = output_path / "shared"
-    compile_to_cfg(source_path, shared_path)
-    program = check_program(parse_file(source_path))
-    cfg = build_cfg(program)
-    initial = InitialConfig(_goal_initial_location(cfg, request), request.initial)
-    analysis_path = output_path / "analyses" / request.analysis_id
-    certificate_path = analysis_path / "certificates" / request.certificate
-    certificate_path.mkdir(parents=True, exist_ok=True)
-
-    template_data: dict[str, object] | None = None
-    if request.goal == "tail_bound":
-        if request.event is None or request.horizon is None:
-            raise AnalysisError("tail_bound requires --event and --horizon")
-        event = parse_event(request.event, cfg)
-        spec = TailBoundGoalSpec(
-            request.analysis_id,
-            event,
-            request.horizon,
-            request.event_mode,
-            initial,
-            request.normalization_scale,
-            request.rho if request.rho is not None else sp.Integer(1),
-        )
-        goal = TailBoundGoal()
-        if request.certificate == "kelly":
-            if request.base_variable is None or request.lambda_value is None or request.threshold is None:
-                raise AnalysisError("kelly certificate requires --base, --lambda and --threshold")
-            gains = infer_iid_multiplicative_gains(cfg, request.base_variable)
-            model: PolynomialObligationModel | ScalarMomentModel = goal.kelly_scalar_model(
-                cfg,
-                spec,
-                base_variable=request.base_variable,
-                lambda_value=request.lambda_value,
-                gains=gains,
-                threshold=request.threshold,
-                rho=request.rho,
-            )
-            model_file = "scalar_model.json"
-            status = "proved"
-            backend_route = "exact_scalar_moment"
-        elif request.certificate == "polynomial-eta":
-            template = PolynomialTemplateFactory().instantiate(
-                cfg, degree=request.degree, prefix="eta"
-            )
-            template_data = template.metadata()
-            model = goal.polynomial_obligations(
-                cfg, spec, template, positivity_margin=request.positivity_margin
-            )
-            model_file = "polynomial_model.json"
-            status = "not_solved"
-            backend_route = "affine_polynomial_obligations"
-        else:
-            raise AnalysisError("tail_bound supports certificates: kelly, polynomial-eta")
-        goal_data = {
-            "kind": "tail_bound",
-            "analysis_id": request.analysis_id,
-            "event": format_expr(event),
-            "event_mode": request.event_mode,
-            "horizon": request.horizon,
-            "initial_location": initial.location,
-            "initial_valuation": {name: sp.sstr(value) for name, value in sorted(initial.valuation.items())},
-            "normalization": "certificate_geq_one_on_event",
-        }
-    elif request.goal == "assertion_violation":
+    try:
         if cfg.failure_terminal is None:
-            raise AnalysisError("assertion_violation requires an assert/refute failure location")
-        spec = AssertionViolationGoalSpec(
-            request.analysis_id,
-            initial,
-            frozenset({cfg.failure_terminal}),
-            cfg.normal_terminal,
-        )
-        goal = AssertionViolationGoal()
-        ordinary = set(cfg.locations) - {cfg.normal_terminal, cfg.failure_terminal}
-        if request.certificate not in {"direct-theta", "factorized"}:
-            raise AnalysisError(
-                "assertion_violation supports certificates: direct-theta, factorized"
-            )
-        prefix = "theta" if request.certificate == "direct-theta" else "eta"
-        template = PolynomialTemplateFactory().instantiate(
-            cfg, degree=request.degree, prefix=prefix, locations=sorted(ordinary)
-        )
-        template_data = template.metadata()
-        factors = None
-        if request.certificate == "factorized":
-            fixed_q = request.factor_q if request.factor_q is not None else sp.Integer(1)
-            factors = {location: fixed_q for location in ordinary}
-        model = goal.obligations(cfg, spec, template, factorization_q=factors, k=request.k)
-        model_file = "polynomial_model.json"
-        status = "not_solved"
-        backend_route = "affine_polynomial_obligations"
-        goal_data = {
-            "kind": "assertion_violation",
-            "analysis_id": request.analysis_id,
-            "reachability_mode": "eventual",
-            "failure_locations": sorted(spec.failure_locations),
-            "normal_terminal": spec.normal_terminal,
-            "initial_location": initial.location,
-            "initial_valuation": {name: sp.sstr(value) for name, value in sorted(initial.valuation.items())},
-        }
+            raise AnalysisError('Source needs assert/refute to define the target event')
+        evidence=prepare_program(cfg)
+    except AnalysisError as error:
+        summary.update(status='unsupported',stop_reason='semantic_evidence_unavailable',diagnostic=str(error))
+        return finish()
+    write_json(root/'domain_evidence.json',evidence.to_data())
+    write_json(root/'goal.json',{'goal':goal,'event_mode':'late_bad_exit' if goal=='tailbound' else 'eventual',
+        'event_source':'source assert/refute','failure_terminal':cfg.failure_terminal,
+        'normal_terminal':cfg.normal_terminal,'initial_location':evidence.start,
+        'initial':{str(k):str(v) for k,v in evidence.initial.items()},
+        'prefix_steps':len(evidence.prefix),'clock':'pcfg_transition_from_program_entry',
+        'prefix_adjustment':'A = c**(-prefix_steps) * V_after_prefix(initial)' if goal=='tailbound' else 'none',
+        'terminal_values':{'normal':0,'failure':1},'absorbing_clock_frozen':True,
+        'termination_assumed':False})
+    registry=StrategyRegistry(options.enabled_strategies)
+    limits=EncodingLimits(options.max_products,options.max_psd_dimension,options.max_decisions)
+    stop=False
+    for degree in policy.degrees():
+        if time.monotonic()-started>=options.total_seconds:
+            summary['stop_reason']='time_budget'; break
+        summary['degrees_attempted'].append(degree)
+        degree_proved=[]
+        for ci,c in enumerate(cs):
+            if stop: break
+            if summary['parameter_points']>=options.max_parameter_points:
+                summary['stop_reason']='parameter_budget'; stop=True; break
+            if time.monotonic()-started>=options.total_seconds:
+                summary['stop_reason']='time_budget'; stop=True; break
+            summary['parameter_points']+=1
+            point_path=root/'degrees'/str(degree)/f'c-{ci+1:03d}'
+            try:
+                problem=family.instantiate(cfg,evidence,degree,c,goal,options.max_decisions)
+            except AnalysisError as error:
+                history.append({'degree':degree,'c':str(c),'status':'generation_failed','reason':str(error)})
+                continue
+            write_json(point_path/'polynomial_problem.json',problem.to_data())
+            if goal=='assertion_violation':
+                summary.update(status='not_solved',stop_reason='assertion_backend_not_implemented',
+                               model=str(point_path/'polynomial_problem.json'))
+                return finish()
+            max_degree=max((int(sp.Poly(o.conclusion,*o.domain.variables).total_degree())
+                            if o.domain.variables and o.conclusion!=0 else 0 for o in problem.obligations),default=0)
+            minimum_order=max(1,(max_degree+1)//2)
+            if minimum_order>options.max_order:
+                history.append({'degree':degree,'c':str(c),'status':'generation_failed',
+                                'reason':'Residual degree exceeds max_order'})
+                continue
+            attempt=0
+            plans=set()
+            for order in range(minimum_order,options.max_order+1):
+                if attempt>=options.max_attempts_per_point or stop: break
+                strategies=[options.strategy]
+                if options.strategy=='auto':
+                    strategies+=list(registry.known)
+                for strategy in strategies:
+                    if attempt>=options.max_attempts_per_point or stop: break
+                    if time.monotonic()-started>=options.total_seconds:
+                        summary['stop_reason']='time_budget';stop=True;break
+                    row={'degree':degree,'c':str(c),'order':order,'strategy':strategy,'status':'generation_failed'}
+                    try:
+                        model,plan=build_plan(problem.obligations,problem.decisions,problem.objective,
+                            registry,strategy,order,2*order,limits,fallback=options.strategy=='auto')
+                        plan_key=json.dumps(plan['choices'],sort_keys=True)
+                        if plan_key in plans: continue
+                        plans.add(plan_key)
+                        attempt+=1
+                        summary['attempt_count']+=1
+                        attempt_path=point_path/'attempts'/f'{attempt:03d}'
+                        row['path']=str(attempt_path.relative_to(out_dir))
+                        write_json(attempt_path/'encoding_plan.json',plan)
+                        write_json(attempt_path/'conic_model.json',model.to_data())
+                        from contractive_tool.backends.cvxpy.builder import build
+                        built=build(model)
+                        if model_only:
+                            summary.update(status='not_solved',stop_reason='model_only',model=str(attempt_path/'conic_model.json'))
+                            row['status']='not_solved';history.append(row)
+                            return finish()
+                        remaining=options.total_seconds-(time.monotonic()-started)
+                        if remaining<=0:
+                            row['status']='unknown';summary['stop_reason']='time_budget';stop=True
+                        else:
+                            from contractive_tool.backends.cvxpy.mosek_solver import solve
+                            from contractive_tool.backends.cvxpy.verification import reconstruct
+                            solved=solve(built,time_limit=min(remaining,options.per_attempt_seconds),verbose=options.verbose)
+                            (attempt_path/'solver.log').write_text(solved.pop('log'),encoding='utf-8')
+                            write_json(attempt_path/'solver.json',solved)
+                            row.update(status=solved['status'],raw_status=solved['raw_status'])
+                            if solved.get('values') is not None:
+                                verified=reconstruct(model,solved['values'])
+                                if verified['status']!='proved':
+                                    fallback=exact_template_check(problem,solved['values'])
+                                    fallback['gram_reconstruction']=verified
+                                    verified=fallback
+                                if verified['status']=='proved':
+                                    if sp.Rational(verified['bound_exact'])<0:
+                                        raise AnalysisError('Verified objective must be nonnegative')
+                                    verified['semantic_evidence']='domain_evidence.json'
+                                    values={sp.Symbol(n):sp.Rational(verified['exact_values'][n]) for n in problem.decisions}
+                                    polynomial={l:str(v.xreplace(values)) for l,v in problem.expressions.items()}
+                                    bound=selected_bound(verified,problem,cfg)
+                                    bound['certificate']=str((attempt_path/'certificate.json').relative_to(out_dir))
+                                    write_json(attempt_path/'certificate.json',{'polynomials':polynomial,'bound':bound,
+                                        'verification_method':verified['method'],'integer_power_factorization_required':False})
+                                    degree_proved.append(bound);summary['proved_candidates'].append(bound)
+                                row['status']=verified['status']
+                                write_json(attempt_path/'verification.json',verified)
+                            if solved['status']=='solver_failed':
+                                summary.update(stop_reason='solver_failed',diagnostic=solved.get('diagnostic'))
+                                stop=True
+                    except (AnalysisError,ImportError,ValueError) as error:
+                        row['diagnostic']=f'{type(error).__name__}: {error}'
+                        attempt+=1 if 'path' not in row else 0
+                        if isinstance(error,ImportError):
+                            summary['stop_reason']='missing_backend';stop=True
+                    history.append(row)
+                    if row['status']=='proved': break
+                if history and history[-1]['degree']==degree and history[-1]['c']==str(c) and history[-1]['status']=='proved': break
+        if degree_proved and not options.continue_after_success:
+            if not stop: summary['stop_reason']='first_successful_degree'
+            break
+        if stop: break
+    summary.setdefault('stop_reason','max_degree')
+    if summary['proved_candidates']:
+        summary['status']='proved'
+        summary['pareto_candidates']=[b for b in summary['proved_candidates'] if not any(
+            sp.Rational(a['c'])<=sp.Rational(b['c']) and sp.Rational(a['A_exact'])<=sp.Rational(b['A_exact'])
+            and (a['c'],a['A_exact'])!=(b['c'],b['A_exact']) for a in summary['proved_candidates'])]
+        summary['selection']=min(summary['proved_candidates'],key=lambda b:(sp.Rational(b['c']),sp.Rational(b['A_exact'])))
+    elif summary['stop_reason'] in {'solver_failed','missing_backend'}:
+        summary['status']='solver_failed'
     else:
-        raise AnalysisError("goal must be tail_bound or assertion_violation")
-
-    _write_json(analysis_path / "goal.json", goal_data)
-    if template_data is not None:
-        _write_json(certificate_path / "template.json", template_data)
-    model_data = model.to_data()
-    _write_json(certificate_path / model_file, model_data)
-    if isinstance(model, PolynomialObligationModel):
-        _write_json(
-            certificate_path / "obligations.json",
-            {
-                "analysis_id": model.analysis_id,
-                "goal_kind": model.goal_kind,
-                "required_tags": sorted(model.required_tags),
-                "decision_coefficients_affine": True,
-                "obligations": [item.to_data() for item in model.obligations],
-            },
-        )
-        (certificate_path / "obligations.txt").write_text(
-            _obligations_text(model), encoding="utf-8"
-        )
-    result = {
-        "analysis_id": request.analysis_id,
-        "goal_kind": request.goal,
-        "certificate_id": request.certificate,
-        "status": status,
-        "backend_route": backend_route,
-        "bound": model.objective.to_data(),
-        "matlab_invoked": False,
-    }
-    _write_json(certificate_path / "result.json", result)
-    summary = {
-        "analysis_id": request.analysis_id,
-        "goal_kind": request.goal,
-        "results": [result],
-        "selection": result if status == "proved" else "pending",
-    }
-    _write_json(analysis_path / "summary.json", summary)
-    _write_json(output_path / "summary.json", {"analyses": [summary]})
-
-    artifact_paths = sorted(path for path in output_path.rglob("*") if path.is_file())
-    manifest = {
-        "schema_version": 2,
-        "tool": {"name": "contractive-tool", "version": __version__},
-        "python_version": platform.python_version(),
-        "phase": "stages_2_3_obligation_generation",
-        "input": {"path": str(source_path), "sha256": _sha256(source_path)},
-        "analysis": goal_data,
-        "certificate": {
-            "kind": request.certificate,
-            "degree": request.degree if template_data is not None else None,
-            "k": request.k,
-            "lambda": sp.sstr(request.lambda_value) if request.lambda_value is not None else None,
-            "fixed_factor_q": sp.sstr(request.factor_q) if request.factor_q is not None else None,
-        },
-        "semantics": {
-            "updates": "simultaneous",
-            "random_sampling": program.sampling_semantics,
-            "random_independence": program.independence_assumption,
-            "arithmetic": "exact rational/symbolic until numeric display",
-        },
-        "backend": {"route": backend_route, "matlab_invoked": False},
-        "artifacts": {
-            str(path.relative_to(output_path)): _sha256(path) for path in artifact_paths
-        },
-    }
-    _write_json(output_path / "manifest.json", manifest)
-    return {
-        "source": str(source_path),
-        "out_dir": str(output_path),
-        "analysis_id": request.analysis_id,
-        "goal_kind": request.goal,
-        "certificate_id": request.certificate,
-        "status": status,
-        "backend_route": backend_route,
-        "model": str((certificate_path / model_file).resolve()),
-    }
+        summary['status']='no_certificate_found'
+    return finish()

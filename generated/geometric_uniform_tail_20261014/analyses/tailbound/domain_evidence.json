@@ -1,0 +1,386 @@
+{
+  "domains": {
+    "L_assign_1": [
+      {
+        "equalities": [
+          "x"
+        ],
+        "generators": [],
+        "variables": [
+          "x"
+        ]
+      }
+    ],
+    "L_assign_2": [
+      {
+        "equalities": [
+          "x"
+        ],
+        "generators": [],
+        "variables": [
+          "x"
+        ]
+      }
+    ],
+    "L_probabilistic_1": [
+      {
+        "equalities": [
+          "x"
+        ],
+        "generators": [],
+        "variables": [
+          "x"
+        ]
+      }
+    ],
+    "L_refute_1": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "x"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "x",
+          "1 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "x"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "x": "0"
+  },
+  "initial_location": "L_while_1",
+  "initialization_steps": 1,
+  "initialization_trace": [
+    {
+      "destination": "L_while_1",
+      "location": "L_assign_3",
+      "transition": "T_8",
+      "values": {
+        "x": "0"
+      }
+    }
+  ],
+  "locations": [
+    "L_assign_1",
+    "L_assign_2",
+    "L_probabilistic_1",
+    "L_refute_1",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "method": "constant",
+          "value": "1"
+        },
+        {
+          "method": "constant",
+          "value": "0"
+        }
+      ],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "method": "constant",
+          "value": "0"
+        },
+        {
+          "method": "constant",
+          "value": "1"
+        }
+      ],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "conclusion": "x",
+          "domain": {
+            "equalities": [
+              "x"
+            ],
+            "generators": [],
+            "variables": [
+              "x"
+            ]
+          },
+          "equality_weights": [
+            "1"
+          ],
+          "method": "exact_farkas_identity",
+          "nonnegative_weights": [
+            "0"
+          ]
+        },
+        {
+          "conclusion": "-x",
+          "domain": {
+            "equalities": [
+              "x"
+            ],
+            "generators": [],
+            "variables": [
+              "x"
+            ]
+          },
+          "equality_weights": [
+            "-1"
+          ],
+          "method": "exact_farkas_identity",
+          "nonnegative_weights": [
+            "0"
+          ]
+        }
+      ],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "conclusion": "x",
+          "domain": {
+            "equalities": [
+              "x"
+            ],
+            "generators": [],
+            "variables": [
+              "x"
+            ]
+          },
+          "equality_weights": [
+            "1"
+          ],
+          "method": "exact_farkas_identity",
+          "nonnegative_weights": [
+            "0"
+          ]
+        },
+        {
+          "conclusion": "-x",
+          "domain": {
+            "equalities": [
+              "x"
+            ],
+            "generators": [],
+            "variables": [
+              "x"
+            ]
+          },
+          "equality_weights": [
+            "-1"
+          ],
+          "method": "exact_farkas_identity",
+          "nonnegative_weights": [
+            "0"
+          ]
+        }
+      ],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "conclusion": "x",
+          "domain": {
+            "equalities": [
+              "x"
+            ],
+            "generators": [
+              "x",
+              "1 - x"
+            ],
+            "variables": [
+              "x"
+            ]
+          },
+          "equality_weights": [
+            "0"
+          ],
+          "method": "exact_farkas_identity",
+          "nonnegative_weights": [
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "conclusion": "-x",
+          "domain": {
+            "equalities": [
+              "x"
+            ],
+            "generators": [
+              "x",
+              "1 - x"
+            ],
+            "variables": [
+              "x"
+            ]
+          },
+          "equality_weights": [
+            "-1"
+          ],
+          "method": "exact_farkas_identity",
+          "nonnegative_weights": [
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 1,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [],
+      "region": 1,
+      "transition": "T_7"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

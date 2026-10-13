@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "contractive-tool"
-version = "0.2.0"
-description = "Probabilistic CFG, exact pre-expectation, and contractive obligation generator"
+version = "0.4.0"
+description = "Probabilistic CFG, positivity certificates, and Python CVXPY/MOSEK tail-bound solver"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,6 +14,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+solver = [
+  "cvxpy==1.9.3",
+  "numpy==2.4.6",
+  "scipy==1.17.1",
+  "mosek==11.2.6",
+]
 test = [
   "pytest==8.3.5",
 ]

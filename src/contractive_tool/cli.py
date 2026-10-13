@@ -7,7 +7,7 @@ from pathlib import Path
 
 import sympy as sp
 
-from contractive_tool.analysis_pipeline import AnalysisRequest, generate_analysis
+from contractive_tool.analysis_pipeline import SearchOptions, run_analysis
 from contractive_tool.errors import AnalysisError, FrontendError
 from contractive_tool.frontend.ast import ast_to_data
 from contractive_tool.frontend.parser import parse_file
@@ -15,118 +15,78 @@ from contractive_tool.frontend.semantic import check_program
 from contractive_tool.pipeline import compile_to_cfg
 
 
-def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="contractive",
-        description="Parse .pp programs and generate a validated grouped probabilistic CFG.",
-    )
-    subcommands = parser.add_subparsers(dest="command", required=True)
-
-    parse = subcommands.add_parser("parse", help="parse and semantically check a .pp source")
-    parse.add_argument("source", type=Path)
-    parse.add_argument("--out", type=Path, required=True, help="AST JSON output file")
-
-    cfg = subcommands.add_parser("cfg", help="run the complete frontend and emit pCFG artifacts")
-    cfg.add_argument("source", type=Path)
-    cfg.add_argument("--out-dir", type=Path, help="artifact directory")
-
-    analyze = subcommands.add_parser(
-        "analyze", help="generate stage 2/3 goal, template and obligation artifacts"
-    )
-    analyze.add_argument("source", type=Path)
-    analyze.add_argument("--out-dir", type=Path, required=True)
-    analyze.add_argument("--analysis-id", default="main")
-    analyze.add_argument(
-        "--goal", required=True, choices=("tail_bound", "assertion_violation")
-    )
-    analyze.add_argument(
-        "--certificate",
-        required=True,
-        choices=("kelly", "polynomial-eta", "direct-theta", "factorized"),
-    )
-    analyze.add_argument("--event")
-    analyze.add_argument("--event-mode", default="at_horizon", choices=("at_horizon", "by_horizon"))
-    analyze.add_argument("--horizon", type=int)
-    analyze.add_argument("--initial", action="append", default=[], metavar="NAME=VALUE")
-    analyze.add_argument("--initial-location")
-    analyze.add_argument("--degree", type=int, default=1)
-    analyze.add_argument("--rho", help="fixed contraction factor; Kelly defaults to its exact moment")
-    analyze.add_argument("--normalization-scale", default="1")
-    analyze.add_argument("--positivity-margin", default="0")
-    analyze.add_argument("--base")
-    analyze.add_argument("--lambda", dest="lambda_value")
-    analyze.add_argument("--threshold")
-    analyze.add_argument("--factor-q")
-    analyze.add_argument("--k", type=int, default=1)
+def _parser():
+    parser = argparse.ArgumentParser(prog='contractive')
+    commands = parser.add_subparsers(dest='command', required=True)
+    parse = commands.add_parser('parse', help='parse and check a source program')
+    parse.add_argument('source', type=Path)
+    parse.add_argument('--out', type=Path, required=True)
+    cfg = commands.add_parser('cfg', help='emit the grouped pCFG')
+    cfg.add_argument('source', type=Path)
+    cfg.add_argument('--out-dir', type=Path)
+    defaults = SearchOptions()
+    for name in ('solve', 'analyze', 'build-model'):
+        command = commands.add_parser(name, help='search uniform polynomial certificates' if name=='solve'
+                                      else 'generate polynomial obligations/conic model without solving')
+        command.add_argument('source', type=Path)
+        command.add_argument('--goal', choices=('tailbound','assertion_violation'), required=True)
+        command.add_argument('--out-dir', type=Path)
+        for field in ('initial_degree','max_degree','degree_step','max_order','max_attempts_per_point',
+                      'max_parameter_points','max_products','max_psd_dimension','max_decisions'):
+            command.add_argument('--'+field.replace('_','-'), type=int, default=getattr(defaults,field))
+        for field in ('total_seconds','per_attempt_seconds'):
+            command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field))
+        command.add_argument('--c-values', nargs='+', default=list(defaults.c_values))
+        command.add_argument('--continue-after-success', action='store_true')
+        command.add_argument('--strategy', choices=('auto','putinar','schmudgen','handelman'), default='auto')
+        command.add_argument('--enabled-strategies', nargs='+', choices=('putinar','schmudgen','handelman'),
+                             default=list(defaults.enabled_strategies))
+        command.add_argument('--family', choices=('polynomial','fractional_power'), default='polynomial')
+    strategies = commands.add_parser('strategies', help='query optional positivity plugins')
+    strategies.add_argument('operation', choices=('list',))
+    strategies.add_argument('--json', action='store_true')
+    evaluate = commands.add_parser('evaluate', help='evaluate an already proved uniform bound; no new solve')
+    evaluate.add_argument('artifacts', type=Path)
+    evaluate.add_argument('--n', type=int, required=True)
     return parser
 
 
-def _exact(text: str) -> sp.Expr:
-    try:
-        return sp.sympify(text, rational=True)
-    except (sp.SympifyError, TypeError) as error:
-        raise AnalysisError(f"invalid exact numeric expression: {text!r}") from error
-
-
-def _initial_values(items: list[str]) -> dict[str, sp.Expr]:
-    result: dict[str, sp.Expr] = {}
-    for item in items:
-        if "=" not in item:
-            raise AnalysisError(f"--initial expects NAME=VALUE, got {item!r}")
-        name, text = item.split("=", 1)
-        if not name or name in result:
-            raise AnalysisError(f"invalid or duplicate initial variable {name!r}")
-        value = _exact(text)
-        if value.free_symbols:
-            raise AnalysisError("initial values must be fixed numeric expressions")
-        result[name] = value
-    return result
-
-
-def main(argv: list[str] | None = None) -> int:
+def main(argv=None):
     args = _parser().parse_args(argv)
     try:
-        if args.command == "parse":
+        if args.command == 'strategies':
+            from contractive_tool.positivity.registry import StrategyRegistry
+            result = StrategyRegistry().snapshot()
+        elif args.command == 'evaluate':
+            if not 0 <= args.n <= 10000:
+                raise AnalysisError('n must be an integer in [0,10000] for numeric evaluation')
+            summary = json.loads((args.artifacts/'summary.json').read_text())
+            if summary.get('status') != 'proved' or not summary.get('selection'):
+                raise AnalysisError('Artifact has no proved uniform bound')
+            bound = summary['selection']
+            value = sp.Rational(bound['A_exact']) * sp.Rational(bound['c'])**args.n
+            result = {'status':'proved','n':args.n,'upper_bound_exact':str(min(sp.Integer(1),value)),
+                      'upper_bound_numeric':float(min(sp.Integer(1),value)),
+                      'numeric_is_display_only':True,'expression':bound['expression'], 'event':bound['event']}
+        elif args.command == 'parse':
             checked = check_program(parse_file(args.source))
             args.out.parent.mkdir(parents=True, exist_ok=True)
-            args.out.write_text(
-                json.dumps(ast_to_data(checked.ast), indent=2, sort_keys=True, ensure_ascii=False)
-                + "\n",
-                encoding="utf-8",
-            )
-            print(json.dumps({"status": "ok", "ast": str(args.out.resolve())}))
-            return 0
-
-        if args.command == "cfg":
-            out_dir = args.out_dir or Path("generated") / args.source.stem
-            summary = compile_to_cfg(args.source, out_dir)
+            args.out.write_text(json.dumps(ast_to_data(checked.ast),indent=2,sort_keys=True)+'\n')
+            result = {'status':'ok','ast':str(args.out.resolve())}
+        elif args.command == 'cfg':
+            result = {'status':'ok',**compile_to_cfg(args.source,args.out_dir or Path('generated')/args.source.stem)}
         else:
-            request = AnalysisRequest(
-                goal=args.goal,
-                certificate=args.certificate,
-                analysis_id=args.analysis_id,
-                initial=_initial_values(args.initial),
-                initial_location=args.initial_location,
-                event=args.event,
-                horizon=args.horizon,
-                event_mode=args.event_mode,
-                degree=args.degree,
-                rho=_exact(args.rho) if args.rho else None,
-                normalization_scale=_exact(args.normalization_scale),
-                positivity_margin=_exact(args.positivity_margin),
-                base_variable=args.base,
-                lambda_value=_exact(args.lambda_value) if args.lambda_value else None,
-                threshold=_exact(args.threshold) if args.threshold else None,
-                factor_q=_exact(args.factor_q) if args.factor_q else None,
-                k=args.k,
-            )
-            summary = generate_analysis(args.source, args.out_dir, request)
-        print(json.dumps({"status": "ok", **summary}, sort_keys=True))
-        return 0
-    except (AnalysisError, FrontendError, OSError) as error:
-        print(str(error), file=sys.stderr)
+            fields = {field:getattr(args,field) for field in SearchOptions.__dataclass_fields__ if hasattr(args,field)}
+            for field in ('c_values','enabled_strategies'):
+                fields[field] = tuple(fields[field])
+            result = run_analysis(args.source,args.goal,args.out_dir,options=SearchOptions(**fields),
+                                  model_only=args.command!='solve')
+        print(json.dumps(result,sort_keys=True))
+        return 3 if result.get('status') in {'solver_failed','unsupported'} else 0
+    except (AnalysisError,FrontendError,OSError,ValueError,KeyError) as error:
+        print(str(error),file=sys.stderr)
         return 2
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())

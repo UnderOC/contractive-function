@@ -1,0 +1,21 @@
+{
+  "absorbing_clock_frozen": true,
+  "clock": "pcfg_transition_from_program_entry",
+  "event_mode": "late_bad_exit",
+  "event_source": "source assert/refute",
+  "failure_terminal": "l_f",
+  "goal": "tailbound",
+  "initial": {
+    "round": "0",
+    "wealth": "1"
+  },
+  "initial_location": "L_while_1",
+  "normal_terminal": "l_t",
+  "prefix_adjustment": "A = c**(-prefix_steps) * V_after_prefix(initial)",
+  "prefix_steps": 2,
+  "terminal_values": {
+    "failure": 1,
+    "normal": 0
+  },
+  "termination_assumed": false
+}
