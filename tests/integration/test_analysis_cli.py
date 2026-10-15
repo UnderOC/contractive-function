@@ -19,7 +19,8 @@ def test_model_only_and_source_derived_goal(tmp_path):
     assert summary['status']=='not_solved'
     goal=json.loads((out/'analyses/tailbound/goal.json').read_text())
     assert goal['initial']=={'wealth':'1','round':'0'} and goal['prefix_steps']==2
-    assert goal['event_mode']=='late_bad_exit' and not goal['termination_assumed']
+    assert goal['event_mode']=='round_survival' and not goal['termination_assumed']
+    assert goal['proof_domain']=='symbolic real polynomial invariant domains'
     assert not list(out.rglob('solver.json'))
     assert list(out.rglob('conic_model.json'))
     assert any('disabled' in p.read_text() for p in out.rglob('encoding_plan.json'))

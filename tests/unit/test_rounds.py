@@ -42,7 +42,7 @@ def test_coupon_kernel_strict_boundary_and_exact_moment_are_generic():
             assert value == 0
     problem = make_round_problem(cfg,kernel,1,sp.Rational(9,10))
     assert len(problem.decisions) == 5
-    assert len(problem.obligations) == 32
+    assert len(problem.obligations) == 31
     assert all(not o.domain.variables for o in problem.obligations)
     assert all(sp.Poly(o.conclusion,*map(sp.Symbol,problem.decisions)).total_degree() <= 1
                for o in problem.obligations)
@@ -78,3 +78,12 @@ def test_nontermination_cannot_get_a_zero_survival_certificate():
     for i in range(len(kernel.states)):
         normalization,contraction = problem.obligations[2*i:2*i+2]
         assert sp.expand(normalization.conclusion+10*contraction.conclusion) == -1
+
+
+def test_completed_polynomial_need_not_vanish_for_boolean_killed_process():
+    cfg,kernel = compile_round((PROJECT/'tests/fixtures/geometric_exit.pp').read_text())
+    problem = make_round_problem(cfg,kernel,0,sp.Rational(1,2))
+    # V=1 is positive even at x=1. Killing the completed branch gives Pre=1/2.
+    values = {sp.Symbol(name):sp.Integer(1) for name in problem.decisions}
+    assert all(o.conclusion.xreplace(values)>=0 for o in problem.obligations)
+    assert not any('completed_zero' in o.id for o in problem.obligations)

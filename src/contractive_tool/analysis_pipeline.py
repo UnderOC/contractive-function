@@ -19,6 +19,8 @@ from contractive_tool.analysis.certificate_families import get_family
 from contractive_tool.analysis.parameter_search import ContractionBisection, FixedContractionGrid
 from contractive_tool.analysis.semantics import prepare_program, prove_nonnegative
 from contractive_tool.analysis.rounds import prepare_round_kernel, make_round_problem
+from contractive_tool.analysis.symbolic_rounds import (
+    prepare_symbolic_round_kernel, make_symbolic_round_problem, SymbolicRoundKernel)
 from contractive_tool.cfg.builder import build_cfg
 from contractive_tool.frontend.parser import parse_file
 from contractive_tool.frontend.semantic import check_program
@@ -111,7 +113,7 @@ def selected_bound(candidate, problem, cfg):
             'n_domain':'nonnegative integers','time_unit':'pcfg_transition_from_program_entry',
             'event':f'T < infinity and T > n and terminal_location == {cfg.failure_terminal}'}
     if problem.context:
-        bound.update(problem.context)
+        bound.update({k:v for k,v in problem.context.items() if k!='round_preexpectations'})
         bound['termination_consequence']='K is finite almost surely; finite round/exit paths imply program termination'
         bound['probability_expression']=f"min(1, {bound['expression']})"
     return bound
@@ -169,10 +171,14 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
         try:
             kernel = prepare_round_kernel(cfg,evidence)
         except AnalysisError as error:
-            summary['round_compilation_diagnostic'] = str(error)
-            if options.tail_rule == 'round_survival':
-                summary.update(status='unsupported',stop_reason='round_evidence_unavailable')
-                return finish()
+            summary['boolean_round_diagnostic'] = str(error)
+            try:
+                kernel = prepare_symbolic_round_kernel(cfg,evidence)
+            except AnalysisError as symbolic_error:
+                summary['round_compilation_diagnostic'] = str(symbolic_error)
+                if options.tail_rule == 'round_survival':
+                    summary.update(status='unsupported',stop_reason='round_evidence_unavailable')
+                    return finish()
     summary['tail_rule'] = ('round_survival' if kernel else 'late_bad_exit') if goal == 'tailbound' else None
     goal_data = {'goal':goal,'event_mode':'late_bad_exit' if goal=='tailbound' else 'eventual',
         'event_source':'source assert/refute','failure_terminal':cfg.failure_terminal,
@@ -192,8 +198,10 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
             event_source='loop survival (bounds all late exits, including assertion failures)',
             clock='completed_loop_iterations',clock_relation=kernel.to_data()['clock'],
             prefix_adjustment='none; deterministic initialization precedes round zero',
-            terminal_values={'completed_loop':0},active_normalization='eta >= 1',
-            proof_domain='inductively verified Boolean loop-head states',
+            terminal_values={'survival_process_after_exit':0},active_normalization='eta >= 1',
+            polynomial_boundary='nonnegative, not constrained to zero on completed states',
+            proof_domain=('symbolic real polynomial invariant domains' if isinstance(kernel,SymbolicRoundKernel)
+                          else 'inductively verified Boolean loop-head states'),
             termination_consequence='derived from a verified certificate, not assumed')
     write_json(root/'goal.json',goal_data)
     registry=StrategyRegistry(options.enabled_strategies)
@@ -224,7 +232,9 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
             point_history_start=len(history)
             point_path=root/'degrees'/str(degree)/f'c-{ci+1:03d}'
             try:
-                problem=(make_round_problem(cfg,kernel,degree,c,options.max_decisions) if kernel else
+                problem=(make_symbolic_round_problem(cfg,kernel,degree,c,options.max_decisions)
+                         if isinstance(kernel,SymbolicRoundKernel) else
+                         make_round_problem(cfg,kernel,degree,c,options.max_decisions) if kernel else
                          family.instantiate(cfg,evidence,degree,c,goal,options.max_decisions))
             except AnalysisError as error:
                 history.append({'degree':degree,'c':str(c),'status':'generation_failed','reason':str(error)})

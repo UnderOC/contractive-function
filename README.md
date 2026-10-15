@@ -112,8 +112,9 @@ D=1 搜索到 D=6；每个次数从区间 (0,1) 开始二分 c，默认最多 10
 `analyze`/`build-model` 只生成模型，不调用 MOSEK。输出目录可用 `--out-dir` 指定，
 缺省为 `generated/<stem>_<goal>_<timestamp>/`，必须是新的或空的目录。
 
-Tail 默认 `--tail-rule auto`：能验证布尔循环入口域及完整一轮转移时，合成
-`Pr[K>n] <= A*c**n`，K 按完整循环体轮数计数，未结束 eta>=1、结束 eta=0。
+Tail 默认 `--tail-rule auto`：依次尝试布尔有限域和符号实数域的一轮编译，成功时合成
+`Pr[K>n] <= A*c**n`。K 按完整循环体轮数计数，未结束 eta>=1；eta 在整个入口
+invariant 域上非负，退出后生存过程归零，不要求多项式 eta 在完成区域为零。
 否则在摘要记录原因，并使用保留的 `late_bad_exit` 规则：
 `Pr[T<∞, T>n, failure] <= A*c**n`，T 从入口按 pCFG 转移计数、包含初始化。
 两种结论均对所有非负整数 n 成立，不把无限运行质量重新归一化。
@@ -155,7 +156,8 @@ CFG JSON 中概率选择的多个 branches 保留在同一个 `transition_group`
 `solve`/`build-model` 的共享前端结果在 `shared/`，其余产物包括：
 
 - `analyses/<goal>/goal.json`、`domain_evidence.json`；
-- 布尔轮次路径额外保存 `round_evidence.json`：完整有限状态域、精确路径/概率/更新及计时；
+- 轮次路径额外保存 `round_evidence.json`：布尔状态或符号 invariant 域、源转移及计时；
+  符号版本的 polynomial_problem.json 包含 round_preexpectations；
 - `analyses/<goal>/degrees/<D>/c-<id>/polynomial_problem.json`：模板、目标和全部原始义务；
 - 各参数点 `attempts/<id>/` 下的 encoding_plan、conic_model、solver.json、solver.log；
 - 候选的 verification.json；只有严格证明后才生成 certificate.json；
@@ -163,15 +165,16 @@ CFG JSON 中概率选择的多个 branches 保留在同一个 `transition_group`
 
 ## 当前限制
 
-- Tail 支持已证明布尔域的 round_survival 和原有 late_bad_exit；前者由证书推导几乎
+- Tail 支持布尔/符号实数域的 round_survival 和原有 late_bad_exit；前者由证书推导几乎
   处处终止，后者不假定终止。不可把求解前的未知终止性当作已证明。
 - 所有状态变量须在控制流之前由源码的直线赋值/采样前缀初始化。确定前缀使用精确
   有理值；随机前缀逐次 alpha-renaming，并以精确独立矩计算入口期望。Invariant 闭包
   须通过初始支持和归纳保持验证；当前检查器证不出即报告 unsupported。
 - `Uniform` 使用精确闭区间支持，`Bernoulli` 使用精确有限支持，`Normal` 使用全实数
   支持；循环内 fresh sample 的归纳性在源域与完整支持域的乘积上证明，不作离散化。
-  `assume` 阻塞语义仍未接入。当前宏步仅支持布尔入口域、无轮内采样和嵌套循环、
-  无轮内提前退出，最多 256 个候选状态和 4096 个路径展开节点；一般连续域宏步待扩展。
+  `assume` 阻塞语义仍未接入。符号宏步支持实数多项式、概率/确定分支和精确矩采样；
+  当确定守卫依赖新样本时需截断矩积分，当前明确拒绝。嵌套循环、轮内提前退出
+  暂不支持；最多 4096 个结构展开节点、256 个符号组合域（或布尔候选状态）。
 - Assertion violation 只生成约束，不求解。非整数族请求明确报未实现；当前不枚举 k。
 - c 默认使用有界有理二分；只有 proved 更新上端，当前编码均报告 infeasible 才更新
   下端，其他不确定结果停止本次数的 c 搜索且不移动端点。保留已有证书；搜索区间
@@ -269,6 +272,8 @@ Pr[T<∞, T>n, failure]
 倒序修正代码已经删除。非整数 k 的接口单独保留，当前明确拒绝，不影响多项式路径。
 
 ## 2026-10-14：一轮计时、布尔循环域与生存证书边界修复
+
+以下是历史实现记录；其中 completed eta=0 的要求已由 2026-10-15 的生存过程边界修复替代。
 
 新增通用 `analysis/rounds.py`，从 CFG 验证完整一轮的路径、概率、顺序更新和域保持。
 布尔性由初态及全部宏步更新证明；严格 guard 不再把已完成状态放入继续循环域。
@@ -457,3 +462,69 @@ RCD_example.pp 已移除 box 区间与 while invariant 写法，在循环头、�
 此处更改的是源标注和证明域，并未实现一般实数域宏步，也未修改证书边界；
 当前 auto 建模仍回退至 late_bad_exit。前一节运行结果对应修改前的 box 版本，
 不得作为现版输入的求解结果。
+
+
+## 2026-10-15：符号宏步、生存边界修复及 RCD 成功求解
+
+修改前仓库已提交并推送为 `4267406`，保留先前代码、样例及测试产物。
+本次新增 `analysis/symbolic_rounds.py`，在实数符号域组合一轮的更新、分支概率及
+精确随机矩；使用已有位置不变量作为经过验证的证明域。没有 RCD 文件名、变量名、
+f 的公式或预设证书识别。auto 先尝试布尔编译，再尝试符号编译，均不支持才回退。
+
+边界已改为：V 在整个入口 invariant 域非负、活动域 V>=1；退出后生存过程置零，
+不再要求多项式本身在完成区域为零。布尔版本精确去除完成分支的期望贡献；符号
+版本使用 raw round contraction 作为 killed contraction 的充分条件。二分 c 和
+默认 D=1..6 不变，断言违例仍只建模。框架修改前备份为
+`framework.md.bak.20261015_symbolic_rounds`。
+
+使用 README 的 conda 环境及真实 MOSEK 执行：
+
+```bash
+python -m contractive_tool solve RCD_example.pp --goal tailbound \
+  --out-dir generated/RCD_symbolic_round_20261015
+pytest -q
+```
+
+| 项目 | 实际结果 |
+| --- | --- |
+| 路径 | round_survival，symbolic kernel，没有回退 |
+| 次数 | D=1 未找到，D=2 成功；停止于首个成功次数 |
+| 搜索 | 20 个参数点、38 次后端求解；36 infeasible、2 proved |
+| 耗时 | 3.12 秒 |
+| 选择证书 | V(x,y)=-2048*x*y，c=5/8，A=1024 |
+| 统一尾界 | Pr[K>n] <= min(1,1024*(5/8)^n)，全部整数 n>=0 |
+| 指数式 | min(1,1024*exp(-log(8/5)*n)) |
+| 计时 | K 为坐标更新轮数；原入口 pCFG 时间 T=2+3*K+2 |
+| 验证 | 精确有理系数恒等式、非负乘子与 PSD 均通过 |
+
+令 `h=(x+y/2)*(y+x/2)`、`f=(x*x+x*y+y*y)/2`，独立核对得到：
+
+```text
+V - (8192/3)*f       = -(8192/3)*h
+(5/8)*V - Pre(V)     = -1024*h
+Pre(V)              = 512*x*x + 512*y*y
+V(-1/2,1)           = 1024
+V(-1/64,1/32)       = 1  # 此时 f=3/8192，已经退出
+```
+
+因此在已验证不变量 h=0 上，返回证书与笔记中 k=1 的归一化势函数完全等价。
+无需强制找出同一个全空间多项式表达式。n=60 的已证明上界约为
+`5.795634610449096e-10`；n 只用于事后求值，未逐 horizon 求解。
+另一个已验证候选为 c=3/4、A=683，保留在 Pareto 集合中；按当前优先最小 c 的
+策略选择 c=5/8。本次没有进行非整数 k 优化，也没有强制继续升至 D=4。
+
+全量回归 **101 passed in 17.71s**，无跳过。覆盖 01/02、RCD 重命名、顺序更新、概率与确定分支组合、fresh sample
+独立性、随机初值、非零完成态、非终止反例、拒绝样本相关守卫/嵌套循环/提前退出，
+以及原有 late_bad_exit 和 assertion 建模接口。首次回归发现 4 个测试仍断言旧路径
+或旧零边界，已分别更新为新语义或显式选择旧规则，没有放宽精确证明要求。
+
+本次没有重跑其余整个 benchmark 包；以往其他例子的回退记录属于旧版本结果。
+符号版本仍不支持轮内提前退出、嵌套循环、assume，以及需要截断矩的样本相关守卫。
+这些情况会明确报告不支持，不使用无条件矩替代条件积分。
+
+- [求解输出](generated/RCD_symbolic_round_20261015.run.log)
+- [结果摘要及全部二分反馈](generated/RCD_symbolic_round_20261015/summary.json)
+- [返回证书](generated/RCD_symbolic_round_20261015/analyses/tailbound/degrees/2/c-003/attempts/001/certificate.json)
+- [精确验证](generated/RCD_symbolic_round_20261015/analyses/tailbound/degrees/2/c-003/attempts/001/verification.json)
+- [独立恒等式/PSD/哈希及精确尾概率检查](generated/RCD_symbolic_round_20261015.independent_check.json)
+- [完整回归日志](generated/symbolic_round_regression_20261015.log)

@@ -1,0 +1,120 @@
+{
+  "c": "31/32",
+  "certificate_family": "polynomial",
+  "context": {
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 3*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        3
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "event": "K > n",
+    "kernel": "symbolic",
+    "round_preexpectations": [
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "4096*x**2 + 4096*x*y + 4096*y**2 - 3"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        },
+        "expression": "eta_L_while_1_0 - eta_L_while_1_1*x/4 + eta_L_while_1_1*y/2 + eta_L_while_1_2*x/2 - eta_L_while_1_2*y/4"
+      }
+    ],
+    "rule": "round_survival",
+    "time_unit": "completed_loop_iterations"
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2"
+  ],
+  "degree": 1,
+  "expressions": {
+    "L_while_1": "eta_L_while_1_0 + eta_L_while_1_1*y + eta_L_while_1_2*x"
+  },
+  "goal": "tailbound",
+  "objective": "eta_L_while_1_0 + eta_L_while_1_1 - eta_L_while_1_2/2",
+  "obligations": [
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*y + eta_L_while_1_2*x",
+      "domain": {
+        "equalities": [
+          "x**2/2 + 5*x*y/4 + y**2/2"
+        ],
+        "generators": [],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_nonnegative_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*y + eta_L_while_1_2*x - 1",
+      "domain": {
+        "equalities": [
+          "x**2/2 + 5*x*y/4 + y**2/2"
+        ],
+        "generators": [
+          "4096*x**2 + 4096*x*y + 4096*y**2 - 3"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_normalization_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "normalization",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/32 + eta_L_while_1_1*x/4 + 15*eta_L_while_1_1*y/32 + 15*eta_L_while_1_2*x/32 + eta_L_while_1_2*y/4",
+      "domain": {
+        "equalities": [
+          "x**2/2 + 5*x*y/4 + y**2/2"
+        ],
+        "generators": [
+          "4096*x**2 + 4096*x*y + 4096*y**2 - 3"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_0_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    }
+  ]
+}

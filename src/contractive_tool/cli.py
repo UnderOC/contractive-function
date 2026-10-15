@@ -44,7 +44,7 @@ def _parser():
                              default=list(defaults.enabled_strategies))
         command.add_argument('--family', choices=('polynomial','fractional_power'), default='polynomial')
         command.add_argument('--tail-rule', choices=('auto','round_survival','late_bad_exit'), default='auto',
-                             help='auto uses a proved Boolean round kernel when supported; otherwise late_bad_exit')
+                             help='auto tries Boolean then symbolic round kernels, then late_bad_exit with diagnostics')
     strategies = commands.add_parser('strategies', help='query optional positivity plugins')
     strategies.add_argument('operation', choices=('list',))
     strategies.add_argument('--json', action='store_true')

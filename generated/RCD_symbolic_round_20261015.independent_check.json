@@ -1,0 +1,18 @@
+{
+  "status": "proved",
+  "source_and_artifact_hashes": "matched",
+  "conic_equalities": "exact",
+  "nonnegative_scalars": "exact",
+  "PSD_blocks": "exact",
+  "polynomial": "-2048*x*y",
+  "pre_round": "512*x**2 + 512*y**2",
+  "invariant": "(x/2 + y)*(x + y/2)",
+  "equivalence_identity": "V - (8192/3)*f = (-8192/3)*h",
+  "contraction_identity": "(5/8)*V - Pre_round(V) = (-1024)*h",
+  "initial_value": "1024",
+  "polynomial_value_at_completed_threshold": "1",
+  "bound": "min(1, (1024) * (5/8)**n)",
+  "exact_tail_crosscheck": "sum(binomial(n,j), j=0..min(n,4))/2**n for n=0..100",
+  "bound_at_60": "5.795634610449096e-10",
+  "note": "Finite numerical comparisons are regression checks; uniform proof is the exact obligations and induction."
+}

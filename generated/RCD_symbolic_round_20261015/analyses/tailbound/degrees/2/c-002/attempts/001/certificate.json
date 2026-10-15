@@ -1,0 +1,37 @@
+{
+  "bound": {
+    "A_exact": "683",
+    "A_numeric": 683.0,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "3/4",
+    "certificate": "analyses/tailbound/degrees/2/c-002/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 3*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        3
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "exponential_expression": "(683) * exp(-(-log(3/4))*n)",
+    "expression": "(683) * (3/4)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(3/4)",
+    "lambda_numeric": 0.2876820724517809,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (683) * (3/4)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "8192*x**2/15 + 8192*y**2/15 + 1/3"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

@@ -36,7 +36,9 @@ class RoundKernel:
         return {'status':'proved', 'method':'exhaustive_inductive_boolean_round_kernel',
                 'header':self.header, 'variables':[str(v) for v in self.variables],
                 'initial':[int(v) for v in self.initial], 'domain':'Boolean states satisfying the original header invariant',
-                'strict_guards':'evaluated exactly, without closure', 'clock':clock,
+                'strict_guards':'evaluated exactly, without closure',
+                'boundary':'polynomial nonnegative; survival process zero after exit',
+                'contraction':'exact killed round expectation', 'clock':clock,
                 'states':[{'state':list(s), **row} for s,row in self.states.items()]}
 
 
@@ -152,13 +154,14 @@ def make_round_problem(cfg, kernel, degree, c, max_decisions=20000):
                                            origin, ('round_survival',label)))
         if row['active']:
             require('normalization', at[state]-1)
-            pre = sum((sp.Rational(p['probability'])*at[tuple(sp.Rational(v) for v in p['state'])]
-                       for p in row['paths']), sp.Integer(0))
+            pre = sum((sp.Rational(p['probability'])*at[target]
+                       for p in row['paths']
+                       if kernel.states[target := tuple(sp.Rational(v) for v in p['state'])]['active']), sp.Integer(0))
             require('contraction', c*at[state]-pre)
         else:
-            require('completed_zero_lower', at[state])
-            require('completed_zero_upper', -at[state])
+            require('completed_nonnegative', at[state])
     return PolynomialProblem('tailbound',degree,c,{kernel.header:eta},list(template.decisions),
                              at[kernel.initial],obligations,
-                             {'rule':'round_survival', 'clock':kernel.to_data()['clock'],
+                             {'rule':'round_survival', 'kernel':'boolean', 'clock':kernel.to_data()['clock'],
+                              'boundary':'polynomial nonnegative; survival process zero after exit',
                               'event':'K > n', 'time_unit':'completed_loop_iterations'})

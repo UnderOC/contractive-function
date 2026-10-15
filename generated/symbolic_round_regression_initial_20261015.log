@@ -1,0 +1,98 @@
+F...........F.....F..................................................F.. [ 80%]
+..................                                                       [100%]
+=================================== FAILURES ===================================
+___________________ test_model_only_and_source_derived_goal ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sunzhouyue/pytest-20/test_model_only_and_source_der0')
+
+    def test_model_only_and_source_derived_goal(tmp_path):
+        out=tmp_path/'model'
+        process=cli('build-model',PROJECT/'kelly_unbounded.pp','--goal','tailbound','--out-dir',out,
+                    '--enabled-strategies','putinar')
+        assert process.returncode==0,process.stderr
+        summary=json.loads(process.stdout)
+        assert summary['status']=='not_solved'
+        goal=json.loads((out/'analyses/tailbound/goal.json').read_text())
+        assert goal['initial']=={'wealth':'1','round':'0'} and goal['prefix_steps']==2
+>       assert goal['event_mode']=='late_bad_exit' and not goal['termination_assumed']
+E       AssertionError: assert ('round_survival' == 'late_bad_exit'
+E         
+E         - late_bad_exit
+E         + round_survival)
+
+tests/integration/test_analysis_cli.py:22: AssertionError
+________ test_real_degree_escalation_exact_uniform_bound_and_evaluation ________
+
+tmp_path = PosixPath('/tmp/pytest-of-sunzhouyue/pytest-20/test_real_degree_escalation_ex0')
+mosek_available = None
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f680203b5d0>
+
+    def test_real_degree_escalation_exact_uniform_bound_and_evaluation(tmp_path,mosek_available,monkeypatch):
+        from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+        from contractive_tool.cli import main
+        from contractive_tool.backends.cvxpy import mosek_solver
+        out=tmp_path/'halving'
+        result=run_analysis(PROJECT/'tests/fixtures/halving.pp','tailbound',out,
+            options=SearchOptions(initial_degree=0,max_degree=2,c_values=('9/10','99/100')))
+        assert result['status']=='proved' and result['degrees_attempted']==[0,1]
+        assert result['stop_reason']=='first_successful_degree'
+        assert result['selection']['c']=='9/10' and len(result['proved_candidates'])==2
+        # This source exits in exactly nine pCFG steps. The formula must cover every n.
+        bound=result['selection']; A=sp.Rational(bound['A_exact']); c=sp.Rational(bound['c'])
+>       assert all(A*c**n>=1 for n in range(9))
+E       assert False
+E        +  where False = all(<generator object test_real_degree_escalation_exact_uniform_bound_and_evaluation.<locals>.<genexpr> at 0x7f6801fd73d0>)
+
+tests/integration/test_tail_backend.py:72: AssertionError
+___ test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only ___
+
+tmp_path = PosixPath('/tmp/pytest-of-sunzhouyue/pytest-20/test_round_mode_rejects_unsupp0')
+
+    def test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only(tmp_path):
+        from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+        options = SearchOptions(initial_degree=1,max_degree=1,tail_rule='round_survival')
+        unsupported = run_analysis(PROJECT/'tests/fixtures/halving.pp','tailbound',tmp_path/'unsupported',options=options)
+>       assert unsupported['status'] == 'unsupported'
+E       AssertionError: assert 'proved' == 'unsupported'
+E         
+E         - unsupported
+E         + proved
+
+tests/integration/test_tail_backend.py:165: AssertionError
+_______ test_coupon_kernel_strict_boundary_and_exact_moment_are_generic ________
+
+    def test_coupon_kernel_strict_boundary_and_exact_moment_are_generic():
+        source = (PROJECT/'tailbound_benchmark_pack/pp/02_coupon4.pp').read_text()
+        for i in range(4):
+            source = source.replace(f'c{i}',f'flag{i}')
+        cfg,kernel = compile_round(source)
+        assert len(kernel.states) == 16
+        assert sum(row['active'] for row in kernel.states.values()) == 15
+        assert not kernel.states[(1,1,1,1)]['active']
+        assert kernel.to_data()['clock']['pcfg_relation'] == 'T = 4 + 4*K + 2'
+        eta = 4-sum(kernel.variables)
+        for state,row in kernel.states.items():
+            value = eta.subs(dict(zip(kernel.variables,state)))
+            if row['active']:
+                assert value >= 1
+                assert len(row['paths']) == 4
+                assert {p['probability'] for p in row['paths']} == {'1/4'}
+                pre = sum(sp.Rational(p['probability'])*eta.subs(dict(zip(kernel.variables,map(sp.Rational,p['state']))))
+                          for p in row['paths'])
+                assert pre == sp.Rational(3,4)*value
+            else:
+                assert value == 0
+        problem = make_round_problem(cfg,kernel,1,sp.Rational(9,10))
+        assert len(problem.decisions) == 5
+>       assert len(problem.obligations) == 32
+E       AssertionError: assert 31 == 32
+E        +  where 31 = len([Implication(id='round_0_normalization', domain=BasicSet(variables=(), generators=(), equalities=()), conclusion=eta_L...': 0, 'flag2': 1, 'flag3': 0}, 'kernel_evidence': 'round_evidence.json'}, tags=('round_survival', 'contraction')), ...])
+E        +    where [Implication(id='round_0_normalization', domain=BasicSet(variables=(), generators=(), equalities=()), conclusion=eta_L...': 0, 'flag2': 1, 'flag3': 0}, 'kernel_evidence': 'round_evidence.json'}, tags=('round_survival', 'contraction')), ...] = PolynomialProblem(goal='tailbound', degree=1, c=9/10, expressions={'L_while_1': eta_L_while_1_0 + eta_L_while_1_1*flag...polynomial nonnegative; survival process zero after exit', 'event': 'K > n', 'time_unit': 'completed_loop_iterations'}).obligations
+
+tests/unit/test_rounds.py:45: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_analysis_cli.py::test_model_only_and_source_derived_goal
+FAILED tests/integration/test_tail_backend.py::test_real_degree_escalation_exact_uniform_bound_and_evaluation
+FAILED tests/integration/test_tail_backend.py::test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only
+FAILED tests/unit/test_rounds.py::test_coupon_kernel_strict_boundary_and_exact_moment_are_generic
+4 failed, 86 passed in 15.81s

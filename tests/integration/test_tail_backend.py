@@ -63,7 +63,7 @@ def test_real_degree_escalation_exact_uniform_bound_and_evaluation(tmp_path,mose
     from contractive_tool.backends.cvxpy import mosek_solver
     out=tmp_path/'halving'
     result=run_analysis(PROJECT/'tests/fixtures/halving.pp','tailbound',out,
-        options=SearchOptions(initial_degree=0,max_degree=2,c_values=('9/10','99/100')))
+        options=SearchOptions(initial_degree=0,max_degree=2,c_values=('9/10','99/100'),tail_rule='late_bad_exit'))
     assert result['status']=='proved' and result['degrees_attempted']==[0,1]
     assert result['stop_reason']=='first_successful_degree'
     assert result['selection']['c']=='9/10' and len(result['proved_candidates'])==2
@@ -161,7 +161,9 @@ def test_round_tail_synthesis_recovers_exact_coupon_certificate(tmp_path,mosek_a
 def test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only(tmp_path):
     from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
     options = SearchOptions(initial_degree=1,max_degree=1,tail_rule='round_survival')
-    unsupported = run_analysis(PROJECT/'tests/fixtures/halving.pp','tailbound',tmp_path/'unsupported',options=options)
+    source=tmp_path/'nested.pp'
+    source.write_text('x := 2; while x > 0 do while x > 0 do x := x - 1 od od; refute true;')
+    unsupported = run_analysis(source,'tailbound',tmp_path/'unsupported',options=options)
     assert unsupported['status'] == 'unsupported'
     assert unsupported['stop_reason'] == 'round_evidence_unavailable'
     assertion = run_analysis(PROJECT/'tailbound_benchmark_pack/pp/02_coupon4.pp','assertion_violation',
@@ -190,3 +192,40 @@ def test_bisection_preserves_verified_certificate_on_inconclusive_next_point(tmp
     search=result['contraction_searches'][0]
     assert search['interval']==['0','1/2']
     assert search['stop_reason']=='oracle_inconclusive'
+
+
+def test_rcd_symbolic_round_synthesis_is_generic_and_matches_exact_tail(tmp_path,mosek_available):
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    source=tmp_path/'renamed_coordinates.pp'
+    source.write_text((PROJECT/'RCD_example.pp').read_text().replace('x','u').replace('y','v'))
+    out=tmp_path/'rcd'
+    result=run_analysis(source,'tailbound',out,options=SearchOptions(max_degree=2,max_c_steps=5))
+    assert result['status']=='proved',result
+    assert result['degrees_attempted']==[1,2]
+    bound=result['selection']
+    assert bound['kernel']=='symbolic' and bound['c']=='5/8' and bound['A_exact']=='1024'
+    assert result['termination']=='proved_almost_sure' and not result['termination_assumed']
+    certificate=json.loads((out/bound['certificate']).read_text())
+    eta=sp.sympify(next(iter(certificate['polynomials'].values())))
+    u,v=sp.symbols('u v'); h=(u+v/2)*(v+u/2)
+    expected=sp.Rational(4096,3)*(u*u+u*v+v*v)
+    assert sp.rem(eta-expected,h,u,v)==0
+    pre=(eta.subs(u,-v/2)+eta.subs(v,-u/2))/2
+    assert sp.rem(sp.Rational(5,8)*eta-pre,h,u,v)==0
+    assert eta.subs({u:-sp.Rational(1,64),v:sp.Rational(1,32)})==1
+    for n in range(80):
+        # Five effective updates reach the threshold exactly; K>n means at most four.
+        exact=sum(sp.binomial(n,j) for j in range(min(4,n)+1))/sp.Integer(2)**n
+        assert exact<=1024*sp.Rational(5,8)**n
+    verification=json.loads((out/bound['certificate']).with_name('verification.json').read_text())
+    assert verification['status']=='proved'
+
+
+def test_symbolic_nonterminating_loop_cannot_obtain_zero_certificate(tmp_path,mosek_available):
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    source=tmp_path/'forever.pp'
+    source.write_text('x := 2; while true do x := x od; refute true;')
+    result=run_analysis(source,'tailbound',tmp_path/'forever',
+                        options=SearchOptions(max_degree=1,max_c_steps=2))
+    assert result['tail_rule']=='round_survival' and result['selection'] is None
+    assert result['status']=='no_certificate_found'
