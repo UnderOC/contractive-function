@@ -1,0 +1,263 @@
+{
+  "c": "15/16",
+  "certificate_family": "polynomial",
+  "context": null,
+  "decisions": [
+    "v_L_assign_1_0",
+    "v_L_assign_1_1",
+    "v_L_assign_1_2",
+    "v_L_assign_1_3",
+    "v_L_assign_1_4",
+    "v_L_assign_1_5",
+    "v_L_refute_1_0",
+    "v_L_refute_1_1",
+    "v_L_refute_1_2",
+    "v_L_refute_1_3",
+    "v_L_refute_1_4",
+    "v_L_refute_1_5",
+    "v_L_sample_1_0",
+    "v_L_sample_1_1",
+    "v_L_sample_1_2",
+    "v_L_sample_1_3",
+    "v_L_sample_1_4",
+    "v_L_sample_1_5",
+    "v_L_while_1_0",
+    "v_L_while_1_1",
+    "v_L_while_1_2",
+    "v_L_while_1_3",
+    "v_L_while_1_4",
+    "v_L_while_1_5"
+  ],
+  "degree": 2,
+  "expressions": {
+    "L_assign_1": "m**2*v_L_assign_1_5 + m*r*v_L_assign_1_4 + m*v_L_assign_1_2 + r**2*v_L_assign_1_3 + r*v_L_assign_1_1 + v_L_assign_1_0",
+    "L_refute_1": "m**2*v_L_refute_1_5 + m*r*v_L_refute_1_4 + m*v_L_refute_1_2 + r**2*v_L_refute_1_3 + r*v_L_refute_1_1 + v_L_refute_1_0",
+    "L_sample_1": "m**2*v_L_sample_1_5 + m*r*v_L_sample_1_4 + m*v_L_sample_1_2 + r**2*v_L_sample_1_3 + r*v_L_sample_1_1 + v_L_sample_1_0",
+    "L_while_1": "m**2*v_L_while_1_5 + m*r*v_L_while_1_4 + m*v_L_while_1_2 + r**2*v_L_while_1_3 + r*v_L_while_1_1 + v_L_while_1_0",
+    "l_f": "1",
+    "l_t": "0"
+  },
+  "goal": "tailbound",
+  "objective": "256*v_L_while_1_0/225 + 128*v_L_while_1_1/225 + 256*v_L_while_1_2/225 + 256*v_L_while_1_3/675 + 128*v_L_while_1_4/225 + 256*v_L_while_1_5/225",
+  "obligations": [
+    {
+      "conclusion": "m**2*v_L_assign_1_5 + m*r*v_L_assign_1_4 + m*v_L_assign_1_2 + r**2*v_L_assign_1_3 + r*v_L_assign_1_1 + v_L_assign_1_0",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "L_assign_1_positive_0",
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "m**2*v_L_refute_1_5 + m*r*v_L_refute_1_4 + m*v_L_refute_1_2 + r**2*v_L_refute_1_3 + r*v_L_refute_1_1 + v_L_refute_1_0",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "m**2*r - m**2 + 2*m*r + r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "L_refute_1_positive_0",
+      "origin": {
+        "location": "L_refute_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "m**2*v_L_sample_1_5 + m*r*v_L_sample_1_4 + m*v_L_sample_1_2 + r**2*v_L_sample_1_3 + r*v_L_sample_1_1 + v_L_sample_1_0",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "-m**2*r + m**2 - 2*m*r - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "L_sample_1_positive_0",
+      "origin": {
+        "location": "L_sample_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "m**2*v_L_while_1_5 + m*r*v_L_while_1_4 + m*v_L_while_1_2 + r**2*v_L_while_1_3 + r*v_L_while_1_1 + v_L_while_1_0",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "L_while_1_positive_0",
+      "origin": {
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "15*m**2*v_L_refute_1_5/16 + 15*m*r*v_L_refute_1_4/16 + 15*m*v_L_refute_1_2/16 + 15*r**2*v_L_refute_1_3/16 + 15*r*v_L_refute_1_1/16 + 15*v_L_refute_1_0/16 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "m**2*r - m**2 + 2*m*r + r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "T_2_0",
+      "origin": {
+        "line": 21,
+        "location": "L_refute_1",
+        "transition": "T_2"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "15*m**2*v_L_assign_1_5/16 - m**2*v_L_while_1_5 + 15*m*r*v_L_assign_1_4/16 - m*r*v_L_while_1_4 + 15*m*v_L_assign_1_2/16 - m*v_L_while_1_2 - 2*m*v_L_while_1_5 + 15*r**2*v_L_assign_1_3/16 - r**2*v_L_while_1_3 + 15*r*v_L_assign_1_1/16 - r*v_L_while_1_1 - r*v_L_while_1_4 + 15*v_L_assign_1_0/16 - v_L_while_1_0 - v_L_while_1_2 - v_L_while_1_5",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "T_3_0",
+      "origin": {
+        "line": 17,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-m**2*v_L_assign_1_5 + 15*m**2*v_L_sample_1_5/16 + 15*m*r*v_L_sample_1_4/16 - m*v_L_assign_1_2 - m*v_L_assign_1_4/2 + 15*m*v_L_sample_1_2/16 + 15*r**2*v_L_sample_1_3/16 + 15*r*v_L_sample_1_1/16 - v_L_assign_1_0 - v_L_assign_1_1/2 - v_L_assign_1_3/3 + 15*v_L_sample_1_0/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "-m**2*r + m**2 - 2*m*r - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "T_4_0",
+      "origin": {
+        "line": 15,
+        "location": "L_sample_1",
+        "transition": "T_4"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-m**2*v_L_sample_1_5 + 15*m**2*v_L_while_1_5/16 - m*r*v_L_sample_1_4 + 15*m*r*v_L_while_1_4/16 - m*v_L_sample_1_2 + 15*m*v_L_while_1_2/16 - r**2*v_L_sample_1_3 + 15*r**2*v_L_while_1_3/16 - r*v_L_sample_1_1 + 15*r*v_L_while_1_1/16 - v_L_sample_1_0 + 15*v_L_while_1_0/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "-m**2*r + m**2 - 2*m*r - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "T_5_0",
+      "origin": {
+        "line": 11,
+        "location": "L_while_1",
+        "transition": "T_5"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-m**2*v_L_refute_1_5 + 15*m**2*v_L_while_1_5/16 - m*r*v_L_refute_1_4 + 15*m*r*v_L_while_1_4/16 - m*v_L_refute_1_2 + 15*m*v_L_while_1_2/16 - r**2*v_L_refute_1_3 + 15*r**2*v_L_while_1_3/16 - r*v_L_refute_1_1 + 15*r*v_L_while_1_1/16 - v_L_refute_1_0 + 15*v_L_while_1_0/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "m**2*r - m**2 + 2*m*r + r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      },
+      "id": "T_6_0",
+      "origin": {
+        "line": 11,
+        "location": "L_while_1",
+        "transition": "T_6"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "absorbing_clock_frozen": true,
+  "active_normalization": "eta >= 1",
+  "clock": "completed_loop_iterations",
+  "clock_relation": {
+    "exit_step_counts": [
+      2
+    ],
+    "pcfg_relation": "T = 4 + 4*K + 2",
+    "prefix_steps": 4,
+    "round_step_counts": [
+      4
+    ],
+    "unit": "completed_loop_iterations"
+  },
+  "event": "K > n",
+  "event_mode": "round_survival",
+  "event_source": "loop survival (bounds all late exits, including assertion failures)",
+  "failure_terminal": "l_f",
+  "goal": "tailbound",
+  "initial": {
+    "c0": "0",
+    "c1": "0",
+    "c2": "0",
+    "c3": "0"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "normal_terminal": "l_t",
+  "prefix_adjustment": "none; deterministic initialization precedes round zero",
+  "prefix_steps": 4,
+  "proof_domain": "inductively verified Boolean loop-head states",
+  "terminal_values": {
+    "completed_loop": 0
+  },
+  "termination_assumed": false,
+  "termination_consequence": "derived from a verified certificate, not assumed"
+}

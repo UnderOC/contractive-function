@@ -15,9 +15,23 @@ class Distribution(Protocol):
 
     def raw_moment(self, order: int) -> sp.Expr: ...
 
+    def support(self, symbol: sp.Symbol) -> tuple["SupportRegion", ...]: ...
+
 
 class JointMomentProvider(Protocol):
     def moment(self, powers: Mapping[str, int]) -> sp.Expr: ...
+
+
+@dataclass(frozen=True)
+class SupportRegion:
+    """One basic closed component of a distribution's exact support."""
+
+    generators: tuple[sp.Expr, ...] = ()
+    equalities: tuple[sp.Expr, ...] = ()
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "generators", tuple(sp.expand(item) for item in self.generators))
+        object.__setattr__(self, "equalities", tuple(sp.expand(item) for item in self.equalities))
 
 
 def _validate_order(order: int) -> None:
@@ -55,6 +69,15 @@ class FiniteDiscreteDistribution:
             )
         )
 
+    def support(self, symbol: sp.Symbol) -> tuple[SupportRegion, ...]:
+        self.validate()
+        values = []
+        for value, probability in zip(self.values, self.probabilities):
+            if probability.is_zero is True or value in values:
+                continue
+            values.append(value)
+        return tuple(SupportRegion(equalities=(symbol - value,)) for value in values)
+
 
 @dataclass(frozen=True)
 class BernoulliDistribution:
@@ -73,6 +96,15 @@ class BernoulliDistribution:
         _validate_order(order)
         self.validate()
         return sp.Integer(1) if order == 0 else self.probability
+
+    def support(self, symbol: sp.Symbol) -> tuple[SupportRegion, ...]:
+        self.validate()
+        points = []
+        if (1 - self.probability).is_zero is not True:
+            points.append(sp.Integer(0))
+        if self.probability.is_zero is not True:
+            points.append(sp.Integer(1))
+        return tuple(SupportRegion(equalities=(symbol - point,)) for point in points)
 
 
 @dataclass(frozen=True)
@@ -97,6 +129,10 @@ class UniformDistribution:
             (self.upper ** (order + 1) - self.lower ** (order + 1))
             / ((order + 1) * (self.upper - self.lower))
         )
+
+    def support(self, symbol: sp.Symbol) -> tuple[SupportRegion, ...]:
+        self.validate()
+        return (SupportRegion((symbol - self.lower, self.upper - symbol)),)
 
 
 @dataclass(frozen=True)
@@ -130,6 +166,11 @@ class NormalDistribution:
                 * central
             )
         return sp.expand(result)
+
+    def support(self, symbol: sp.Symbol) -> tuple[SupportRegion, ...]:
+        self.validate()
+        # A non-degenerate normal distribution has all of R as its support.
+        return (SupportRegion(),)
 
 
 def distribution_from_ast(distribution: DistributionExpr) -> Distribution:

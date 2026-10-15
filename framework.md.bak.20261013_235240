@@ -1,0 +1,1898 @@
+# Contractive Function 工具框架设计
+
+本文档给出一个全 Python 的分析工具框架：Python 完成前端、符号代数、证明义务生成、非负性证书策略选择与 lowering、CVXPY 建模、MOSEK 调用和结果验证。CVXPY 是规划问题建模层，MOSEK 是数值求解器；工具不再引入 MATLAB、SOSTOOLS、SDPT3 或 SeDuMi，也不生成 `.m` 文件。
+
+目标流程是：
+
+```text
+概率程序源文件
+  -> Lexer / Parser
+  -> Source AST
+  -> 语义检查与规范化
+  -> pCFG
+  -> AnalysisGoal 分流
+       |-> TailBoundGoal
+       |    -> contractive/moment 约束与 tail normalization
+       |    -> positivity strategy -> LP/SDP -> CVXPY -> MOSEK
+       |       或 exact scalar moment / 外层参数搜索
+       |
+       `-> AssertionViolationGoal
+            -> failure boundary 与 pre-fixed-point 约束
+            -> positivity strategy -> LP/SDP -> CVXPY -> MOSEK
+  -> goal-specific 候选证书、验证报告与结果
+```
+
+`model_only` 模式用于构建和检查模型，`solve` 模式直接在 Python 中通过 CVXPY 调用 MOSEK。两者共用同一建模链路；生成模型成功或求解器返回 `optimal` 都不能单独作为 `proved` 的依据。
+
+2026-10-13 设计扩充：`positivity_strategy` 支持模块化的 Putinar、Schmüdgen、Handelman 和可选自动选择器。最小实现只需一个可用策略即可完成其支持范围内的建模/求解链路；其他策略未实现不阻塞已支持的任务。没有可用编码时完整保留证明义务并报告状态，不能删掉约束来制造成功。本次仍只更新设计文档，不声称新模块已实现。
+
+## 0. 当前实现检查（2026-10-09）
+
+以下状态依据当前 `src/contractive_tool/`、`pyproject.toml` 和测试复核；后文未列为已实现的接口、目录和命令均为目标设计。本次只更新框架文档，没有安装求解依赖或实现新后端。
+
+| 阶段/能力 | 当前状态 | 实现依据与限制 |
+|---|---|---|
+| 阶段 1：前端和 pCFG | 已实现 | `frontend/`、`cfg/`、`pipeline.py`：Lark、自定义 AST、语义检查、规范化、grouped pCFG、JSON/text/DOT 和 manifest。 |
+| 阶段 2：代数与期望 | 已实现 | `algebra/polynomial.py`、`probability/distributions.py`、`expectation.py`：精确有理/符号运算、simultaneous substitution、分布矩、独立 joint moments、逐步 pre-expectation trace。 |
+| 阶段 3A：tail bound | 最小路径已实现 | `analysis/goals.py` 支持固定 horizon 的 `at_horizon`；固定 `lambda` 的 Kelly scalar model 使用精确算术验证并返回 `proved`；`k=1` polynomial eta 只生成仿射 obligations，状态为 `not_solved`。`by_horizon` 尚未实现。 |
+| 阶段 3B：assertion violation | 最小路径已实现 | 支持 eventual、direct polynomial Theta 和固定正 `q`、`k=1` 的 factorization；生成边界、非负性、pre-fixed-point 和初始目标，不求解。bounded、未知 `q*eta` 和未知 eta 的 `k>1` 被拒绝。 |
+| 阶段 3.5：多任务、多证书 runner | 部分产物结构已实现，调度未实现 | `analysis_pipeline.py` 已生成 `shared/` 和 `analyses/<id>/certificates/<kind>/`；当前一次 `AnalysisRequest` 处理一个 goal 和一个 certificate。尚无 TOML AnalysisPlan、完整 registry/router、portfolio 调度或跨候选 selection；多次运行同一目录不能替代多任务 runner。 |
+| 阶段 4：SOS → CVXPY → MOSEK | 未实现 | 目前无 `backends/`、Putinar/Gram lowering、CVXPY/MOSEK 调用或数值证书验证器；`SemialgebraicRegion` 仍保存 predicate 字符串。`pyproject.toml` 仅声明 Lark/SymPy，未声明 CVXPY/MOSEK。 |
+| 阶段 5：扩展模板/策略 | 未实现 | composite、piecewise、外层参数搜索和其他非凸策略仍是规划。 |
+
+上表及 39 项测试结果是 2026-10-09 的实现复核记录。2026-10-13 新增的 positivity registry、三种 strategy 插件、自动选择与降级接口均为待实现设计，不代表本次新增了运行代码或重新执行了求解测试。
+
+当前 CLI 只有 `parse`、`cfg`、`analyze`；默认分析目标为 `tail_bound`，默认证书为 `polynomial-eta`。`analyze` 生成后端无关模型，不能执行本文规划的 `build-model` 或 `solve`。
+
+复核命令（现有环境，命令中的 PATH 确保集成测试使用同一个 CLI）：
+
+```bash
+PATH=/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin:$PATH \
+  /home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python -m pytest -q
+```
+
+结果：**39 passed**。这些测试验证已有前端和阶段 2/3 能力，不覆盖尚未实现的 CVXPY/MOSEK 后端。
+
+## 1. 设计原则
+
+### 1.1 分离语法、程序语义和证明方法
+
+Parser 只负责把文本转换为 AST；CFG builder 只负责程序执行语义；tail bound 和 assertion violation 属于不同的分析目标；Contractive function 是分析目标可复用的证书机制；SOS 编码属于后端 lowering。各层不能直接互相拼接字符串。
+
+例如，新增 piecewise-polynomial 模板时，不应修改 parser 或 CFG builder；CVXPY/MOSEK 后端消费独立的 Constraint IR，也不应改变 Contractive 约束生成逻辑。
+
+“分析目标”和“证书/模板”是两个正交维度：`tail_bound` 与 `assertion_violation` 决定要证明的概率事件及边界条件；polynomial、multiplicative power 或 direct Theta 决定用什么候选函数证明。后端再根据最终约束能力选择，不能通过模板名称反推分析目标。
+
+### 1.2 使用稳定的中间表示
+
+建议至少保留以下中间表示：
+
+```text
+Source AST       保留源语言结构和源码位置
+Program IR       完成变量绑定、类型检查和表达式规范化
+pCFG IR          表示位置、transition group、更新和概率
+Template IR      表示每个位置上的候选函数及未知参数
+Obligation IR    表示带来源信息的数学证明义务
+Goal Problem IR  区分 tail bound 与 assertion violation 的事件、边界和目标函数
+EncodingPlan IR  记录每条 obligation 的策略、次数、能力依据和尝试编号
+Constraint IR    表示 LP/SDP、scalar moment 或其他后端可消费的约束模型
+```
+
+每层都应能独立导出 JSON 或文本，便于检查错误发生在哪个阶段。
+
+### 1.3 后端能力必须显式检查
+
+CVXPY/MOSEK 路径支持仿射等式、仿射不等式和可选 PSD 锥组成的凸 LP/SDP。Putinar/Schmüdgen 通过 SOS 与 Gram matrix lowering 得到 SDP；Handelman 通过非负系数和系数匹配得到 LP。策略模块只产生后端无关 IR，不导入 CVXPY/MOSEK。若模板产生未知系数之间的乘积、未知指数、一般有理函数或非多项式函数，不能直接假装成普通 SOS 问题。
+
+约束 lowering 阶段应检查：
+
+- 关于程序变量的表达式是否为多项式；
+- 多项式系数是否对 SDP decision variables 保持仿射；
+- domain generators 是否为固定多项式，不含待合成参数，避免未知 multiplier 与未知 generator 相乘；
+- 分母是否已经在严格正性条件下消除；
+- `k`、概率和分布矩是否已经固定为常数；
+- strict guard 是否按第 2.5 节以闭包或具有证明依据的方式处理，不得默认用正 margin 缩小证明域。
+
+不满足能力要求时应返回明确的 `UnsupportedConstraintError`，并指出对应 transition 和源码位置。
+
+## 2. 需要先固定的程序语义
+
+`project_detail.md` 中的基本语法可以作为起点，但以下信息还需要在实现前明确。
+
+### 2.1 随机变量声明
+
+表达式允许随机变量 `r`，但目前没有说明 `r` 的分布和作用域。建议增加显式声明，例如：
+
+```text
+random r ~ Normal(0, 1);
+random u ~ Uniform(-1, 1);
+```
+
+也可以将分布放在 TOML 配置中，但不能只保留一个没有分布信息的变量名。MVP 建议假设每次经过对应 transition 都进行一次 fresh sampling，并且不同随机变量相互独立。相关假设必须写入生成产物的 manifest。
+
+### 2.2 概率分支与普通 guard 分离
+
+虽然表面语法都写在 `E` 中，内部 AST 应使用两种不同节点：
+
+```text
+Guard(condition)
+ProbChoice(probability_expression)
+```
+
+`prob(a)` 只能作为分支选择器，不能出现在 `not(prob(a))` 或 `prob(a) and E` 中。语义检查还应生成或要求 invariant 能推出 `0 <= a <= 1`。
+
+### 2.3 正常终止和 assertion failure
+
+Assertion-violation 分析需要区分：
+
+```text
+l_t: normal termination，证书值为 0
+l_f: assertion violation，证书值为 1
+```
+
+现有前端已支持 `assert`，其语法为：
+
+```text
+assert E
+```
+
+其 CFG 语义为：`E` 成立时进入 continuation，`E` 不成立时进入 `l_f`。程序自然结束进入 `l_t`。
+
+### 2.4 Invariant 来源
+
+第一版不建议实现 invariant 自动推断。可以支持：
+
+```text
+while E invariant I do P
+```
+
+CFG builder 将 `I` 挂到 loop header。未来再增加 sidecar invariant 文件或外部 invariant provider。
+
+### 2.5 严格不等式
+
+SOS 通常处理闭半代数集合。pCFG 保留源语言中的 `a < b`；后端默认用 `b-a >= 0` 的闭包作为证明域，在更大的集合上验证多项式不等式，并记录 `strict_domain_policy="closure"`。这可能使证书更保守，但覆盖原来的严格 guard。
+
+不能将原 guard 默默替换为 `b-a-margin >= 0`：正 margin 会缩小证明域、漏掉原程序状态。只有已证明所有相关可达状态满足该 margin，或明确分析一个修改了语义的程序时才能采用这种缩域，并记录依据。证书结论的严格正性则可用 `eta >= positivity_margin > 0`，与 guard 的处理分别配置。第一版无法安全 lowering 的 predicate 返回 `unsupported`。
+
+## 3. 推荐目录结构
+
+```text
+contractive_function/
+├── pyproject.toml
+├── README.md
+├── project_detail.md
+├── framework.md
+├── examples/
+│   ├── simple_loop.cf
+│   └── simple_loop.toml
+├── src/
+│   └── contractive_tool/
+│       ├── __init__.py
+│       ├── cli.py
+│       ├── config.py
+│       ├── errors.py
+│       ├── diagnostics.py
+│       ├── frontend/
+│       │   ├── grammar.lark
+│       │   ├── ast.py
+│       │   ├── parser.py
+│       │   ├── source.py
+│       │   ├── symbols.py
+│       │   ├── semantic.py
+│       │   └── normalize.py
+│       ├── algebra/
+│       │   ├── expressions.py
+│       │   ├── polynomials.py
+│       │   ├── predicates.py
+│       │   ├── substitution.py
+│       │   └── moments.py
+│       ├── ir/
+│       │   ├── distributions.py
+│       │   ├── updates.py
+│       │   ├── cfg.py
+│       │   ├── program.py
+│       │   ├── templates.py
+│       │   ├── goals.py
+│       │   ├── obligations.py
+│       │   └── constraints.py
+│       ├── cfg/
+│       │   ├── builder.py
+│       │   ├── validation.py
+│       │   ├── text_writer.py
+│       │   ├── json_writer.py
+│       │   └── dot_writer.py
+│       ├── analysis/
+│       │   ├── context.py
+│       │   ├── expectation.py
+│       │   ├── pipeline.py
+│       │   ├── goals/
+│       │   │   ├── base.py
+│       │   │   ├── registry.py
+│       │   │   ├── tail_bound.py
+│       │   │   └── assertion_violation.py
+│       │   ├── templates/
+│       │   │   ├── base.py
+│       │   │   ├── registry.py
+│       │   │   ├── polynomial.py
+│       │   │   ├── direct_certificate.py
+│       │   │   └── multiplicative_power.py
+│       │   ├── rules/
+│       │   │   ├── base.py
+│       │   │   ├── contraction.py
+│       │   │   ├── tail_normalization.py
+│       │   │   ├── prefixed_point.py
+│       │   │   └── failure_boundary.py
+│       │   ├── certificates/
+│       │   │   ├── plan.py
+│       │   │   ├── runner.py
+│       │   │   ├── result.py
+│       │   │   └── combiners.py
+│       │   └── lowering/
+│       │       ├── polynomial.py
+│       │       ├── positivity.py
+│       │       ├── scalar_moment.py
+│       │       └── convexity.py
+│       ├── positivity/
+│       │   ├── base.py              # PositivityStrategy、CapabilityReport
+│       │   ├── registry.py          # 显式注册、按需加载、可用性诊断
+│       │   ├── features.py          # domain 特征与带依据的条件分析
+│       │   ├── plan.py              # EncodingPlan、StrategyChoice、预算
+│       │   ├── selector.py          # 可选自动排序，不承担求解
+│       │   ├── runner.py            # 全模型尝试、升级、结果汇总
+│       │   ├── putinar.py           # 最小必需策略实现
+│       │   ├── schmudgen.py         # 可选：preordering
+│       │   ├── handelman.py         # 可选：非负标量系数
+│       │   ├── coefficients.py      # 共享符号展开和系数匹配
+│       │   └── gram.py              # SOS 策略共享 Gram block lowering
+│       ├── backends/
+│       │   ├── base.py
+│       │   ├── registry.py
+│       │   ├── numeric/
+│       │   │   └── scalar.py
+│       │   └── cvxpy/
+│       │       ├── builder.py          # Constraint IR -> cp.Problem
+│       │       ├── mosek_solver.py     # 固定 MOSEK、参数与异常处理
+│       │       ├── export.py           # JSON model / 可选 Python 重建脚本
+│       │       └── verification.py     # 数值复核与严格证书验证
+│       └── artifacts/
+│           ├── manager.py
+│           └── manifest.py
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   ├── golden/
+│   └── fixtures/
+└── generated/
+    └── .gitkeep
+```
+
+`generated/` 只放运行产物。源码模块不应读取该目录中的旧文件作为隐式输入。
+
+## 4. 前端设计
+
+### 4.1 Parser
+
+建议使用 Lark 描述 grammar，输出自定义 dataclass AST，不让 Lark 的 parse tree 泄漏到后续模块。
+
+AST 节点应带 `SourceSpan`：
+
+```python
+@dataclass(frozen=True)
+class SourceSpan:
+    file: str
+    start_line: int
+    start_column: int
+    end_line: int
+    end_column: int
+
+@dataclass(frozen=True)
+class Assign(Stmt):
+    target: str
+    value: Expr
+    span: SourceSpan
+
+@dataclass(frozen=True)
+class While(Stmt):
+    guard: BoolExpr
+    invariant: BoolExpr | None
+    body: Stmt
+    span: SourceSpan
+```
+
+建议的 statement AST：
+
+```text
+Skip
+Assign
+Sequence
+IfGuard
+IfProb
+While
+Assert
+Assume（可选）
+```
+
+算术表达式至少包含：
+
+```text
+Constant, ProgramVariable, RandomVariable
+Add, Subtract, Multiply, Negate
+```
+
+模板内部需要幂运算，但源程序是否允许 `a^n` 可以单独决定。不要因为模板需要幂，就强制扩展源语言表达式。
+
+### 4.2 语义检查
+
+`semantic.py` 负责：
+
+- 建立 program variable 和 random variable symbol table；
+- 检查未声明变量和重复声明；
+- 检查赋值左侧只能是 program variable；
+- 检查概率表达式的合法位置；
+- 检查 distribution 参数；
+- 检查 invariant 只依赖允许的状态变量；
+- 为每个诊断附带源码位置。
+
+### 4.3 规范化
+
+不要在 parser 中直接展开逻辑否定或 DNF。`normalize.py` 可以按后续需要执行：
+
+```text
+constant folding
+消除 Subtract / Negate
+比较式统一为 polynomial >= 0
+布尔表达式转 NNF
+按需将 guard 拆成 basic semialgebraic regions
+```
+
+DNF 可能指数膨胀，因此应设置 region 数量上限并给出诊断。
+
+## 5. pCFG 设计
+
+### 5.1 为什么使用 transition group
+
+`project_detail.md` 的 Moment-Contraction 对同一个 source location 的所有概率后继求和。因此内部最好直接保存 grouped transition，而不是生成约束时重新猜测哪些 flat edges 属于同一次概率选择。
+
+```python
+@dataclass(frozen=True)
+class Branch:
+    destination: LocationId
+    probability: Polynomial
+    update: Update
+
+@dataclass(frozen=True)
+class TransitionGroup:
+    id: TransitionId
+    source: LocationId
+    guard: BoolExpr
+    branches: tuple[Branch, ...]
+    origin: SourceSpan
+
+@dataclass(frozen=True)
+class ProgramCFG:
+    locations: Mapping[LocationId, Location]
+    transitions: tuple[TransitionGroup, ...]
+    initial_location: LocationId
+    normal_terminal: LocationId
+    failure_terminal: LocationId | None
+```
+
+确定赋值是只有一个 branch 且 probability 为 1 的 transition group；普通 `if` 产生两个 guard 不同的 transition group；概率 `if` 产生一个包含两个 branches 的 transition group。
+
+### 5.2 Update
+
+更新使用结构化映射：
+
+```python
+@dataclass(frozen=True)
+class Update:
+    assignments: Mapping[ProgramSymbol, PolynomialExpr]
+    samples: tuple[RandomSymbol, ...]
+```
+
+未出现在 `assignments` 中的变量保持不变。必须明确 assignments 是 simultaneous update；源语言中的顺序赋值通过不同 location 表示。
+
+### 5.3 CFG 构造算法
+
+可以参考现有 OCaml 前端使用 continuation-passing 方式：
+
+```text
+build(stmt, continuation) -> entry_location
+```
+
+- `Sequence(s1, s2)`：先构造 `s2`，再把其入口作为 `s1` 的 continuation；
+- `While`：先创建 loop header，body 的 continuation 指回 header；
+- `IfGuard`：创建两个带互补 guard 的 transition group；
+- `IfProb`：创建一个拥有两个概率 branches 的 transition group；
+- `Assert`：按需创建 `l_f`，并创建通往 continuation 和 `l_f` 的两个 guarded transitions；
+- 程序结束位置为 `l_t`，给 `l_t` 以及存在时的 `l_f` 添加吸收 self-loop。
+
+Location ID 应稳定且可读，例如 `L_while_1`、`L_assign_4`。不要依赖全局可变计数器跨多次分析继续累加。
+
+### 5.4 CFG 验证
+
+`cfg/validation.py` 至少检查：
+
+- initial 和 `l_t` 存在；若启用 assertion-violation goal，则 `l_f` 存在；
+- 每个非终止位置有 outgoing transition；
+- destination 均存在；
+- 同一 probabilistic group 的概率和为 1，或生成对应证明义务；
+- invariant map 覆盖需要分析的位置；
+- 更新只修改已声明 program variables；
+- random symbols 均有 moment provider。
+
+### 5.5 pCFG 之后的 AnalysisGoal 分流
+
+pCFG 是两个分析方向最后一个完全共享的语义层。CFG builder 完成后，pipeline 必须先读取显式 `AnalysisGoal`，再实例化模板和生成证明义务：
+
+```python
+class AnalysisGoal(Protocol):
+    kind: str
+
+    def validate(
+        self,
+        program: ProgramIR,
+        options: GoalOptions,
+    ) -> tuple[Diagnostic, ...]: ...
+
+    def build_problem(
+        self,
+        program: ProgramIR,
+        options: GoalOptions,
+    ) -> "GoalProblem": ...
+
+GoalProblem = TailBoundProblem | AssertionViolationProblem
+```
+
+整体分流为：
+
+```text
+ProgramIR + pCFG + invariant + random model
+  -> GoalDispatcher
+       |-> TailBoundProblem
+       |    -> contractive template
+       |    -> contraction + bad-set normalization obligations
+       |    -> tail-bound objective
+       |
+       `-> AssertionViolationProblem
+            -> direct/factorized certificate template
+            -> failure boundary + pre-fixed-point obligations
+            -> initial violation-bound objective
+  -> capability lowering
+  -> backend router
+```
+
+#### 5.5.1 TailBoundGoal
+
+Tail bound 分析回答一个明确带时间和事件语义的问题，例如：
+
+```text
+at_horizon:  Pr[X_n in B]
+by_horizon:  Pr[exists t <= n. X_t in B]
+```
+
+建议的 goal spec：
+
+```python
+@dataclass(frozen=True)
+class TailBoundGoalSpec:
+    event: BoolExpr
+    horizon: int
+    event_mode: Literal["at_horizon", "by_horizon"]
+    locations: frozenset[LocationId] | None
+    normalization: TailNormalization
+    optimize: Literal["bound", "contraction_rate", "feasibility"]
+```
+
+必须显式给出 horizon 和 event mode。`Pr[X_n in B]` 与“在第 n 步之前曾进入 B”不是同一个事件，不能共用同一组边界义务。
+
+对 `at_horizon`，可令非负证书：
+
+```text
+C_l(x) = (eta_l(x) / H)^k
+```
+
+并生成两类核心义务：
+
+```text
+local contraction:
+    I(src) and guard
+      => sum_j p_j E[C_dst_j(update_j(x,r))] <= rho * C_src(x)
+
+tail normalization:
+    I(l) and B_l
+      => C_l(x) >= 1
+```
+
+在齐次、固定 `rho` 的有限 horizon 情形下得到：
+
+```text
+Pr[X_n in B] <= rho^n * C_init(x_init)
+```
+
+也可以使用 time-indexed `Phi_i`，此时每个时间层生成 `E[Phi_{i+1}] <= Phi_i`，最终目标为 `Phi_0(init)`。
+
+`by_horizon` 建议先执行 goal-specific CFG augmentation：将满足 `B` 的状态转入一个新的 absorbing bad label，再生成 bounded reachability obligations。该 augmentation 产生派生 CFG，不能修改共享的原始 pCFG。
+
+Tail-bound problem 至少包含：
+
+```python
+@dataclass(frozen=True)
+class TailBoundProblem:
+    analysis_id: str
+    cfg: ProgramCFG
+    initial: Config
+    event: SemialgebraicEvent
+    horizon: int
+    event_mode: str
+    normalization: TailNormalization
+    optimize: str
+
+@dataclass(frozen=True)
+class TailBoundObligationSet:
+    contraction_obligations: tuple[ProofObligation, ...]
+    normalization_obligations: tuple[ProofObligation, ...]
+    objective: Objective
+```
+
+`TailBoundProblem` 只保存事件语义；`TailBoundObligationSet` 在 template 实例化后由 tail rule 生成。
+
+可能的 lowering/backend 路径：
+
+```text
+固定 Kelly gain + fixed lambda
+    -> scalar moment constraint / exact or interval numeric backend
+
+polynomial eta + universal polynomial inequalities
+    -> positivity strategy -> LP/SDP -> CVXPY/MOSEK
+
+外层搜索 k、lambda 或 rho；每个参数点内部是凸 SOS
+    -> parameter-search coordinator + SOS backend
+
+未知参数乘积或一般有理函数
+    -> nonlinear/BMI backend，或明确 unsupported
+```
+
+#### 5.5.2 AssertionViolationGoal
+
+Assertion violation 分析回答 reachability 问题：
+
+```text
+Pr[exists t. location_t = l_f]
+```
+
+它依赖 CFG 中由 `assert` 产生的 failure location `l_f`，通常不要求有限 horizon。建议的 goal spec：
+
+```python
+@dataclass(frozen=True)
+class AssertionViolationGoalSpec:
+    failure_locations: frozenset[LocationId]
+    normal_terminal: LocationId
+    reachability_mode: Literal["eventual", "bounded"]
+    horizon: int | None
+    optimize: Literal["initial_bound", "feasibility"]
+```
+
+定义非负 certificate `Theta`，生成：
+
+```text
+failure boundary:
+    I(l_f) => Theta(l_f, x) >= 1
+
+normal boundary:
+    Theta(l_t, x) = 0
+
+nonnegativity:
+    I(l) => Theta(l, x) >= 0
+
+pre-fixed point:
+    I(src) and guard
+      => sum_j p_j E[Theta(dst_j, update_j(x,r))] <= Theta(src, x)
+```
+
+目标函数为：
+
+```text
+minimize Theta(l_init, x_init)
+```
+
+从而证明 eventual assertion violation probability 的上界。`Theta` 可以直接使用 polynomial template，也可以使用 contractive factorization：
+
+```text
+Theta_l(x) = exp(b_l) * eta_l(x)^k
+```
+
+factorization 只改变 certificate 的参数化和 lowering，不改变 assertion-violation goal 的 failure boundary 与 pre-fixed-point 语义。
+
+Assertion-violation problem 至少包含：
+
+```python
+@dataclass(frozen=True)
+class AssertionViolationProblem:
+    analysis_id: str
+    cfg: ProgramCFG
+    initial: Config
+    failure_locations: frozenset[LocationId]
+    normal_terminal: LocationId
+    reachability_mode: str
+    horizon: int | None
+
+@dataclass(frozen=True)
+class AssertionViolationObligationSet:
+    boundary_obligations: tuple[ProofObligation, ...]
+    prefixed_obligations: tuple[ProofObligation, ...]
+    nonnegativity_obligations: tuple[ProofObligation, ...]
+    objective: Objective
+```
+
+`AssertionViolationProblem` 只保存 reachability 语义；`AssertionViolationObligationSet` 在 template 实例化后由 assertion rule 生成。
+
+常见 backend 路径为：
+
+```text
+direct polynomial Theta
+    -> positivity strategy -> LP/SDP -> CVXPY/MOSEK
+
+fixed k、fixed b 的 polynomial factorization，且系数保持仿射
+    -> positivity strategy -> LP/SDP -> CVXPY/MOSEK
+
+同时合成 b、eta 或非整数 k
+    -> outer search、alternating/nonlinear backend，或 unsupported
+```
+
+#### 5.5.3 两个方向的边界
+
+| 项目 | Tail bound | Assertion violation |
+|---|---|---|
+| 概率事件 | `X_n in B` 或 `exists t<=n: X_t in B` | `exists t: location_t = l_f` |
+| 必需输入 | tail event、horizon、event mode、normalization | failure location、normal terminal、reachability mode |
+| 主要约束 | contraction、moment、tail normalization | failure boundary、nonnegativity、pre-fixed point |
+| 典型目标 | 最小化 `rho^n C_init` | 最小化 `Theta_init` |
+| 是否要求 `l_f` | 否 | 是 |
+| 常见非 SOS 路径 | scalar moments、参数外层搜索 | 参数外层搜索、nonlinear/BMI |
+| SOS 用途 | 证明全状态 contraction 和 bad-set normalization | 证明全状态 pre-fixed point 与边界条件 |
+
+两个 goal 可以复用同一个 contractive template、expectation engine 和 SOS backend，但不能共享 goal-specific obligations，也不能直接比较它们的 bound。只有事件、horizon 和边界语义完全相同的结果才能进入同一个 selection policy。
+
+## 6. 代数与期望计算
+
+### 6.1 多项式封装
+
+可以使用 SymPy 完成表达式展开、替换和 `Poly` 转换，但建议通过项目自己的薄封装访问，避免所有模块直接依赖 SymPy 类型：
+
+```python
+class PolynomialService(Protocol):
+    def normalize(self, expr: AlgebraExpr) -> Polynomial: ...
+    def substitute(self, poly: Polynomial, update: Update) -> Polynomial: ...
+    def variables(self, poly: Polynomial) -> frozenset[Symbol]: ...
+    def coefficients(self, poly: Polynomial) -> Mapping[Monomial, CoefficientExpr]: ...
+```
+
+这样未来可以更换为稀疏多项式实现，而不修改 CFG 或模板接口。
+
+### 6.2 Distribution 与 moment 接口
+
+```python
+class Distribution(Protocol):
+    def validate(self) -> None: ...
+    def raw_moment(self, order: int) -> ExactOrFloat: ...
+
+class JointMomentProvider(Protocol):
+    def moment(self, powers: Mapping[RandomSymbol, int]) -> ExactOrFloat: ...
+```
+
+第一版可支持有限离散分布、Uniform 和 Normal。独立分布的 joint moment 等于各 raw moment 的乘积；相关随机变量必须使用单独的 joint provider，不能默认拆乘积。
+
+### 6.3 Pre-expectation
+
+```python
+class ExpectationEngine:
+    def branch_expectation(
+        self,
+        function: Polynomial,
+        branch: Branch,
+        random_model: RandomModel,
+    ) -> Polynomial:
+        ...
+```
+
+处理顺序：
+
+1. 将 destination function 中的程序变量同时替换为 update RHS；
+2. 展开为程序变量和随机变量上的多项式；
+3. 用 raw/joint moments 消去随机变量；
+4. 乘 branch probability；
+5. 对同一 transition group 的 branches 求和。
+
+每一步都应能保留一份调试表示，尤其要能查看“替换后、取期望前”和“取期望后”的表达式。
+
+## 7. 模板扩展接口
+
+AnalysisGoal、模板与 CertificateRule 应是三个独立接口。Goal 负责定义概率事件、horizon 和边界语义；模板负责声明未知函数；规则根据 `GoalProblem + TemplateInstance` 生成函数必须满足的条件。
+
+```python
+class FunctionTemplateFactory(Protocol):
+    kind: str
+
+    def instantiate(
+        self,
+        cfg: ProgramCFG,
+        symbols: ProgramSymbols,
+        options: TemplateOptions,
+    ) -> "TemplateInstance": ...
+
+class TemplateInstance(Protocol):
+    def expression_at(self, location: LocationId) -> SymbolicFunction: ...
+    def decision_variables(self) -> tuple[DecisionVariable, ...]: ...
+    def intrinsic_obligations(self) -> tuple[ProofObligation, ...]: ...
+    def metadata(self) -> Mapping[str, object]: ...
+```
+
+通过 registry 根据配置选择模板：
+
+```python
+template_registry.register("polynomial", PolynomialTemplateFactory())
+template_registry.register("direct_certificate", DirectCertificateFactory())
+template_registry.register("multiplicative_power", MultiplicativePowerFactory())
+```
+
+### 7.1 Polynomial contractive template
+
+对每个普通位置生成：
+
+```text
+eta_l(x) = sum_{|alpha| <= d} c[l, alpha] x^alpha
+```
+
+可配置项包括：
+
+```text
+degree
+monomial basis: total_degree / explicit_support
+per-location degree
+coefficient sharing policy
+strict positivity margin
+是否为特殊位置生成模板
+```
+
+其 intrinsic obligation 至少包括 invariant 上的严格正性近似：
+
+```text
+I(l) => eta_l(x) - epsilon_eta >= 0
+```
+
+### 7.2 后续模板
+
+未来模板可以包括：
+
+```text
+PiecewisePolynomialTemplate
+LocationSharedPolynomialTemplate
+FixedBasisTemplate
+DirectThetaCertificateTemplate
+ExternallyProvidedTemplate
+```
+
+神经网络或包含 `log/exp` 的模板也可以接入 Template IR，但 CVXPY/MOSEK backend 应通过 capability check 拒绝无法多项式化的实例，或交给其他 backend。
+
+## 8. 证明规则与 Obligation IR
+
+```python
+class CertificateRule(Protocol):
+    name: str
+    supported_goals: frozenset[str]
+
+    def generate(
+        self,
+        problem: GoalProblem,
+        template: TemplateInstance,
+        context: AnalysisContext,
+    ) -> "GoalObligationSet": ...
+
+GoalObligationSet = TailBoundObligationSet | AssertionViolationObligationSet
+```
+
+建议的通用 obligation：
+
+```python
+@dataclass(frozen=True)
+class ProofObligation:
+    id: str
+    domain: SemialgebraicRegion
+    relation: SymbolicRelation
+    origin: ConstraintOrigin
+    tags: frozenset[str]
+```
+
+`CertificateRule` 必须声明 `supported_goals`，不允许把只实现 assertion boundary 的规则用于 tail bound。`ProofObligation` 先保留后端无关的符号关系。Polynomial lowering 可以将其转为 `PolynomialRelation`；Kelly power 等特殊规则也可以先把比例化简为 scalar moment constraint。`ConstraintOrigin` 记录 analysis job、goal kind、source location、transition ID、模板类型和源码 span。CVXPY builder 和产物导出器应维护 obligation、系数等式、PSD block 与这些信息的映射，便于从失败的 SDP 约束追溯到源程序。
+
+初始 rule compatibility table：
+
+| Rule | `tail_bound` | `assertion_violation` |
+|---|---:|---:|
+| `contractive_tail` | yes | no |
+| `time_indexed_tail` | yes | no |
+| `prefixed_point` | no | yes |
+| `factorized_prefixed_point` | no | yes |
+
+如果未来发现两个 goal 共享某个局部公式，应提取内部 helper，而不是把完整 rule 标为同时兼容；goal-specific boundary 和 objective 仍由各自 adapter 生成。
+
+### 8.1 Assertion violation: Pre-fixed-point rule
+
+该规则只接受 `AssertionViolationProblem`。定义统一的 certificate value：
+
+```text
+V(l_t, x) = 0
+V(l_f, x) = 1
+V(l, x)   = template.expression_at(l), otherwise
+```
+
+对每个 transition group 生成：
+
+```text
+I(src) and guard
+  => V(src, x) - sum_j p_j E[V(dst_j, update_j(x,r))] >= 0
+```
+
+该规则直接对应 assertion-violation probability 的 pre-fixed-point 条件，建议作为第一条端到端跑通的规则。
+
+### 8.2 共享的 Contractive/Moment rule
+
+局部 contractive 内核对一个由 goal adapter 提供的非负 certificate `C` 生成：
+
+```text
+I(src) and guard
+  => sum_j p_j E[C(dst_j, update_j(x,r))] <= rho * C(src, x)
+```
+
+它本身不能决定这是 tail bound 还是 assertion violation；两个 goal adapter 必须补充不同的事件语义和边界义务。
+
+#### 8.2.1 Tail-bound adapter
+
+`TailBoundProblem` 通常令：
+
+```text
+C_l(x) = (eta_l(x) / H)^k
+```
+
+并在局部 contraction 之外增加：
+
+```text
+I(l) and tail_event(l, x) => C_l(x) >= 1
+```
+
+随后由 horizon adapter 构造 `rho^n C_init`，或生成 time-indexed `Phi_i` obligations。这里没有 `Theta(l_f)=1` 的要求；只有 `by_horizon` augmentation 创建的 absorbing bad label 才使用 reachability 风格边界。
+
+#### 8.2.2 Assertion-violation factorization adapter
+
+`AssertionViolationProblem` 可以将普通位置上的 certificate 参数化为：
+
+```text
+Theta_l(x) = q_l * eta_l(x)^k,  q_l = exp(b_l)
+```
+
+将分母在 `eta_src > 0` 下消除后，普通 transition 的 MC 条件可写为：
+
+```text
+sum_{j: dst_j != l_t}
+    p_j q_dst_j E[eta_dst_j(update_j)^k]
+<= q_src eta_src(x)^k
+```
+
+failure destination 必须按 `Theta(l_f)=1` 特殊处理，不能当作普通未知 `eta_lf`；normal terminal 的贡献为 0。
+
+无论使用 direct Theta 还是 factorized Theta，assertion adapter 都必须生成 failure boundary、normal boundary、nonnegativity 和 pre-fixed-point obligations。
+
+#### 8.2.3 Convexity boundary
+
+第一版建议只支持以下凸安全配置之一：
+
+```text
+A. k = 1，q_l 固定，eta_l 为未知 polynomial
+B. 直接合成 V_l(x) = q_l eta_l(x)，不分别恢复 q_l 和 eta_l
+C. eta_l 固定，只优化其余保持仿射的参数
+```
+
+以下组合会产生未知 decision variables 的乘积，一般不是标准凸 SOS/SDP：
+
+```text
+k > 1 且 eta_l 的系数未知
+q_l 和 eta_l 的系数同时未知
+k 本身作为未知连续变量
+```
+
+这些模式以后可以交给 alternating optimization、BMI/nonlinear solver 或外层参数搜索，但必须与标准 CVXPY/MOSEK SDP 模式分开。
+
+### 8.3 多证书计划、调度与组合
+
+当前工具应区分两种“多证书”语义：
+
+```text
+independent candidates
+    对同一个 AnalysisJob 分别运行多套模板、规则和后端，得到多个独立证明结果。
+
+composite certificate
+    按一条有数学闭包依据的组合规则，把多个证书组成一个新的证书。
+```
+
+第一阶段只实现 `independent candidates`。整个 `AnalysisPlan` 中的 tail-bound job 与 assertion-violation job 共享只读的 AST、Program IR、pCFG、invariant 和 random model；每个 job 拥有独立的 `GoalProblem`。同一 job 内的多个候选又分别拥有独立的模板参数、obligations、backend model 和输出目录。
+
+建议增加类型化分析计划：
+
+```python
+@dataclass(frozen=True)
+class CertificateSpec:
+    id: str
+    template_kind: str
+    rule_name: str
+    template_options: Mapping[str, object]
+    rule_options: Mapping[str, object]
+    backend_policy: str  # explicit backend name or "auto"
+
+@dataclass(frozen=True)
+class CertificatePortfolio:
+    mode: Literal["independent", "composite"]
+    certificates: tuple[CertificateSpec, ...]
+    selection_policy: str
+
+@dataclass(frozen=True)
+class AnalysisJobSpec:
+    id: str
+    goal: TailBoundGoalSpec | AssertionViolationGoalSpec
+    portfolio: CertificatePortfolio
+
+@dataclass(frozen=True)
+class AnalysisPlan:
+    jobs: tuple[AnalysisJobSpec, ...]
+
+@dataclass(frozen=True)
+class CertificateRunResult:
+    analysis_id: str
+    goal_kind: Literal["tail_bound", "assertion_violation"]
+    certificate_id: str
+    status: Literal[
+        "proved", "solved_unverified", "infeasible", "unbounded",
+        "unsupported", "generation_failed", "solver_failed",
+        "verification_failed", "not_solved", "unknown"
+    ]
+    bound: float | None
+    artifacts: tuple[GeneratedArtifact, ...]
+    diagnostics: tuple[Diagnostic, ...]
+```
+
+`AnalysisRunner` 先对每个 job 调用 goal registry，再由 `CertificateRunner` 对该 job 的每个 certificate spec 执行：
+
+```text
+goal registry lookup
+  -> GoalProblem
+  -> template registry lookup
+  -> TemplateInstance
+  -> certificate rule lookup
+  -> goal-specific GoalObligationSet
+  -> rule-specific simplification
+  -> capability analysis
+  -> lowering route
+  -> backend model / artifacts
+  -> CertificateRunResult
+```
+
+命名空间至少包含 `analysis_id/certificate_id`，避免两个 goal 或两个证书都生成 `c_l0_0`、`seq_1` 或 `sdp_model.json` 后互相覆盖。
+
+#### 8.3.1 Backend 自动路由
+
+后端不应只根据模板名称选择，而应根据化简后的 obligation 能力选择：
+
+```text
+PolynomialTemplate + affine polynomial coefficients
+    -> PolynomialImplication
+    -> positivity registry / EncodingPlan -> LP/SDP -> CVXPY/MOSEK backend
+
+MultiplicativePowerTemplate + fixed lambda
+    -> 先尝试 eta(update)/eta 的比例化简
+    -> 若只剩离散 gain 的常数矩，交给 scalar numeric backend
+    -> 若化简后成为仿射多项式约束，进入 positivity strategy -> CVXPY/MOSEK
+    -> 否则返回 unsupported，并保留具体原因
+
+DirectThetaCertificateTemplate
+    -> polynomial capability check
+    -> positivity strategy -> LP/SDP -> CVXPY/MOSEK backend
+```
+
+因此需要显式 lowering 结果，而不是所有 obligation 都强制转成 `SOSModel`：
+
+```python
+LoweredModel = SOSModel | ScalarMomentModel | UnsupportedModel
+
+class BackendRouter:
+    def route(
+        self,
+        model: LoweredModel,
+        requested_backend: str,
+    ) -> Backend: ...
+```
+
+对 Kelly 的 tail-bound job，可以同时配置：
+
+```text
+kelly_power
+    eta(W) = W^(-lambda)
+    化简为 0.6 * 1.2^(-lambda) + 0.4 * 0.8^(-lambda) <= c
+    使用 scalar backend 或 lambda 外层搜索
+
+poly_tail
+    直接合成 polynomial C(W, round)
+    按 positivity strategy 生成 LP/SDP 并用 CVXPY 建模
+```
+
+两者使用同一个 `TailBoundProblem`，但不共享 decision variables，也不要求使用同一个 backend。另一个 assertion-violation job 可以在同一原始 pCFG 上配置 `DirectThetaCertificateTemplate -> CVXPY/MOSEK`，但其 obligations 和结果不加入 tail job 的 selection。
+
+#### 8.3.2 结果选择
+
+若同一个 `AnalysisJob` 中的多个候选都对同一程序语义、初始状态、概率事件和 horizon 独立证明了上界 `B_i`，则：
+
+```text
+B_final = min { B_i | result_i.status == "proved" }
+```
+
+仍是合法上界。选择时只能使用已经完成证明验证的结果；`not_solved`、`unsupported` 或仅通过采样观察得到的数值不能参与 sound bound 的最小值。
+
+在 `model_only` 模式下，CVXPY 候选构建并导出模型后状态为 `not_solved`，`summary.selection` 保持 `pending`。`solve` 模式通过 MOSEK 返回数值解后，先标为 `solved_unverified`；只有证书验证器确认其证明义务成立后才能改为 `proved`。`optimal` 与 `optimal_inaccurate` 都不是数学证明状态。Scalar moment backend 也只有使用精确算术或带证明保证的区间计算时才能返回 `proved`；普通浮点计算只能用于筛选参数候选。
+
+不要把多个候选的 obligations 简单合并成一个 SOS model。那表示要求同一组分析同时满足全部候选约束，通常比任一候选都强，也失去了“哪个证书能证明就使用哪个”的语义。
+
+如果不同证书使用了不同的 invariant、strictness margin、浮点近似或随机独立性假设，summary 必须分别记录，只有假设兼容时才能比较其 bound。
+
+Tail-bound job 的 `Pr[X_n in B]` 与 assertion-violation job 的 `Pr[exists t. location_t = l_f]` 是不同事件，即使数值都在 `[0,1]` 中也不能放入同一个 `min`。Selection policy 的作用域固定为单个 `analysis_id`；跨 goal 的顶层 summary 只并列报告结果。
+
+#### 8.3.3 组合证书
+
+后续若实现 composite mode，应只允许注册过并带有闭包说明的 combiner：
+
+```python
+class CertificateCombiner(Protocol):
+    name: str
+
+    def validate_inputs(
+        self,
+        certificates: tuple[CertificateInstance, ...],
+    ) -> tuple[Diagnostic, ...]: ...
+
+    def combine(
+        self,
+        certificates: tuple[CertificateInstance, ...],
+    ) -> CertificateInstance: ...
+```
+
+例如，对具有相同 pre-fixed-point operator 和相同边界语义的非负证书，可以专门证明某种 convex combination 仍合法。`min`、`max`、乘积或分段拼接不能作为通用默认操作；piecewise certificate 还必须为区域覆盖、区域交界和跨区域 transition 生成额外 obligations。
+
+MVP 中 `composite` 应返回明确的 `unsupported`，直到对应 combiner 和测试被实现，不能退化为字符串层面的公式拼接。
+
+## 9. Backend Constraint IR
+
+证明规则不应生成 CVXPY 表达式或求解器调用字符串，而应先生成 goal-specific obligations，再 lowering 为后端无关模型：
+
+```python
+@dataclass(frozen=True)
+class BasicSemialgebraicSet:
+    generators: tuple[Polynomial, ...]  # 每项解释为 g_i(x) >= 0
+    equalities: tuple[Polynomial, ...]  # 每项解释为 e_j(x) = 0
+
+@dataclass(frozen=True)
+class PolynomialImplication:
+    domain: BasicSemialgebraicSet
+    conclusion: Polynomial             # 目标为 h(x) >= 0
+    origin: ConstraintOrigin
+    tags: frozenset[str]
+
+@dataclass(frozen=True)
+class SOSModel:
+    analysis_id: str
+    goal_kind: Literal["tail_bound", "assertion_violation"]
+    state_symbols: tuple[Symbol, ...]
+    decision_variables: tuple[DecisionVariable, ...]
+    implications: tuple[PolynomialImplication, ...]
+    objective: Objective | None
+
+@dataclass(frozen=True)
+class ScalarMomentConstraint:
+    left: SymbolicScalarExpr
+    relation: Literal["<=", ">=", "="]
+    right: SymbolicScalarExpr
+    origin: ConstraintOrigin
+
+@dataclass(frozen=True)
+class ScalarMomentModel:
+    analysis_id: str
+    goal_kind: Literal["tail_bound", "assertion_violation"]
+    parameters: tuple[ScalarParameter, ...]
+    constraints: tuple[ScalarMomentConstraint, ...]
+    objective: Objective | None
+
+LoweredModel = SOSModel | ScalarMomentModel | UnsupportedModel
+```
+
+`PolynomialPositivityModel`（兼容名 `SOSModel`）表示待编码的数学模型；策略 lowering 后生成可序列化的 `ConicModel`，CVXPY 对象只存在于最终 builder 中：
+
+```python
+@dataclass(frozen=True)
+class ConicModel:
+    analysis_id: str
+    goal_kind: str
+    model_kind: Literal["lp", "sdp"]
+    encoding_plan_id: str
+    scalar_decisions: tuple[DecisionVariable, ...]
+    psd_blocks: tuple[GramBlockSpec, ...]             # block ID、维度、monomial basis
+    coefficient_equalities: tuple[AffineEquality, ...]
+    affine_inequalities: tuple[AffineInequality, ...]
+    objective: AffineObjective
+    origins: Mapping[str, ConstraintOrigin]          # constraint/block -> 源码与 obligation
+    obligation_tags: Mapping[str, frozenset[str]]
+```
+
+`AffineEquality` 等保存常数和未知量的稀疏线性映射，不保存 SymPy/CVXPY 的隐式可执行对象。精确有理常数按分子/分母序列化；转为 CVXPY 数值常数的步骤必须集中处理并记录转换误差。这样可在 Python 中重建模型、独立验证候选证书和检查来源，不依赖外部脚本语言。
+
+Tail-bound lowering 必须保留 `contraction`、`tail_normalization` 和 horizon-bound objective 的 tags；assertion-violation lowering 必须保留 `failure_boundary`、`normal_boundary`、`nonnegative` 和 `prefixed_point` tags。静态验证器应检查对应 goal 的必需类别没有在 lowering 中丢失。
+
+即使两个 goal 最终都得到 `SOSModel`，objective 仍不同：tail bound 通常最小化 `rho^n C_init` 或 time-indexed `Phi_0(init)`；assertion violation 最小化 `Theta(init)`。CVXPY builder 只消费已经确定的 objective，不自行推断概率语义。
+
+若一个 guard 是多个 basic regions 的析取，应为每个 region 单独生成 implication，而不是把析取硬塞进一个 Putinar certificate。
+
+`lowering/convexity.py` 应检查 conclusion 和 objective 对 decision variables 是否仿射；domain generators 必须固定，不含 decision variables。否则 SOS multiplier 与 generator 的乘积会形成双线性项。
+
+策略输入统一称为 `PolynomialPositivityModel`；可保留 `SOSModel` 作为旧接口别名，其含义为待证明的 polynomial implications，而不是强制已经选定 SOS 编码。策略输出统一为上述 `ConicModel`，保留原设计 `SDPModel` 的结构并扩充模型类型和计划来源字段，`SDPModel` 可作为兼容别名。纯 Handelman 编码的 `psd_blocks` 为空，非负系数记录为 affine inequalities，混合策略模型包含 PSD block 时为 SDP。共享 CVXPY builder 消费 `ConicModel`，不需要单独维护 Handelman solver。
+
+每条义务生成一个 `ConstraintFragment`，保存新增 scalar decisions、PSD blocks、系数等式、仿射不等式、obligation ID/tags/origins 和重建证书所需信息。Assembler 按 obligation ID 汇总 fragments，复用同一组模板系数，核对所有必需义务完整覆盖后才构建全模型。`model_kind` 由约束推导，不由策略名称猜测。
+
+## 10. Python / CVXPY / MOSEK 后端
+
+### 10.1 Backend 接口
+
+```python
+class Backend(Protocol):
+    name: str
+
+    def capabilities(self) -> BackendCapabilities: ...
+    def validate(self, model: LoweredModel) -> tuple[Diagnostic, ...]: ...
+    def build(self, model: LoweredModel, options: BackendOptions) -> BuiltModel: ...
+    def export(self, model: BuiltModel, options: ArtifactOptions) -> tuple[GeneratedArtifact, ...]: ...
+    def solve(self, model: BuiltModel, options: SolverOptions) -> SolverRunResult: ...
+    def verify(self, model: BuiltModel, result: SolverRunResult) -> VerificationReport: ...
+```
+
+具体实现应进一步收窄类型：`CvxpyMosekBackend` 的核心 builder 只接受通过 capability check 的 `ConicModel`；pipeline adapter 可接受 `PolynomialPositivityModel`，先调用独立 strategy runner 和 assembler，再交给 builder。策略模块完成 Positivstellensatz 编码、Gram matrix 和系数匹配；后端完成 CVXPY 建模，`solve` 只调用 `cp.MOSEK`。`ExactScalarMomentBackend` 只接受 `ScalarMomentModel`，保留当前精确标量验证逻辑，不需要将已知常数验证强制转成优化问题。
+
+`BuiltModel` 保存可序列化 `ConicModel`、`cp.Problem`、decision/Gram variable 映射和来源映射。`positivity_strategy`、backend 和 solver 是三个独立选项：切换 Putinar/Schmüdgen/Handelman 不改变 `kind="cvxpy"`、`solver="MOSEK"`。不使用 MOSEK Fusion 重建第二套模型，也不静默回退到其他求解器。
+
+### 10.2 Putinar lowering
+
+对于：
+
+```text
+g_1(x) >= 0, ..., g_m(x) >= 0 => h(x) >= 0
+```
+
+最小实现提供 Putinar 形式；其余策略通过第 10.7 节的相同接口逐步接入：
+
+```text
+h(x) = sigma_0(x) + sum_i sigma_i(x) g_i(x)
+sigma_0(x), sigma_i(x) are SOS
+```
+
+如果证明域包含固定多项式等式 `e_j(x)=0`，可加入 `sum_j tau_j(x)e_j(x)`；`tau_j` 是自由多项式，其未知系数不要求非负。关系 `h=0` 则必须区分全局多项式恒等式与只在 domain 上成立的等式：全局恒等式按系数匹配；domain 上的等式可分别证明 `h>=0` 和 `-h>=0`，或使用已实现的 ideal 规则，不能误当作全局恒等式。
+
+为每条 implication 配置 relaxation order `r`（总次数上界 `2r`），要求 `deg(h)<=2r`。`sigma_0` 使用次数不超过 `r` 的 monomial basis；`sigma_i` 使用次数不超过 `r-ceil(deg(g_i)/2)` 的 basis；`tau_j` 的次数不超过 `2r-deg(e_j)`。负次数的项必须显式省略并在产物中记录。次数不足时报告该 obligation，不能截断高次项。模板次数与 relaxation order 是不同配置。
+
+该表示在证书成立时给出充分的非负性证明。Putinar 的完备性通常需要 Archimedean 等条件；未找到当前次数的 SOS 证书，不表示原概率命题为假。尤其不能为获得紧集条件随意添加未经证明的 bounding-ball invariant。Schmüdgen 和 Handelman 作为可选 strategy 接入，不作为 Putinar 或其他模块的运行依赖。
+
+### 10.3 Gram matrix 与系数匹配
+
+CVXPY 不提供直接的 `is_sos(polynomial)` 建模操作。对每个 SOS 多项式引入对称 Gram matrix：
+
+```text
+sigma(x) = z_d(x)^T Q z_d(x)
+Q is symmetric positive semidefinite
+
+h(x) - z_r(x)^T Q_0 z_r(x)
+     - sum_i (z_di(x)^T Q_i z_di(x)) g_i(x)
+     - sum_j tau_j(x) e_j(x) = 0
+```
+
+对所有 monomial exponent 逐项匹配系数，生成仿射等式；PSD block 则通过 `cp.Variable((n,n), symmetric=True)` 和 `Q >> 0` 建模。实现可采用 `PSD=True`，但若要导出对应锥约束的 dual value，应使用显式 PSD constraint。参见 [CVXPY 半正定约束](https://www.cvxpy.org/tutorial/constraints/index.html#semidefinite-matrices)。
+
+`gram.py` 统一处理稳定的 monomial 顺序、exponent 相加和稀疏系数映射。若只遍历 `i<=j`，Gram 展开的非对角项系数必须乘 2；若遍历全部 `i,j`，则不能再次乘 2。`sigma_i*g_i` 的展开是指数和系数的卷积。匹配对象必须包含等式两端的全部 monomials，包括目标系数为零的高次项。
+
+程序状态符号 `x` 只用于符号多项式和 basis 计算，不创建为 CVXPY decision variable。CVXPY variables 仅包括模板系数、自由 multiplier 系数和 Gram matrix 元素；固定 `rho/q/k` 与分布矩作为数值常数传入。
+
+例如 `h(x)=a+b*x+c*x^2` 的全局 SOS 编码为：
+
+```python
+import cvxpy as cp
+
+coeff = cp.Variable(3, name="certificate_coeff")
+Q = cp.Variable((2, 2), symmetric=True, name="gram_0")
+constraints = [
+    Q >> 0,
+    coeff[0] == Q[0, 0],
+    coeff[1] == 2 * Q[0, 1],
+    coeff[2] == Q[1, 1],
+    coeff[0] >= 1,  # 示例 normalization
+]
+problem = cp.Problem(cp.Minimize(coeff[0]), constraints)
+assert problem.is_dcp()
+```
+
+这只是 Gram 编码的局部示例；真实目标和边界必须来自 goal-specific IR。
+
+### 10.4 CVXPY 建模和 MOSEK 求解
+
+`builder.py` 为每个 `analysis_id/certificate_id` 创建独立变量，加入系数等式、仿射约束和 PSD blocks，再将已确定的仿射 objective 转为 `cp.Minimize`/`cp.Maximize`；feasibility 使用常数目标。构建后必须调用 `problem.is_dcp()` 并检查所有 obligations/tags 都有对应约束。
+
+运行模式为：
+
+```text
+model_only: 生成 strategy/LP/SDP IR，构建并静态检查 cp.Problem，导出模型，不调用 MOSEK
+solve:      使用同一个 cp.Problem 调用 MOSEK，导出候选解、求解日志和验证报告
+```
+
+求解入口的核心调用为：
+
+```python
+if "MOSEK" not in cp.installed_solvers():
+    raise BackendUnavailableError("MOSEK Python package is not available")
+problem.solve(
+    solver=cp.MOSEK,
+    verbose=options.verbose,
+    mosek_params=options.mosek_params,
+    accept_unknown=False,
+)
+```
+
+`installed_solvers()` 只检查接口可用性，实际许可证可用性需在 MOSEK 调用时检查。缺少包、许可证错误、数值失败、时间/迭代限制均保留原始诊断并返回 `solver_failed`；已产生的候选值可以保存供复核，但不得自动参与 proved selection。仅在已完成独立严格验证时才能接受限时运行中的可行候选证书。MOSEK 参数统一经过配置校验后以 `mosek_params` 传入；保留 raw status、`solver_stats`、日志和实际采用的参数，不允许打开 `accept_unknown=True` 后直接接受结果。参见 [CVXPY 求解器与 MOSEK 选项](https://www.cvxpy.org/tutorial/solvers/index.html)。
+
+### 10.5 结果状态与证书验证
+
+分开记录求解器状态和证明状态：
+
+| 运行结果 | 证书状态与含义 |
+|---|---|
+| 只构建模型 | `not_solved`，selection pending。 |
+| `optimal` / `optimal_inaccurate` 且有候选值 | `solved_unverified`，仅表示有数值候选。 |
+| `infeasible` | `infeasible`，仅指当前模板/relaxation 的数值求解报告，不说明概率命题为假。 |
+| `unbounded` | `unbounded`，保留诊断，不输出已证明概率界。 |
+| inaccurate infeasible/unbounded、未知状态、包/许可证/求解异常 | `solver_failed`，保留 raw status，不作确定结论。 |
+| 候选缺失、NaN/Inf 或验证发现不满足约束 | `verification_failed`。 |
+| 全部原始证明义务经严格验证 | `proved`，允许进入同一 goal 的 bound selection。 |
+| 已尝试多个编码，预算耗尽仍无严格验证的证书 | `unknown`，所有单次求解状态保留在 attempts；不表示原命题不成立。 |
+
+第一层为数值复核：在原始尺度上检查 coefficient residual、affine slack、Gram matrix 对称性和最小特征值、初始 bound，并报告绝对/相对容差。数值容差与 `positivity_margin` 是不同概念；通过这层仍是 `solved_unverified`。不能直接裁剪负特征值而不重新检查全部系数恒等式。
+
+第二层为严格证书验证：例如将候选恢复为有理数、用精确线性代数修正系数恒等式，再精确验证各 Gram matrix 的 PSD 性和目标值；或使用能覆盖系数转换误差、残差及全部域上不等式的严谨区间方法。单独的浮点 residual/eigenvalue 检查或采样不是严格验证。验证器还必须确认 goal 的边界、normalization、transition obligations，以及概率范围和使用的 invariant 假设；依赖外部 invariant 时结果明确是条件性上界。无法取得严格验证时保留 `solved_unverified`，不伪造 `proved`。
+
+最终 bound 从验证后的模板系数按原始目标精确重算；不得仅使用 `problem.value` 或把未经证明的数值通过截断到 `[0,1]` 变成概率上界。`certificate.json` 保存模板系数，以及各策略的 multipliers、Gram matrices/basis 或 Handelman 非负系数和 generator 指数，`verification.json` 保存逐项验证方法与结果。Handelman 验证逐项精确非负系数及多项式恒等式，复用共同的原始 goal obligation 复核。
+
+### 10.6 Python 依赖和运行环境
+
+后端实现时在 `pyproject.toml` 增加可选 `solver` 依赖组：`cvxpy`、`numpy`、`scipy`、`mosek`；现有 Lark/SymPy 和前端 API 保留。后端模块按需导入，纯前端和 exact scalar 路径不要求安装求解栈。新增依赖应在独立环境中验证兼容版本后锁定，不在本文虚构尚未测试的版本组合。
+
+后端实现后的安装入口为 `python -m pip install -e '.[solver]'`，MOSEK 需有效许可证；许可证路径/服务通过 MOSEK 支持的运行环境设置，manifest 不保存许可证内容。参见 [MOSEK Python 安装说明](https://docs.mosek.com/latest/pythonapi/install-interface.html) 及其链接的 licensing guide。当前代码尚无此 extra，因此本次未执行该安装。
+
+无需许可证即可运行 basis/Gram/系数匹配、DCP 检查、模型导出和独立验证单元测试；真实 MOSEK smoke/integration 测试需接口和许可证均可用。
+
+### 10.7 模块化 PositivityStrategy
+
+`project_detail.md` 的 Positivstellensatz 一节为非负性编码提供数学依据。每个策略处理固定 domain 上的 `h(x;c)>=0`，其中 `c` 为共享模板参数；选择策略是选择一个充分的证书表示，不保证固定次数下与原约束等价。
+
+| 策略 ID | 编码及输出 | 搜索规模与完备性条件 |
+|---|---|---|
+| `putinar` | `h=sigma_0+sum_i sigma_i*g_i+sum_j tau_j*e_j`；SOS multipliers -> Gram SDP。 | 通常最多 `m+1` 个 SOS blocks；quadratic module 为 Archimedean 时对域上严格正多项式有表示存在性保证。 |
+| `schmudgen` | `h=sum_w sigma_w*product_i g_i**w_i+sum_j tau_j*e_j`，`w in {0,1}^m`；输出 Gram SDP。 | 最多 `2^m` 个 SOS blocks，可按次数省略过高次乘积；紧集上严格正性给出标准表示存在性保证。截断乘积子集只能称为受限 preordering 搜索。 |
+| `handelman` | `h=sum_alpha a_alpha*product_i g_i**alpha_i`，`a_alpha>=0`、`sum(alpha)<=D`，包括空乘积 1；输出 LP。 | 主要用于固定仿射 generators 描述的非空、有界且有内部的多面体；严格正性给出标准表示存在性保证。等式/低维域需先进行已实现且保持语义的仿射消元，否则该插件可明确拒绝。 |
+
+SOS 策略的总次数限制采用第 10.2 节的 `2r`；对 Schmüdgen 将 `g_i` 替换为对应固定乘积，按乘积次数计算 multiplier basis。Handelman 的 `D` 是 generators 的总指数上界，与 `r` 分开配置，不能将两者视为同一个复杂度参数。三者共享 monomial exponent 运算、系数匹配、origin 和 certificate 重建格式；只有 SOS 策略使用 `gram.py`。
+
+策略需区分“当前实现能否编码”和“定理的完备性条件是否有依据”。无紧性/Archimedean 证明不影响已找到并验证的证书的正确性；可尝试有限次数的 Putinar/Schmüdgen 搜索，但必须记录没有完备性保证。第一版自动选择器仅在有证据支持适用域条件时优先采用 Handelman，其他情形交给已实现的 SOS 策略。域上只是非负、可能取零时不能套用严格正性的存在性保证，也不能用 `h+epsilon` 的证书替代 `h` 的原始义务。参考 [Laurent，第 3.6 节](https://homepages.cwi.nl/~monique/files/moment-ima-update-new.pdf) 和 [Handelman 原论文](https://msp.org/pjm/1988/132-1/p04.xhtml)。
+
+建议接口如下，均为目标 API：
+
+```python
+@dataclass(frozen=True)
+class DomainFeatures:
+    variable_count: int
+    generator_degrees: tuple[int, ...]
+    conclusion_degree: int
+    affine_generators: bool
+    has_equalities: bool
+    compactness: Literal["proved", "disproved", "unknown"]
+    archimedean: Literal["proved", "disproved", "unknown"]
+    full_dimensional: Literal["proved", "disproved", "unknown"]
+    evidence: tuple[ConditionEvidence, ...]
+
+@dataclass(frozen=True)
+class CapabilityReport:
+    can_encode: bool
+    reason_codes: tuple[str, ...]
+    completeness_conditions: Mapping[str, str]
+
+@dataclass(frozen=True)
+class StrategyChoice:
+    obligation_id: str
+    strategy_id: str
+    relaxation_order: int | None
+    handelman_degree: int | None
+
+@dataclass(frozen=True)
+class EncodingPlan:
+    id: str
+    choices: tuple[StrategyChoice, ...]
+    decision_namespace: str
+    selection_reasons: Mapping[str, tuple[str, ...]]
+
+class PositivityStrategy(Protocol):
+    id: str
+
+    def capabilities(
+        self, obligation: PolynomialImplication, features: DomainFeatures,
+    ) -> CapabilityReport: ...
+
+    def estimate(
+        self, obligation: PolynomialImplication, choice: StrategyChoice,
+    ) -> ModelSizeEstimate: ...
+
+    def lower(
+        self, obligation: PolynomialImplication, choice: StrategyChoice,
+        context: EncodingContext,
+    ) -> ConstraintFragment: ...
+```
+
+`EncodingContext` 由 runner 提供不可变的状态符号、共享模板变量映射和 attempt-local 命名空间；策略只返回 fragment，不修改全局 problem，不调用求解器。`estimate` 仅做符号/组合规模估计。`CapabilityReport.can_encode` 不等于 completeness 已证明，不得以采样代替条件证据。
+
+### 10.8 Registry、可选模块与降级约定
+
+`StrategyRegistry` 保存显式注册的 strategy descriptor/factory，按需创建可用实例；能查询版本、可用性和原因，不能在包的 `__init__.py` 中强制导入全部策略。未提供的插件标为 `not_implemented`，有依赖缺失的插件标为 `dependency_missing`，用户禁用的插件标为 `disabled`，已实现但不支持某条义务时标为 `unsupported_input`。只有未实现的接口或占位文件不能算作可用实现。
+
+`selector.py` 为可选模块；runner 始终具有一个最小 `StaticPlanner`，按配置的候选顺序选择能完整覆盖义务且不超预算的已实现策略。自动选择器只决定候选 plan 的排序和升级，不负责 lowering、建模、求解或验证。
+
+| 可用模块情况 | 必须达到的行为 |
+|---|---|
+| 只有 Putinar，自动选择器尚未实现 | `auto` 记录 `selector_unavailable`，使用 StaticPlanner 构造 Putinar plan；支持的实例仍可走完整建模/求解链路。 |
+| Putinar 和任意一个其他策略可用 | 只生成实际可用且 capability 合格的 choices；缺少的第三个策略不影响运行。 |
+| 指定策略未实现/不可用 | 默认 `on_unavailable="fallback"`，明确记录请求和实际策略，按 `fallback_order` 尝试其他可用策略；`on_unavailable="error"` 则保留诊断并令该候选为 `unsupported`。禁止静默替换。 |
+| 某策略 lower 出错或返回 unsupported | 记录 attempt 状态与 obligation，放弃当前不完整模型，尝试其他完整 plan；不得只保留成功的 fragments。 |
+| 某条必需义务没有任何可用编码 | 不调用部分模型的 solver；该候选为 `unsupported`，保存全部 obligations、能力报告和 summary，其他证书/goal 继续。 |
+| 没有任何已实现策略 | 可以完成源程序到 obligations 及诊断产物；多项式候选为 `unsupported`，exact scalar 路径仍独立运行。不能声称完成规划求解。 |
+| CVXPY/MOSEK 不可用或许可证缺失 | 保存符号 ConicModel/选择日志；显式请求建模/求解的步骤报告 `generation_failed`/`solver_failed`，不能伪装成求解成功；原有 obligations 和 scalar 路径不依赖这些包。 |
+| 严格验证器尚未实现 | 可完成已支持模型的数值求解和候选导出，状态为 `solved_unverified`；无候选升级为 `proved`。 |
+
+“部分策略未实现也能跑通”指已支持实例不依赖其他策略才能求解，以及不支持实例能结束流程并输出完整诊断；不保证任意输入都能生成证书。缺少策略、未知域条件、超出预算和单次求解 infeasible 必须分别记录，不能混成“原概率命题为假”。
+
+### 10.9 自动选择与有限预算搜索
+
+自动选择以一个 certificate 的全部 obligations 为输入。同一个模板的 `c` 必须在全模型中共享，每条义务可以用不同策略和次数；各 multiplier/Gram variables 则以 `analysis_id/certificate_id/attempt_id/obligation_id` 隔离。每次 plan 必须覆盖所有必需义务，联合求解之后验证原始义务。不能各自求出不同的模板系数再拼成一个证书。
+
+基本流程如下：
+
+1. **规范化与能力检查。** 安全处理严格 guard、析取 basic regions 和等式，检查固定 generators、模板系数仿射与 objective；无证据时不删掉 predicate 或添加 bounding ball。固定常数/已知精确恒等式可由共享 simplifier 消解，但必须留存验证依据。
+2. **分析 domain 特征。** 统计变量、次数、generators 和等式，记录 compactness/Archimedean 的 `proved/disproved/unknown` 与来源。多面体有界性可用辅助 LP 检查各坐标上/下界并验证证据，full-dimensional 可检查存在严格内部点；这些分析器未实现或不能完成时返回 `unknown`，不阻塞可用 SOS 搜索。费用计入同一总预算。
+3. **过滤并建立初始 choices。** 先排除未实现、禁用、不支持输入的策略。已确认适用且规模较小的多面体优先试低次数 Handelman；一般多项式域优先 Putinar；generators 较少时纳入 Schmüdgen。仅确认紧性而未确认 Archimedean 时，比较可用 Putinar/Schmüdgen 的预计规模；未知或无界域允许有限次数 SOS 搜索，标明无相应完备性保证。没有可用 Putinar 时允许其他 capability 合格策略成为首选。
+4. **估算完整 plan 的规模。** `n` 个变量、次数上界 `d` 的完整 basis 维度为 `binomial(n+d,d)`；统计各 PSD block 最大维度、对称矩阵元素总数、非负 scalar 数量、匹配等式数量及乘积展开非零项。Handelman 至多生成 `binomial(m+D,D)` 个指数项；Schmüdgen 至多 `2^m` 个乘积。按超限过滤、历史运行费用和确定性 tie-break 排序，不能仅凭 LP 名称认定总是便宜。
+5. **联合构建并求解。** 逐个 lower fragment，核对 coverage，交给同一个 assembler/CVXPY builder/MOSEK solver。`model_only` 不求解：导出首个成功构建的完整 plan，状态 `not_solved`；不根据未运行的求解器臆测下一轮选择。
+6. **验证与升级。** 数值候选先复核再做严格验证；已严格验证的最好上界持续保存。feasibility 模式可在首个 `proved` 时停止；bound 优化模式在预算内继续尝试。完整模型 infeasible 时生成提高次数或切换策略的新 plan；不能未经定位就把失败归因于某一条义务。第一版可统一提高次数或逐组换策略，暂不依赖不可用的 infeasibility diagnosis 模块。
+7. **有限终止。** 对 plan 内容做 hash 去重；限制总时长、单次时长、尝试数、`r/D`、最大 PSD block 和 generator 乘积数。未实现策略不消耗求解次数，同一失败 plan 不无限重试。预算耗尽时返回最好已验证结果；若只有数值候选则 `solved_unverified`；已搜索但无候选为 `unknown`。没有任何可行编码是 `unsupported`，求解器不可用是 `solver_failed`，不统一冒充 `unknown`。
+
+数值失败先检查尺度并在有限重试预算内调整参数；尝试不可行只是当前编码/次数的报告。unbounded 应先诊断 objective、boundary 和 normalization，不能机械升级次数。独立失败不删除其他 attempt 的候选或已验证证书；切换策略不修改程序语义、模板 family 或概率事件。提高模板次数属于额外 certificate candidate，应由 portfolio 层显式安排。
+
+调度伪代码：
+
+```python
+def run_positivity(problem, registry, options, backend, verifier):
+    normalized = normalize_and_check(problem)
+    features = analyze_or_unknown(normalized, options.budget)
+    planner = optional_auto_selector_or_static_planner(registry, options)
+    queue = planner.initial_plans(normalized, features)
+    history = AttemptHistory()
+    best = None
+
+    while queue and options.budget.remaining():
+        plan = queue.pop_next_affordable_untried(history)
+        if plan is None:
+            break
+        attempt = build_complete_model(normalized, plan, registry)
+        if attempt.model is not None:
+            if options.mode == "model_only":
+                return export_not_solved(attempt, history)
+            attempt = backend.solve_and_record(attempt, options)
+            if attempt.has_candidate:
+                attempt = verifier.verify_or_mark_unverified(normalized, attempt)
+                best = keep_best_proved(best, attempt)
+                if best is not None and options.stop_after_proved:
+                    return export_result(best, history, attempt)
+        history.append(attempt)
+        queue.extend(planner.next_plans(plan, attempt, features, history))
+
+    return summarize_without_claiming_disproof(best, history, registry)
+```
+
+静态 planner 也可按有限配置的 `r/D` 列表重试，因此缺少自动排序实现并不阻塞最小搜索。模型总预算和 MOSEK 单次时间限制分别执行；符号展开也需要预算，不能先构建指数规模模型再检查阈值。Attempt 的 raw solver status 与整个 certificate 的最终 proof status 分开保存。
+
+## 11. 配置与 CLI
+
+以下 TOML 及 `build-model`/`solve` 命令是后端实现的目标接口，当前 CLI 尚未支持 `--config`。建议使用 TOML 配置：
+
+```toml
+[frontend]
+strict_domain_policy = "closure"
+
+[analysis]
+id = "assertion_main"
+goal = "assertion_violation"
+reachability_mode = "eventual"
+rule = "prefixed_point"
+k = 1
+
+[analysis.initial]
+values = { x = 1, r = 0 }
+
+[template]
+kind = "polynomial"
+degree = 2
+positivity_margin = 1e-6
+monomial_basis = "total_degree"
+
+[backend]
+kind = "cvxpy"
+solver = "MOSEK"
+mode = "model_only"
+
+[positivity]
+strategy = "auto"
+candidate_order = ["handelman", "putinar", "schmudgen"]
+fallback_order = ["putinar", "schmudgen", "handelman"]
+on_unavailable = "fallback"
+stop_after_proved = true
+
+[positivity.putinar]
+initial_order = 2
+max_order = 4
+
+[positivity.schmudgen]
+initial_order = 2
+max_order = 3
+max_products = 64
+
+[positivity.handelman]
+initial_degree = 2
+max_degree = 6
+
+[positivity.budget]
+total_seconds = 300
+per_attempt_seconds = 60
+max_attempts = 8
+max_psd_dimension = 200
+max_scalar_variables = 50000
+max_coefficient_equalities = 50000
+
+[backend.mosek_params]
+MSK_IPAR_NUM_THREADS = 1
+
+[verification]
+mode = "rigorous"
+coefficient_abs_tolerance = 1e-7
+coefficient_rel_tolerance = 1e-7
+psd_tolerance = 1e-7
+
+[artifacts]
+emit_ast = true
+emit_cfg_text = true
+emit_cfg_json = true
+emit_cfg_dot = true
+emit_obligations = true
+```
+
+上面的配置是“单 analysis job + 单 certificate”的简写，`initial.values` 必须恰好覆盖输入程序的所有状态变量。`model_only` 不调用 MOSEK；显式 `solve` 命令或 `mode="solve"` 才进入求解和验证。数值容差只用于候选复核，不能放宽严格证书验证规则。
+
+`strategy` 可取 `auto`、`putinar`、`schmudgen`、`handelman`。全局 `[positivity]` 提供默认值，每个 certificate 可用 `positivity_strategy` 和其 options 覆盖；明确指定时先尝试该策略，只有记录 unavailable/unsupported 等原因后才按配置降级。`candidate_order` 作为 auto 的排序偏好而非强制启用列表，仍必须先过滤 registry/capability/预算；未实现策略可以出现在候选配置中，不要求其他插件为了读取配置而安装或导入。
+
+显式指定策略时可用 `on_unavailable="error"` 禁止替换；`auto` 模式仍跳过未实现插件，只在无完整可用 plan 时返回 unsupported。未识别的策略 ID/配置字段属于配置错误，不能把拼写错误当成插件缺失。旧 `backend.positivstellensatz`/`relaxation_order` 配置可映射为固定策略及初始次数并给出兼容提示；与新字段冲突时报配置错误。配置中的预算只是示例默认值，非性能或成功率保证。
+
+需要在同一个 pCFG 上同时分析 tail-bound 和 assertion-violation 时，使用 job 列表；每个 job 内再声明自己的证书候选。下例与上面的单 job `[analysis]`/`[template]` 二选一，共享 `[frontend]`、`[backend]`、`[positivity]`、`[verification]` 和 `[artifacts]` 配置：
+
+```toml
+[[analysis_jobs]]
+id = "kelly_tail_3"
+goal = "tail_bound"
+mode = "independent"
+selection_policy = "smallest_proved_bound"
+horizon = 3
+event_mode = "at_horizon"
+event = "wealth <= 0.6"
+normalization = "certificate_geq_one_on_event"
+rho = 0.995
+
+[analysis_jobs.initial]
+values = { wealth = 1, round = 0 }
+
+[[analysis_jobs.certificates]]
+id = "poly_tail"
+template_kind = "polynomial"
+rule = "contractive_tail"
+backend = "cvxpy"
+degree = 2
+positivity_margin = 1e-6
+positivity_strategy = "auto"
+
+[[analysis_jobs.certificates]]
+id = "kelly_power_l05"
+template_kind = "multiplicative_power"
+rule = "contractive_tail"
+backend = "auto"
+base = "wealth"
+lambda = 0.5
+
+[[analysis_jobs]]
+id = "assertion_eventual"
+goal = "assertion_violation"
+mode = "independent"
+selection_policy = "smallest_proved_bound"
+reachability_mode = "eventual"
+failure_locations = ["l_f"]
+
+[analysis_jobs.initial]
+values = { wealth = 1, round = 0 }
+
+[[analysis_jobs.certificates]]
+id = "direct_theta"
+template_kind = "direct_certificate"
+rule = "prefixed_point"
+backend = "cvxpy"
+degree = 2
+positivity_margin = 0.0
+positivity_strategy = "putinar"
+```
+
+配置解析后应统一转换为 `AnalysisPlan.jobs`；pipeline 内部不保留“单/多 goal”或“单/多 certificate”两套执行逻辑。`rule` 必须与 goal compatibility table 匹配，例如 `prefixed_point` 不能绑定到 `tail_bound`。
+
+现有 CLI 的 `parse`、`cfg` 和带显式参数的 `analyze` 保留兼容。新 CLI 建议按阶段暴露：
+
+```bash
+contractive parse example.pp --out generated/example/ast.json
+contractive cfg example.pp --out-dir generated/example
+contractive obligations example.pp --config example.toml --analysis-id kelly_tail_3 --out-dir generated/example
+contractive build-model example.pp --config example.toml --analysis-id kelly_tail_3 --certificate-id poly_tail --out-dir generated/example
+contractive solve example.pp --config example.toml --analysis-id kelly_tail_3 --certificate-id poly_tail --out-dir generated/example
+contractive analyze example.pp --config example.toml --mode model_only --out-dir generated/example
+contractive analyze example.pp --config example.toml --mode solve --out-dir generated/example
+contractive strategies list --json
+```
+
+未来配置版 `analyze` 执行配置中的全部 jobs，并按 mode 构建模型或调用 MOSEK 后验证；不带配置的旧接口保留当前阶段 2/3 生成行为。阶段命令通过 `analysis-id` 定位 goal，再通过 `certificate-id` 定位候选；`build-model` 强制不求解，`solve` 显式执行 Python 建模、MOSEK 求解和验证，保留完整产物。
+
+本次后端实施目标包含 `solve`，不再规划 `emit-matlab` 命令。求解异常定位到具体候选，多任务 runner 继续处理其他候选；诊断可使用不同退出码区分配置/建模错误、求解错误和验证未通过。
+
+`strategies list` 是目标诊断入口，查询已知策略 ID、implemented/enabled/available、插件版本与不可用原因，不创建求解任务、不要求导入 CVXPY/MOSEK。`build-model` 与 `solve` 使用同一个 registry 和 plan 接口；所有跳过或替换决定在输出中可见。此命令尚未实现。
+
+## 12. 运行产物
+
+一次完整分析建议生成：
+
+```text
+generated/<run-name>/
+├── source.normalized.pp
+├── ast.json
+├── cfg.json
+├── cfg.txt
+├── cfg.dot
+├── templates.json
+├── obligations.json
+├── obligations.txt
+├── domain_features.json
+├── strategy_selection.json # registry 快照、请求/实际策略与选择依据
+├── encoding_plan.json      # 所有义务的完整编码计划
+├── conic_model.json        # LP/SDP 统一模型
+├── sos_model.json
+├── sdp_model.json          # 可选兼容产物，纯 LP 不要求生成
+├── model.py                # 可选：重建 cp.Problem 的 Python 脚本，导入时不求解
+├── certificate.json        # solve 模式：模板系数、multipliers、Gram matrices
+├── solver.json             # raw status、objective、stats、参数和诊断
+├── solver.log
+├── verification.json
+├── result.json
+└── manifest.json
+```
+
+多 goal、多证书运行使用两级隔离目录：
+
+```text
+generated/<run-name>/
+├── shared/
+│   ├── ast.json
+│   ├── cfg.json
+│   ├── cfg.txt
+│   └── cfg.dot
+├── analyses/
+│   ├── kelly_tail_3/
+│   │   ├── goal.json
+│   │   ├── certificates/
+│   │   │   ├── poly_tail/
+│   │   │   │   ├── obligations.json
+│   │   │   │   ├── encoding_plan.json
+│   │   │   │   ├── strategy_selection.json
+│   │   │   │   ├── conic_model.json
+│   │   │   │   ├── sos_model.json
+│   │   │   │   ├── sdp_model.json
+│   │   │   │   ├── certificate.json
+│   │   │   │   ├── solver.json
+│   │   │   │   ├── verification.json
+│   │   │   │   └── result.json
+│   │   │   └── kelly_power_l05/
+│   │   │       ├── obligations.json
+│   │   │       ├── scalar_model.json
+│   │   │       └── result.json
+│   │   └── summary.json
+│   └── assertion_eventual/
+│       ├── goal.json
+│       ├── certificates/
+│       │   └── direct_theta/
+│       │       ├── obligations.json
+│       │       ├── encoding_plan.json
+│       │       ├── strategy_selection.json
+│       │       ├── conic_model.json
+│       │       ├── sos_model.json
+│       │       ├── sdp_model.json
+│       │       ├── certificate.json
+│       │       ├── solver.json
+│       │       ├── verification.json
+│       │       └── result.json
+│       └── summary.json
+├── summary.json
+└── manifest.json
+```
+
+上面的候选解、solver 和 verification 文件属于 `solve` 产物；`model_only` 保存模型、静态验证报告和 `not_solved` 结果。现有 `polynomial_model.json`/`scalar_model.json` 格式保留，新增模型文件使用独立 schema version。`model.py` 只是可选重建入口，统一 Python builder 和 JSON IR 才是实现来源；不序列化或 pickle 整个 `cp.Problem` 作为稳定接口。
+
+自动策略搜索在每个 certificate 目录内增加 `attempts/<attempt-id>/`，分别保存 `encoding_plan.json`、`conic_model.json`（成功编码时）、solver/certificate/verification 产物及诊断；策略生成的 SOS intermediate 仅在对应策略需要时保存。候选根目录的 `strategy_selection.json`/`attempts.json` 汇总 registry、跳过项、计划 hash、尝试费用、raw status、proof status 和最终选择。根目录模型/证书引用选中的 attempt；没有选中结果时不保留看似已成功的旧文件。失败尝试和缺失模块也必须输出可追溯报告。
+
+每个 analysis 目录内的 `summary.json` 记录该 goal 下每个候选的状态、bound、假设、backend route 和 selection。顶层 `summary.json` 只并列 tail-bound 与 assertion-violation 的结果，不跨 goal 选择；一个 job 或候选失败不能删除其他已生成结果。
+
+`manifest.json` 至少记录：
+
+```text
+工具版本和 Python 版本
+CVXPY、NumPy、SciPy、MOSEK 版本与 schema version
+输入文件及 SHA-256
+配置文件及 SHA-256
+随机变量分布和独立性假设
+analysis goal、概率事件、horizon 和 event/reachability mode
+模板类型与 degree
+k、q/b 和 positivity margin
+使用的 proof rule
+请求的 positivity strategy 与每条义务实际使用的 Putinar/Schmüdgen/Handelman 策略
+registry/plugin 版本、不可用模块及原因、条件证据与完备性保证范围
+selector 类型、fallback 原因、EncodingPlan ID/hash、attempt 历史和预算消耗
+relaxation order、各 monomial basis、Gram block 维度与约束来源
+backend=cvxpy、solver=MOSEK、运行 mode、实际 solver parameters
+solver raw status、统计、数值容差、严格验证方法和证明状态
+符号常数到浮点常数的转换、误差处理与严格 guard 的闭包策略
+所有近似和 capability warnings
+各产物 SHA-256
+```
+
+## 13. 测试策略
+
+### 13.1 Parser 测试
+
+- 每类 statement 和表达式的最小样例；
+- precedence：乘法高于加减，逻辑非高于与，逻辑与高于或；
+- 非法 `prob` 嵌套；
+- 错误位置和错误消息；
+- AST golden JSON。
+
+### 13.2 CFG 测试
+
+- sequence continuation；
+- deterministic if 的互补 guard；
+- probabilistic branches 保持在同一 transition group；
+- while body 回到 header；
+- assert false edge 到 `l_f`；
+- `l_t`、`l_f` 吸收；
+- location ID 在重复运行中稳定。
+
+### 13.3 Expectation 测试
+
+- deterministic substitution；
+- simultaneous update；
+- 离散、Uniform、Normal 的低阶 moments；
+- 多个独立随机变量的 joint moment；
+- 概率 branches 加权求和；
+- 不支持的相关分布给出错误。
+
+### 13.4 AnalysisGoal 分流测试
+
+- 同一个 pCFG 可以构造独立的 `TailBoundProblem` 和 `AssertionViolationProblem`；
+- tail-bound job 缺少 horizon、event 或 event mode 时失败；
+- `at_horizon` 与 `by_horizon` 生成不同的 goal-specific obligations；
+- assertion-violation job 缺少 failure location 时失败；
+- tail-bound obligations 包含 contraction 和 tail normalization；
+- assertion-violation obligations 包含 failure boundary 和 pre-fixed point；
+- `prefixed_point` 绑定到 `tail_bound` 时被 compatibility check 拒绝；
+- goal-specific CFG augmentation 不修改共享原始 pCFG；
+- 两种 goal 的 bound 不进入同一个 selection policy。
+
+### 13.5 Template 与 obligation 测试
+
+- `n` 个变量、degree `d` 时 monomial 数量正确；
+- 每个普通 location 有独立模板参数；
+- `l_t=0`、`l_f=1`；
+- 手工小程序的 pre-fixed-point 约束与推导一致；
+- `eta > 0` obligation 覆盖所有需要的位置；
+- 非凸参数组合被 capability check 拒绝。
+
+### 13.6 SOS / CVXPY / MOSEK 后端测试
+
+- 用手工可核对的 `1+x^2`、`(x+1)^2` 验证 Gram basis 和非对角项系数；检查 `sigma_i*g_i` 卷积及零目标系数的高次项。
+- `h`、generator、自由 equality multiplier 和 relaxation order 的次数检查；固定 domain equality 与全局系数恒等式的语义区别。
+- 含未知 `q*eta`、未知 generator 或其他非仿射项时明确拒绝；合法模型通过 `problem.is_dcp()`。
+- 每条 obligation/tag 有 coefficient constraints/PSD blocks 和 origin 映射；JSON round-trip 重建同一 SDP。
+- 同一输入生成确定性的模型 ID、basis、JSON 和 hash；solver 日志、运行时间等动态产物不要求 hash 相同。
+- `model_only` 不调用 MOSEK，可在无许可证环境运行；MOSEK 缺失、许可证错误和求解异常可诊断，不能静默回退。
+- 数值候选通过容差检查仍为 `solved_unverified`；负特征值、系数残差、缺失/非有限候选值和 inaccurate 状态按规则处理。
+- 精确重构后复核 PSD、系数恒等式和原目标；仅严格验证成功的候选进入 `proved` selection。
+- 有 MOSEK 许可证时运行真实 SDP smoke test，验证 `min t` subject to `[[t,1],[1,t]] >> 0` 的数值最优值约为 1，以及已知可行/不可行的小型模型。无许可证时显式 skip 并说明原因，不能声称完整求解链路已通过。
+- 原始严格 guard 的闭包覆盖和全部 goal-specific boundary/transition obligations，防止缩域漏证。
+
+### 13.7 多证书调度测试
+
+- 多个候选共享同一个不可变 pCFG；
+- 各候选 decision variable 和 artifact 命名空间隔离；
+- polynomial 和 scalar moment obligation 路由到不同 backend；
+- 一个候选 `unsupported` 不影响其他候选生成；
+- 只在 `proved` 结果中选择最小 bound；
+- 不兼容假设的 bound 不进行比较；
+- composite mode 在没有已注册 combiner 时明确失败；
+- summary 和 manifest 可以追溯每个结果的配置及产物 hash。
+
+### 13.8 Strategy 插件与自动选择测试
+
+- 仅注册 Putinar、未提供 selector 时，`auto` 经 StaticPlanner 完成小模型构建；有 MOSEK 时验证数值求解链路，无许可证时明确区分已通过的建模检查和未运行的求解。
+- 删除/禁用任意可选策略后，支持的输入仍能走完整模型链路；registry 的 skip/fallback 原因和请求/实际策略可查询。
+- 显式缺失策略的 fallback/error、未知 ID 配置错误、registry 为空、部分义务不支持分别返回规定状态，其他 job/scalar 路径继续。
+- 使用 `x*(1-x)` 在 `[0,1]` 上的手工表示核对 Putinar/Schmüdgen/Handelman 编码；插件未实现时不伪装 PASS，保留该插件专属测试待接入。
+- Handelman 输出无 PSD blocks，非负系数、常数空乘积、指数重复和匹配约束正确；Schmüdgen 的平方自由乘积、次数过滤和产品数上限正确。
+- 混合策略共享同一组模板变量，完整模型覆盖全部义务；任一 fragment 失败时不求解剩余 fragments；不得拼接各义务独立求得的模板系数。
+- domain 特征未知不被当作 proved，辅助条件分析缺失仍允许有限 SOS 搜索；不可添加未经证明的 bounding ball。
+- `model_only` 不运行 solver，不据臆测的求解结果升级策略；selector 缺失、verifier 缺失和 solver 不可用按各自规则处理。
+- 估算规模、次数/时间/attempt 上限和 plan hash 去重真正约束循环；Schmüdgen 指数展开前执行限额检查。
+- infeasible、超时、数值失败、预算耗尽和 unbounded 分别记录；已验证的最好结果不因后续失败丢失，没有证据时不返回原命题为假。
+- 强制完整单策略实现通过相同 contract tests，再逐步启用可选策略；使用 mock 测试注册/调度状态不算真实 MOSEK 求解或严格证书验证通过。
+
+## 14. 推荐实施顺序
+
+阶段 1、2、3A、3B 的最小路径已实现，具体范围见第 0 节。下一步优先完成单 goal、单 certificate 的阶段 4A/4B，再补阶段 3.5 的 portfolio 调度和阶段 4C 的严格验证；现有产物目录不能代替已实现的 runner。以下阶段编号沿用原设计，阶段 4 不依赖多任务 runner 才能开始。
+
+### 阶段 0：固定语义
+
+确定 random declaration、assert、invariant、strict inequality、fresh sampling 和初始状态的输入方式，并补充一到两个手工推导样例。
+
+### 阶段 1：前端与可观察 pCFG
+
+实现 grammar、AST、语义检查、continuation-based CFG builder，以及 AST/CFG 的 JSON、文本和 DOT 导出。此时不实现模板。
+
+验收标准：包含赋值、顺序、普通分支、概率分支、while、assert 和随机 RHS 的程序都能生成稳定 pCFG。
+
+### 阶段 2：多项式与 pre-expectation
+
+实现 polynomial adapter、substitution、distribution moments 和 branch expectation。
+
+验收标准：对小程序能输出每个 transition 的人工可核对 pre-expectation。
+
+### 阶段 3A：Tail-bound 最小流程
+
+实现 `TailBoundGoal`、`at_horizon` 事件、固定 horizon、contractive obligation、bad-set normalization 和 bound expression。先支持固定 `lambda` 的 Kelly scalar moment certificate，再支持 `k=1` polynomial `eta_l` 生成 polynomial obligations。
+
+验收标准：Kelly 三轮样例可以生成独立的 scalar moment model；polynomial tail certificate 的 Obligation IR 中所有系数对 decision variables 仿射。
+
+### 阶段 3B：Assertion-violation 最小流程
+
+实现 `AssertionViolationGoal`、failure/normal boundary、nonnegativity 和 pre-fixed-point obligations。优先实现 direct polynomial `Theta`，再接入 fixed-parameter contractive factorization。
+
+验收标准：带 `assert` 的程序可以生成 `Theta(l_f)>=1`、`Theta(l_t)=0`、transition pre-fixed-point 约束和初始 bound objective。
+
+### 阶段 3.5：Independent 多证书 runner
+
+实现 `AnalysisPlan.jobs`、`GoalDispatcher`、`CertificateRunner`、backend auto-routing、两级结果隔离和 job-local `smallest_proved_bound` selection。
+
+验收标准：同一 pCFG 可以同时建立 tail-bound 与 assertion-violation jobs；tail job 可同时构建 polynomial CVXPY SDP 和 power-template scalar model；任一 job 或候选不支持、求解失败或验证失败时，其他任务仍能独立完成。Summary 按 job 汇总，不能被后续单候选结果覆盖。
+
+### 阶段 4：Python SOS / CVXPY / MOSEK 全流程
+
+**4A：单策略最小链路。** 将目前的 predicate domains lowering 为固定多项式的 basic sets，安全处理严格 guard、析取和 equality；先实现 PositivityStrategy contract、registry、StaticPlanner、完整 fragment assembler 和 Putinar。实现次数配置、共享 Gram/系数匹配、`ConicModel`、CVXPY builder 与 `model_only` 导出。先覆盖现有 `k=1`、固定 `rho/q` 的两个 goal，保留 exact scalar route；此时不要求存在 Schmüdgen、Handelman 或自动排序模块。
+
+验收标准：`.pp -> pCFG -> obligations -> PolynomialPositivityModel -> EncodingPlan -> ConicModel -> cp.Problem` 在 Python 内完成；DCP、obligation/tag/origin 覆盖和手工 Gram 例子检查通过，模型可从 JSON 重建。生成结果为 `not_solved`。仅一个已实现策略时，`auto` 静态降级不抛出可选模块导入错误。
+
+**4B：MOSEK 求解。** 添加并锁定 solver extra，在 Python 中实现 `solver=cp.MOSEK`、solver 参数、候选证书提取、日志/状态映射和新 `solve` 入口；隔离依赖/许可证/数值失败。旧 `analyze` 接口继续兼容。
+
+验收标准：有有效许可证的环境中，小型 SDP 和真实 tail/assertion 模型能沿完整链路执行；无许可证时 model-only 仍可运行。数值成功明确为 `solved_unverified`，不可求解或不支持的真实模型如实报告。
+
+**4C：严格验证和 proved selection。** 实现原始尺度数值复核，再实现至少一条可执行的严格验证路径，如有理重构、精确系数恒等式和精确 PSD 检查；将证书、原始目标和所依赖的程序语义/假设一起验证。
+
+验收标准：已知精确证书可成为 `proved`，扰动或缺少验证保证的数值候选不能进入 proved selection；初始 bound 从验证后的参数重新计算，所有结果可追溯。阶段 4A/4B 完成不等于阶段 4C 完成。
+
+**4D：可选策略逐个接入。** 独立实现 Handelman 和 Schmüdgen，各自通过 PositivityStrategy contract/数学编码测试后注册，复用 ConicModel、builder、solver 与 verifier；不修改 parser、goal rules 或 Putinar 的运行依赖。严格验证器为 LP 系数非负和 SDP PSD 分别实现检查。
+
+验收标准：只启用任意已支持子集时，支持的实例可构建和求解；关闭另一策略不影响已实现路径。混合策略 plan 联合求解，缺失策略和 fallback 可追溯。
+
+**4E：可选自动选择器与预算搜索。** 在 StaticPlanner 可运行后实现 DomainFeatures/evidence、规模排序、有限 plan queue、提高次数和切换策略、attempt 隔离与最好 proved 结果保留。条件分析器缺失返回 unknown，自动选择器缺失退回静态 planner。
+
+验收标准：预算内所有尝试可重现其选择原因；不完整 plan 不调用 solver；预算耗尽/模块缺失/验证缺失按第 10.8–10.9 节结束并输出完整报告。不得要求全部策略实现后才验收阶段 4A/4B。
+
+### 阶段 5：扩展模板和求解策略
+
+再考虑 composite certificate、piecewise polynomial、固定整数 `k>1`、外层参数搜索、alternating optimization 和其他 backend。Schmüdgen/Handelman 属于阶段 4D 的可选 positivity 插件，不要求等到阶段 5 才能接入。只有实现并测试了对应闭包规则后才启用 combiner；非凸模式与标准 LP/SDP 模式应使用不同的配置类型和结果状态。
+
+## 15. `project_detail.md` 中已修正及仍需补充的数学说明
+
+`project_detail.md` 中的两处凸凹性描述已修正，正确关系如下：
+
+- 当 `0 < k <= 1` 时，`r -> r^k` 是 concave，不是 convex；此时 Jensen 给出 `E[R^k] <= E[R]^k`，文档中的不等式方向是正确的。
+- 当 `k > 1` 时，`r -> r^k` 是 convex，不是 concave；仅由 `E[R] <= c` 不能得到所需的高阶矩上界。
+
+还需要明确：
+
+- `eta_l(x)` 的严格正性区域及统一 margin；
+- `k` 是固定参数、离散搜索参数还是待优化变量；
+- `b_l/q_l` 是固定、外层搜索还是同时合成；
+- Hoeffding 所需的 log-ratio 上下界如何获得和验证；
+- assertion bad set 是由程序中的 `assert` 产生，还是由外部 predicate 指定；
+- 最终优化目标是初始 violation bound、contraction rate，还是 feasibility。
+
+这些选择会直接决定问题能否降低为凸 SOS/SDP，因此应进入类型化配置和 manifest，而不是仅作为注释保留。
+
+
+## 16. 2026-10-13 实现进度：有限 horizon tail 后端
+
+本节记录代码当前已验收的子集，不代表阶段 3.5、全部 goal 或阶段 5 均已完成。
+
+- 阶段 4A–4D 的 tail 路径已接通：basic-set lowering、严格 guard 的覆盖闭包、析取拆分、
+  仿射 equality 消元、独立 Putinar/Schmüdgen/Handelman 插件、完整 obligation 覆盖、
+  共享 Gram/系数匹配、可序列化 ConicModel、CVXPY DCP builder、MOSEK 和严格验证。
+  关闭或缺失可选策略时可以降级到可用插件。新增 `build-model`、`solve`、`strategies list`；
+  旧 `analyze` 保留为兼容模型生成/精确 scalar 入口，未改变 assertion 后端范围。
+- 阶段 4E 实现了保守域识别与静态 `auto` 排序、策略/次数的有界重试、候选与 attempt
+  隔离，以及跨固定 k 候选的最小 `proved` 上界选择；每个候选首次证明成功后停止。
+  更一般的成本预测、学习型排序和全局 plan 搜索尚未实现。
+- `analysis/k_policy.py` 实现 `FixedKPolicy((1,2))`，为自动选择 k 预留
+  `OptimizedKPolicy`，后者当前显式报告未实现。默认模板为
+  `Phi_(t,l)=a_(t,l)*eta(x)^k`，eta 固定且正性须验证，权重未知；因此 k=2 仍是凸规划。
+  另支持未知二次等多项式 Phi 的 k=1 模板；未知 eta 的 k=2 未转换为凸问题。
+
+为保留 `kelly_unbounded.pp` 的吸收终止语义，当前 tail solver 采用时间索引证书：
+
+```text
+Phi_(t,l)(x) >= E[Phi_(t+1,l')(X') | l,x]
+Phi_(t,l)(x) >= 0
+Phi_(n,l)(x) >= 1  on the terminal-time event
+Pr[event at n] <= Phi_(0,l_init)(x_init)
+```
+
+这里 n 的单位是 pCFG transition，不是循环轮数。终止 location 的原始吸收边仍保留。
+这条有限 horizon 链路不使用 `rho<1` 的齐次收缩：吸收 event terminal 上的严格收缩
+与 normalization 不兼容，旧 polynomial obligations 不能未经修正直接接入求解。
+新 `finite_tail.py` 独立生成上述约束，而非把旧 `analyze` 的 pending obligations 标成已求解。
+
+域包围证据目前来自有限 horizon 的精确有理离散支持，保存为 `reachability.json`。
+该引擎支持样例的离散概率分支/多项式确定赋值，保留停止路径、检查 invariant，并设置
+状态/horizon 预算；连续随机赋值、非确定性多 group 和一般不变量合成尚未接入。
+参考概率枚举只做独立检查，不进入优化目标。
+
+`proved` 需要通过有理系数重构、精确系数恒等式、非负系数和精确 PSD 检查；对于有理
+二次区间/点域，也实现了原始域不等式的独立严格验证及已有模板系数的倒序修正。
+后一种证书重新计算上界，并明确声明未验证数值 Gram 分解。未经严格验证的数值解
+仍报告 `solved_unverified`，不能进入已证明结果选择。
+
+已在 README 指定的 conda 环境中真实运行 MOSEK：样例从循环头开始、horizon=16、
+event 为 `wealth<=0.45` 时，自动策略 k=1 / k=2 上界为 0.8765672807927252 /
+0.8062264017149271；未知二次多项式 k=1 的 Putinar/SOS 上界为 0.2834152200633418，
+均完成精确验证。62 项测试通过。环境、可复现命令和完整 solver/verification 日志见
+[README 新增运行记录](README.md#2026-10-13python-cvxpy--mosek-tail-bound-后端运行记录030)。
+
+后续仍需完成 TOML/AnalysisPlan 的通用多 job runner、自动 k 优化、一般域证据引擎和
+无限时域证明；assertion-violation solver 按当前任务要求暂不实现。

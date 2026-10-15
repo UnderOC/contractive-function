@@ -1,0 +1,181 @@
+{
+  "status": "proved",
+  "polynomial": "-c0 - c1 + 2",
+  "selected_c": "1/2",
+  "checks": [
+    {
+      "state": [
+        0,
+        0
+      ],
+      "eta": "2",
+      "pre": "1",
+      "residual": "0"
+    },
+    {
+      "state": [
+        0,
+        1
+      ],
+      "eta": "1",
+      "pre": "1/2",
+      "residual": "0"
+    },
+    {
+      "state": [
+        1,
+        0
+      ],
+      "eta": "1",
+      "pre": "1/2",
+      "residual": "0"
+    }
+  ],
+  "completed_boundary": "zero",
+  "manifest_hashes": "matched",
+  "search": {
+    "best_verified_c": "1/2",
+    "degree": 1,
+    "interval": [
+      "511/1024",
+      "1/2"
+    ],
+    "lower_endpoint_is_nonexistence_proof": false,
+    "max_steps": 10,
+    "method": "bisection",
+    "steps": [
+      {
+        "c": "1/2",
+        "interval_after": [
+          "0",
+          "1/2"
+        ],
+        "interval_before": [
+          "0",
+          "1"
+        ],
+        "iteration": 1,
+        "status": "proved"
+      },
+      {
+        "c": "1/4",
+        "interval_after": [
+          "1/4",
+          "1/2"
+        ],
+        "interval_before": [
+          "0",
+          "1/2"
+        ],
+        "iteration": 2,
+        "status": "infeasible"
+      },
+      {
+        "c": "3/8",
+        "interval_after": [
+          "3/8",
+          "1/2"
+        ],
+        "interval_before": [
+          "1/4",
+          "1/2"
+        ],
+        "iteration": 3,
+        "status": "infeasible"
+      },
+      {
+        "c": "7/16",
+        "interval_after": [
+          "7/16",
+          "1/2"
+        ],
+        "interval_before": [
+          "3/8",
+          "1/2"
+        ],
+        "iteration": 4,
+        "status": "infeasible"
+      },
+      {
+        "c": "15/32",
+        "interval_after": [
+          "15/32",
+          "1/2"
+        ],
+        "interval_before": [
+          "7/16",
+          "1/2"
+        ],
+        "iteration": 5,
+        "status": "infeasible"
+      },
+      {
+        "c": "31/64",
+        "interval_after": [
+          "31/64",
+          "1/2"
+        ],
+        "interval_before": [
+          "15/32",
+          "1/2"
+        ],
+        "iteration": 6,
+        "status": "infeasible"
+      },
+      {
+        "c": "63/128",
+        "interval_after": [
+          "63/128",
+          "1/2"
+        ],
+        "interval_before": [
+          "31/64",
+          "1/2"
+        ],
+        "iteration": 7,
+        "status": "infeasible"
+      },
+      {
+        "c": "127/256",
+        "interval_after": [
+          "127/256",
+          "1/2"
+        ],
+        "interval_before": [
+          "63/128",
+          "1/2"
+        ],
+        "iteration": 8,
+        "status": "infeasible"
+      },
+      {
+        "c": "255/512",
+        "interval_after": [
+          "255/512",
+          "1/2"
+        ],
+        "interval_before": [
+          "127/256",
+          "1/2"
+        ],
+        "iteration": 9,
+        "status": "infeasible"
+      },
+      {
+        "c": "511/1024",
+        "interval_after": [
+          "511/1024",
+          "1/2"
+        ],
+        "interval_before": [
+          "255/512",
+          "1/2"
+        ],
+        "iteration": 10,
+        "status": "infeasible"
+      }
+    ],
+    "stop_reason": "max_c_steps",
+    "upper_endpoint_verified": true
+  }
+}

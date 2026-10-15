@@ -1,0 +1,284 @@
+{
+  "sources": {
+    "K2019": {
+      "title": "Tail Probabilities for Randomized Program Runtimes via Martingales for Higher Moments",
+      "year": 2019,
+      "venue": "TACAS",
+      "authors": "Satoshi Kura; Natsuki Urabe; Ichiro Hasuo",
+      "pdf": "https://arxiv.org/pdf/1811.06779v2",
+      "paper": "https://doi.org/10.1007/978-3-030-17465-1_8",
+      "code_entry": null
+    },
+    "W2021": {
+      "title": "Central Moment Analysis for Cost Accumulators in Probabilistic Programs",
+      "year": 2021,
+      "venue": "PLDI",
+      "authors": "Di Wang; Jan Hoffmann; Thomas Reps",
+      "pdf": "https://arxiv.org/pdf/2001.10150",
+      "paper": "https://doi.org/10.1145/3453483.3454062",
+      "author_page": "https://stonebuddha.github.io/publication/wanghr21a/",
+      "code_entry": "https://bitbucket.org/probabilistic/ginfer/src/pldi21/"
+    },
+    "C2024": {
+      "title": "Quantitative Bounds on Resource Usage of Probabilistic Programs",
+      "year": 2024,
+      "venue": "OOPSLA",
+      "authors": "Krishnendu Chatterjee; Amir Kafshdar Goharshady; Tobias Meggendorfer; Djordje Zikelic",
+      "pdf": "https://research-explorer.ista.ac.at/download/17162/17182/2024_ProcACMProgLanguage_Chatterjee.pdf",
+      "paper": "https://doi.org/10.1145/3649824",
+      "artifact": "https://zenodo.org/records/10457566",
+      "code_entry": "https://github.com/djordjezikelic/prob-prog-quantitative-bounds",
+      "extended_version": "https://hal.science/hal-04491689"
+    },
+    "C2022": {
+      "title": "Sound and Complete Certificates for Quantitative Termination Analysis of Probabilistic Programs",
+      "year": 2022,
+      "venue": "CAV",
+      "paper": "https://doi.org/10.1007/978-3-031-13185-1_4",
+      "artifact": "https://tobias.meggendorfer.de/assets/data/2022_cav_prob_program_termination_code.zip",
+      "extended_version": "https://hal.science/hal-03675086"
+    }
+  },
+  "benchmarks": [
+    {
+      "id": "01_coupon2",
+      "name": "Two-coupon collector",
+      "group": "core",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.1, PDF pp.34-35",
+      "original_id": "(1-1)",
+      "also_used_in": [
+        "W2021, Section 6 / Appendix H, (1-1)"
+      ],
+      "initial_state": {
+        "c0": 0,
+        "c1": 0
+      },
+      "distribution": "Each coupon is selected with probability 1/2; fresh independent choices.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/01_coupon2.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "将 refute(c0+c1>1) 改成集齐后退出；删除输入不变量注释；计时改为抽取次数。"
+    },
+    {
+      "id": "02_coupon4",
+      "name": "Four-coupon collector",
+      "group": "core",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.2, PDF p.35",
+      "original_id": "(1-2)",
+      "also_used_in": [
+        "W2021, Section 6 / Appendix H, (1-2)"
+      ],
+      "initial_state": {
+        "c0": 0,
+        "c1": 0,
+        "c2": 0,
+        "c3": 0
+      },
+      "distribution": "Two independent fair branches choose each of 4 coupons with probability 1/4.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/02_coupon4.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "保留四个标志位与嵌套概率分支；未改写成状态依赖概率。C 统计一次完整抽取，不统计抛硬币次数。"
+    },
+    {
+      "id": "03_rw_int",
+      "name": "Integer random walk",
+      "group": "core",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.3, PDF p.35",
+      "original_id": "(2-1)",
+      "also_used_in": [
+        "W2021, Section 6 / Appendix H, (2-1)"
+      ],
+      "initial_state": {
+        "x": 1
+      },
+      "distribution": "Step -1 with probability 0.6; +1 with probability 0.4.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/03_rw_int.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "原目标为 refute(x<1)；本初值和整数更新下等于首次到达0。原文 CFG 时间与本文件 C 不同。"
+    },
+    {
+      "id": "04_rw_real",
+      "name": "Real-valued random walk",
+      "group": "core",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.4, PDF p.35",
+      "original_id": "(2-2)",
+      "also_used_in": [
+        "W2021, Section 6 / Appendix H, (2-2)"
+      ],
+      "initial_state": {
+        "x": 2
+      },
+      "distribution": "Probability 0.7: subtract continuous Uniform[0,1]; otherwise add independent Uniform[0,1].",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/04_rw_real.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "保留先分支后抽样、目标 x<0 和 guard x>=0。Uniform 是连续分布。"
+    },
+    {
+      "id": "05_rdwalk_uniform",
+      "name": "PLDI running example: uniform-increment walk",
+      "group": "core",
+      "source": "W2021",
+      "source_position": "Figure 2 / Example 2.1, PDF p.3",
+      "original_id": "rdwalk / Figure 2",
+      "also_used_in": [],
+      "initial_state": {
+        "x": 0,
+        "d": "symbolic positive parameter"
+      },
+      "distribution": "Continuous Uniform[-1,2] increment on each update.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/05_rdwalk_uniform.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "原程序递归调用后执行 tick(1)，不是尾递归；本循环保留终止执行上的更新序列与总 tick 数，未保留调用/返回 CFG 开销。建议 d=1,5,10,20 为新增实例，不冒充原实验参数。"
+    },
+    {
+      "id": "06_rw_real_large",
+      "name": "Large-initial-value real random walk",
+      "group": "numerical_stress",
+      "source": "K2019",
+      "source_position": "Figure 4, PDF p.12",
+      "original_id": "Figure 4, variant of (2-2)",
+      "also_used_in": [],
+      "initial_state": {
+        "x": 200000000
+      },
+      "distribution": "Same distribution as (2-2).",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/06_rw_real_large.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "这是论文确实给出的 (2-2) 参数变体，测试巨大初始数值下的数值/符号稳定性；不是新算法。"
+    },
+    {
+      "id": "07_polynomial_tail",
+      "name": "Polynomially decreasing iteration tail",
+      "group": "heavy_tail_boundary",
+      "source": "K2019",
+      "source_position": "Appendix G, PDF p.38",
+      "original_id": "Appendix G example",
+      "also_used_in": [],
+      "initial_state": {
+        "m": 1,
+        "r": "initial fresh Uniform[0,1]"
+      },
+      "distribution": "Fresh continuous Uniform[0,1] per guard stage.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/07_polynomial_tail.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "原变量 n 改名 m，避免与尾概率阈值混淆。准确公式 P(C>=d)=1/(d+1)^2；因此 P(C>n)=1/(n+2)^2。几乎必然终止但没有对所有 n 成立的有限前因子严格指数尾界。原文报告一次多项式模板一阶矩实验，而非完整中心矩曲线。"
+    },
+    {
+      "id": "08_escape_200",
+      "name": "Random walk with a rare escape region",
+      "group": "non_ast_boundary",
+      "source": "C2024",
+      "source_position": "Figure 3b, PDF p.8; Table 2, PDF p.24",
+      "original_id": "Figure 3b",
+      "also_used_in": [],
+      "initial_state": {
+        "x": 0
+      },
+      "distribution": "Always add Uniform[-1,0.5]; after this update, add Uniform[-1,2] only if x>=200.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/08_escape_200.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "以 Figure 3b 的代码为准；不是按旧 x 在两个分布中二选一。原 tick(1) 改记 C。存在不终止概率，C=+infinity on nonterminating runs。Table2 原文报告 P(C>=50)<=0.1 和 P(C>=90)<=0.05；并非真值，也非本包运行结果。"
+    },
+    {
+      "id": "09_rw_1d_demonic",
+      "name": "Adversarial one-dimensional walk",
+      "group": "nondeterminism_extension",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.5, PDF p.36",
+      "original_id": "(2-3)",
+      "also_used_in": [
+        "W2021, Appendix H, (2-3)"
+      ],
+      "initial_state": {
+        "x": 2
+      },
+      "distribution": "Demonic choice after an initial probabilistic update; branch probabilities match Listing 1.5.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": false,
+      "file": "benchmarks/09_rw_1d_demonic.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "以附录执行语句重建；原局部不变量注释未检查，未复制。调度器可以观察其选择前已发生的随机结果，不可把 * 换成 prob(0.5)。"
+    },
+    {
+      "id": "10_rw_2d_demonic",
+      "name": "Two-dimensional demonic walk",
+      "group": "nondeterminism_extension",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.6, PDF p.36",
+      "original_id": "(2-4)",
+      "also_used_in": [
+        "W2021, Appendix H, (2-4)"
+      ],
+      "initial_state": {
+        "x": 2,
+        "y": 2
+      },
+      "distribution": "Choose coordinate demonically, then sample continuous Uniform[-2,1].",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": false,
+      "file": "benchmarks/10_rw_2d_demonic.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "依据实验附录 Listing1.6：先选择坐标，后抽样。正文 Figure1 的显示顺序不同，不把两者自动认作相同调度信息模型。两个 refute 目标转换为 x<=0 OR y<=0 时退出。"
+    },
+    {
+      "id": "11_rw_2d_variant",
+      "name": "Two-dimensional variant with probabilistic branches",
+      "group": "nondeterminism_extension",
+      "source": "K2019",
+      "source_position": "Appendix E, Listing 1.7, PDF pp.36-37",
+      "original_id": "(2-5)",
+      "also_used_in": [
+        "W2021, Appendix H, (2-5)"
+      ],
+      "initial_state": {
+        "x": 3,
+        "y": 2
+      },
+      "distribution": "Demonic choice, then probability 0.7/0.3, then a fresh continuous uniform sample.",
+      "measure": "loop_iterations",
+      "current_grammar_compatible": false,
+      "file": "benchmarks/11_rw_2d_variant.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "目标为 x<=y。保持概率/非确定性/采样的原有顺序；去除未核验的不变量注释。"
+    },
+    {
+      "id": "12_signed_cost_multiplicative",
+      "name": "Multiplicative update with signed costs",
+      "group": "output_cost_supplement",
+      "source": "C2024",
+      "source_position": "Figure 3a / Example 3.1, PDF pp.7-8; Table 1 Example 1",
+      "original_id": "Figure 3a / Example 1 (not Example 1 Inf)",
+      "also_used_in": [],
+      "initial_state": {
+        "x": 1,
+        "y": 1
+      },
+      "distribution": "Continuous Uniform[-1,0.5] for x and an independent fair coin for the multiplier of y.",
+      "measure": "signed_accumulated_cost_equals_terminal_y",
+      "current_grammar_compatible": true,
+      "file": "benchmarks/12_signed_cost_multiplicative.ppl",
+      "code_status": "independently_normalized_from_paper_not_author_source",
+      "notes": "补充成本尾概率样例，不是 Table2 的 Example1Inf。原初始 tick(y) 与后续 tick(+-y/2) 改写为成本变量C；完整更新后C=y。查询终止输出成本，不查询循环次数。"
+    }
+  ],
+  "notice": "All .ppl files are normalized reconstructions from paper code, not downloaded original files. No baseline tool was run."
+}

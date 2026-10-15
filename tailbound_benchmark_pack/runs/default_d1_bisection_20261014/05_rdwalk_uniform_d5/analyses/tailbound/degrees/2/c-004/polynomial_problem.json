@@ -1,0 +1,177 @@
+{
+  "c": "15/16",
+  "certificate_family": "polynomial",
+  "context": null,
+  "decisions": [
+    "v_L_assign_1_0",
+    "v_L_assign_1_1",
+    "v_L_assign_1_2",
+    "v_L_refute_1_0",
+    "v_L_refute_1_1",
+    "v_L_refute_1_2",
+    "v_L_while_1_0",
+    "v_L_while_1_1",
+    "v_L_while_1_2"
+  ],
+  "degree": 2,
+  "expressions": {
+    "L_assign_1": "v_L_assign_1_0 + v_L_assign_1_1*x + v_L_assign_1_2*x**2",
+    "L_refute_1": "v_L_refute_1_0 + v_L_refute_1_1*x + v_L_refute_1_2*x**2",
+    "L_while_1": "v_L_while_1_0 + v_L_while_1_1*x + v_L_while_1_2*x**2",
+    "l_f": "1",
+    "l_t": "0"
+  },
+  "goal": "tailbound",
+  "objective": "16*v_L_while_1_0/15",
+  "obligations": [
+    {
+      "conclusion": "v_L_assign_1_0 + v_L_assign_1_1*x + v_L_assign_1_2*x**2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "5 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_assign_1_positive_0",
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_refute_1_0 + v_L_refute_1_1*x + v_L_refute_1_2*x**2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 5",
+          "7 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_refute_1_positive_0",
+      "origin": {
+        "location": "L_refute_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_while_1_0 + v_L_while_1_1*x + v_L_while_1_2*x**2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "7 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_while_1_positive_0",
+      "origin": {
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "15*v_L_refute_1_0/16 + 15*v_L_refute_1_1*x/16 + 15*v_L_refute_1_2*x**2/16 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 5",
+          "7 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_2_0",
+      "origin": {
+        "line": 9,
+        "location": "L_refute_1",
+        "transition": "T_2"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "15*v_L_assign_1_0/16 + 15*v_L_assign_1_1*x/16 + 15*v_L_assign_1_2*x**2/16 - v_L_while_1_0 - v_L_while_1_1*x - v_L_while_1_1/2 - v_L_while_1_2*x**2 - v_L_while_1_2*x - v_L_while_1_2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "5 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_3_0",
+      "origin": {
+        "line": 6,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-v_L_assign_1_0 - v_L_assign_1_1*x - v_L_assign_1_2*x**2 + 15*v_L_while_1_0/16 + 15*v_L_while_1_1*x/16 + 15*v_L_while_1_2*x**2/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "7 - x",
+          "5 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_4_0",
+      "origin": {
+        "line": 4,
+        "location": "L_while_1",
+        "transition": "T_4"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-v_L_refute_1_0 - v_L_refute_1_1*x - v_L_refute_1_2*x**2 + 15*v_L_while_1_0/16 + 15*v_L_while_1_1*x/16 + 15*v_L_while_1_2*x**2/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "7 - x",
+          "x - 5"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_5_0",
+      "origin": {
+        "line": 4,
+        "location": "L_while_1",
+        "transition": "T_5"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    }
+  ]
+}

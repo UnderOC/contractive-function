@@ -32,16 +32,19 @@ def _parser():
         command.add_argument('--goal', choices=('tailbound','assertion_violation'), required=True)
         command.add_argument('--out-dir', type=Path)
         for field in ('initial_degree','max_degree','degree_step','max_order','max_attempts_per_point',
-                      'max_parameter_points','max_products','max_psd_dimension','max_decisions'):
+                      'max_parameter_points','max_c_steps','max_products','max_psd_dimension','max_decisions'):
             command.add_argument('--'+field.replace('_','-'), type=int, default=getattr(defaults,field))
         for field in ('total_seconds','per_attempt_seconds'):
             command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field))
-        command.add_argument('--c-values', nargs='+', default=list(defaults.c_values))
+        command.add_argument('--c-values', nargs='+', default=None,
+                             help='explicit grid override for reproducing previous runs; default is bisection')
         command.add_argument('--continue-after-success', action='store_true')
         command.add_argument('--strategy', choices=('auto','putinar','schmudgen','handelman'), default='auto')
         command.add_argument('--enabled-strategies', nargs='+', choices=('putinar','schmudgen','handelman'),
                              default=list(defaults.enabled_strategies))
         command.add_argument('--family', choices=('polynomial','fractional_power'), default='polynomial')
+        command.add_argument('--tail-rule', choices=('auto','round_survival','late_bad_exit'), default='auto',
+                             help='auto uses a proved Boolean round kernel when supported; otherwise late_bad_exit')
     strategies = commands.add_parser('strategies', help='query optional positivity plugins')
     strategies.add_argument('operation', choices=('list',))
     strategies.add_argument('--json', action='store_true')
@@ -67,7 +70,8 @@ def main(argv=None):
             value = sp.Rational(bound['A_exact']) * sp.Rational(bound['c'])**args.n
             result = {'status':'proved','n':args.n,'upper_bound_exact':str(min(sp.Integer(1),value)),
                       'upper_bound_numeric':float(min(sp.Integer(1),value)),
-                      'numeric_is_display_only':True,'expression':bound['expression'], 'event':bound['event']}
+                      'numeric_is_display_only':True,'expression':bound['expression'], 'event':bound['event'],
+                      'time_unit':bound['time_unit']}
         elif args.command == 'parse':
             checked = check_program(parse_file(args.source))
             args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -78,7 +82,8 @@ def main(argv=None):
         else:
             fields = {field:getattr(args,field) for field in SearchOptions.__dataclass_fields__ if hasattr(args,field)}
             for field in ('c_values','enabled_strategies'):
-                fields[field] = tuple(fields[field])
+                if fields[field] is not None:
+                    fields[field] = tuple(fields[field])
             result = run_analysis(args.source,args.goal,args.out_dir,options=SearchOptions(**fields),
                                   model_only=args.command!='solve')
         print(json.dumps(result,sort_keys=True))

@@ -1,0 +1,38 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp
+initial: L_assign_2
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: m, r
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(m >= 1 and r >= 0 and r <= 1 and r * (m + 1) * (m + 1) - m * m >= 0) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp:21:1
+  L_while_1 [while] invariant=(m >= 1 and r >= 0 and r <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp:11:1
+  L_assign_1 [assign] invariant=(m >= 1 and r >= 0 and r <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp:17:3
+  L_sample_1 [sample] invariant=(m >= 1 and r >= 0 and r <= 1 and m * m - r * (m + 1) * (m + 1) >= 0) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp:15:3
+  L_sample_2 [sample] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp:9:1
+  L_assign_2 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp:8:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(false)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: m := m + 1
+  T_4: L_sample_1 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: r := __sample_r_1; samples: __sample_r_1 ~ Uniform(0, 1) [fresh]
+  T_5: L_while_1 guard=(r * (m + 1) * (m + 1) <= m * m)
+    branch 1: p=1 -> L_sample_1; update: identity
+  T_6: L_while_1 guard=(not r * (m + 1) * (m + 1) <= m * m)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_7: L_sample_2 guard=(true)
+    branch 1: p=1 -> L_while_1; update: r := __sample_r_2; samples: __sample_r_2 ~ Uniform(0, 1) [fresh]
+  T_8: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_sample_2; update: m := 1

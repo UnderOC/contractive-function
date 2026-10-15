@@ -1,0 +1,810 @@
+{
+  "domains": {
+    "L_assign_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      }
+    ],
+    "L_refute_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "m**2*r - m**2 + 2*m*r + r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      }
+    ],
+    "L_sample_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r",
+          "-m**2*r + m**2 - 2*m*r - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "m - 1",
+          "r",
+          "1 - r"
+        ],
+        "variables": [
+          "m",
+          "r"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "m",
+          "r"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "m",
+          "r"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "m": "1",
+    "r": "__initial_sample_1"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [
+    "__initial_sample_1"
+  ],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [
+        "__initial_sample_1",
+        "1 - __initial_sample_1"
+      ],
+      "variables": [
+        "__initial_sample_1"
+      ]
+    }
+  ],
+  "initialization_steps": 2,
+  "initialization_trace": [
+    {
+      "destination": "L_sample_2",
+      "location": "L_assign_2",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_8",
+      "values": {
+        "m": "1"
+      }
+    },
+    {
+      "destination": "L_while_1",
+      "location": "L_sample_2",
+      "samples": [
+        {
+          "arguments": [
+            "0",
+            "1"
+          ],
+          "distribution": "Uniform",
+          "fresh_symbol": "__initial_sample_1",
+          "source_symbol": "__sample_r_2"
+        }
+      ],
+      "support_regions": 1,
+      "transition": "T_7",
+      "values": {
+        "m": "1",
+        "r": "__initial_sample_1"
+      }
+    }
+  ],
+  "locations": [
+    "L_assign_1",
+    "L_refute_1",
+    "L_sample_1",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_2",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_8"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_sample_2",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_7"
+    },
+    {
+      "kind": "initial_control_invariant",
+      "location": "L_while_1",
+      "proofs": [
+        {
+          "predicate_region": 0,
+          "proofs": [
+            {
+              "method": "constant",
+              "value": "0"
+            },
+            {
+              "conclusion": "__initial_sample_1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "__initial_sample_1",
+                  "1 - __initial_sample_1"
+                ],
+                "variables": [
+                  "__initial_sample_1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - __initial_sample_1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "__initial_sample_1",
+                  "1 - __initial_sample_1"
+                ],
+                "variables": [
+                  "__initial_sample_1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "__initial_sample_1",
+              "1 - __initial_sample_1"
+            ],
+            "variables": [
+              "__initial_sample_1"
+            ]
+          },
+          "support_region": 0
+        }
+      ]
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "m",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "m - 1",
+              "r",
+              "1 - r"
+            ],
+            "variables": [
+              "m",
+              "r"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "m - 1",
+              "r",
+              "1 - r",
+              "m**2*r - m**2 + 2*m*r + r"
+            ],
+            "variables": [
+              "m",
+              "r"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "m - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r",
+                  "__sample_r_1",
+                  "1 - __sample_r_1"
+                ],
+                "variables": [
+                  "m",
+                  "r",
+                  "__sample_r_1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "__sample_r_1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r",
+                  "__sample_r_1",
+                  "1 - __sample_r_1"
+                ],
+                "variables": [
+                  "m",
+                  "r",
+                  "__sample_r_1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - __sample_r_1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r",
+                  "__sample_r_1",
+                  "1 - __sample_r_1"
+                ],
+                "variables": [
+                  "m",
+                  "r",
+                  "__sample_r_1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "m - 1",
+              "r",
+              "1 - r",
+              "-m**2*r + m**2 - 2*m*r - r",
+              "__sample_r_1",
+              "1 - __sample_r_1"
+            ],
+            "variables": [
+              "m",
+              "r",
+              "__sample_r_1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [
+        {
+          "arguments": [
+            "0",
+            "1"
+          ],
+          "distribution": "Uniform",
+          "symbol": "__sample_r_1"
+        }
+      ],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "m - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "-m**2*r + m**2 - 2*m*r - r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "-m**2*r + m**2 - 2*m*r - r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "m - 1",
+              "r",
+              "1 - r",
+              "-m**2*r + m**2 - 2*m*r - r"
+            ],
+            "variables": [
+              "m",
+              "r"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "m - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "m**2*r - m**2 + 2*m*r + r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "m**2*r - m**2 + 2*m*r + r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "m**2*r - m**2 + 2*m*r + r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "m**2*r - m**2 + 2*m*r + r",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "m - 1",
+                  "r",
+                  "1 - r",
+                  "m**2*r - m**2 + 2*m*r + r"
+                ],
+                "variables": [
+                  "m",
+                  "r"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "m - 1",
+              "r",
+              "1 - r",
+              "m**2*r - m**2 + 2*m*r + r"
+            ],
+            "variables": [
+              "m",
+              "r"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

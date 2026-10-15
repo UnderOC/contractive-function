@@ -49,6 +49,28 @@ def test_discrete_uniform_normal_and_bernoulli_raw_moments_are_exact() -> None:
     assert [bernoulli.raw_moment(i) for i in range(4)] == [1, sp.Rational(2, 5), sp.Rational(2, 5), sp.Rational(2, 5)]
 
 
+def test_distribution_supports_are_exact_closed_sets() -> None:
+    sample = sp.Symbol("sample")
+    uniform = UniformDistribution(sp.Rational(-1), sp.Rational(2))
+    assert uniform.support(sample)[0].generators == (sample + 1, 2 - sample)
+    assert uniform.support(sample)[0].equalities == ()
+
+    normal = NormalDistribution(0, 1)
+    assert normal.support(sample)[0].generators == ()
+    assert normal.support(sample)[0].equalities == ()
+
+    bernoulli = BernoulliDistribution(sp.Rational(2, 5))
+    assert {region.equalities for region in bernoulli.support(sample)} == {
+        (sample,), (sample - 1,)
+    }
+    assert BernoulliDistribution(0).support(sample) == (
+        bernoulli.support(sample)[0],
+    )
+    assert BernoulliDistribution(1).support(sample) == (
+        bernoulli.support(sample)[1],
+    )
+
+
 def test_independent_joint_moment_multiplies_and_explicit_provider_overrides() -> None:
     independent = IndependentRandomModel(
         {"r": UniformDistribution(0, 2), "z": BernoulliDistribution(sp.Rational(1, 2))}

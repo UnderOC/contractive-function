@@ -10,7 +10,7 @@
             -> CFG 静态验证及 JSON / text / DOT 产物
             -> exact polynomial / moment / pre-expectation
             -> 源码初态 / 全时域归纳域 / 直接多项式义务
-            -> 次数与 c 网格搜索 -> 可选 positivity 编码
+            -> 次数递增与 c 有界二分搜索 -> 可选 positivity 编码
             -> CVXPY / MOSEK -> 精确验证 -> 统一 A*c**n
 ```
 
@@ -43,7 +43,7 @@
 
 `prob(...)` 只能直接作为 `if` 条件。常数概率必须在 `[0,1]`；状态相关概率会在 `validation.json` 中留下范围证明义务。赋值 update 在单条 transition 内是 simultaneous 的，源程序的顺序赋值由不同 location 表示。
 
-`assert E` 在 `not E` 时进入失败终端 `l_f`；`refute E` 在 `E` 时进入 `l_f`，这与两个随附样例“分析谓词事件”的写法一致。自然结束进入 `l_t`，`l_t` 和存在时的 `l_f` 均有吸收 self-loop。严格不等式在 pCFG 中原样保存；证明域采用覆盖闭包，不通过正 margin 缩域。源语言能解析的构造不一定已获统一证书后端支持，具体限制见下文。
+`assert E` 在 `not E` 时进入失败终端 `l_f`；`refute E` 在 `E` 时进入 `l_f`，这与两个随附样例“分析谓词事件”的写法一致。自然结束进入 `l_t`，`l_t` 和存在时的 `l_f` 均有吸收 self-loop。严格不等式在 pCFG 中原样保存；一般实数证明域采用覆盖闭包，已验证的布尔宏步域则精确判断原始严格守卫，不通过任意正 margin 缩域。源语言能解析的构造不一定已获统一证书后端支持，具体限制见下文。
 
 ## 已实际使用的测试环境
 
@@ -94,7 +94,7 @@ conda run -n contractive-frontend-test-20260814 \
 
 ### 统一指数尾界与 assertion 建模
 
-只需程序和目标；事件从 assert/refute 获得，初值从源码确定性初始化获得：
+只需程序和目标；事件从 assert/refute 获得，初始状态或初始分布从源码直线初始化前缀获得：
 
 ```bash
 conda run -n contractive-frontend-test-20260814 \
@@ -105,13 +105,19 @@ conda run -n contractive-frontend-test-20260814 \
 ```
 
 第二条仅生成约束并返回 `not_solved: assertion_backend_not_implemented`。第一条默认从
-D=2 搜索到 D=6；每个次数尝试 c∈{1/2,9/10,99/100}，只在没有已验证结果时继续升阶。
-首个成功次数内比较 c，再比较 A。`--continue-after-success` 可以继续升阶。
+D=1 搜索到 D=6；每个次数从区间 (0,1) 开始二分 c，默认最多 10 个参数点，
+用 `--max-c-steps` 配置。只在没有已验证结果时继续升阶；全局参数点和时间预算仍生效。
+首个成功次数内先选最小的已验证 c，再比较 A。`--continue-after-success` 可以继续升阶。
+显式 `--c-values 1/2 9/10 99/100` 可复现旧网格，默认不使用该网格。
 `analyze`/`build-model` 只生成模型，不调用 MOSEK。输出目录可用 `--out-dir` 指定，
 缺省为 `generated/<stem>_<goal>_<timestamp>/`，必须是新的或空的目录。
 
-Tail 结论是 `Pr[T<∞, T>n, failure] <= A*c**n`，对所有非负整数 n 统一成立。
-T 从程序入口按 pCFG 转移计数，包含初始化；不把无限运行质量重新归一化。
+Tail 默认 `--tail-rule auto`：能验证布尔循环入口域及完整一轮转移时，合成
+`Pr[K>n] <= A*c**n`，K 按完整循环体轮数计数，未结束 eta>=1、结束 eta=0。
+否则在摘要记录原因，并使用保留的 `late_bad_exit` 规则：
+`Pr[T<∞, T>n, failure] <= A*c**n`，T 从入口按 pCFG 转移计数、包含初始化。
+两种结论均对所有非负整数 n 成立，不把无限运行质量重新归一化。
+可显式指定 `--tail-rule round_survival`，此时域/宏步不支持就返回 unsupported。
 若没有通过精确验证的证书，输出 `no_certificate_found`，不伪造公式。
 
 `contractive evaluate <已证明产物目录> --n 100` 只代入现有公式，不重新求解。
@@ -149,6 +155,7 @@ CFG JSON 中概率选择的多个 branches 保留在同一个 `transition_group`
 `solve`/`build-model` 的共享前端结果在 `shared/`，其余产物包括：
 
 - `analyses/<goal>/goal.json`、`domain_evidence.json`；
+- 布尔轮次路径额外保存 `round_evidence.json`：完整有限状态域、精确路径/概率/更新及计时；
 - `analyses/<goal>/degrees/<D>/c-<id>/polynomial_problem.json`：模板、目标和全部原始义务；
 - 各参数点 `attempts/<id>/` 下的 encoding_plan、conic_model、solver.json、solver.log；
 - 候选的 verification.json；只有严格证明后才生成 certificate.json；
@@ -156,14 +163,20 @@ CFG JSON 中概率选择的多个 branches 保留在同一个 `transition_group`
 
 ## 当前限制
 
-- Tail 当前只支持 late_bad_exit；不把未知终止程序的 `Pr[T>n]` 当作指数衰减事件。
-- 所有状态变量须在控制流之前由源码确定性初始化。Invariant 闭包须通过精确初态与
-  归纳保持验证；当前检查器使用有理 Farkas 恒等式，证不出即报告 unsupported。
-- 源码随机赋值/声明 fresh sampling 的支持域证据、assume 阻塞语义、循环宏步时钟
-  尚未接入统一后端；前端及精确随机矩模块保留，不代表这些程序已可生成证书。
+- Tail 支持已证明布尔域的 round_survival 和原有 late_bad_exit；前者由证书推导几乎
+  处处终止，后者不假定终止。不可把求解前的未知终止性当作已证明。
+- 所有状态变量须在控制流之前由源码的直线赋值/采样前缀初始化。确定前缀使用精确
+  有理值；随机前缀逐次 alpha-renaming，并以精确独立矩计算入口期望。Invariant 闭包
+  须通过初始支持和归纳保持验证；当前检查器证不出即报告 unsupported。
+- `Uniform` 使用精确闭区间支持，`Bernoulli` 使用精确有限支持，`Normal` 使用全实数
+  支持；循环内 fresh sample 的归纳性在源域与完整支持域的乘积上证明，不作离散化。
+  `assume` 阻塞语义仍未接入。当前宏步仅支持布尔入口域、无轮内采样和嵌套循环、
+  无轮内提前退出，最多 256 个候选状态和 4096 个路径展开节点；一般连续域宏步待扩展。
 - Assertion violation 只生成约束，不求解。非整数族请求明确报未实现；当前不枚举 k。
-- c 是有限有理网格；SOS/Schmüdgen/Handelman 是有限编码尝试，不保证完备。
-  模板默认 D=2..6，编码 order 上限 4，每参数点最多 2 次，总时间软预算 300 秒，
+- c 默认使用有界有理二分；只有 proved 更新上端，当前编码均报告 infeasible 才更新
+  下端，其他不确定结果停止本次数的 c 搜索且不移动端点。保留已有证书；搜索区间
+  不表示数学最优值的严格包围。SOS/Schmüdgen/Handelman 是有限编码尝试，不保证完备。
+  模板默认 D=1..6，编码 order 上限 4，每参数点最多 2 次，总时间软预算 300 秒，
   单次 MOSEK optimizer 上限 30 秒。可用 `solve --help` 查看可选预算。
 - 数值 optimal 仍须有理恒等式、非负系数及精确 PSD 验证；未验证的不参与选择。
   `no_certificate_found` 仅表示本次搜索未找到，不证明不存在，也不证明程序不收缩。
@@ -181,6 +194,10 @@ conda run -n contractive-frontend-test-20260814 pytest -q
 前端历史测试记录，不作为当前后端的验收结论。
 
 ## 2026-10-14：统一指数尾界后端运行记录（0.4.0）
+
+本节为布尔宏步修复前的历史运行记录，采用 pCFG 时钟和固定网格；现版复现时使用
+`--tail-rule late_bad_exit --c-values 1/2 9/10 99/100`（原命令若已指定网格则沿用）。
+默认 auto 和二分的新结果见文末。
 
 沿用 `contractive-frontend-test-20260814`，实际解释器为
 `/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python`。
@@ -250,3 +267,193 @@ Pr[T<∞, T>n, failure]
 
 旧的 finite_tail、k_policy、reachability、tail_pipeline、Kelly scalar goal 及时间层
 倒序修正代码已经删除。非整数 k 的接口单独保留，当前明确拒绝，不影响多项式路径。
+
+## 2026-10-14：一轮计时、布尔循环域与生存证书边界修复
+
+新增通用 `analysis/rounds.py`，从 CFG 验证完整一轮的路径、概率、顺序更新和域保持。
+布尔性由初态及全部宏步更新证明；严格 guard 不再把已完成状态放入继续循环域。
+循环入口使用未知多项式 eta：未完成 eta>=1，完成 eta=0，约束为
+`Pre_round(eta)<=c*eta`，目标 A=eta(initial)。在完整有限布尔域上生成精确 LP，继续
+使用原有 CVXPY/MOSEK 和有理数验证。这里枚举的是归纳状态域，不是有限 horizon。
+未引入样例专用公式、文件名判断或变量名判断。
+
+c 搜索保持 `1/2,9/10,99/100`；以下仅测试 D=1，没有引入 c=3/4 参数点。
+继续使用本 README 的 conda 环境和已有 MOSEK 许可证。实际命令：
+
+```bash
+python -m contractive_tool solve tailbound_benchmark_pack/pp/01_coupon2.pp \
+  --goal tailbound --initial-degree 1 --max-degree 1 \
+  --out-dir tailbound_benchmark_pack/runs/round_d1_verified_20261014/01_coupon2
+python -m contractive_tool solve tailbound_benchmark_pack/pp/02_coupon4.pp \
+  --goal tailbound --initial-degree 1 --max-degree 1 \
+  --out-dir tailbound_benchmark_pack/runs/round_d1_verified_20261014/02_coupon4
+pytest -q
+```
+
+| 输入 | 已验证多项式 | 选择的 c | 全部轮次的尾界 | 求解耗时 |
+| --- | --- | --- | --- | --- |
+| 01_coupon2 | `2-c0-c1` | 1/2 | `Pr[K>n] <= min(1,2*(1/2)**n)` | 1.29 秒 |
+| 02_coupon4 | `4-c0-c1-c2-c3` | 9/10 | `Pr[K>n] <= min(1,4*(9/10)**n)` | 3.39 秒 |
+
+K 为完整抽取轮数；02 的 pCFG 时间另存为 `T=4+4*K+2`。02 在 c=1/2 时不可行，
+c=9/10 和 99/100 均找到相同 eta，按现有选择规则选 9/10。独立有理数检查还验证了
+该多项式确有 `Pre_round(eta)=3/4*eta`；这说明它有更紧的已知收缩率，但本次没有
+改变搜索或将所选参数替换成 3/4。01 的对应精确比值为 1/2。
+
+全量回归 **79 passed in 16.59s**，无跳过，包含真实 MOSEK、原有 pCFG 规则、
+布尔域保持、严格边界、顺序更新、非终止反例、轮内提前退出拒绝、重命名通用性及
+assertion 仍只建模等检查。较早的一次全量命令只指定了 conda 解释器而未设置 PATH，
+导致 3 个 CLI 子进程找不到 `contractive`；在完整 conda PATH 下重跑后全部通过。
+
+- [运行索引及命令输出](tailbound_benchmark_pack/runs/round_d1_verified_20261014/run_index.json)。
+- [02 精确证书](tailbound_benchmark_pack/runs/round_d1_verified_20261014/02_coupon4/analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json)。
+- [02 独立检查](tailbound_benchmark_pack/runs/round_d1_verified_20261014/02_coupon4.independent_check.json)。
+- [完整测试日志](generated/round_backend_regression_20261014.log)。
+
+同步更新了 framework 的轮次规则及实现范围，修改前备份为
+`framework.md.bak.20261014_round_fix`。一般连续域宏步仍未实现；auto 的回退原因与
+最终采用的事件/时钟会明确写入产物，assertion violation 后端仍不启用。
+
+
+## 2026-10-14：c 有界二分搜索与 D=1 复测
+
+默认 c 选择已由固定网格改成 (0,1) 内的精确有理二分。每个 D 从 c=1/2 开始，
+最多搜索 `--max-c-steps 10` 个参数点；每次只把固定 c 交给 CVXPY/MOSEK，仍保持
+系数合成模型的凸性。每参数点最多 2 次编码尝试，整个任务最多 32 个参数点，
+原有时间预算继续生效。显式 `--c-values` 仅用于复现旧网格结果。
+
+proved 更新上端；已尝试编码全部报告 infeasible 才更新下端。数值未知、验证失败等
+不确定状态不更新端点，停止当前次数的 c 搜索并保留已有证书。每次升阶重置区间。
+完整反馈及停止原因保存在 summary.json 的 `contraction_searches`；初始端点 1 不被
+当作已验证候选，下端也不是原始多项式不存在的数学证明。
+
+在本 README 的 conda 环境中运行（复跑请换新的输出目录）：
+
+```bash
+python -m contractive_tool solve tailbound_benchmark_pack/pp/01_coupon2.pp \
+  --goal tailbound --initial-degree 1 --max-degree 1 --max-c-steps 10 \
+  --out-dir tailbound_benchmark_pack/runs/bisection_d1_20261014/01_coupon2
+python -m contractive_tool solve tailbound_benchmark_pack/pp/02_coupon4.pp \
+  --goal tailbound --initial-degree 1 --max-degree 1 --max-c-steps 10 \
+  --out-dir tailbound_benchmark_pack/runs/bisection_d1_20261014/02_coupon4
+pytest -q
+```
+
+| 输入 | 已验证 eta | 选中 c | 统一尾界（K 为抽取轮数） | 搜索点/实际求解次数 | 耗时 |
+| --- | --- | --- | --- | --- | --- |
+| 01_coupon2 | 2-c0-c1 | 1/2 | min(1,2*(1/2)^n) | 10 / 19 | 1.70 秒 |
+| 02_coupon4 | 4-c0-c1-c2-c3 | 3/4 | min(1,4*(3/4)^n) | 10 / 19 | 4.68 秒 |
+
+01 搜索顺序从 1/2、1/4、3/8 开始，最终区间为 [511/1024,1/2]；02 从 1/2、3/4、5/8
+开始，最终为 [767/1024,3/4]。两者均完成 10 个参数点，以 `max_c_steps` 结束本次数
+的 c 搜索，再以 `first_successful_degree` 停止整体搜索。02 的指数式已收紧为
+`Pr[K>n] <= min(1,4*exp(-log(4/3)*n))`；3/4 是算法实际访问并验证的参数点，未硬编码。
+
+独立有理数检查覆盖全部布尔入口状态：未完成 eta>=1，完成 eta=0，且这两个返回的
+证书均精确满足 `Pre_round(eta)=c*eta`。运行产物 SHA-256 逐一核对通过。
+完整回归 **90 passed in 18.47s**，包含搜索步数上限、每次升阶重置、未知不缩区间、
+未知后保留证书、真实 MOSEK 与两个实例的精确尾概率核对。
+
+- [运行索引和命令](tailbound_benchmark_pack/runs/bisection_d1_20261014/run_index.json)
+- [01 独立验证](tailbound_benchmark_pack/runs/bisection_d1_20261014/01_coupon2.independent_check.json)
+- [02 独立验证及逐步搜索区间](tailbound_benchmark_pack/runs/bisection_d1_20261014/02_coupon4.independent_check.json)
+- [02 返回证书](tailbound_benchmark_pack/runs/bisection_d1_20261014/02_coupon4/analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json)
+- [完整回归日志](generated/bisection_regression_20261014.log)
+
+framework 已同步搜索算法和预算，修改前另存 `framework.md.bak.20261014_bisection`。
+
+
+## 2026-10-14：默认纳入 D=1，并测试其余 benchmark
+
+framework 和运行默认值均已从 D=2 改为 **D=1..6**；一次模板无证书时继续升阶。
+CLI、Python API 和批量驱动一致。批量脚本改为冻结当前 SearchOptions，避免继续
+使用旧 D=2/固定网格。每个 D 仍最多 10 次 c 二分，全局最多 32 个参数点。
+修改前框架保存在 `framework.md.bak.20261014_degree1`。
+
+在本 README 的 conda 环境中运行：
+
+```bash
+python tailbound_benchmark_pack/run_tailbound_suite.py \
+  --output-root tailbound_benchmark_pack/runs/default_d1_bisection_20261014 --jobs 3
+pytest -q
+```
+
+12 个可运行实例均完成，无未处理异常，墙钟 195.32 秒：
+
+- 01、02 在默认 D=1 下分别验证 `2*(1/2)^n`、`4*(3/4)^n` 的轮次尾界。
+- 03、04、05 的 d=1/5/10/20、06、07、08、12 共 10 个其他实例全部实际尝试了 D=1，
+  并继续搜索到次数上限或参数点预算；最终均为 no_certificate_found，不表示无解。
+- 这些其他实例超出当前布尔宏步编译器的范围，auto 回退到 pCFG late_bad_exit，
+  回退原因已逐例记录；没有将它们描述为已完成一般连续域宏步求解。
+- 09、10、11 非确定性实例继续跳过并注明，未替换为随机分支。
+
+全量回归 **90 passed in 19.26s**。批次共 280 个参数点、558 次尝试；全部进程返回 0，
+stderr 为空，源码/产物哈希以及实际 D=1 solver 记录已核对。
+详见 [完整测试报告](tailbound_benchmark_pack/TEST_RESULTS.md)、
+[本批机器汇总](tailbound_benchmark_pack/runs/default_d1_bisection_20261014/results.json)、
+[运行索引](tailbound_benchmark_pack/runs/default_d1_bisection_20261014/run_index.json) 和
+[回归日志](generated/degree1_default_regression_20261014.log)。
+
+
+## 2026-10-15：RCD_example.pp 新样例测试
+
+新增 [RCD_example.pp](RCD_example.pp)，保留用户给定的初态 `x=-1/2,y=1`、
+每轮独立 Bernoulli(1/2) 坐标选择和 `x=-y/2` / `y=-x/2` 更新。
+由于当前语法没有除法，将原守卫 `(x*x+x*y+y*y)/2 > 3/8192` 精确等价改写为
+`4096*(x*x+x*y+y*y)>3`；0.5 由前端转为精确有理数 1/2。
+添加可由初态和两分支归纳验证的 box invariant：`-1/2<=x<=0, 0<=y<=1`，
+不限制原程序的实际运行。末尾 `refute true` 标记所有有限退出供当前 tailbound 分析。
+
+使用本 README 的 conda 环境和真实 MOSEK，运行：
+
+```bash
+python -m contractive_tool solve RCD_example.pp --goal tailbound \
+  --out-dir generated/RCD_example_default_20261015
+```
+
+语法、CFG、初始化和归纳域检查通过。默认 D=1..6、每次数最多 10 个 c 二分点、
+总参数点上限 32、每点最多 2 次编码尝试、总时间软预算 300 秒。实际耗时 80.36 秒，
+进程返回 0，stderr 为空；没有改变后端求解逻辑或为此样例加入专用证书。
+
+| 项目 | 实际结果 |
+| --- | --- |
+| 最终状态 | no_certificate_found |
+| 实际次数 | D=1,2,3,4,5,6 |
+| 参数点 / 后端尝试 | 13 / 26 |
+| 尝试状态 | infeasible 15；numerical_issue 9；solved_unverified 2 |
+| 总体停止原因 | max_degree |
+| 已验证证书/尾界 | 无 |
+
+各次数的 c 搜索因反馈不确定而停止，没有将数值失败作为不可行缩区间。
+D=1 实际访问 1/2,3/4,7/8,15/16,31/32,63/64；D=2 访问 1/2,3/4,7/8；
+D=3..6 各访问 1/2。数值候选未通过精确验证，故不能标记 proved。
+
+由于初始 x=-1/2 不满足当前布尔宏步域要求，auto 使用 `late_bad_exit` 路径，
+尝试的目标是 `Pr[T<infinity,T>n,failure]<=A*c^n`，T 按入口 pCFG 转移计数。
+本例有限退出均进入 failure，且 T=3*K+4，K 是坐标更新轮数；本次没有合成一般实数域
+的一轮生存证书。因此结果不证明原程序不存在多项式证书或指数尾界。
+
+源码及产物 manifest 哈希核对通过。记录：
+
+- [命令输出](generated/RCD_example_default_20261015.run.log)
+- [结果摘要](generated/RCD_example_default_20261015/summary.json)
+- [逐次搜索记录](generated/RCD_example_default_20261015/analyses/tailbound/search_history.json)
+- [事件与计时](generated/RCD_example_default_20261015/analyses/tailbound/goal.json)
+- 每参数点的 attempts 目录保留 solver.log、solver.json 和数值候选的 verification.json。
+
+
+## 2026-10-15：RCD 改用位置等式标注和一般实数证明域
+
+RCD_example.pp 已移除 box 区间与 while invariant 写法，在循环头、概率选择、
+两个赋值和退出位置使用 `{(x+0.5*y)*(y+0.5*x)=0}` 标注。
+变量为一般实数，证明域仅受该等式及各转移守卫限制；初态仍为 x=-1/2,y=1。
+
+执行 `python -m contractive_tool analyze RCD_example.pp --goal tailbound
+--out-dir generated/RCD_real_invariant_model_20261015`：解析、初态与归纳保持验证、
+证明义务及 CVXPY 建模通过，返回 not_solved/model_only，没有调用 MOSEK。
+循环入口域没有 box 不等式，11 条义务均保留该等式。
+[检查产物](generated/RCD_real_invariant_model_20261015/summary.json)。
+
+此处更改的是源标注和证明域，并未实现一般实数域宏步，也未修改证书边界；
+当前 auto 建模仍回退至 late_bad_exit。前一节运行结果对应修改前的 box 版本，
+不得作为现版输入的求解结果。

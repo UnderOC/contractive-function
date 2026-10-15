@@ -85,7 +85,7 @@ def test_real_kelly_pipeline_is_generic_and_reports_search_scope(tmp_path,mosek_
     source=tmp_path/'renamed.pp'
     source.write_text((PROJECT/'kelly_unbounded.pp').read_text().replace('wealth','capital').replace('round','steps'))
     result=run_analysis(source,'tailbound',tmp_path/'solve',
-        options=SearchOptions(max_degree=3,c_values=('1/2',),max_attempts_per_point=1))
+        options=SearchOptions(initial_degree=2,max_degree=3,c_values=('1/2',),max_attempts_per_point=1))
     assert result['status']=='no_certificate_found',result
     assert result['degrees_attempted']==[2,3] and result['selection'] is None
     assert result['attempt_count']==2
@@ -95,8 +95,9 @@ def test_real_kelly_pipeline_is_generic_and_reports_search_scope(tmp_path,mosek_
 
 
 def test_probabilistic_uniform_bound_covers_exact_geometric_tail(tmp_path,mosek_available):
-    from contractive_tool.analysis_pipeline import run_analysis
-    result=run_analysis(PROJECT/'tests/fixtures/geometric_exit.pp','tailbound',tmp_path/'geometric')
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    result=run_analysis(PROJECT/'tests/fixtures/geometric_exit.pp','tailbound',tmp_path/'geometric',
+                        options=SearchOptions(initial_degree=2,tail_rule='late_bad_exit',c_values=('1/2','9/10','99/100')))
     assert result['status']=='proved' and result['degrees_attempted']==[2]
     bound=result['selection']; A=sp.Rational(bound['A_exact']); c=sp.Rational(bound['c'])
     # J~Geom(1/2), T=3J+3 includes initialization, exit guard and refute.
@@ -123,3 +124,69 @@ def test_previously_proved_certificate_survives_later_solver_failure(tmp_path,mo
     assert result['status']=='proved' and result['stop_reason']=='solver_failed'
     assert result['selection']['c']=='9/10'
     assert result['degrees_attempted']==[1]
+
+
+@pytest.mark.parametrize('filename,count,c', [('01_coupon2.pp',2,'1/2'),('02_coupon4.pp',4,'3/4')])
+def test_round_tail_synthesis_recovers_exact_coupon_certificate(tmp_path,mosek_available,filename,count,c):
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    out = tmp_path/'round'
+    result = run_analysis(PROJECT/'tailbound_benchmark_pack/pp'/filename,'tailbound',out,
+                          options=SearchOptions(max_degree=1))
+    assert result['status'] == 'proved', result
+    assert result['tail_rule'] == 'round_survival'
+    assert result['parameter_points'] == 10
+    search = result['contraction_searches'][0]
+    assert search['method'] == 'bisection' and search['stop_reason'] == 'max_c_steps'
+    assert search['best_verified_c'] == c
+    assert search['steps'][0]['c'] == '1/2'
+    assert sp.Rational(search['interval'][1])-sp.Rational(search['interval'][0]) == sp.Rational(1,1024)
+    bound = result['selection']
+    assert bound['c'] == c and bound['A_exact'] == str(count)
+    assert bound['event'] == 'K > n' and bound['time_unit'] == 'completed_loop_iterations'
+    certificate = json.loads((out/bound['certificate']).read_text())
+    eta = sp.sympify(next(iter(certificate['polynomials'].values())))
+    assert sp.expand(eta-(count-sum(sp.Symbol(f'c{i}') for i in range(count)))) == 0
+    # Independent exact coupon-collector distribution, for checking the clock/bound.
+    probabilities = [sp.Integer(1)]+[sp.Integer(0)]*count
+    for n in range(40):
+        assert 1-probabilities[count] <= count*sp.Rational(c)**n
+        probabilities = [probabilities[j]*sp.Rational(j,count)
+                         +(probabilities[j-1]*sp.Rational(count-j+1,count) if j else 0)
+                         for j in range(count+1)]
+    verification = json.loads((out/bound['certificate']).with_name('verification.json').read_text())
+    assert verification['status'] == 'proved'
+    assert verification['round_evidence'] == 'round_evidence.json'
+
+
+def test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only(tmp_path):
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    options = SearchOptions(initial_degree=1,max_degree=1,tail_rule='round_survival')
+    unsupported = run_analysis(PROJECT/'tests/fixtures/halving.pp','tailbound',tmp_path/'unsupported',options=options)
+    assert unsupported['status'] == 'unsupported'
+    assert unsupported['stop_reason'] == 'round_evidence_unavailable'
+    assertion = run_analysis(PROJECT/'tailbound_benchmark_pack/pp/02_coupon4.pp','assertion_violation',
+                             tmp_path/'assertion',options=options)
+    assert assertion['status'] == 'not_solved'
+    assert assertion['stop_reason'] == 'assertion_backend_not_implemented'
+    assert not list((tmp_path/'assertion').rglob('solver.json'))
+
+
+def test_bisection_preserves_verified_certificate_on_inconclusive_next_point(tmp_path,mosek_available,monkeypatch):
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    from contractive_tool.backends.cvxpy import mosek_solver
+    real_solve=mosek_solver.solve
+    calls=0
+    def unknown_after_first(*args,**kwargs):
+        nonlocal calls
+        calls+=1
+        if calls==1:
+            return real_solve(*args,**kwargs)
+        return {'status':'numerical_issue','raw_status':None,'log':'test unknown'}
+    monkeypatch.setattr(mosek_solver,'solve',unknown_after_first)
+    result=run_analysis(PROJECT/'tests/fixtures/geometric_exit.pp','tailbound',tmp_path/'partial',
+                        options=SearchOptions(initial_degree=1,max_c_steps=4,max_attempts_per_point=1))
+    assert result['status']=='proved' and result['selection']['c']=='1/2'
+    assert result['parameter_points']==2
+    search=result['contraction_searches'][0]
+    assert search['interval']==['0','1/2']
+    assert search['stop_reason']=='oracle_inconclusive'

@@ -1,0 +1,16 @@
+# Integer random walk
+# Source: Tail Probabilities for Randomized Program Runtimes via Martingales for Higher Moments (2019), Appendix E, Listing 1.3, PDF p.35
+# URL: https://arxiv.org/pdf/1811.06779v2
+# Independently normalized pseudocode; NOT a native input file for any baseline tool.
+# C is a ghost counter: one increment per loop-body execution; not CFG runtime.
+
+x := 1;
+C := 0;
+while x >= 1 do
+    C := C + 1;
+    if prob(0.6) then
+        x := x - 1
+    else
+        x := x + 1
+    fi
+od

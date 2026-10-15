@@ -1,0 +1,39 @@
+# Adversarial one-dimensional walk
+# Source: Tail Probabilities for Randomized Program Runtimes via Martingales for Higher Moments (2019), Appendix E, Listing 1.5, PDF p.36
+# URL: https://arxiv.org/pdf/1811.06779v2
+# Independently normalized pseudocode; NOT a native input file for any baseline tool.
+# C is a ghost counter: one increment per loop-body execution; not CFG runtime.
+# if * denotes demonic nondeterminism, NOT a random coin.
+
+x := 2;
+C := 0;
+while x > 0 do
+    C := C + 1;
+    if prob(0.8) then
+        skip
+    else
+        if prob(0.5) then
+            x := x + 1
+        else
+            x := x + 2
+        fi
+    fi;
+    if * then
+        if prob(0.875) then
+            x := x - 1
+        else
+            skip
+        fi
+    else
+        if prob(0.8) then
+            skip
+        else
+            if prob(0.5) then
+                x := x + 1
+            else
+                x := x + 2
+            fi
+        fi;
+        x := x - 1
+    fi
+od

@@ -1,0 +1,84 @@
+{
+  "artifacts": {
+    "ast.json": "313cf59861a584e526ce33371ef811c108bca9462e7d3f2a27558f00a2afe74c",
+    "cfg.dot": "1f51f16342f4d4347569dbb4cea26010d0535acaee0d62a3288e4c0ddc1da6f5",
+    "cfg.json": "106371f9673fcc35b6b53a39f604e8d3b26535996af2ef757bf80f7f44becf05",
+    "cfg.txt": "21eb3e459f70f8ed005157cf862879267fdd19fc862674ac644fce9219858f50",
+    "source.normalized.pp": "4b30ab8fb9aa541b09f625115c212b1f4e9e1a4dcce51efbdd42c81a3ac0ba8a",
+    "validation.json": "c25f33de650c2236e6311ab03fc8de6fb0ecd911e9ada6b19369f647887a49a8"
+  },
+  "generated_at": "2026-10-14T00:41:05.312007+00:00",
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/05_rdwalk_uniform_d20.pp",
+    "sha256": "9d299bd0aee0e1f3ac02cd633ee0dbc6fe3f1192de9729d6a46253cbec2621a6"
+  },
+  "phase": "frontend_pcfg",
+  "python_version": "3.11.15",
+  "random_samples": [
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 25,
+              "end_line": 2,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/05_rdwalk_uniform_d20.pp",
+              "node": "SourceSpan",
+              "start_column": 23,
+              "start_line": 2
+            },
+            "text": "-1"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 28,
+              "end_line": 2,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/05_rdwalk_uniform_d20.pp",
+              "node": "SourceSpan",
+              "start_column": 27,
+              "start_line": 2
+            },
+            "text": "2"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 29,
+          "end_line": 2,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/05_rdwalk_uniform_d20.pp",
+          "node": "SourceSpan",
+          "start_column": 15,
+          "start_line": 2
+        }
+      },
+      "fresh": true,
+      "symbol": "step",
+      "transition_id": "T_3"
+    }
+  ],
+  "schema_version": 1,
+  "semantics": {
+    "failure_terminal": "l_f",
+    "normal_terminal": "l_t",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "refute": "predicate true transitions to failure terminal",
+    "strict_inequalities": "preserved exactly in pCFG guards; no SOS margin applied",
+    "updates": "simultaneous within a transition; source statements remain sequential"
+  },
+  "statistics": {
+    "branches": 8,
+    "locations": 6,
+    "probability_obligations": 0,
+    "program_variables": 1,
+    "random_samples": 1,
+    "transition_groups": 8
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.4.0"
+  }
+}

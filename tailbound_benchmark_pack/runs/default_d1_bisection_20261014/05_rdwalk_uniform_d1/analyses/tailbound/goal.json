@@ -1,0 +1,28 @@
+{
+  "absorbing_clock_frozen": true,
+  "clock": "pcfg_transition_from_program_entry",
+  "event_mode": "late_bad_exit",
+  "event_source": "source assert/refute",
+  "failure_terminal": "l_f",
+  "goal": "tailbound",
+  "initial": {
+    "x": "0"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "normal_terminal": "l_t",
+  "prefix_adjustment": "A = c**(-prefix_steps) * E[V_after_prefix(symbolic_initial_state)]",
+  "prefix_steps": 1,
+  "terminal_values": {
+    "failure": 1,
+    "normal": 0
+  },
+  "termination_assumed": false
+}

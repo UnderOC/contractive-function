@@ -1,0 +1,661 @@
+# Contractive Function 工具框架：统一指数尾界与 Assertion Violation
+
+更新日期：2026-10-13。本文是目标架构及实施规划；本次只修改本文档，未修改运行代码。
+原框架已备份为 `framework.md.bak.20261013_235240`。
+
+工具采用全 Python 流程：前端、符号代数、证明义务、positivity 编码、CVXPY 建模、
+MOSEK 求解和严格验证。不引入 MATLAB、SOSTOOLS、SDPT3 或 SeDuMi。
+
+## 1. 分析范围与设计原则
+
+保留两条独立的分析路径：
+
+| 分析目标 | 输出 | 是否依赖预先证明终止 |
+| --- | --- | --- |
+| `exponential_tail`：统一指数尾界 | 对所有允许的整数 n 成立的 `A * rho**n = A * exp(-lambda*n)`，以及适用事件和时钟 | 否 |
+| `assertion_violation`：最终 assertion failure 概率 | `Pr[eventually reach failure] <= Theta(initial)` | 否 |
+
+所有输入程序的终止性默认未知，允许正常终止、assertion failure 和无限运行。
+不得默认 almost-sure termination，不得将分析默认为“条件于程序终止”，也不得将
+不终止路径的概率质量丢弃后重新归一化。
+
+指数尾界的 n 是结果函数的自由参数。证书、不变量、模板系数、rho 和归一化均不依赖 n；
+生成的证明一次适用于全部 n。可在求解后代入具体 n，但该操作只做数值求值。
+
+指定 horizon、展开各时间层并分别优化 `Phi_(t,l)` 的求解规则从目标框架中移除。
+当前代码中的旧入口尚未迁移，不能将其数值结果称为统一指数尾界。后续迁移时删除该
+分析规则及其专用 CLI/测试，保留可复用的后端和历史运行记录。
+
+核心原则：
+
+- 分开定义事件语义、证书模板和 positivity strategy；模板名称不能决定概率事件。
+- 保留 grouped probability choice，禁止把概率分支逐条当作最坏情形约束。
+- 所有约束保留源位置、goal、transition、模板候选及参数点的来源。
+- 数值求解成功不等于证明成功；只有完整严格验证的结果可以标记 `proved`。
+- 单个可用策略即可运行其支持范围内的完整流程；缺失可选插件不得阻塞其他路径。
+- 模型、证明和上界全部针对原始程序或显式声明且已验证的派生语义。
+
+目标流程：
+
+```text
+.pp -> AST -> 语义检查 -> grouped pCFG
+    -> 不变量/概率/随机语义证据
+    -> AnalysisPlan.jobs
+       |-> exponential_tail
+       |   -> event + clock + 停止规则
+       |   -> n-independent certificate + k/eta/rho 搜索
+       |   -> contractive obligations
+       |
+       `-> assertion_violation
+           -> failure/normal boundaries
+           -> direct Theta / factorized template
+           -> pre-fixed-point obligations
+    -> 每个候选分别路由
+       |-> polynomial positivity -> EncodingPlan -> ConicModel -> CVXPY -> MOSEK
+       `-> 可识别的 scalar moment -> 精确/区间计算
+    -> 严格验证 -> goal-specific 结果选择 -> 公式/证书/日志
+```
+
+## 2. 当前实现与迁移边界
+
+下表依据当前源码及已有运行记录，区分可复用能力与待实现目标。README 中历史结果
+为旧规则的运行证据，不代表本规划已经实现。
+
+| 模块 | 当前情况 | 本规划处理 |
+| --- | --- | --- |
+| `frontend/`、`cfg/`、`pipeline.py` | AST、语义检查、grouped pCFG、源码追踪及导出已实现 | 复用 |
+| `algebra/`、`probability/`、`expectation.py` | 精确多项式、替换、分布矩、pre-expectation 已实现 | 复用，补齐全域语义证明 |
+| `positivity/` | Putinar、Schmüdgen、Handelman、registry、选择器和 ConicModel 已实现 | 复用，扩展无界域证据和搜索调度 |
+| `backends/cvxpy/` | CVXPY、MOSEK、日志、有理重构和精确 PSD 验证已实现 | 复用 |
+| `analysis/finite_tail.py`、当前 `tail_pipeline.py` | 指定 horizon、时间层证书及独立 k 候选已接通 | 从目标分析路径移除；后续重构调度器 |
+| `analysis/reachability.py` | 有限支持枚举及有限时域包围域 | 不用于统一证明；仅可保留为测试/诊断工具 |
+| `analysis/goals.py` 的旧 tail 规则 | 固定 rho 的 obligation 和特殊 Kelly moment 原型 | 提取局部计算，重写事件、时钟及全时域验证 |
+| assertion violation | direct Theta、固定 q 的 factorization 及 obligation 生成已实现 | 保留并规划完整求解/验证接入 |
+| `analysis/k_policy.py` | 固定 k=1,2，优化 k 的显式占位接口 | 复用；新增 eta 候选和 rho 搜索 |
+| 全局 invariant 验证、时钟证明、停止规则、函数结果 | 尚未完整实现 | 新增 |
+| TOML、多 goal job runner、统一候选组合 | 尚未完整实现 | 新增 |
+
+已有 62 项测试及 MOSEK 日志记录在 README；本次文档重规划没有重跑求解，也没有
+改变这些历史结果。新的验收标准见第 13 节。
+
+## 3. 程序语义、时钟与全域证据
+
+### 3.1 前端与 pCFG
+
+复用现有语法：赋值、skip、if、prob、while、assume、assert、refute、随机声明/赋值、
+位置 annotation 和 loop invariant。Source AST 保留源码 span，pCFG 使用稳定 location
+及 transition ID，update 表示 simultaneous substitution，未赋值变量保持原值。
+
+概率选择的全部分支属于同一个 transition group；组内概率非负且和为 1 的事实需要
+在源域上成立。普通 guard 选择与概率选择分别表示。若允许多个同时启用的非确定性
+动作，应针对每个动作证明条件并声明对所有 scheduler 有效；首版也可明确拒绝，
+不得悄悄取平均或只选择其中一组。
+
+正常终止位置 `l_t` 与 assertion failure 位置 `l_f` 分离；保留源程序终止语义。
+`assert E` 在 E 不成立时失败；`refute E` 在 E 成立时失败。不能为了指数衰减把失败
+状态的原始执行语义改成继续运行。
+
+`assume` 不得隐式表示条件化。对不满足条件的状态，必须有明确的阻塞/拒绝语义及
+分析处理规则；首版未支持的情形报告 unsupported。随机量的 fresh sampling、支持域、
+分布参数和独立性假设进入 manifest；仅有有限阶矩不能替代路径级不变量保持证明。
+
+### 3.2 计时单位
+
+时钟是 goal 的显式组成部分：`pcfg_transition`、经过验证的 `loop_round` 或选定边计数。
+默认使用明确的 pCFG 转移时钟；Kelly 样例的推荐配置显式选择完整循环轮数。
+
+为每个 branch 定义固定非负整数时钟增量 `d_j`，累计时钟记为 N_t。一次循环中可以
+仅在完成该轮的边上取 `d_j=1`，其他边取 0。终止后时钟冻结。
+
+- 计数边必须覆盖所有被计为一轮的完成路径，包含提前退出的约定。
+- 如果汇总为 loop-header 到下一 loop-header/退出的宏转移，必须证明路径覆盖、
+  更新/概率正确和宏步能够完成；含未知终止内循环时不能默认汇总合法。
+- 若使用原 CFG 上的计数边证明，则零增量路径可以一直运行；这种路径不能被误算为
+  已完成更多轮次。停止事件的界限仍按实际累计时钟解释。
+- `n` 的单位、起始位置、计数规则、off-by-one 约定全部写入产物。
+
+### 3.3 对所有时间成立的 invariant
+
+由程序 annotation、sidecar 或 provider 给出位置域 I_l。必须证明：
+
+1. 初始状态属于初始位置域；
+2. 每条启用转移及其随机支持几乎处处保持目标域；
+3. 概率合法、分布合法，以及所用期望存在；
+4. 任何变量消元、域变换和宏步均保留所声明的事件与执行语义。
+
+Invariant provider 返回域及证据，不只返回一段 predicate。自动推断可后续增加，首版
+允许用户提供 invariant 并验证。只有假设而无证明的域必须明确标为 assumption，并
+将结果限定于该假设，不能声称对原程序已无条件证明。
+
+不得用有限 n 枚举得到的上界代替 invariant，不得为了满足 compactness 添加未经证明的
+`wealth <= M` 或球约束。无界域是正常输入。
+
+### 3.4 半代数域与严格条件
+
+证明域由 invariant 与 guard 的合取组成；析取拆分为覆盖全部分支的 basic sets，并设置
+区域数量预算。对多项式不等式，严格 guard 可取闭包作为覆盖域，并记录保守性。
+不得以正 margin 缩小 guard。仿射 equality 可精确消元，其余 equality 使用 ideal multiplier。
+
+若存在倒数、对数或非整数幂，必须先证明定义域及所需正性；不能在奇点处直接取闭包。
+分母消去须证明符号和等价性。`eta>0` 不要求在无界域上必然存在统一正 margin，例如
+`wealth**(-1/2)` 在 wealth 趋于无穷时趋于零；固定 margin 只能在有证据时使用。
+
+## 4. 路径一：统一指数尾界
+
+### 4.1 目标与终止性未知时的事件
+
+首版重点支持 `late_bad_exit`。令 T 为原程序第一次终止的执行时刻，T=∞ 表示无限运行；
+令 `tau=N_T` 为有限终止时已完成的时钟计数。需要证明：
+
+```text
+Pr[T < infinity, tau > n, terminal_state in B] <= A * rho**n
+for every integer n >= 0
+```
+
+B 必须是明确的终止事件，可限定 failure location 及状态 predicate。该概率不包含无限
+运行路径，也不条件于终止；允许 `Pr[T=infinity]>0`。未在首版证明的其他事件规则以
+独立插件扩展，不能仅换一个 event_mode 字符串就沿用同一结论。
+
+`Pr[violate by n]` 随 n 不减，不能输出趋于零的统一指数界。`Pr[T>n]` 在程序可能
+以正概率永不终止时也不能趋于零；若要分析运行时尾部，须另行证明所需终止条件，
+或明确分析 `Pr[n<tau, T<infinity]`。不能擅自切换这些事件。
+
+对不停止过程的状态尾事件，后续可以增加独立的 `state_at_time` 规则：需要明确该过程
+及全部观测时刻的语义，并验证全域收缩和逐时刻事件归一化。它仍输出同一条对全部 n
+成立的函数，不引入时间层展开。当前停止程序不能被自动改写为不停止过程。
+
+### 4.2 与 n 无关的证书及局部条件
+
+取每个位置的非负函数 C_l(x)，所有模板系数均与 n 无关，固定 `0<rho<1`。
+对非终止源位置，每个 transition group 在其完整证明域上要求：
+
+```text
+sum_j p_j(x) * E[rho**(-d_j) * C_dst_j(update_j(x,r))] <= C_src(x)
+C_l(x) >= 0
+C_terminal(x) >= 1  on terminal_state in B
+```
+
+非 B 终止状态可取 C=0；若同一 terminal 的 B 与补集需要分片，应覆盖两部分，也可
+使用覆盖整个 terminal 的非负模板并仅在 B 上归一化。不能漏掉进入坏终止的概率分支。
+
+当组内 `d_j=1` 时，局部条件简化为熟悉的：
+
+```text
+E[C_next | x] <= rho * C_current(x)
+```
+
+当 `d_j=0` 时只要求非增。不同 branch 增量不同时保留加权和，不得统一乘错 rho。
+终止后的吸收自环不生成严格收缩条件。
+
+### 4.3 概率证明与输出公式
+
+令 X_t 包括程序位置与 valuation。局部条件确保停止后的过程
+
+```text
+M_t = rho**(-N_(t wedge T)) * C(X_(t wedge T))
+```
+
+是非负超鞅；终止后 C 与时钟均冻结。初值 A=C(initial) 有限，借助有限截断的
+超鞅不等式及非负性/Fatou，可得 `E[1_(T<infinity) M_T] <= A`，不要求 T 几乎处处有限。
+在目标事件上 `M_T >= rho**(-n)`，因此：
+
+```text
+Pr[T < infinity, tau > n, terminal_state in B]
+    <= A * rho**n
+    = A * exp(-lambda*n),  lambda = -log(rho) > 0.
+```
+
+内部优先保存可严格验证的 A、rho，lambda 保存为 `-log(rho)` 的符号表达式。
+浮点 lambda 仅作展示，不能因舍入而报告更快且未经证明的衰减率。
+模型应记录非负性、可积性及停止论证的所有前提。
+
+### 4.4 模板及 k 的角色
+
+支持相互独立的候选族：
+
+| 模板 | 内层未知量 | 能力边界 |
+| --- | --- | --- |
+| 直接多项式 C_l | 多项式系数 | 固定 rho 后可形成凸 positivity 模型；不声称它等于某个 eta 的 k 次幂 |
+| 归一化 power `C_l=(eta_l/H)**k` | 固定 k 下允许的 eta 参数 | eta 未知时首版仅 k=1；k=2 的系数平方/乘积一般非凸 |
+| 固定形状 `C_l=a_l*eta_l**k` | 位置权重 a_l | eta、k、rho 固定后对权重仿射；坏集归一化替代显式未知 H |
+| 特殊 multiplicative power | 可识别的固定指数和 scalar 参数 | 先证明比例与状态无关等结构，再转精确/区间矩计算 |
+
+默认 k 候选仍为 1、2，保留 `OptimizedKPolicy` 占位。eta 候选必须在合成前由解析规则、
+用户输入或独立候选生成器确定，且不依赖 n。旧默认 `max_reachable_wealth(n)+1-wealth`
+不再使用。k 固定不能消除未知 eta 的非凸性；不能通过将 `eta**2` 换成任意二次 C
+却继续宣称合成了原 power 模板。
+
+归一化可选择固定 H>0 并验证 `eta>=H`，或者直接合成 `C>=1`。不同时无约束优化
+eta 与 H，避免缩放不定和未知除法。对 k>1，必须直接验证 k 阶矩收缩，或证明
+Hoeffding 所需 log-ratio 界；不能从一阶收缩直接推出高阶矩上界。
+
+### 4.5 rho 搜索与系数合成
+
+两类求解组织：
+
+1. **整个 C 固定。** 若所有相关转移统一计一步，则最小化 rho 的约束
+   `E[C_next]<=rho*C` 对 rho 仿射。特殊乘法程序可直接得到矩表达式。任意计数增量
+   可能引入 rho 的幂或倒数，此时也使用外层 rho 搜索，不能一概声明为 LP。
+2. **C 的系数未知。** 外层取精确 rho 候选，内层同时合成 C 与 positivity multipliers。
+   固定 rho 后最小化 A=C(initial)，或在固定 A 上限下检查可行性。将 rho 与未知 C
+   同时作为内层变量会产生双线性，首版不支持。
+
+固定模板族、域和编码能力时，非负 C 使原始收缩条件随 rho 增大而放宽。外层可用有限
+网格；二分需明确单调性及可行/不可行判断依据。未找到严格证书、数值不稳定或某个
+有限阶 relaxation 不可行，都不等于原始问题不存在指数证书；不得据此删除所有潜在
+可行参数点。只有已验证的可行点进入结果集。
+
+搜索层次：`k/eta/template 候选 -> rho 参数点 -> strategy/次数 attempts`。
+分别设置预算、记录失败原因并缓存等价模型。某个参数点证明成功后可以停止其编码
+重试；整个候选的 rho 搜索是否结束由参数预算/明确策略决定，不能直接沿用旧的
+“首次证明后退出整个候选”逻辑。
+
+### 4.6 函数结果选择
+
+每个严格验证的候选输出 `(A_i, rho_i, lambda_i, certificate_id)`。A 小和 lambda 大
+可能有取舍；没有指定 n 时，不存在当然的单个“最小数值上界”。
+
+默认保留未被支配的已证明候选。若 `A_i<=A_j` 且 `rho_i<=rho_j`，可在相同事件、
+时钟、初态和适用范围下删除被支配 j；使用精确比较或可靠区间，不能靠浮点误差判断。
+
+可以同时导出每条指数式与它们的下包络：
+
+```text
+B(n) = min_i A_i * rho_i**n
+```
+
+下包络一般不是单一指数。若用户要求只输出一条，可显式选择最快衰减率、给定 A
+上限内的最快衰减率等政策；不能把该选择称为对所有 n 都最优。可将已证明上界与 1
+取最小值用于概率展示，但截断不能把未经验证的候选变成证明。
+
+## 5. 路径二：Assertion Violation
+
+目标保留为：
+
+```text
+Pr[exists finite t: location_t = l_f] <= Theta(initial)
+```
+
+正常终止与无限运行均不计为 assertion failure，不要求预先证明终止。首选 direct
+polynomial Theta；普通位置上合成非负函数，边界为：
+
+```text
+Theta(l_t, x) = 0
+Theta(l_f, x) = 1
+Theta(l, x) >= 0  at ordinary locations
+E[Theta_next | l,x] <= Theta(l,x)  at every enabled ordinary transition group
+```
+
+由非负 pre-fixed-point/有限步 failure 概率的递增极限证明最终 failure 概率上界。
+目标函数为 `minimize Theta(initial)`。这里没有 n、rho<1 或严格指数衰减要求。
+终止边界纳入每个 pre-expectation，正常与失败分支不可遗漏。
+
+保留 factorized 模板 `Theta_l=q_l*eta_l**k`：固定正 q、固定 k=1、未知 eta 是首版凸
+合成路径；固定 eta 时可在满足仿射能力检查后优化权重。未知 q 与未知 eta 同时合成、
+未知 eta 的 k=2 等非凸情形必须外层搜索或报告 unsupported。
+
+两条路径共用代数、局部 pre-expectation、positivity 和 solver；事件证明、边界、
+初始目标及结果选择分别实现。Late bad exit 的事件可以涉及 failure，但不能因此与
+最终 assertion violation 概率共用同一组完整 obligations。
+
+## 6. 中间表示与模块接口
+
+建议保留现有 IR 并增补以下数据；接口名称是目标设计，不代表当前代码已具备。
+
+| IR | 主要内容 |
+| --- | --- |
+| Source AST / pCFG | 原始执行语义、grouped transitions、随机更新、源码来源 |
+| `DomainEvidence` | invariant、初始覆盖、归纳保持、概率合法性、变量变换及证据状态 |
+| `ClockSpec` | 计时单位、branch 增量、初始计数、停止约定、宏步证明（若使用） |
+| `ExponentialTailProblem` | event_mode、terminal event、initial、domain evidence、clock；无必需 horizon |
+| `AssertionViolationProblem` | failure/normal locations、initial、domain evidence |
+| `TemplateInstance` | 位置函数、未知系数、固定 k/eta/H、能力检查与来源 |
+| `ProofObligation` | 固定半代数域、待证关系、goal/rule 标签、source/transition/candidate 来源 |
+| `EncodingPlan` | 每条 obligation 的策略、次数、条件证据、预算、跳过原因、完整覆盖 |
+| `ConicModel` | 仿射目标/等式、非负变量、PSD 块、系数与原义务的映射 |
+| `ExponentialBound` | A、rho、符号 lambda、变量 n、事件/时钟/有效范围、证书及假设 |
+| `AssertionBound` | 已验证 Theta 与初始概率上界 |
+
+`AnalysisPlan` 包含互不覆盖的 jobs；每个 job 有自己的候选集、参数搜索和结果选择。
+一个候选不支持/失败不应终止其他候选或 job。只有相同事件和语义下的证书可以比较；
+首版只做独立证书结果选择，不启用未经证明的模板相加/拼接 combiner。
+
+建议在现有目录上增补模块，避免重写可用前端和后端：
+
+```text
+src/contractive_tool/
+  frontend/, cfg/, algebra/, probability/, expectation.py   # 复用
+  analysis/
+    domains.py                 # 全时域 invariant provider 与 evidence
+    clocks.py                  # 计数边/宏步规则及证据
+    exponential_tail.py        # 新 goal、停止规则与 obligation generator
+    assertion_violation.py     # 保留并抽离原 assertion goal/rules
+    templates.py               # n-independent 模板与能力检查
+    k_policy.py                # 固定候选及未来优化接口
+    eta_policy.py              # 与 n 无关的候选生成
+    rho_search.py              # 参数搜索与 A/rho 候选集
+    scalar_moment.py            # 特殊乘法结构识别、精确/区间证明
+    results.py                 # 指数函数/常数界及 goal-specific selection
+  positivity/                  # 已有插件、域 lowering、Gram 和 ConicModel
+  backends/cvxpy/              # 已有 builder、MOSEK 与严格验证
+  verification/
+    semantic.py                # 域、时钟及 goal 定理前提的组合验证
+    scalar.py                  # 代数数/超越常数的可靠比较与区间输出
+  analysis_pipeline.py          # 多 job/candidate 协调
+  cli.py, config.py             # 新模式与配置
+```
+
+上述拆分是职责边界，不强制一次搬迁全部文件。旧 `finite_tail.py` 和有限 horizon 专用
+runner 不列入目标生产路径；复用其通用日志、隔离和 backend glue 时须去掉时间层依赖。
+
+## 7. 代数、期望与后端路由
+
+所有 polynomial calculations 使用精确有理数或可认证符号常量；赋值同时替换，概率
+分支保持加权和。分布插件提供支持域、参数条件、存在性证据和所需阶矩；无法证明所需
+矩存在时拒绝该证书。独立 joint moments 只在已有独立性语义下使用。
+
+Backend router 根据最终表达式而不是输入文件名路由：
+
+- 程序变量上的多项式，且系数对决策变量仿射：positivity -> ConicModel -> CVXPY/MOSEK。
+- 已证明状态无关的 gain moment、代数数或可靠区间常量：scalar moment 路径。
+- 可证明等价的有理式消元或变量变换：先验证变换，再进入上述路径。
+- 未知参数乘积、未知指数、非多项式且无识别规则：unsupported，并定位来源。
+
+固定 rho/k 只解决部分凸性问题；domain generators 必须固定，不能含待合成系数。
+特殊 Kelly 路径须检查相关轮次结构、所有 gain 的正性、概率、停止前适用域和时钟。
+对不匹配结构的程序不能硬套相同比例公式。
+
+## 8. 模块化 PositivityStrategy 与自动选择
+
+### 8.1 共享 contract
+
+每个策略只消费 `domain => h(x)>=0`，输出后端无关 fragment，不导入 CVXPY/MOSEK。
+接口职责为 `available`、`supports`、`estimate_size`、`lower`，并返回条件证据及来源。
+
+先精确处理空域、恒等式、常数和可消元 equality，再选择编码。多个 obligations 可以
+使用不同策略，但同一模板参数点必须在同一个联合模型中求解，不能各自选一组模板系数。
+
+### 8.2 三种编码
+
+域记为 `g_i>=0, e_j=0`，h 的系数对决策变量仿射：
+
+| 策略 | 系数恒等式 | 约束类型 |
+| --- | --- | --- |
+| Putinar | `h = sigma_0 + sum_i sigma_i*g_i + sum_j tau_j*e_j` | sigma 为 SOS，tau 为自由多项式；SDP |
+| Schmüdgen | `h = sum_S sigma_S*product_(i in S) g_i + sum_j tau_j*e_j` | 平方自由 generator 产品及 SOS；SDP |
+| Handelman | `h = sum_alpha c_alpha*product_i g_i**alpha_i` | `c_alpha>=0`；LP，首版仅已验证的有界仿射域 |
+
+区分“找到证书后的充分性”与“定理保证存在证书的条件”：精确验证出的前两种
+SOS 恒等式在无界域上也能给出充分证明；缺少 Archimedean/compactness 时，不承诺
+层级完备性或提高次数必然成功。Handelman 首版限制有界多面体，不适用时应跳过。
+非严格非负多项式在有限阶也不保证存在所选表示。
+
+球约束只能由已证明的有界性提供。归纳域未知或无界时不能自动加入紧致化假设。
+在无界域上仍尝试支持该输入的 SOS 充分条件；必要时使用有证明的变换/特殊 scalar route。
+
+### 8.3 Registry、fallback 与预算
+
+已知策略 ID 与实际可用模块分离，采用 lazy import。缺失插件、显式关闭和不支持输入
+分别记录。`auto` 至少具备静态退化路径：
+
+1. 读取域特征及其证据；未知条件保持 unknown。
+2. 已证明有界仿射域可优先 Handelman；其余可优先 Putinar，随后 Schmüdgen。
+3. 估计单项式、系数等式、非负变量、PSD 块及 generator 产品规模，过滤超预算编码。
+4. 每条义务都找到完整编码后才组装；插件失败丢弃局部 fragment，不能留下半个模型。
+5. 数值失败、不可行或验证失败时，按预算切换策略或提高次数；保存每个 attempt。
+
+自动排序器或复杂条件分析器缺失时，使用保守的静态顺序和已知证据；只安装 Putinar
+也可完成它支持的实例。显式策略可配置禁止 fallback。未知策略拼写是配置错误。
+所有可用策略均不能覆盖时返回 unsupported；不得漏掉义务后调用 solver。
+
+对 k/eta/rho 搜索与 strategy 搜索分别设置最大候选数、次数、products、PSD dimension、
+决策变量数、单次 solver 时间及总预算。符号展开前检查组合规模；若只有阶段边界的
+时间检查，须如实报告软预算，不声称可以中断任意符号计算。
+
+## 9. CVXPY / MOSEK 与严格验证
+
+### 9.1 共享建模后端
+
+SOS 使用 `sigma=z^T Q z, Q>>0`，basis 次数与乘上 generator 后的总次数匹配。
+若只遍历 Gram 上三角，非对角系数乘 2。自由 equality multipliers 不要求非负。
+Handelman 包含常数产品。所有单项式都匹配，包括目标中系数为零的高次项。
+
+ConicModel 保存精确仿射系数、PSD 对称结构、origin 和完整义务覆盖；支持 JSON 重建。
+CVXPY 仅创建模板/乘子/Gram 决策变量，程序状态变量只用于符号计算。建模后检查 DCP，
+固定 `solver=cp.MOSEK`，记录参数、版本、raw status、数值目标和 solver 日志。
+
+运行环境继续使用 README 的 `contractive-frontend-test-20260814`；现有 solver extra
+锁定 CVXPY 1.9.3、NumPy 2.4.6、SciPy 1.17.1、MOSEK 11.2.6。
+`model_only` 不调用 solver，不要求许可证。许可证缺失/数值异常隔离到当前 attempt。
+
+### 9.2 分层验证
+
+完整 `proved` 需要联合验证：
+
+1. 程序/域层：初态覆盖、归纳不变量、概率及分布合法性、时钟/变换和 event 语义。
+2. 编码层：义务完整覆盖、系数恒等式、非负系数及 PSD，且共享同一组模板参数。
+3. Goal 层：指数路径验证 rho∈(0,1)、归一化和停止规则；assertion 路径验证两个边界
+   及 pre-fixed-point 条件。A 或 Theta(initial) 从验证后的参数重新计算。
+4. 输出层：符号 rho/lambda、数值舍入、候选选择和适用范围均不加强已证明结论。
+
+复用有理重构和精确 PSD 检查。代数/超越常数用精确代数比较或有向舍入的区间证据；
+例如若实际矩仅证明不超过一个有理 rho 上界，应输出该上界对应的衰减率。
+
+现有二次区间直接验证器可以验证其能力内的原始不等式，但其“时间倒序修正”专属于
+旧时间层模板，不适用于位置循环中的统一收缩。新证书修正必须同时满足全部位置约束，
+或直接保留 solved_unverified；有限可达状态检查也不能替代全域证明。
+
+### 9.3 状态与失败含义
+
+| 状态 | 含义 |
+| --- | --- |
+| `not_solved` | 已构建模型，未求解 |
+| `solved_unverified` | 有数值候选，尚未完成严格证明 |
+| `proved` | 完整语义前提、证书和最终结论均通过验证 |
+| `unsupported` | event/表达式/策略等当前能力不支持 |
+| `generation_failed` / `solver_failed` | 建模或 solver 执行失败，有诊断 |
+| `verification_failed` | 已进行的验证发现缺项或不成立 |
+| `unknown` | 预算耗尽或没有足够证据判定 |
+
+另行记录 `raw_status=infeasible/unbounded/...` 及对应 relaxation/参数点。
+某个 relaxation 不可行不意味着程序没有指数尾界；rho=1 的已验证矩也不能标成正速率
+指数衰减。可以保存它作为诊断，但不得混入 `lambda>0` 的已证明候选集。
+
+## 10. 配置、CLI 与产物规划
+
+以下 TOML/CLI 为待实现接口，用来约束迁移后的行为，不是当前可运行命令。
+
+```toml
+[program]
+source = "kelly_unbounded.pp"
+termination = "unknown"
+
+[[analysis_jobs]]
+id = "kelly_late_bad_exit"
+goal = "exponential_tail"
+event_mode = "late_bad_exit"
+terminal_event = "wealth <= 0.45"
+clock = "loop_round"
+clock_loop = "unique_while"       # 需验证循环和计时映射
+initial_location = "unique_while_header"
+initial = { wealth = 1, round = 0 }
+selection = "pareto_envelope"
+evaluate_at = [10, 100, 1000]    # 仅求值，不影响证书或域
+
+[analysis_jobs.template]
+kind = "multiplicative_power"
+base = "wealth"
+eta_exponent = "-1/2"           # eta(w)=w**(-1/2)，与 k 分开
+k_policy = "fixed"
+k_values = [1, 2]
+normalization = "prove_on_terminal_event"
+
+[analysis_jobs.rho_search]
+mode = "auto"                  # 已识别 scalar 用精确矩；其他候选外层搜索
+candidates = ["9/10", "19/20", "99/100", "999/1000"]
+objective_at_fixed_rho = "minimize_initial_certificate"
+
+[[analysis_jobs]]
+id = "eventual_failure"
+goal = "assertion_violation"
+event_mode = "eventual"
+initial_location = "unique_while_header"
+initial = { wealth = 1, round = 0 }
+selection = "smallest_proved_bound"
+
+[analysis_jobs.template]
+kind = "direct_theta"
+degree = 2
+
+[positivity]
+strategy = "auto"
+enabled = ["putinar", "schmudgen", "handelman"]
+on_unavailable = "fallback"
+initial_order = 1
+max_order = 3
+max_products = 256
+max_psd_dimension = 80
+
+[backend]
+name = "cvxpy"
+solver = "MOSEK"
+per_attempt_seconds = 60
+total_seconds = 300
+
+[verification]
+mode = "rigorous"
+```
+
+Invariant 配置还须绑定明确 provider 及证据政策；配置读取器拒绝未知字段和含混的
+initial/clock 选择。隐含 trusted assumption 必须转成显式配置与输出。
+
+```text
+contractive build-model --config analysis.toml --out-dir generated/model
+contractive solve --config analysis.toml --out-dir generated/solve
+contractive evaluate generated/solve --analysis-id kelly_late_bad_exit --n 10 100 1000
+contractive strategies list --json
+```
+
+指数路径不要求 `--horizon`，也不接受以它改变模板或域。旧 CLI 的迁移应给出明确
+诊断和新用法；`parse`、`cfg` 及 assertion obligation 生成能力保持可用。
+
+每次运行采用新的输出目录，文件分层为：
+
+```text
+shared/                         # source、AST、pCFG、基础 validation
+analyses/<job-id>/
+  goal.json                     # 事件、初态、clock 与终止性假设
+  domain_evidence.json
+  clock_evidence.json           # 指数路径
+  certificates/<candidate-id>/
+    template.json
+    parameter_points/<rho-id>/  # scalar route 可用一个精确参数点
+      obligations.json
+      attempts/<attempt-id>/
+        encoding_plan.json
+        conic_model.json
+        solver.json, solver.log
+        certificate.json
+        verification.json
+    result.json
+  bounds.json                   # 指数候选及下包络，或 assertion 常数界
+  evaluations.json              # 可选，对公式代入 n
+summary.json
+manifest.json                   # 版本、精确参数、假设、hash、路由、预算
+```
+
+特殊 scalar 路径记录 moment expression 及严格比较证据，不伪造 MOSEK 日志。
+`evaluate` 不重新生成模型、不调用 MOSEK；读取并校验证书引用和适用范围。
+
+## 11. Kelly 样例的统一指数尾界验收基准
+
+保留 `kelly_unbounded.pp` 原始停止语义，初始 wealth=1，按完整循环轮数计时。
+令 T 表示第一次退出循环的轮数（允许∞），坏终止事件为 `wealth_T<=h`，h=0.45。
+这里省略了第 4 节区分的执行步时刻，以该节的 clock 证据确认 T 的轮数含义。
+
+固定 `eta(w)=w**(-1/2)`，令 s=k/2，归一化证书为：
+
+```text
+C_k(w) = (h/w)**s
+rho_k = (3/5)*(6/5)**(-s) + (2/5)*(4/5)**(-s)
+A_k = (h/wealth_initial)**s
+```
+
+需要验证：活跃域 wealth>=0.5，gain 为正、概率为 3/5 与 2/5，进入终止域时 wealth
+仍为正；坏集合上 C>=1，停止前每轮条件期望等于 rho_k*C。轮次证据应覆盖退出检查，
+终止后不再应用乘法收缩。由此输出：
+
+```text
+Pr[n < T < infinity, wealth_T <= 0.45] <= A_k * rho_k**n
+```
+
+- k=1：`rho_1=sqrt(5)/5+sqrt(30)/10<1`，`A_1=sqrt(0.45)`，可输出正速率指数界。
+- k=2：`rho_2=1`，不产生正速率衰减，应记录原因并继续保留 k=1 的结果。
+- 该 eta 不是多项式；优先使用已验证的 multiplicative scalar route。不能为了强制调用
+  SOS 而把它当成多项式，或用有限时域上近似的 eta 宣称获得同一统一结论。
+- 新增独立的多项式证书基准，验收完整 positivity -> CVXPY -> MOSEK 的统一尾界路径。
+  Kelly 的特殊解析成功不能代替通用后端验收。
+
+本节是待实现路径的解析验收标准，不是本次新增的实际求解日志。
+
+## 12. 实施顺序
+
+1. **目标和语义迁移。** 新建 `ExponentialTailProblem`，落实 late_bad_exit、停止约定、
+   clock 与 invariant evidence；从生产规划/入口移除时间层 tail 规则。保留 assertion goal。
+2. **解析基准。** 提取 scalar moment 计算，接通 Kelly 的结构识别、轮次证据、严格
+   rho 比较和符号指数输出；k=2 无正衰减必须如实报告。
+3. **多项式统一路径。** 接通位置证书、全域 obligation、固定 rho 的 CVXPY/MOSEK
+   合成与严格验证；仅启用 Putinar 时也完成一个独立真实样例。
+4. **外层搜索。** 接入 eta/k 候选、rho 参数点、strategy/次数有限搜索及函数候选集；
+   缺失可选模块可降级，预算不能把未知当成不可行。
+5. **Assertion 后端。** 将既有 direct Theta/factorized obligations 接入共享 builder、
+   solver 和 verifier，完整保留最终 failure 语义及不终止路径处理。
+6. **统一运行接口。** TOML job runner、函数求值 CLI、隔离产物、报告与 README；
+   清理旧时间层专用实现/测试时只删除确定不再依赖的部分。
+
+自动 invariant 推断、未知 eta 的 k>1 非凸搜索、优化 k、一般嵌套循环宏步和更多事件
+定理作为独立扩展。不要求全部扩展或全部策略实现后才能验收已支持的路径。
+
+## 13. 验收与回归测试
+
+- **前端与语义：** 保留解析/pCFG/pre-expectation 回归；覆盖 grouped choice、随机
+  同时更新、正常/失败终止、assume 的明确处理、概率和分布合法性。
+- **无需终止假设：** 存在无限运行质量的样例仍可证明 late_bad_exit；不会输出条件于
+  终止的概率。存在正概率不终止时，不把 `Pr[T>n]` 误报为趋零界。
+- **事件拒绝：** `by_n` 累计坏事件不能调用指数衰减规则；坏吸收终止不生成严格收缩。
+- **统一性：** 证书文件不含按 n 展开的时间层；同一证书代入多个 n 不重建模型或调用
+  solver；修改 evaluate_at 不改变模板、域和 rho 搜索结果。
+- **Clock：** pCFG 步数与轮次区分；零增量边、退出分支、不同分支增量及未完成内循环
+  不漏计；缺乏宏步覆盖证据时明确拒绝。
+- **Invariant：** 不成立的 annotation、未经证明的财富上界、奇点变换和域缩小不能
+  获得无条件 proved。有限支持抽查不能代替归纳保持。
+- **凸性：** k=1 未知多项式、固定形状 k=2 可在固定 rho 下建模；未知 eta 的平方、
+  未知 rho 与系数乘积、未知 generators 必须拒绝或进入明确外层搜索。
+- **搜索：** 参数点与 strategy 重试分别隔离；保留 A/rho 不同取舍的候选；二分不将
+  unverified 或超时当成不存在证书；rho=1 不进入正速率集合。
+- **Positivity：** 三种编码的小型手工恒等式、Gram 非对角因子、JSON 重建、完整覆盖、
+  无界域适用性和预算预检查；缺失 Handelman/Schmüdgen 时 Putinar 仍可独立工作。
+- **真实后端：** 有许可证时实际运行 LP/SDP；无许可证时 model_only 可运行。数值
+  optimal 与严格 proved 分开，扰动系数/PSD/归一化或缺失语义证据不得通过。
+- **Goal 验证：** 停止时间定理前提、A/rho 精确重算和有向舍入；assertion 正常边界=0、
+  失败边界=1，已知小程序的最终 failure 概率被可靠覆盖。
+- **多任务：** 同一 pCFG 上两个 goal 使用独立义务和 summary；一个候选失败不覆盖
+  其他结果；指数下包络与 assertion 最小常数分别选择。
+
+仅文档改动不要求执行 solver 测试。实施各阶段后应记录当时环境、命令、真实日志和
+适用范围，不把本规划中的预期结果当作已执行结果。
+
+## 14. 与理论文档的对应关系
+
+`project_detail.md` 中的 moment contraction、bad-set normalization 和 assertion
+pre-fixed-point 是保留的理论基础。以下差异由本框架明确约束，后续可单独同步理论文档：
+
+- 其最后 `Pr[violate by n]` 的指数衰减写法不能直接用于累计 failure 事件；当前统一
+  指数路径使用已明确证明的 late_bad_exit 事件。
+- 非终止路径不依赖 almost-sure termination 排除，使用非负停止超鞅的截断/极限论证。
+- k>1 使用真实高阶矩或具有全部前提的 Hoeffding 界，不使用反向 Jensen 推断。
+- H、eta、rho、时钟和 invariant 必须有明确配置或合成/证明来源，且不依赖 n。
+- 指数尾界与 assertion violation 的局部不等式可以复用计算，但完整事件证明及边界
+  各自独立。
+
+本次不修改 `project_detail.md`、README、源码或现有生成产物。

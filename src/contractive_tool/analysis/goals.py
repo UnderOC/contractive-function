@@ -19,12 +19,13 @@ class PolynomialProblem:
     decisions: list
     objective: sp.Expr
     obligations: list
+    context: dict | None = None
 
     def to_data(self):
         return {'goal':self.goal,'certificate_family':'polynomial','degree':self.degree,
                 'c':str(self.c),'expressions':{l:str(v) for l,v in self.expressions.items()},
                 'decisions':self.decisions,'objective':str(self.objective),
-                'obligations':[o.to_data() for o in self.obligations]}
+                'obligations':[o.to_data() for o in self.obligations], 'context':self.context}
 
 
 def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000):
@@ -59,8 +60,11 @@ def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000
             obligations.append(Implication(f'{group.id}_{index}',domain,h,
                 {'location':group.source,'transition':group.id,'line':group.origin.start_line if group.origin else None},
                 ('contraction','late_bad_exit' if goal=='tailbound' else 'prefixed_point')))
-    objective = expressions[evidence.start].subs(evidence.initial,simultaneous=True)
+    initialized = expressions[evidence.start].subs(evidence.initial,simultaneous=True)
+    objective = expectation.random_expectation(
+        service.normalize(initialized), evidence.initial_random_model).expression
     if goal=='tailbound':
-        # Restore the original program-entry clock after exact prefix elimination.
+        # Restore the original program-entry clock after taking the exact
+        # expectation of the symbolically executed initialization prefix.
         objective *= c**(-len(evidence.prefix))
     return PolynomialProblem(goal,degree,c,expressions,list(template.decisions),sp.expand(objective),obligations)

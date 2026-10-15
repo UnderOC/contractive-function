@@ -1,0 +1,1311 @@
+{
+  "actual_tags": [
+    "at_horizon",
+    "contraction",
+    "eta_positive",
+    "k=1",
+    "tail_normalization"
+  ],
+  "analysis_id": "kelly_unbounded_tail",
+  "decision_variables": [
+    "eta_l_t_0",
+    "eta_l_t_1",
+    "eta_l_t_2",
+    "eta_l_f_0",
+    "eta_l_f_1",
+    "eta_l_f_2",
+    "eta_L_refute_1_0",
+    "eta_L_refute_1_1",
+    "eta_L_refute_1_2",
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2",
+    "eta_L_assign_1_0",
+    "eta_L_assign_1_1",
+    "eta_L_assign_1_2",
+    "eta_L_assign_2_0",
+    "eta_L_assign_2_1",
+    "eta_L_assign_2_2",
+    "eta_L_assign_3_0",
+    "eta_L_assign_3_1",
+    "eta_L_assign_3_2",
+    "eta_L_probabilistic_1_0",
+    "eta_L_probabilistic_1_1",
+    "eta_L_probabilistic_1_2",
+    "eta_L_assign_4_0",
+    "eta_L_assign_4_1",
+    "eta_L_assign_4_2",
+    "eta_L_assign_5_0",
+    "eta_L_assign_5_1",
+    "eta_L_assign_5_2"
+  ],
+  "goal_kind": "tail_bound",
+  "model_kind": "polynomial_obligations",
+  "objective": {
+    "expression": "1568239201*eta_L_while_1_0/1600000000 + 1568239201*eta_L_while_1_1/1600000000",
+    "meaning": "rho^4 * C(initial), bounding Pr[event at horizon]",
+    "numeric_value": null,
+    "sense": "minimize"
+  },
+  "obligations": [
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "tail_eta_positive_l_t",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "l_t",
+        "source_span": null,
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+        "normalized_left_minus_right": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "tail_eta_positive_l_f",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "l_f",
+        "source_span": null,
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+        "normalized_left_minus_right": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and wealth < 0.5 and 0 <= round"
+        ]
+      },
+      "id": "tail_eta_positive_L_refute_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 51,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 51
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round",
+        "normalized_left_minus_right": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round"
+        ]
+      },
+      "id": "tail_eta_positive_L_while_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 48,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 36
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round",
+        "normalized_left_minus_right": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round"
+        ]
+      },
+      "id": "tail_eta_positive_L_assign_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_1",
+        "source_span": {
+          "end_column": 21,
+          "end_line": 47,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 47
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round",
+        "normalized_left_minus_right": "eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round"
+        ]
+      },
+      "id": "tail_eta_positive_L_assign_2",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_2",
+        "source_span": {
+          "end_column": 27,
+          "end_line": 40,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 5,
+          "start_line": 40
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round",
+        "normalized_left_minus_right": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round"
+        ]
+      },
+      "id": "tail_eta_positive_L_assign_3",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_3",
+        "source_span": {
+          "end_column": 27,
+          "end_line": 43,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 5,
+          "start_line": 43
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round",
+        "normalized_left_minus_right": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round"
+        ]
+      },
+      "id": "tail_eta_positive_L_probabilistic_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_probabilistic_1",
+        "source_span": {
+          "end_column": 5,
+          "end_line": 44,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 38
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round",
+        "normalized_left_minus_right": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "wealth = 1"
+        ]
+      },
+      "id": "tail_eta_positive_L_assign_4",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_4",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 33,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 14,
+          "start_line": 33
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round",
+        "normalized_left_minus_right": "eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true"
+        ]
+      },
+      "id": "tail_eta_positive_L_assign_5",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_5",
+        "source_span": {
+          "end_column": 19,
+          "end_line": 32,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 32
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_5_0 + eta_L_assign_5_1*wealth + eta_L_assign_5_2*round",
+        "normalized_left_minus_right": "eta_L_assign_5_0 + eta_L_assign_5_1*wealth + eta_L_assign_5_2*round",
+        "relation": ">=",
+        "right": "0"
+      },
+      "tags": [
+        "eta_positive",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+            "after_simultaneous_substitution": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+            "weighted_expectation": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_absorb_normal",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "l_t",
+        "source_span": null,
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_absorb_normal"
+      },
+      "relation": {
+        "left": "199*eta_l_t_0/200 + 199*eta_l_t_1*wealth/200 + 199*eta_l_t_2*round/200",
+        "normalized_left_minus_right": "-eta_l_t_0/200 - eta_l_t_1*wealth/200 - eta_l_t_2*round/200",
+        "relation": ">=",
+        "right": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+            "after_simultaneous_substitution": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+            "weighted_expectation": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_absorb_failure",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "l_f",
+        "source_span": null,
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_absorb_failure"
+      },
+      "relation": {
+        "left": "199*eta_l_f_0/200 + 199*eta_l_f_1*wealth/200 + 199*eta_l_f_2*round/200",
+        "normalized_left_minus_right": "-eta_l_f_0/200 - eta_l_f_1*wealth/200 - eta_l_f_2*round/200",
+        "relation": ">=",
+        "right": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+            "after_simultaneous_substitution": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+            "weighted_expectation": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and wealth < 0.5 and 0 <= round",
+          "not wealth <= 0.45"
+        ]
+      },
+      "id": "tail_contraction_T_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 51,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 51
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_1"
+      },
+      "relation": {
+        "left": "199*eta_L_refute_1_0/200 + 199*eta_L_refute_1_1*wealth/200 + 199*eta_L_refute_1_2*round/200",
+        "normalized_left_minus_right": "199*eta_L_refute_1_0/200 + 199*eta_L_refute_1_1*wealth/200 + 199*eta_L_refute_1_2*round/200 - eta_l_t_0 - eta_l_t_1*wealth - eta_l_t_2*round",
+        "relation": ">=",
+        "right": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+            "after_simultaneous_substitution": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+            "weighted_expectation": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and wealth < 0.5 and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_contraction_T_2",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 51,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 51
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_2"
+      },
+      "relation": {
+        "left": "199*eta_L_refute_1_0/200 + 199*eta_L_refute_1_1*wealth/200 + 199*eta_L_refute_1_2*round/200",
+        "normalized_left_minus_right": "199*eta_L_refute_1_0/200 + 199*eta_L_refute_1_1*wealth/200 + 199*eta_L_refute_1_2*round/200 - eta_l_f_0 - eta_l_f_1*wealth - eta_l_f_2*round",
+        "relation": ">=",
+        "right": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round + eta_L_while_1_2",
+            "after_simultaneous_substitution": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round + eta_L_while_1_2",
+            "branch_probability": "1",
+            "destination_function": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round",
+            "weighted_expectation": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round + eta_L_while_1_2"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_3",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_1",
+        "source_span": {
+          "end_column": 21,
+          "end_line": 47,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 47
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_3"
+      },
+      "relation": {
+        "left": "199*eta_L_assign_1_0/200 + 199*eta_L_assign_1_1*wealth/200 + 199*eta_L_assign_1_2*round/200",
+        "normalized_left_minus_right": "199*eta_L_assign_1_0/200 + 199*eta_L_assign_1_1*wealth/200 + 199*eta_L_assign_1_2*round/200 - eta_L_while_1_0 - eta_L_while_1_1*wealth - eta_L_while_1_2*round - eta_L_while_1_2",
+        "relation": ">=",
+        "right": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round + eta_L_while_1_2"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_assign_1_0 + 6*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round",
+            "after_simultaneous_substitution": "eta_L_assign_1_0 + 6*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round",
+            "weighted_expectation": "eta_L_assign_1_0 + 6*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_4",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_2",
+        "source_span": {
+          "end_column": 27,
+          "end_line": 40,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 5,
+          "start_line": 40
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_4"
+      },
+      "relation": {
+        "left": "199*eta_L_assign_2_0/200 + 199*eta_L_assign_2_1*wealth/200 + 199*eta_L_assign_2_2*round/200",
+        "normalized_left_minus_right": "-eta_L_assign_1_0 - 6*eta_L_assign_1_1*wealth/5 - eta_L_assign_1_2*round + 199*eta_L_assign_2_0/200 + 199*eta_L_assign_2_1*wealth/200 + 199*eta_L_assign_2_2*round/200",
+        "relation": ">=",
+        "right": "eta_L_assign_1_0 + 6*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_assign_1_0 + 4*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round",
+            "after_simultaneous_substitution": "eta_L_assign_1_0 + 4*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round",
+            "weighted_expectation": "eta_L_assign_1_0 + 4*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_5",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_3",
+        "source_span": {
+          "end_column": 27,
+          "end_line": 43,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 5,
+          "start_line": 43
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_5"
+      },
+      "relation": {
+        "left": "199*eta_L_assign_3_0/200 + 199*eta_L_assign_3_1*wealth/200 + 199*eta_L_assign_3_2*round/200",
+        "normalized_left_minus_right": "-eta_L_assign_1_0 - 4*eta_L_assign_1_1*wealth/5 - eta_L_assign_1_2*round + 199*eta_L_assign_3_0/200 + 199*eta_L_assign_3_1*wealth/200 + 199*eta_L_assign_3_2*round/200",
+        "relation": ">=",
+        "right": "eta_L_assign_1_0 + 4*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round",
+            "after_simultaneous_substitution": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round",
+            "branch_probability": "3/5",
+            "destination_function": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round",
+            "weighted_expectation": "3*eta_L_assign_2_0/5 + 3*eta_L_assign_2_1*wealth/5 + 3*eta_L_assign_2_2*round/5"
+          },
+          {
+            "after_random_expectation": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round",
+            "after_simultaneous_substitution": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round",
+            "branch_probability": "2/5",
+            "destination_function": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round",
+            "weighted_expectation": "2*eta_L_assign_3_0/5 + 2*eta_L_assign_3_1*wealth/5 + 2*eta_L_assign_3_2*round/5"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_6",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_probabilistic_1",
+        "source_span": {
+          "end_column": 5,
+          "end_line": 44,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 38
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_6"
+      },
+      "relation": {
+        "left": "199*eta_L_probabilistic_1_0/200 + 199*eta_L_probabilistic_1_1*wealth/200 + 199*eta_L_probabilistic_1_2*round/200",
+        "normalized_left_minus_right": "-3*eta_L_assign_2_0/5 - 3*eta_L_assign_2_1*wealth/5 - 3*eta_L_assign_2_2*round/5 - 2*eta_L_assign_3_0/5 - 2*eta_L_assign_3_1*wealth/5 - 2*eta_L_assign_3_2*round/5 + 199*eta_L_probabilistic_1_0/200 + 199*eta_L_probabilistic_1_1*wealth/200 + 199*eta_L_probabilistic_1_2*round/200",
+        "relation": ">=",
+        "right": "3*eta_L_assign_2_0/5 + 3*eta_L_assign_2_1*wealth/5 + 3*eta_L_assign_2_2*round/5 + 2*eta_L_assign_3_0/5 + 2*eta_L_assign_3_1*wealth/5 + 2*eta_L_assign_3_2*round/5"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round",
+            "after_simultaneous_substitution": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round",
+            "weighted_expectation": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round",
+          "wealth >= 0.5"
+        ]
+      },
+      "id": "tail_contraction_T_7",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 48,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 36
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_7"
+      },
+      "relation": {
+        "left": "199*eta_L_while_1_0/200 + 199*eta_L_while_1_1*wealth/200 + 199*eta_L_while_1_2*round/200",
+        "normalized_left_minus_right": "-eta_L_probabilistic_1_0 - eta_L_probabilistic_1_1*wealth - eta_L_probabilistic_1_2*round + 199*eta_L_while_1_0/200 + 199*eta_L_while_1_1*wealth/200 + 199*eta_L_while_1_2*round/200",
+        "relation": ">=",
+        "right": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round",
+            "after_simultaneous_substitution": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round",
+            "weighted_expectation": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round",
+          "not wealth >= 0.5"
+        ]
+      },
+      "id": "tail_contraction_T_8",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 48,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 36
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_8"
+      },
+      "relation": {
+        "left": "199*eta_L_while_1_0/200 + 199*eta_L_while_1_1*wealth/200 + 199*eta_L_while_1_2*round/200",
+        "normalized_left_minus_right": "-eta_L_refute_1_0 - eta_L_refute_1_1*wealth - eta_L_refute_1_2*round + 199*eta_L_while_1_0/200 + 199*eta_L_while_1_1*wealth/200 + 199*eta_L_while_1_2*round/200",
+        "relation": ">=",
+        "right": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_while_1_0 + eta_L_while_1_1*wealth",
+            "after_simultaneous_substitution": "eta_L_while_1_0 + eta_L_while_1_1*wealth",
+            "branch_probability": "1",
+            "destination_function": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round",
+            "weighted_expectation": "eta_L_while_1_0 + eta_L_while_1_1*wealth"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "wealth = 1",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_9",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_4",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 33,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 14,
+          "start_line": 33
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_9"
+      },
+      "relation": {
+        "left": "199*eta_L_assign_4_0/200 + 199*eta_L_assign_4_1*wealth/200 + 199*eta_L_assign_4_2*round/200",
+        "normalized_left_minus_right": "199*eta_L_assign_4_0/200 + 199*eta_L_assign_4_1*wealth/200 + 199*eta_L_assign_4_2*round/200 - eta_L_while_1_0 - eta_L_while_1_1*wealth",
+        "relation": ">=",
+        "right": "eta_L_while_1_0 + eta_L_while_1_1*wealth"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": {
+        "branches": [
+          {
+            "after_random_expectation": "eta_L_assign_4_0 + eta_L_assign_4_1 + eta_L_assign_4_2*round",
+            "after_simultaneous_substitution": "eta_L_assign_4_0 + eta_L_assign_4_1 + eta_L_assign_4_2*round",
+            "branch_probability": "1",
+            "destination_function": "eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round",
+            "weighted_expectation": "eta_L_assign_4_0 + eta_L_assign_4_1 + eta_L_assign_4_2*round"
+          }
+        ]
+      },
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "true"
+        ]
+      },
+      "id": "tail_contraction_T_10",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_5",
+        "source_span": {
+          "end_column": 19,
+          "end_line": 32,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 32
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": "T_10"
+      },
+      "relation": {
+        "left": "199*eta_L_assign_5_0/200 + 199*eta_L_assign_5_1*wealth/200 + 199*eta_L_assign_5_2*round/200",
+        "normalized_left_minus_right": "-eta_L_assign_4_0 - eta_L_assign_4_1 - eta_L_assign_4_2*round + 199*eta_L_assign_5_0/200 + 199*eta_L_assign_5_1*wealth/200 + 199*eta_L_assign_5_2*round/200",
+        "relation": ">=",
+        "right": "eta_L_assign_4_0 + eta_L_assign_4_1 + eta_L_assign_4_2*round"
+      },
+      "tags": [
+        "at_horizon",
+        "contraction",
+        "k=1"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_assign_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_1",
+        "source_span": {
+          "end_column": 21,
+          "end_line": 47,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 47
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round",
+        "normalized_left_minus_right": "eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_assign_2",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_2",
+        "source_span": {
+          "end_column": 27,
+          "end_line": 40,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 5,
+          "start_line": 40
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round",
+        "normalized_left_minus_right": "eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_assign_3",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_3",
+        "source_span": {
+          "end_column": 27,
+          "end_line": 43,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 5,
+          "start_line": 43
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round",
+        "normalized_left_minus_right": "eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "wealth = 1",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_assign_4",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_4",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 33,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 14,
+          "start_line": 33
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round",
+        "normalized_left_minus_right": "eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_assign_5",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_assign_5",
+        "source_span": {
+          "end_column": 19,
+          "end_line": 32,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 32
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_assign_5_0 + eta_L_assign_5_1*wealth + eta_L_assign_5_2*round",
+        "normalized_left_minus_right": "eta_L_assign_5_0 + eta_L_assign_5_1*wealth + eta_L_assign_5_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0.5 <= wealth and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_probabilistic_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_probabilistic_1",
+        "source_span": {
+          "end_column": 5,
+          "end_line": 44,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 3,
+          "start_line": 38
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round",
+        "normalized_left_minus_right": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and wealth < 0.5 and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_refute_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_refute_1",
+        "source_span": {
+          "end_column": 24,
+          "end_line": 51,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 51
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round",
+        "normalized_left_minus_right": "eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "0 < wealth and 0 <= round",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_L_while_1",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "L_while_1",
+        "source_span": {
+          "end_column": 3,
+          "end_line": 48,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+          "node": "SourceSpan",
+          "start_column": 1,
+          "start_line": 36
+        },
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round",
+        "normalized_left_minus_right": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_l_f",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "l_f",
+        "source_span": null,
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round",
+        "normalized_left_minus_right": "eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    },
+    {
+      "debug": null,
+      "domain": {
+        "interpretation": "conjunction",
+        "predicates": [
+          "true",
+          "wealth <= 0.45"
+        ]
+      },
+      "id": "tail_normalization_l_t",
+      "origin": {
+        "analysis_id": "kelly_unbounded_tail",
+        "goal_kind": "tail_bound",
+        "source_location": "l_t",
+        "source_span": null,
+        "template_kind": "polynomial_eta_k1",
+        "transition_id": null
+      },
+      "relation": {
+        "left": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round",
+        "normalized_left_minus_right": "eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round - 1",
+        "relation": ">=",
+        "right": "1"
+      },
+      "tags": [
+        "at_horizon",
+        "k=1",
+        "tail_normalization"
+      ]
+    }
+  ],
+  "required_tags": [
+    "contraction",
+    "eta_positive",
+    "tail_normalization"
+  ],
+  "required_tags_present": true,
+  "state_symbols": [
+    "round",
+    "wealth"
+  ]
+}

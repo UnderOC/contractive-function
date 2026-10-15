@@ -1,0 +1,61 @@
+{
+  "analysis": {
+    "analysis_id": "kelly_unbounded_tail",
+    "event": "wealth <= 0.45",
+    "event_mode": "at_horizon",
+    "horizon": 4,
+    "initial_location": "L_while_1",
+    "initial_valuation": {
+      "round": "0",
+      "wealth": "1"
+    },
+    "kind": "tail_bound",
+    "normalization": "certificate_geq_one_on_event"
+  },
+  "artifacts": {
+    "analyses/kelly_unbounded_tail/certificates/polynomial-eta/obligations.json": "c5da565852f68f9573912327b14554a953d8a07fd7a0fafc82b8271e7d9c6927",
+    "analyses/kelly_unbounded_tail/certificates/polynomial-eta/obligations.txt": "ed256d0beedce855fb04eb2a7c52b06111c613080576de8e0970220497ac08ab",
+    "analyses/kelly_unbounded_tail/certificates/polynomial-eta/polynomial_model.json": "dca20ae7e187205ce379f885c3b43403b695571fee552f7fb6f765f340f556a4",
+    "analyses/kelly_unbounded_tail/certificates/polynomial-eta/result.json": "13147115a190fd15939bb203c9d1aaf4723320093bcf00634ea34022ebdbf843",
+    "analyses/kelly_unbounded_tail/certificates/polynomial-eta/template.json": "bf2f4f7d6c0b6a8eeb2a13bd22b6be35191b17d7af5fe420980fffb3e15cdd7d",
+    "analyses/kelly_unbounded_tail/goal.json": "fc818541299f111ea3c57ea64bd9484030908ff33e7c0e80fde183185319c2a0",
+    "analyses/kelly_unbounded_tail/summary.json": "c9c506a0c185330e6a4a78b8763d2b0c7cc8b526b501958afb561104d056be5b",
+    "manifest.json": "52a9fdc04f458b3e2e8a7d60f6abe378f24dcfb05da5616d6729279caea324a6",
+    "shared/ast.json": "c764de64bcf42e37b4a6144065bcbf5538a37fd465e11cdb45d5f7d79f26a439",
+    "shared/cfg.dot": "4c12b12eac312e40e24163003e6c2708b561ff2ff6226e31f0783640f87cce7e",
+    "shared/cfg.json": "133fefb60afc0a0e4b5486c2fb13f2da0b7a83260782ec4103f9bb51b92ef2af",
+    "shared/cfg.txt": "4219a7c5624d1bd00dd224ee23788ccf37eb6c0d799d16dd380655de4479b10e",
+    "shared/manifest.json": "40837623bbfbd99ba0bb1f0dd82506e6dd49dda837fdaaa2b3ec9414dea1bd47",
+    "shared/source.normalized.pp": "e37f04e383bd6830ae0dcf1d5ea7ade5b18a165c34127956336dc4507a59d05a",
+    "shared/validation.json": "f290936e30ca70d107137e51a70f5c5b8d05cccc0280fda7a70d3912850ce378",
+    "summary.json": "d8bf47f65503caa9f35edec9dc7f68eeb2cd39d68ca91a9a68926748a988fefe"
+  },
+  "backend": {
+    "matlab_invoked": false,
+    "route": "affine_polynomial_obligations"
+  },
+  "certificate": {
+    "degree": 1,
+    "fixed_factor_q": null,
+    "k": 1,
+    "kind": "polynomial-eta",
+    "lambda": null
+  },
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+    "sha256": "0531ea3fc7b50e04c327b7c07ffc90b4a8de25407545786c612e70bd000c487b"
+  },
+  "phase": "stages_2_3_obligation_generation",
+  "python_version": "3.11.15",
+  "schema_version": 2,
+  "semantics": {
+    "arithmetic": "exact rational/symbolic until numeric display",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "updates": "simultaneous"
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.2.0"
+  }
+}

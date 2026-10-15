@@ -1,0 +1,42 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp
+initial: L_assign_4
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: x, y
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(-0.5 <= x and x <= 0 and 0 <= y and y <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:27:1
+  L_while_1 [while] invariant=(-0.5 <= x and x <= 0 and 0 <= y and y <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:13:1
+  L_assign_1 [assign] invariant=(-0.5 <= x and x <= 0 and 0 <= y and y <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:19:5
+  L_assign_2 [assign] invariant=(-0.5 <= x and x <= 0 and 0 <= y and y <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:22:5
+  L_probabilistic_1 [probabilistic] invariant=(-0.5 <= x and x <= 0 and 0 <= y and y <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:17:3
+  L_assign_3 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:11:1
+  L_assign_4 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp:10:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(false)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := -0.5 * y
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_while_1; update: y := -0.5 * x
+  T_5: L_probabilistic_1 guard=(true)
+    branch 1: p=0.5 -> L_assign_1; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_2; update: identity
+  T_6: L_while_1 guard=(4096 * (x * x + x * y + y * y) > 3)
+    branch 1: p=1 -> L_probabilistic_1; update: identity
+  T_7: L_while_1 guard=(not 4096 * (x * x + x * y + y * y) > 3)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_8: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: y := 1
+  T_9: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_assign_3; update: x := -0.5

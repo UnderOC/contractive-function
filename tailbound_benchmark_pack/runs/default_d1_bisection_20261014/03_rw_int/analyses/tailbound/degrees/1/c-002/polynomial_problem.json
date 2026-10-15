@@ -1,0 +1,262 @@
+{
+  "c": "3/4",
+  "certificate_family": "polynomial",
+  "context": null,
+  "decisions": [
+    "v_L_assign_1_0",
+    "v_L_assign_1_1",
+    "v_L_assign_2_0",
+    "v_L_assign_2_1",
+    "v_L_probabilistic_1_0",
+    "v_L_probabilistic_1_1",
+    "v_L_refute_1_0",
+    "v_L_refute_1_1",
+    "v_L_while_1_0",
+    "v_L_while_1_1"
+  ],
+  "degree": 1,
+  "expressions": {
+    "L_assign_1": "v_L_assign_1_0 + v_L_assign_1_1*x",
+    "L_assign_2": "v_L_assign_2_0 + v_L_assign_2_1*x",
+    "L_probabilistic_1": "v_L_probabilistic_1_0 + v_L_probabilistic_1_1*x",
+    "L_refute_1": "v_L_refute_1_0 + v_L_refute_1_1*x",
+    "L_while_1": "v_L_while_1_0 + v_L_while_1_1*x",
+    "l_f": "1",
+    "l_t": "0"
+  },
+  "goal": "tailbound",
+  "objective": "4*v_L_while_1_0/3 + 4*v_L_while_1_1/3",
+  "obligations": [
+    {
+      "conclusion": "v_L_assign_1_0 + v_L_assign_1_1*x",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_assign_1_positive_0",
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_assign_2_0 + v_L_assign_2_1*x",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_assign_2_positive_0",
+      "origin": {
+        "location": "L_assign_2"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_probabilistic_1_0 + v_L_probabilistic_1_1*x",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_probabilistic_1_positive_0",
+      "origin": {
+        "location": "L_probabilistic_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_refute_1_0 + v_L_refute_1_1*x",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x",
+          "1 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_refute_1_positive_0",
+      "origin": {
+        "location": "L_refute_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_while_1_0 + v_L_while_1_1*x",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_while_1_positive_0",
+      "origin": {
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "3*v_L_refute_1_0/4 + 3*v_L_refute_1_1*x/4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x",
+          "1 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_2_0",
+      "origin": {
+        "line": 21,
+        "location": "L_refute_1",
+        "transition": "T_2"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "3*v_L_assign_1_0/4 + 3*v_L_assign_1_1*x/4 - v_L_while_1_0 - v_L_while_1_1*x + v_L_while_1_1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_3_0",
+      "origin": {
+        "line": 13,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "3*v_L_assign_2_0/4 + 3*v_L_assign_2_1*x/4 - v_L_while_1_0 - v_L_while_1_1*x - v_L_while_1_1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_4_0",
+      "origin": {
+        "line": 16,
+        "location": "L_assign_2",
+        "transition": "T_4"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-3*v_L_assign_1_0/5 - 3*v_L_assign_1_1*x/5 - 2*v_L_assign_2_0/5 - 2*v_L_assign_2_1*x/5 + 3*v_L_probabilistic_1_0/4 + 3*v_L_probabilistic_1_1*x/4",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_5_0",
+      "origin": {
+        "line": 11,
+        "location": "L_probabilistic_1",
+        "transition": "T_5"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-v_L_probabilistic_1_0 - v_L_probabilistic_1_1*x + 3*v_L_while_1_0/4 + 3*v_L_while_1_1*x/4",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x",
+          "x - 1"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_6_0",
+      "origin": {
+        "line": 9,
+        "location": "L_while_1",
+        "transition": "T_6"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-v_L_refute_1_0 - v_L_refute_1_1*x + 3*v_L_while_1_0/4 + 3*v_L_while_1_1*x/4",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x",
+          "1 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_7_0",
+      "origin": {
+        "line": 9,
+        "location": "L_while_1",
+        "transition": "T_7"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    }
+  ]
+}

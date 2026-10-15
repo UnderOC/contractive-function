@@ -1,0 +1,14 @@
+# PLDI running example: uniform-increment walk
+# Source: Central Moment Analysis for Cost Accumulators in Probabilistic Programs (2021), Figure 2 / Example 2.1, PDF p.3
+# URL: https://arxiv.org/pdf/2001.10150
+# Independently normalized pseudocode; NOT a native input file for any baseline tool.
+# C is a ghost counter: one increment per loop-body execution; not CFG runtime.
+
+# Parameter: d > 0. Set d before running a concrete instance.
+x := 0;
+C := 0;
+while x < d do
+    C := C + 1;
+    r ~ Uniform(-1, 2);
+    x := x + r
+od

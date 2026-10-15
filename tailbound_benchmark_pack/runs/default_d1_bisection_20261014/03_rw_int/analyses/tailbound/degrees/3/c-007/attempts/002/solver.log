@@ -1,0 +1,91 @@
+===============================================================================
+                                     CVXPY                                     
+                                     v1.9.3                                    
+===============================================================================
+INFO: Your problem has 128 variables, 210 constraints, and 0 parameters.
+INFO: It is compliant with the following grammars: DCP, DQCP
+INFO: DCP verification time: 0.0000 seconds.
+INFO: Expression tree has 8 nodes.
+INFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+INFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+INFO: Your problem is compiled with the CPP canonicalization backend.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+INFO: Compiling problem (target solver=MOSEK).
+INFO: Reduction chain: Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK
+INFO: Applying reduction Dcp2Cone
+INFO: Applying reduction CvxAttr2Constr
+INFO: Applying reduction ExactCone2Cone
+INFO: Applying reduction EliminateZeroSized
+INFO: Applying reduction ConeMatrixStuffing
+INFO: Applying reduction MOSEK
+INFO: Finished problem compilation (took 1.935e-01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+INFO: Invoking solver MOSEK  to obtain a solution.
+
+
+INFO: Problem
+INFO:   Name                   :                 
+INFO:   Objective sense        : maximize        
+INFO:   Type                   : CONIC (conic optimization problem)
+INFO:   Constraints            : 128             
+INFO:   Affine conic cons.     : 0               
+INFO:   Disjunctive cons.      : 0               
+INFO:   Cones                  : 0               
+INFO:   Scalar variables       : 55              
+INFO:   Matrix variables       : 25 (scalarized: 108)
+INFO:   Integer variables      : 0               
+INFO: 
+INFO: Optimizer started.
+INFO: Presolve started.
+INFO: Linear dependency checker started.
+INFO: Linear dependency checker terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 18
+INFO: Eliminator terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 0
+INFO: Eliminator terminated.
+INFO: Eliminator - tries                  : 2                 time                   : 0.00            
+INFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            
+INFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               
+INFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               
+INFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               
+INFO: Presolve terminated. Time: 0.00    
+INFO: Optimizer  - threads                : 1               
+INFO: Optimizer  - solved problem         : the primal      
+INFO: Optimizer  - Constraints            : 110             
+INFO: Optimizer  - Cones                  : 15              
+INFO: Optimizer  - Scalar variables       : 80                conic                  : 80              
+INFO: Optimizer  - Semi-definite variables: 11                scalarized             : 66              
+INFO: Factor     - setup time             : 0.00            
+INFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            
+INFO: Factor     - nonzeros before factor : 6105              after factor           : 6105            
+INFO: Factor     - dense dim.             : 0                 flops                  : 4.66e+05        
+INFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+INFO: 0   1.0e+00  1.0e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  
+INFO: 1   1.7e-01  1.7e-01  1.1e-01  7.17e-01   6.564645809e-01   5.105963384e-01   1.7e-01  0.00  
+INFO: 2   2.8e-02  2.8e-02  5.4e-03  1.25e+00   8.352006217e-01   8.301220073e-01   2.8e-02  0.00  
+INFO: 3   5.4e-03  5.4e-03  4.4e-04  8.79e-01   9.772726971e-01   9.774664327e-01   5.4e-03  0.00  
+INFO: 4   7.0e-04  7.0e-04  2.0e-05  1.02e+00   1.017851605e+00   1.017931540e+00   7.0e-04  0.00  
+INFO: 5   2.6e-04  2.6e-04  5.6e-06  8.29e-01   1.021687410e+00   1.021616385e+00   2.6e-04  0.00  
+INFO: 6   4.3e-05  4.3e-05  9.3e-07  4.64e-01   1.024823448e+00   1.024481391e+00   4.3e-05  0.00  
+INFO: 7   9.8e-06  9.8e-06  4.2e-07  -7.64e-01  1.037664480e+00   1.035939906e+00   9.8e-06  0.00  
+INFO: 8   2.1e-06  2.1e-06  8.4e-08  -2.42e-01  1.083851038e+00   1.082362072e+00   2.1e-06  0.00  
+INFO: 9   4.3e-07  4.3e-07  1.7e-08  -4.12e-02  1.131378259e+00   1.129796766e+00   4.3e-07  0.00  
+INFO: 10  8.9e-08  8.8e-08  3.2e-09  8.10e-02   1.170620713e+00   1.169349953e+00   8.8e-08  0.00  
+INFO: 11  1.8e-08  1.7e-08  4.7e-10  1.53e-01   1.199819207e+00   1.199007091e+00   1.7e-08  0.00  
+INFO: 12  1.5e-08  3.6e-09  8.2e-11  3.05e-01   1.215207730e+00   1.214694191e+00   3.6e-09  0.00  
+INFO: 13  1.5e-08  3.6e-09  8.2e-11  3.05e-01   1.215207730e+00   1.214694191e+00   3.6e-09  0.00  
+INFO: 14  1.5e-08  3.6e-09  8.2e-11  3.05e-01   1.215207730e+00   1.214694191e+00   3.6e-09  0.00  
+INFO: Optimizer terminated. Time: 0.00    
+INFO: 
+INFO: 
+INFO: Interior-point solution summary
+INFO:   Problem status  : UNKNOWN
+INFO:   Solution status : UNKNOWN
+INFO:   Primal.  obj: 1.2152077303e+00    nrm: 2e+03    Viol.  con: 1e-05    var: 0e+00    barvar: 0e+00  
+INFO:   Dual.    obj: 1.2146941915e+00    nrm: 5e+00    Viol.  con: 0e+00    var: 1e-06    barvar: 1e-06  

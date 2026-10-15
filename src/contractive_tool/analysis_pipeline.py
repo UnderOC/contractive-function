@@ -16,8 +16,9 @@ import sympy as sp
 from contractive_tool import __version__
 from contractive_tool.analysis.degree_policy import DegreePolicy
 from contractive_tool.analysis.certificate_families import get_family
-from contractive_tool.analysis.parameter_search import FixedContractionGrid
+from contractive_tool.analysis.parameter_search import ContractionBisection, FixedContractionGrid
 from contractive_tool.analysis.semantics import prepare_program, prove_nonnegative
+from contractive_tool.analysis.rounds import prepare_round_kernel, make_round_problem
 from contractive_tool.cfg.builder import build_cfg
 from contractive_tool.frontend.parser import parse_file
 from contractive_tool.frontend.semantic import check_program
@@ -30,11 +31,12 @@ from contractive_tool.positivity.selector import build_plan
 
 @dataclass(frozen=True)
 class SearchOptions:
-    initial_degree: int = 2
+    initial_degree: int = 1
     max_degree: int = 6
     degree_step: int = 1
     continue_after_success: bool = False
-    c_values: tuple[str,...] = ('1/2','9/10','99/100')
+    c_values: tuple[str,...] | None = None
+    max_c_steps: int = 10
     max_order: int = 4
     max_attempts_per_point: int = 2
     max_parameter_points: int = 32
@@ -47,12 +49,16 @@ class SearchOptions:
     per_attempt_seconds: float = 30
     verbose: bool = True
     family: str = 'polynomial'
+    tail_rule: str = 'auto'
 
     def validate(self):
         degrees = DegreePolicy(self.initial_degree,self.max_degree,self.degree_step,self.continue_after_success)
         list(degrees.degrees())
         get_family(self.family)
-        cs = FixedContractionGrid(self.c_values).candidates()
+        ContractionBisection(self.max_c_steps)
+        cs = FixedContractionGrid(self.c_values).candidates() if self.c_values is not None else None
+        if self.tail_rule not in ('auto','round_survival','late_bad_exit'):
+            raise AnalysisError('Unknown tail rule')
         if self.strategy not in ('auto',)+StrategyRegistry.known:
             raise AnalysisError('Unknown positivity strategy')
         StrategyRegistry(self.enabled_strategies)
@@ -97,13 +103,18 @@ def exact_template_check(problem, numerical_values):
 
 
 def selected_bound(candidate, problem, cfg):
-    return {'degree':problem.degree,'c':str(problem.c),'A_exact':candidate['bound_exact'],
+    bound = {'degree':problem.degree,'c':str(problem.c),'A_exact':candidate['bound_exact'],
             'A_numeric':candidate['bound_numeric'],'lambda_expression':f'-log({problem.c})',
             'lambda_numeric':float(-sp.log(problem.c)),
             'expression':f"({candidate['bound_exact']}) * ({problem.c})**n",
             'exponential_expression':f"({candidate['bound_exact']}) * exp(-(-log({problem.c}))*n)",
             'n_domain':'nonnegative integers','time_unit':'pcfg_transition_from_program_entry',
             'event':f'T < infinity and T > n and terminal_location == {cfg.failure_terminal}'}
+    if problem.context:
+        bound.update(problem.context)
+        bound['termination_consequence']='K is finite almost surely; finite round/exit paths imply program termination'
+        bound['probability_expression']=f"min(1, {bound['expression']})"
+    return bound
 
 
 def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
@@ -126,7 +137,8 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
     root=out_dir/'analyses'/goal
     summary={'goal':goal,'status':'unknown','selection':None,'proved_candidates':[],
              'degrees_attempted':[],'parameter_points':0,'attempt_count':0,
-             'out_dir':str(out_dir),'termination':'unknown','certificate_family':'polynomial'}
+             'out_dir':str(out_dir),'termination':'unknown','termination_assumed':False,
+             'certificate_family':'polynomial','contraction_searches':[]}
     history=[]
 
     def finish():
@@ -152,14 +164,38 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
         summary.update(status='unsupported',stop_reason='semantic_evidence_unavailable',diagnostic=str(error))
         return finish()
     write_json(root/'domain_evidence.json',evidence.to_data())
-    write_json(root/'goal.json',{'goal':goal,'event_mode':'late_bad_exit' if goal=='tailbound' else 'eventual',
+    kernel = None
+    if goal == 'tailbound' and options.tail_rule != 'late_bad_exit':
+        try:
+            kernel = prepare_round_kernel(cfg,evidence)
+        except AnalysisError as error:
+            summary['round_compilation_diagnostic'] = str(error)
+            if options.tail_rule == 'round_survival':
+                summary.update(status='unsupported',stop_reason='round_evidence_unavailable')
+                return finish()
+    summary['tail_rule'] = ('round_survival' if kernel else 'late_bad_exit') if goal == 'tailbound' else None
+    goal_data = {'goal':goal,'event_mode':'late_bad_exit' if goal=='tailbound' else 'eventual',
         'event_source':'source assert/refute','failure_terminal':cfg.failure_terminal,
         'normal_terminal':cfg.normal_terminal,'initial_location':evidence.start,
         'initial':{str(k):str(v) for k,v in evidence.initial.items()},
+        'initial_random_symbols':list(evidence.initial_random_model.symbols),
+        'initial_support':[domain.to_data() for domain in evidence.initial_support],
         'prefix_steps':len(evidence.prefix),'clock':'pcfg_transition_from_program_entry',
-        'prefix_adjustment':'A = c**(-prefix_steps) * V_after_prefix(initial)' if goal=='tailbound' else 'none',
+        'prefix_adjustment':(
+            'A = c**(-prefix_steps) * E[V_after_prefix(symbolic_initial_state)]'
+            if goal=='tailbound' else 'none'),
         'terminal_values':{'normal':0,'failure':1},'absorbing_clock_frozen':True,
-        'termination_assumed':False})
+        'termination_assumed':False}
+    if kernel:
+        write_json(root/'round_evidence.json',kernel.to_data())
+        goal_data.update(event_mode='round_survival',event='K > n',
+            event_source='loop survival (bounds all late exits, including assertion failures)',
+            clock='completed_loop_iterations',clock_relation=kernel.to_data()['clock'],
+            prefix_adjustment='none; deterministic initialization precedes round zero',
+            terminal_values={'completed_loop':0},active_normalization='eta >= 1',
+            proof_domain='inductively verified Boolean loop-head states',
+            termination_consequence='derived from a verified certificate, not assumed')
+    write_json(root/'goal.json',goal_data)
     registry=StrategyRegistry(options.enabled_strategies)
     limits=EncodingLimits(options.max_products,options.max_psd_dimension,options.max_decisions)
     stop=False
@@ -168,18 +204,31 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
             summary['stop_reason']='time_budget'; break
         summary['degrees_attempted'].append(degree)
         degree_proved=[]
-        for ci,c in enumerate(cs):
+        search = ContractionBisection(options.max_c_steps) if cs is None else None
+        search_record = {'degree':degree, **(search.to_data() if search else
+                          {'method':'explicit_grid','candidates':[str(c) for c in cs]})}
+        summary['contraction_searches'].append(search_record)
+
+        def feedback(status):
+            if search:
+                search.observe(status)
+                search_record.update(search.to_data())
+
+        for ci,c in enumerate(search.candidates() if search else cs):
             if stop: break
             if summary['parameter_points']>=options.max_parameter_points:
                 summary['stop_reason']='parameter_budget'; stop=True; break
             if time.monotonic()-started>=options.total_seconds:
                 summary['stop_reason']='time_budget'; stop=True; break
             summary['parameter_points']+=1
+            point_history_start=len(history)
             point_path=root/'degrees'/str(degree)/f'c-{ci+1:03d}'
             try:
-                problem=family.instantiate(cfg,evidence,degree,c,goal,options.max_decisions)
+                problem=(make_round_problem(cfg,kernel,degree,c,options.max_decisions) if kernel else
+                         family.instantiate(cfg,evidence,degree,c,goal,options.max_decisions))
             except AnalysisError as error:
                 history.append({'degree':degree,'c':str(c),'status':'generation_failed','reason':str(error)})
+                feedback('unknown')
                 continue
             write_json(point_path/'polynomial_problem.json',problem.to_data())
             if goal=='assertion_violation':
@@ -192,6 +241,7 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
             if minimum_order>options.max_order:
                 history.append({'degree':degree,'c':str(c),'status':'generation_failed',
                                 'reason':'Residual degree exceeds max_order'})
+                feedback('unknown')
                 continue
             attempt=0
             plans=set()
@@ -243,6 +293,8 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
                                     if sp.Rational(verified['bound_exact'])<0:
                                         raise AnalysisError('Verified objective must be nonnegative')
                                     verified['semantic_evidence']='domain_evidence.json'
+                                    if kernel:
+                                        verified['round_evidence']='round_evidence.json'
                                     values={sp.Symbol(n):sp.Rational(verified['exact_values'][n]) for n in problem.decisions}
                                     polynomial={l:str(v.xreplace(values)) for l,v in problem.expressions.items()}
                                     bound=selected_bound(verified,problem,cfg)
@@ -263,6 +315,9 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
                     history.append(row)
                     if row['status']=='proved': break
                 if history and history[-1]['degree']==degree and history[-1]['c']==str(c) and history[-1]['status']=='proved': break
+            point_statuses=[row['status'] for row in history[point_history_start:]]
+            feedback('proved' if 'proved' in point_statuses else
+                     'infeasible' if point_statuses and all(s=='infeasible' for s in point_statuses) else 'unknown')
         if degree_proved and not options.continue_after_success:
             if not stop: summary['stop_reason']='first_successful_degree'
             break
@@ -270,6 +325,8 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
     summary.setdefault('stop_reason','max_degree')
     if summary['proved_candidates']:
         summary['status']='proved'
+        if kernel:
+            summary['termination']='proved_almost_sure'
         summary['pareto_candidates']=[b for b in summary['proved_candidates'] if not any(
             sp.Rational(a['c'])<=sp.Rational(b['c']) and sp.Rational(a['A_exact'])<=sp.Rational(b['A_exact'])
             and (a['c'],a['A_exact'])!=(b['c'],b['A_exact']) for a in summary['proved_candidates'])]

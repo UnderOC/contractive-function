@@ -1,0 +1,20 @@
+# Multiplicative update with signed costs
+# Source: Quantitative Bounds on Resource Usage of Probabilistic Programs (2024), Figure 3a / Example 3.1, PDF pp.7-8; Table 1 Example 1
+# URL: https://research-explorer.ista.ac.at/download/17162/17182/2024_ProcACMProgLanguage_Chatterjee.pdf
+# Independently normalized pseudocode; NOT a native input file for any baseline tool.
+# C is the signed accumulated cost; NOT a loop counter or CFG runtime.
+
+x := 1;
+y := 1;
+C := y;
+while x >= 1 do
+    r ~ Uniform(-1, 0.5);
+    x := x + r;
+    if prob(0.5) then
+        C := C - 0.5 * y;
+        y := 0.5 * y
+    else
+        C := C + 0.5 * y;
+        y := 1.5 * y
+    fi
+od

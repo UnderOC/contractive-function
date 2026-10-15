@@ -1,0 +1,19 @@
+# Random walk with a rare escape region
+# Source: Quantitative Bounds on Resource Usage of Probabilistic Programs (2024), Figure 3b, PDF p.8; Table 2, PDF p.24
+# URL: https://research-explorer.ista.ac.at/download/17162/17182/2024_ProcACMProgLanguage_Chatterjee.pdf
+# Independently normalized pseudocode; NOT a native input file for any baseline tool.
+# C is a ghost counter: one increment per loop-body execution; not CFG runtime.
+
+x := 0;
+C := 0;
+while x >= 0 do
+    C := C + 1;
+    r1 ~ Uniform(-1, 0.5);
+    x := x + r1;
+    if x >= 200 then
+        r2 ~ Uniform(-1, 2);
+        x := x + r2
+    else
+        skip
+    fi
+od

@@ -1,0 +1,398 @@
+[
+  {
+    "name": "01_coupon2",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "tailbound_benchmark_pack/pp/01_coupon2.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "1",
+      "--max-degree",
+      "1",
+      "--max-c-steps",
+      "10",
+      "--out-dir",
+      "tailbound_benchmark_pack/runs/bisection_d1_20261014/01_coupon2"
+    ],
+    "exit_code": 0,
+    "status": "proved",
+    "seconds": 1.6955998779740185,
+    "selection": {
+      "A_exact": "2",
+      "A_numeric": 2.0,
+      "c": "1/2",
+      "certificate": "analyses/tailbound/degrees/1/c-001/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 3*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "exponential_expression": "(2) * exp(-(-log(1/2))*n)",
+      "expression": "(2) * (1/2)**n",
+      "lambda_expression": "-log(1/2)",
+      "lambda_numeric": 0.6931471805599453,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (2) * (1/2)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    "search": [
+      {
+        "best_verified_c": "1/2",
+        "degree": 1,
+        "interval": [
+          "511/1024",
+          "1/2"
+        ],
+        "lower_endpoint_is_nonexistence_proof": false,
+        "max_steps": 10,
+        "method": "bisection",
+        "steps": [
+          {
+            "c": "1/2",
+            "interval_after": [
+              "0",
+              "1/2"
+            ],
+            "interval_before": [
+              "0",
+              "1"
+            ],
+            "iteration": 1,
+            "status": "proved"
+          },
+          {
+            "c": "1/4",
+            "interval_after": [
+              "1/4",
+              "1/2"
+            ],
+            "interval_before": [
+              "0",
+              "1/2"
+            ],
+            "iteration": 2,
+            "status": "infeasible"
+          },
+          {
+            "c": "3/8",
+            "interval_after": [
+              "3/8",
+              "1/2"
+            ],
+            "interval_before": [
+              "1/4",
+              "1/2"
+            ],
+            "iteration": 3,
+            "status": "infeasible"
+          },
+          {
+            "c": "7/16",
+            "interval_after": [
+              "7/16",
+              "1/2"
+            ],
+            "interval_before": [
+              "3/8",
+              "1/2"
+            ],
+            "iteration": 4,
+            "status": "infeasible"
+          },
+          {
+            "c": "15/32",
+            "interval_after": [
+              "15/32",
+              "1/2"
+            ],
+            "interval_before": [
+              "7/16",
+              "1/2"
+            ],
+            "iteration": 5,
+            "status": "infeasible"
+          },
+          {
+            "c": "31/64",
+            "interval_after": [
+              "31/64",
+              "1/2"
+            ],
+            "interval_before": [
+              "15/32",
+              "1/2"
+            ],
+            "iteration": 6,
+            "status": "infeasible"
+          },
+          {
+            "c": "63/128",
+            "interval_after": [
+              "63/128",
+              "1/2"
+            ],
+            "interval_before": [
+              "31/64",
+              "1/2"
+            ],
+            "iteration": 7,
+            "status": "infeasible"
+          },
+          {
+            "c": "127/256",
+            "interval_after": [
+              "127/256",
+              "1/2"
+            ],
+            "interval_before": [
+              "63/128",
+              "1/2"
+            ],
+            "iteration": 8,
+            "status": "infeasible"
+          },
+          {
+            "c": "255/512",
+            "interval_after": [
+              "255/512",
+              "1/2"
+            ],
+            "interval_before": [
+              "127/256",
+              "1/2"
+            ],
+            "iteration": 9,
+            "status": "infeasible"
+          },
+          {
+            "c": "511/1024",
+            "interval_after": [
+              "511/1024",
+              "1/2"
+            ],
+            "interval_before": [
+              "255/512",
+              "1/2"
+            ],
+            "iteration": 10,
+            "status": "infeasible"
+          }
+        ],
+        "stop_reason": "max_c_steps",
+        "upper_endpoint_verified": true
+      }
+    ]
+  },
+  {
+    "name": "02_coupon4",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "tailbound_benchmark_pack/pp/02_coupon4.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "1",
+      "--max-degree",
+      "1",
+      "--max-c-steps",
+      "10",
+      "--out-dir",
+      "tailbound_benchmark_pack/runs/bisection_d1_20261014/02_coupon4"
+    ],
+    "exit_code": 0,
+    "status": "proved",
+    "seconds": 4.678506484953687,
+    "selection": {
+      "A_exact": "4",
+      "A_numeric": 4.0,
+      "c": "3/4",
+      "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 4 + 4*K + 2",
+        "prefix_steps": 4,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "exponential_expression": "(4) * exp(-(-log(3/4))*n)",
+      "expression": "(4) * (3/4)**n",
+      "lambda_expression": "-log(3/4)",
+      "lambda_numeric": 0.2876820724517809,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (4) * (3/4)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    "search": [
+      {
+        "best_verified_c": "3/4",
+        "degree": 1,
+        "interval": [
+          "767/1024",
+          "3/4"
+        ],
+        "lower_endpoint_is_nonexistence_proof": false,
+        "max_steps": 10,
+        "method": "bisection",
+        "steps": [
+          {
+            "c": "1/2",
+            "interval_after": [
+              "1/2",
+              "1"
+            ],
+            "interval_before": [
+              "0",
+              "1"
+            ],
+            "iteration": 1,
+            "status": "infeasible"
+          },
+          {
+            "c": "3/4",
+            "interval_after": [
+              "1/2",
+              "3/4"
+            ],
+            "interval_before": [
+              "1/2",
+              "1"
+            ],
+            "iteration": 2,
+            "status": "proved"
+          },
+          {
+            "c": "5/8",
+            "interval_after": [
+              "5/8",
+              "3/4"
+            ],
+            "interval_before": [
+              "1/2",
+              "3/4"
+            ],
+            "iteration": 3,
+            "status": "infeasible"
+          },
+          {
+            "c": "11/16",
+            "interval_after": [
+              "11/16",
+              "3/4"
+            ],
+            "interval_before": [
+              "5/8",
+              "3/4"
+            ],
+            "iteration": 4,
+            "status": "infeasible"
+          },
+          {
+            "c": "23/32",
+            "interval_after": [
+              "23/32",
+              "3/4"
+            ],
+            "interval_before": [
+              "11/16",
+              "3/4"
+            ],
+            "iteration": 5,
+            "status": "infeasible"
+          },
+          {
+            "c": "47/64",
+            "interval_after": [
+              "47/64",
+              "3/4"
+            ],
+            "interval_before": [
+              "23/32",
+              "3/4"
+            ],
+            "iteration": 6,
+            "status": "infeasible"
+          },
+          {
+            "c": "95/128",
+            "interval_after": [
+              "95/128",
+              "3/4"
+            ],
+            "interval_before": [
+              "47/64",
+              "3/4"
+            ],
+            "iteration": 7,
+            "status": "infeasible"
+          },
+          {
+            "c": "191/256",
+            "interval_after": [
+              "191/256",
+              "3/4"
+            ],
+            "interval_before": [
+              "95/128",
+              "3/4"
+            ],
+            "iteration": 8,
+            "status": "infeasible"
+          },
+          {
+            "c": "383/512",
+            "interval_after": [
+              "383/512",
+              "3/4"
+            ],
+            "interval_before": [
+              "191/256",
+              "3/4"
+            ],
+            "iteration": 9,
+            "status": "infeasible"
+          },
+          {
+            "c": "767/1024",
+            "interval_after": [
+              "767/1024",
+              "3/4"
+            ],
+            "interval_before": [
+              "383/512",
+              "3/4"
+            ],
+            "iteration": 10,
+            "status": "infeasible"
+          }
+        ],
+        "stop_reason": "max_c_steps",
+        "upper_endpoint_verified": true
+      }
+    ]
+  }
+]

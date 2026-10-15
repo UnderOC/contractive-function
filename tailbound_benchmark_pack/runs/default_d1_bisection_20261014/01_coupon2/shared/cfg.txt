@@ -1,0 +1,42 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp
+initial: L_assign_4
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: c0, c1
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(0 <= c0 and c0 <= 1 and 0 <= c1 and c1 <= 1 and c0 + c1 >= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:25:1
+  L_while_1 [while] invariant=(0 <= c0 and c0 <= 1 and 0 <= c1 and c1 <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:11:1
+  L_assign_1 [assign] invariant=(0 <= c0 and c0 <= 1 and 0 <= c1 and c1 <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:17:5
+  L_assign_2 [assign] invariant=(0 <= c0 and c0 <= 1 and 0 <= c1 and c1 <= 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:20:5
+  L_probabilistic_1 [probabilistic] invariant=(0 <= c0 and c0 <= 1 and 0 <= c1 and c1 <= 1 and c0 + c1 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:15:3
+  L_assign_3 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:9:1
+  L_assign_4 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/01_coupon2.pp:8:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(false)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: c0 := 1
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_while_1; update: c1 := 1
+  T_5: L_probabilistic_1 guard=(true)
+    branch 1: p=0.5 -> L_assign_1; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_2; update: identity
+  T_6: L_while_1 guard=(c0 + c1 < 2)
+    branch 1: p=1 -> L_probabilistic_1; update: identity
+  T_7: L_while_1 guard=(not c0 + c1 < 2)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_8: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: c1 := 0
+  T_9: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_assign_3; update: c0 := 0

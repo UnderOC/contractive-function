@@ -9,8 +9,9 @@ from sympy.solvers.simplex import lpmin, InfeasibleLPError, UnboundedLPError
 from contractive_tool.algebra.polynomial import arithmetic_to_symbolic
 from contractive_tool.errors import AnalysisError
 from contractive_tool.frontend.ast import BooleanConstant, BoolBinary, BoolUnary, Compare
-from contractive_tool.positivity.domains import predicate_regions
+from contractive_tool.positivity.domains import eliminate_fixed_equalities, predicate_regions
 from contractive_tool.positivity.ir import BasicSet
+from contractive_tool.probability import IndependentRandomModel, distribution_from_ast
 
 
 def evaluate_predicate(expr, values):
@@ -32,7 +33,8 @@ def evaluate_predicate(expr, values):
 
 
 def intersect(a, b):
-    return BasicSet(a.variables, a.generators+b.generators, a.equalities+b.equalities)
+    variables = tuple(dict.fromkeys(a.variables + b.variables))
+    return BasicSet(variables, a.generators+b.generators, a.equalities+b.equalities)
 
 
 @lru_cache(maxsize=8192)
@@ -73,14 +75,85 @@ def prove_nonnegative(domain, h):
 
 
 def require_nonnegative(domain, h, label):
-    proof = prove_nonnegative(domain, sp.expand(h))
+    original = sp.expand(h)
+    reduced_domain, reduced = eliminate_fixed_equalities(domain, original)
+    proof = prove_nonnegative(reduced_domain, reduced)
     if proof is None:
         # A certified contradiction makes the implication vacuous.
-        empty = prove_nonnegative(domain, sp.Integer(-1))
+        empty = prove_nonnegative(reduced_domain, sp.Integer(-1))
         if empty is not None:
             return {'method':'empty_domain', 'contradiction':empty}
         raise AnalysisError(f'Cannot certify {label}; supply stronger source invariants or use a supported domain')
+    if domain.equalities:
+        return {'method':'exact_affine_equality_elimination', 'conclusion':str(original),
+                'reduced_conclusion':str(reduced), 'reduced_domain':reduced_domain.to_data(),
+                'proof':proof}
     return proof
+
+
+def _support_product(domains, symbol, distribution, *, max_regions=128):
+    regions = distribution.support(symbol)
+    if len(domains) * len(regions) > max_regions:
+        raise AnalysisError('Random support DNF exceeds region budget')
+    result = []
+    for domain in domains:
+        if symbol in domain.variables:
+            raise AnalysisError(f'Duplicate fresh random symbol {symbol}')
+        variables = domain.variables + (symbol,)
+        for region in regions:
+            result.append(BasicSet(variables, domain.generators + region.generators,
+                                   domain.equalities + region.equalities))
+    return result
+
+
+def _predicate_requirements(predicate, variables):
+    return predicate_regions(predicate, variables)
+
+
+def _certify_initialized_predicate(predicate, values, support_domains, variables, label):
+    """Prove a source predicate for every supported symbolic initialization state."""
+    if all(not domain.variables for domain in support_domains):
+        if not evaluate_predicate(predicate, values):
+            raise AnalysisError(f'{label} is false')
+        return [{'method':'exact_evaluation'}]
+    targets = _predicate_requirements(predicate, variables)
+    evidence = []
+    for source_index, source in enumerate(support_domains):
+        accepted = None
+        for target_index, target in enumerate(targets):
+            requirements = target.generators + tuple(
+                value for equality in target.equalities for value in (equality, -equality))
+            checks = []
+            try:
+                for requirement in requirements:
+                    conclusion = sp.expand(requirement.subs(values, simultaneous=True))
+                    unknown = conclusion.free_symbols - set(source.variables)
+                    if unknown:
+                        names = ', '.join(sorted(str(item) for item in unknown))
+                        raise AnalysisError(
+                            f'Initialization reads a variable without a source-defined value: {names}')
+                    checks.append(require_nonnegative(source, conclusion, label))
+            except AnalysisError:
+                continue
+            accepted = {'support_region':source_index, 'predicate_region':target_index,
+                        'support_domain':source.to_data(), 'proofs':checks}
+            break
+        if accepted is None:
+            raise AnalysisError(f'Cannot certify {label} on the initialization support')
+        evidence.append(accepted)
+    return evidence
+
+
+def _branch_support_domains(domain, branch):
+    domains = [domain]
+    sample_names = set()
+    for sample in branch.update.samples:
+        if sample.symbol in sample_names:
+            raise AnalysisError(f'Duplicate fresh random symbol {sample.symbol}')
+        sample_names.add(sample.symbol)
+        domains = _support_product(domains, sp.Symbol(sample.symbol),
+                                   distribution_from_ast(sample.distribution))
+    return domains
 
 
 @dataclass
@@ -92,11 +165,15 @@ class ProgramEvidence:
     domains: dict
     group_domains: dict
     proofs: list
+    initial_random_model: IndependentRandomModel
+    initial_support: tuple[BasicSet,...]
 
     def to_data(self):
         return {'status':'proved', 'method':'exact_initialization_and_inductive_domain_certificates',
                 'initial_location':self.start, 'initial':{str(k):str(v) for k,v in self.initial.items()},
                 'initialization_steps':len(self.prefix), 'initialization_trace':self.prefix,
+                'initial_random_symbols':list(self.initial_random_model.symbols),
+                'initial_support':[domain.to_data() for domain in self.initial_support],
                 'locations':list(self.locations), 'domains':{l:[d.to_data() for d in ds] for l,ds in self.domains.items()},
                 'strict_invariant_policy':'inductive_closed_overapproximation', 'proofs':self.proofs}
 
@@ -105,35 +182,79 @@ def prepare_program(cfg):
     variables = tuple(sp.Symbol(name) for name in cfg.symbols.program_variables)
     terminals = {cfg.normal_terminal, cfg.failure_terminal}
     values, trace, seen = {}, [], set()
+    initialization_domains = [BasicSet(())]
+    initialization_distributions = {}
+    initialization_sample_count = 0
+    initialization_symbol_names = (
+        set(cfg.symbols.program_variables) | set(cfg.symbols.declared_random_variables))
+    proofs = []
     current = cfg.initial_location
-    # Only straight-line deterministic initialization is executed. No file-name recognition.
-    while cfg.locations[current].kind in {'assign','skip'}:
+    # Execute a straight-line initialization prefix symbolically. Each sample occurrence
+    # receives a distinct symbol, including repeated uses of a declared random variable.
+    while cfg.locations[current].kind in {'assign','sample','skip'}:
         if current in seen:
             raise AnalysisError('Cyclic initialization is unsupported')
         seen.add(current)
-        if not evaluate_predicate(cfg.locations[current].invariant, values):
-            raise AnalysisError(f'Initialization violates invariant at {current}')
+        invariant_proof = _certify_initialized_predicate(
+            cfg.locations[current].invariant, values, initialization_domains, variables,
+            f'initialization invariant at {current}')
+        proofs.append({'location':current, 'kind':'initialization_invariant',
+                       'proofs':invariant_proof})
         groups = cfg.outgoing(current)
         if len(groups)!=1 or len(groups[0].branches)!=1:
-            raise AnalysisError('Initialization must be deterministic')
+            raise AnalysisError('Initialization control flow must be straight-line')
         group, branch = groups[0], groups[0].branches[0]
-        if branch.update.samples or arithmetic_to_symbolic(branch.probability)!=1:
-            raise AnalysisError('Random initialization is not implemented')
-        if not evaluate_predicate(group.guard,values):
-            raise AnalysisError('Initialization is blocked')
-        update = {sp.Symbol(name):arithmetic_to_symbolic(expr).subs(values,simultaneous=True)
-                  for name,expr in branch.update.assignments.items()}
-        if any(v.is_Rational is not True for v in update.values()):
-            raise AnalysisError('Source must initialize variables with exact deterministic values')
+        if sp.expand(arithmetic_to_symbolic(branch.probability)-1)!=0:
+            raise AnalysisError('Initialization control flow must have probability one')
+        guard_proof = _certify_initialized_predicate(
+            group.guard, values, initialization_domains, variables,
+            f'initialization guard of {group.id}')
+        proofs.append({'transition':group.id, 'kind':'initialization_guard',
+                       'proofs':guard_proof})
+        sample_replacements = {}
+        sample_rows = []
+        for sample in branch.update.samples:
+            if sp.Symbol(sample.symbol) in sample_replacements:
+                raise AnalysisError(f'Duplicate fresh random symbol {sample.symbol}')
+            while True:
+                initialization_sample_count += 1
+                fresh = sp.Symbol(f'__initial_sample_{initialization_sample_count}')
+                if fresh.name not in initialization_symbol_names:
+                    break
+            initialization_symbol_names.add(fresh.name)
+            distribution = distribution_from_ast(sample.distribution)
+            sample_replacements[sp.Symbol(sample.symbol)] = fresh
+            initialization_distributions[fresh.name] = distribution
+            initialization_domains = _support_product(
+                initialization_domains, fresh, distribution)
+            sample_rows.append({'source_symbol':sample.symbol, 'fresh_symbol':fresh.name,
+                                'distribution':sample.distribution.name,
+                                'arguments':[str(arithmetic_to_symbolic(argument))
+                                             for argument in sample.distribution.arguments]})
+        update = {}
+        for name, expr in branch.update.assignments.items():
+            value = arithmetic_to_symbolic(expr).subs(sample_replacements, simultaneous=True)
+            value = sp.expand(value.subs(values, simultaneous=True))
+            unresolved = value.free_symbols & set(variables)
+            if unresolved:
+                names = ', '.join(sorted(str(item) for item in unresolved))
+                raise AnalysisError(
+                    f'Initialization reads a variable without a source-defined value: {names}')
+            update[sp.Symbol(name)] = value
         values.update(update)
         trace.append({'location':current, 'transition':group.id, 'destination':branch.destination,
-                      'values':{str(k):str(v) for k,v in values.items()}})
+                      'samples':sample_rows,
+                      'values':{str(k):str(v) for k,v in values.items()},
+                      'support_regions':len(initialization_domains)})
         current = branch.destination
     if set(values)!=set(variables):
         missing = sorted(str(x) for x in set(variables)-set(values))
         raise AnalysisError(f'Program must initialize all state variables before control flow; missing {missing}')
-    if not evaluate_predicate(cfg.locations[current].invariant,values):
-        raise AnalysisError(f'Initial control location invariant is false at {current}')
+    initial_invariant_proof = _certify_initialized_predicate(
+        cfg.locations[current].invariant, values, initialization_domains, variables,
+        f'Initial control location invariant at {current}')
+    proofs.append({'location':current, 'kind':'initial_control_invariant',
+                   'proofs':initial_invariant_proof})
     reachable, pending = set(), [current]
     while pending:
         location = pending.pop()
@@ -145,10 +266,10 @@ def prepare_program(cfg):
     if any(cfg.locations[l].kind=='assume' for l in reachable):
         raise AnalysisError('Blocked/conditional assume semantics is not implemented by this solver')
     domains = {l:predicate_regions(cfg.locations[l].invariant, variables) for l in sorted(reachable)}
-    group_domains, proofs = {}, []
+    group_domains = {}
     for location in sorted(reachable-terminals):
         outgoing = cfg.outgoing(location)
-        if cfg.locations[location].kind not in {'assign','skip','sample','while','if','probabilistic','conditional','assert','refute'}:
+        if cfg.locations[location].kind not in {'assign','skip','sample','while','if','branch','probabilistic','conditional','assert','refute'}:
             raise AnalysisError(f'Unsupported control-flow kind {cfg.locations[location].kind}')
         if not outgoing:
             raise AnalysisError('Nonterminal deadlock is unsupported')
@@ -160,26 +281,47 @@ def prepare_program(cfg):
                 if sp.expand(sum(probabilities)-1)!=0:
                     raise AnalysisError('Grouped probabilities do not sum identically to one')
                 for bi,branch in enumerate(group.branches):
-                    if branch.update.samples:
-                        raise AnalysisError('Random assignments require support-invariance certificates; not implemented')
                     proof = require_nonnegative(domain, probabilities[bi], f'probability of {group.id}')
                     proofs.append({'transition':group.id,'region':di,'branch':bi,'kind':'probability','proof':proof})
                     update = {sp.Symbol(n):arithmetic_to_symbolic(e) for n,e in branch.update.assignments.items()}
                     targets = domains[branch.destination]
-                    # Sufficient disjunctive inclusion: prove containment in one complete target region.
-                    accepted = None
-                    for target in targets:
-                        requirements = target.generators + tuple(v for e in target.equalities for v in (e,-e))
-                        checks = []
-                        try:
-                            for h in requirements:
-                                checks.append(require_nonnegative(domain, h.subs(update,simultaneous=True),
-                                                                  f'invariant at {branch.destination}'))
-                        except AnalysisError:
-                            continue
-                        accepted = checks
-                        break
-                    if accepted is None:
-                        raise AnalysisError(f'Cannot certify inductive invariant across {group.id} to {branch.destination}')
-                    proofs.append({'transition':group.id,'region':di,'branch':bi,'kind':'invariant_preservation','proofs':accepted})
-    return ProgramEvidence(current, values, trace, tuple(sorted(reachable)), domains, group_domains, proofs)
+                    support_cases = _branch_support_domains(domain, branch)
+                    accepted_cases = []
+                    for support_index, support_domain in enumerate(support_cases):
+                        # Sufficient disjunctive inclusion: prove containment in one
+                        # complete target region for every exact support component.
+                        accepted = None
+                        for target_index, target in enumerate(targets):
+                            requirements = target.generators + tuple(
+                                value for equality in target.equalities
+                                for value in (equality,-equality))
+                            checks = []
+                            try:
+                                for h in requirements:
+                                    checks.append(require_nonnegative(
+                                        support_domain, h.subs(update,simultaneous=True),
+                                        f'invariant at {branch.destination}'))
+                            except AnalysisError:
+                                continue
+                            accepted = {'support_region':support_index,
+                                        'target_region':target_index,
+                                        'support_domain':support_domain.to_data(),
+                                        'proofs':checks}
+                            break
+                        if accepted is None:
+                            raise AnalysisError(
+                                f'Cannot certify inductive invariant across {group.id} '
+                                f'to {branch.destination} on random support region {support_index}')
+                        accepted_cases.append(accepted)
+                    proofs.append({'transition':group.id,'region':di,'branch':bi,
+                                   'kind':'invariant_preservation',
+                                   'random_samples':[
+                                       {'symbol':sample.symbol,
+                                        'distribution':sample.distribution.name,
+                                        'arguments':[str(arithmetic_to_symbolic(argument))
+                                                     for argument in sample.distribution.arguments]}
+                                       for sample in branch.update.samples],
+                                   'proofs':accepted_cases})
+    model = IndependentRandomModel(dict(initialization_distributions))
+    return ProgramEvidence(current, values, trace, tuple(sorted(reachable)), domains,
+                           group_domains, proofs, model, tuple(initialization_domains))

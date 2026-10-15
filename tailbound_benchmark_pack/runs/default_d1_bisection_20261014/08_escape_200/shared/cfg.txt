@@ -1,0 +1,43 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp
+initial: L_assign_3
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: x
+declared_random_variables: escape_step, first_step
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(x >= -1 and x <= 0) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:26:1
+  L_while_1 [while] invariant=(x >= -1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:12:1
+  L_assign_1 [assign] invariant=(x >= 200) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:18:5
+  L_skip_1 [skip] invariant=(x >= -1 and x <= 200) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:21:5
+  L_branch_1 [branch] invariant=(x >= -1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:16:3
+  L_assign_2 [assign] invariant=(x >= 0) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:14:3
+  L_assign_3 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/08_escape_200.pp:10:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(false)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := x + escape_step; samples: escape_step ~ Uniform(-1, 2) [fresh]
+  T_4: L_skip_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: identity
+  T_5: L_branch_1 guard=(x >= 200)
+    branch 1: p=1 -> L_assign_1; update: identity
+  T_6: L_branch_1 guard=(not x >= 200)
+    branch 1: p=1 -> L_skip_1; update: identity
+  T_7: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_branch_1; update: x := x + first_step; samples: first_step ~ Uniform(-1, 0.5) [fresh]
+  T_8: L_while_1 guard=(x >= 0)
+    branch 1: p=1 -> L_assign_2; update: identity
+  T_9: L_while_1 guard=(not x >= 0)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_10: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := 0

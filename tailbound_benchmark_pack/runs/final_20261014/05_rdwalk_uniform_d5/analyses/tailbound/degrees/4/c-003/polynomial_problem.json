@@ -1,0 +1,182 @@
+{
+  "c": "99/100",
+  "certificate_family": "polynomial",
+  "decisions": [
+    "v_L_assign_1_0",
+    "v_L_assign_1_1",
+    "v_L_assign_1_2",
+    "v_L_assign_1_3",
+    "v_L_assign_1_4",
+    "v_L_refute_1_0",
+    "v_L_refute_1_1",
+    "v_L_refute_1_2",
+    "v_L_refute_1_3",
+    "v_L_refute_1_4",
+    "v_L_while_1_0",
+    "v_L_while_1_1",
+    "v_L_while_1_2",
+    "v_L_while_1_3",
+    "v_L_while_1_4"
+  ],
+  "degree": 4,
+  "expressions": {
+    "L_assign_1": "v_L_assign_1_0 + v_L_assign_1_1*x + v_L_assign_1_2*x**2 + v_L_assign_1_3*x**3 + v_L_assign_1_4*x**4",
+    "L_refute_1": "v_L_refute_1_0 + v_L_refute_1_1*x + v_L_refute_1_2*x**2 + v_L_refute_1_3*x**3 + v_L_refute_1_4*x**4",
+    "L_while_1": "v_L_while_1_0 + v_L_while_1_1*x + v_L_while_1_2*x**2 + v_L_while_1_3*x**3 + v_L_while_1_4*x**4",
+    "l_f": "1",
+    "l_t": "0"
+  },
+  "goal": "tailbound",
+  "objective": "100*v_L_while_1_0/99",
+  "obligations": [
+    {
+      "conclusion": "v_L_assign_1_0 + v_L_assign_1_1*x + v_L_assign_1_2*x**2 + v_L_assign_1_3*x**3 + v_L_assign_1_4*x**4",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "5 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_assign_1_positive_0",
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_refute_1_0 + v_L_refute_1_1*x + v_L_refute_1_2*x**2 + v_L_refute_1_3*x**3 + v_L_refute_1_4*x**4",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 5",
+          "7 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_refute_1_positive_0",
+      "origin": {
+        "location": "L_refute_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "v_L_while_1_0 + v_L_while_1_1*x + v_L_while_1_2*x**2 + v_L_while_1_3*x**3 + v_L_while_1_4*x**4",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "7 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "L_while_1_positive_0",
+      "origin": {
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative"
+      ]
+    },
+    {
+      "conclusion": "99*v_L_refute_1_0/100 + 99*v_L_refute_1_1*x/100 + 99*v_L_refute_1_2*x**2/100 + 99*v_L_refute_1_3*x**3/100 + 99*v_L_refute_1_4*x**4/100 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 5",
+          "7 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_2_0",
+      "origin": {
+        "line": 9,
+        "location": "L_refute_1",
+        "transition": "T_2"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "99*v_L_assign_1_0/100 + 99*v_L_assign_1_1*x/100 + 99*v_L_assign_1_2*x**2/100 + 99*v_L_assign_1_3*x**3/100 + 99*v_L_assign_1_4*x**4/100 - v_L_while_1_0 - v_L_while_1_1*x - v_L_while_1_1/2 - v_L_while_1_2*x**2 - v_L_while_1_2*x - v_L_while_1_2 - v_L_while_1_3*x**3 - 3*v_L_while_1_3*x**2/2 - 3*v_L_while_1_3*x - 5*v_L_while_1_3/4 - v_L_while_1_4*x**4 - 2*v_L_while_1_4*x**3 - 6*v_L_while_1_4*x**2 - 5*v_L_while_1_4*x - 11*v_L_while_1_4/5",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "5 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_3_0",
+      "origin": {
+        "line": 6,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-v_L_assign_1_0 - v_L_assign_1_1*x - v_L_assign_1_2*x**2 - v_L_assign_1_3*x**3 - v_L_assign_1_4*x**4 + 99*v_L_while_1_0/100 + 99*v_L_while_1_1*x/100 + 99*v_L_while_1_2*x**2/100 + 99*v_L_while_1_3*x**3/100 + 99*v_L_while_1_4*x**4/100",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "7 - x",
+          "5 - x"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_4_0",
+      "origin": {
+        "line": 4,
+        "location": "L_while_1",
+        "transition": "T_4"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    },
+    {
+      "conclusion": "-v_L_refute_1_0 - v_L_refute_1_1*x - v_L_refute_1_2*x**2 - v_L_refute_1_3*x**3 - v_L_refute_1_4*x**4 + 99*v_L_while_1_0/100 + 99*v_L_while_1_1*x/100 + 99*v_L_while_1_2*x**2/100 + 99*v_L_while_1_3*x**3/100 + 99*v_L_while_1_4*x**4/100",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "7 - x",
+          "x - 5"
+        ],
+        "variables": [
+          "x"
+        ]
+      },
+      "id": "T_5_0",
+      "origin": {
+        "line": 4,
+        "location": "L_while_1",
+        "transition": "T_5"
+      },
+      "tags": [
+        "contraction",
+        "late_bad_exit"
+      ]
+    }
+  ]
+}

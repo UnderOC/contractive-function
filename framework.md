@@ -1,6 +1,6 @@
 # Contractive Function 框架：次数递增的多项式证书合成
 
-更新日期：2026-10-14。本文与 0.4.0 实现同步；本轮修改前版本已备份为 `framework.md.bak.20261014_022326`。
+更新日期：2026-10-14。本文与 0.4.0 实现同步；本轮 D=1 默认设置修改前版本已备份为 `framework.md.bak.20261014_degree1`。
 Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，不调用后端。
 
 ## 1. 当前目标与默认行为
@@ -21,7 +21,7 @@ Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，�
 
 默认搜索流程：
 
-1. 从最高总次数 D=2 的未知多项式模板开始。
+1. 从最高总次数 D=1 的未知多项式模板开始；无证书时依次尝试 D=2,...,6。
 2. 在当前 D 下，对固定参数点搜索系数，并有限尝试 positivity 策略和编码次数。
 3. 若当前 D 没有已证明候选且还有预算，提高 D，默认步长为 1。
 4. 在首个得到严格证书的 D 下，完成该次数计划内的候选比较，输出最佳已证明结果；
@@ -120,26 +120,35 @@ region 数量；仿射 equality 可消元，其余用 ideal multiplier。
 
 ### 3.3 指数路径的时钟
 
-当前固定使用从原程序入口开始的 pCFG transition 计数，普通转移增量为 1，终止后冻结。
-因此局部规则是 `E[V_next] <= c*V_src`，不会对吸收 self-loop 强加严格收缩。
+默认 `tail_rule=auto`：可验证布尔循环域及完整一轮转移时使用第 4.4 节的轮次规则；
+否则保留 `late_bad_exit` 路径并在摘要记录宏步编译不支持的原因。两种事件和时钟
+必须在 goal、summary、certificate 和 evaluate 输出中明确区分。
 
-初值只来自源程序：执行控制流之前的确定性赋值/skip 前缀，检查其 invariant 和更新，
-要求控制位置前所有程序变量都有精确有理初值。若消去的前缀有 p 步、控制位置为 s，
-目标是 `A=c**(-p)*V_s(x0)`，不是直接使用 `V_s(x0)`。这样输出 n 仍以原入口计数，
+`late_bad_exit` 使用从原程序入口开始的 pCFG transition 计数，普通转移增量为 1，
+终止后冻结。其局部规则是 `E[V_next] <= c*V_src`，不对吸收 self-loop 强加严格收缩。
+
+初值只来自源程序：执行控制流之前的直线赋值、随机赋值和 skip 前缀。确定更新以精确
+有理式符号执行；每次随机采样单独 alpha-renaming，并以分布的精确支持证明前缀
+invariant/guard 及首个控制位置的覆盖。要求到达控制位置前所有程序变量都有源码定义的
+值或随机变量。若消去的前缀有 p 步、控制位置为 s、符号初态为 X_p，则目标是
+`A=c**(-p)*E[V_s(X_p)]`，不是在任意单点代入 `V_s`。这样输出 n 仍以原入口计数，
 对 n<p 也成立。程序无需传入 initial、initial_location、事件或 horizon 参数。
 
 当前用精确 Farkas 恒等式验证闭包域的归纳保持与概率范围；无法证明则返回 unsupported。
-随机赋值/声明 fresh sample 的支持域验证和 assume 的阻塞语义尚未接入此证书路径，
-前端和矩计算保留对应能力；不能将“能计算随机矩”误当作已证明全时域支持域。
+`Uniform`、`Bernoulli`、`Normal` 分别提供闭区间、精确有限点和全实数支持；每条 fresh
+sample 更新在源域与完整支持域的乘积上证明目标 invariant，并独立使用精确矩计算期望。
+支持域证明与矩消元分别留证，不能用“能计算随机矩”替代全时域支持证明。`assume` 的
+阻塞语义仍未接入此证书路径。
 
-循环轮次、零增量边和宏步是未来扩展。届时须提供计数证据，并使用
-`sum_j p_j*E[c**(-delta_j)*V_dst_j] <= V_src`。当前不接受这些未实现的时钟配置。
+第 4.4 节已支持有限布尔循环域的一轮计数。一般随机宏步、嵌套循环和任意混合增量
+仍属后续扩展，不能把每条 pCFG 边的 c 直接解释为整轮 c。
 
 ## 4. 统一指数尾界的证明规则
 
 ### 4.1 事件和边界
 
-首版支持 `late_bad_exit`。T 表示原程序有限终止时刻（允许∞），N_T 表示其完成的
+本节 4.1—4.3 描述保留的 `late_bad_exit` 规则；默认优先尝试第 4.4 节。
+T 表示原程序有限终止时刻（允许∞），N_T 表示其完成的
 时钟计数（当前 N_T=T），B 是程序 assert/refute 定义的 failure terminal：
 
 ```text
@@ -167,8 +176,8 @@ V_terminal >= 1 on B
 
 1. 非负性和 terminal event 归一化。
 2. 第 3.3 节完整的加权局部收缩式。
-3. 最小化原入口的 `A=V_initial(x0)`；消去 p 步确定性前缀时等价使用
-   `A=c**(-p)*V_after_prefix(x0)`。该目标对决策变量线性。
+3. 最小化原入口的 `A=V_initial`；消去 p 步直线初始化前缀时等价使用
+   `A=c**(-p)*E[V_after_prefix(X_p)]`。该期望由精确矩消元，目标对决策变量仍为线性。
 
 每个 c 参数点单独求解，数值结果经过严格验证后才进入结果集。最终保留原程序事件、
 时钟、位置多项式、A、c、lambda 和全部证明来源。
@@ -191,6 +200,43 @@ Pr[T<infinity, N_T>n, terminal_state in B]
 
 无需几乎处处终止。内部保存精确 A、c 及符号 `-log(c)`；浮点 lambda 仅作展示，
 不可因舍入输出未经证明的更快衰减率。域、模板和参数搜索均与 n 无关。
+
+### 4.4 已验证布尔域上的一轮生存尾界
+
+`analysis/rounds.py` 从直线初始化后的循环入口出发，自动枚举一轮内部的全部可行
+概率/确定性路径，按顺序复合更新、精确判断原始守卫、相乘路径概率。在每个候选
+布尔入口状态上检查分支唯一覆盖、概率和为 1、路径有限，以及返回入口时仍属于
+布尔域和原始 invariant。初态必须属于该域。由初态和宏步归纳保持共同证明离散性，
+不能只根据 `0<=x<=1` 把实数变量当作布尔变量。
+
+当前编译器支持最多 256 个候选布尔状态、4096 个路径展开节点，不支持轮内采样、
+嵌套/循环路径和轮内提前退出；显式请求
+`--tail-rule round_survival` 时不支持就返回 unsupported，auto 则记录原因并回退。
+没有文件名、变量名或 coupon 专用识别。完整有限域枚举与 n 无关，不是 horizon 展开。
+
+在循环入口合成完整 D 次多项式 eta，对未结束状态和已结束状态分别要求：
+
+```text
+active:     eta >= 1,  Pre_round(eta) <= c*eta
+completed:  eta = 0
+objective:  minimize A = eta(initial)
+```
+
+完成态不再执行循环并按零值吸收；失败终端的事件归一化 1 不应用于此生存证书。
+所有约束在已完整验证的有限域上精确实例化，固定 c 后仍对 eta 系数仿射，通过
+现有 positivity/conic 接口降为 LP，再由 CVXPY/MOSEK 求解和有理数重建验证。
+不需要引入 SOS 乘子去近似这个已知有限域。
+
+令 K 为完成的循环体轮数，允许 K=∞。由 `1_{K>n} <= eta(X_n)` 和条件期望迭代：
+
+```text
+Pr[K>n] <= min(1, A*c**n), n = 0,1,2,...
+```
+
+几乎处处终止是证书的推论，不是输入假设。该界覆盖所有晚退出，因而也覆盖其中
+的晚 failure；它不替代 eventual assertion violation 规则。轮次时钟不计初始化和退出
+后缀；若各轮和后缀长度分别固定为 r、q，则另存 `T=p+r*K+q`，不混用 T 和 K。
+c 按第 6 节的有界二分策略搜索，次数递增和候选选择算法不变。
 
 ## 5. Assertion Violation 的证明规则
 
@@ -241,10 +287,11 @@ failure 而遗漏概率。Tail 时钟规则不能自动替代 assertion 的全�
 
 | 参数 | 作用 | 默认/要求 |
 | --- | --- | --- |
-| `initial_degree` | 最终 V/Theta 的起始最高总次数 | 2 |
+| `initial_degree` | 最终 V/Theta 的起始最高总次数 | 1 |
 | `degree_step` | 无证书时的次数增量 | 1 |
 | `max_degree` | 模板次数上限 | 默认 6，范围 0..10 |
-| `c_values` | 每个次数使用的精确固定网格 | 1/2、9/10、99/100 |
+| `max_c_steps` | 每个次数的 c 二分参数点上限 | 10；初始区间 (0,1) |
+| `c_values` | 显式固定网格覆盖，仅用于复现/调试 | 无；默认二分 |
 | `max_parameter_points` | 总参数点预算 | 32 |
 | `max_attempts_per_point` | 每个 D/c 的编码尝试上限 | 2 |
 | SOS order r / Handelman degree | 非负性证明编码复杂度 | 与模板次数独立设置 |
@@ -257,7 +304,7 @@ SOS 最小次数取决于实际 obligation，包括多项式更新的复合和�
 D/2。编码次数上限不够时报告诊断；不能静默生成缺少高次系数的模型。更高 D 通常
 需要更高编码次数，配置冲突不能当成数学不可行。
 
-D+1 的完整多项式族包含 D 的族，因为新增系数可以为零；但有限 c 网格、不同编码/
+D+1 的完整多项式族包含 D 的族，因为新增系数可以为零；但有限 c 搜索、不同编码/
 预算和数值结果不保证各次运行表现单调。不能由一次求解失败推断更高次数必失败。
 
 ### 6.2 有限搜索算法
@@ -266,14 +313,20 @@ D+1 的完整多项式族包含 D 的族，因为新增系数可以为零；但�
 all_proved = []
 for D in degree_schedule(initial_degree, max_degree, degree_step):
     current_proved = []
-    for c in fixed_rational_grid within global parameter/time budgets:
+    lower, upper = 0, 1  # endpoints are not evaluated; upper is not yet verified
+    for step in range(max_c_steps) within global parameter/time budgets:
+        c = (lower + upper)/2  # exact rational arithmetic
         create all location polynomials of degree <= D
         build full goal obligations with fixed c
         try supported positivity strategies/orders within point budget
         if numerical candidate passes complete rigorous verification:
             save coefficients and recomputed bound
             add to current_proved and all_proved
-        otherwise record failure/unknown without deleting proved results
+            upper = c
+        elif all attempted encodings report infeasible:
+            lower = c  # encoding/solver feedback, not a nonexistence proof
+        else:
+            record unknown; stop this degree's c search without moving endpoints
     if current_proved and not continue_after_success:
         return select_best(all_proved), stop_reason="first_successful_degree"
     stop global search if time/model/global budget is exhausted
@@ -289,8 +342,19 @@ else:
 - 当前 D 出现首个 proved 时，默认完成该次数计划内的候选搜索，或直到预算结束；
   不直接将第一个数值 optimal 当成最终结果。
 - 默认在首个成功 D 停止升阶；`continue_after_success=true` 才继续更高 D，且保留旧证书。
-- c 首版使用 (0,1) 内的精确有理网格，后续可扩展细化策略；禁止把失败/超时当作不可行证据
-  做不可靠二分。Assertion 的纯 pre-fixed-point 模式只有一个系数 1 参数点。
+- c 默认在 (0,1) 内做精确有理二分，每个新 D 重置区间为 (0,1)，每次只把固定 c
+  交给凸后端。eta 非负时，可行证书在增大 c 后仍满足收缩，因此寻找更小可行 c
+  有单调性依据。每个次数最多 `max_c_steps=10` 个参数点，全局 32 点/时间预算仍可
+  提前停止；每参数点的 positivity 重试不算新的二分步。
+- 只有完整验证通过才更新上端；初始上端 1 不是可行候选。全部已尝试编码报告
+  infeasible 才更新下端。有限 positivity 编码和数值不可行均不能证明原始多项式族
+  不存在，故保存的区间是搜索区间，不宣称包围数学最优值。
+- 数值错误、超时、未通过精确验证或建模失败时不移动端点，停止当前 D 的 c 搜索；
+  保留已有证书，无证书时按现有升阶策略继续，环境致命错误仍停止整个任务。
+  摘要 `contraction_searches` 逐 D 保存端点、每步反馈、已验证 c 和停止原因。
+- `--c-values` 仍可显式指定旧网格以复现历史记录；未指定时不执行固定网格。
+  Assertion 后端仍只生成首个 c=1/2 模型，不运行二分求解；未来纯 pre-fixed-point
+  模式不需要搜索 c。
 - 对 infeasible relaxation、数值问题或验证失败可有限重试，随后报告其含义。
 - 许可证缺失、语义不支持、配置/建模错误等无法通过升阶解决的问题，应停止受影响
   job 并报告原因，不盲目提高 D；其他独立 job 可以继续。
@@ -434,9 +498,10 @@ optional evaluations / manifest with versions, assumptions and hashes
 | `analysis/semantics.py` | 源码初值、前缀轨迹、闭包域与归纳证明 |
 | `analysis/templates.py` | 全变量最终多项式基与未知系数 |
 | `analysis/degree_policy.py` | 次数范围、步长、成功后继续选项 |
-| `analysis/parameter_search.py` | 有限精确 c 网格；未来可替换参数策略 |
+| `analysis/parameter_search.py` | 有界精确二分及反馈记录；显式网格复现接口 |
 | `analysis/certificate_families.py` | 直接多项式族与非整数族占位 |
 | `analysis/goals.py` | Tail/assertion 边界、收缩/前不动点义务和目标 |
+| `analysis/rounds.py` | 精确布尔宏步、域归纳保持、轮次计时及生存尾界义务 |
 | `analysis_pipeline.py` | 有界调度、证明后选择、日志隔离和 manifest |
 | `positivity/` | 可选策略 registry、域处理、SOS/LP 系数匹配 |
 | `backends/cvxpy/` | DCP 建模、MOSEK、精确有理/PSD 验证 |
@@ -482,7 +547,7 @@ Auto 每条义务先尝试适用的 Handelman，再 Putinar/Schmüdgen；无界�
 
 ### 12.1 样例角色
 
-Kelly 与其他程序一样，直接建立未知多项式，从 D=2 开始搜索 c，必要时升阶。
+Kelly 与其他程序一样，直接建立未知多项式，从 D=1 开始搜索 c，必要时升阶。
 旧 `wealth**(-1/2)` 证书不作为 fallback；其存在不代表直接多项式族可行。
 
 对 wealth-only、单循环头、完整无界域 w>=0.5 的非零非负多项式 V，若最高次系数
@@ -502,12 +567,13 @@ d=0 时左侧为 1；整数 d>=1 时至少为 `1.04**d>1`，所以这个限定�
 ### 12.2 本轮范围与后续扩展
 
 本轮完成直接多项式、次数/c 搜索、可选 positivity、真实 MOSEK、精确验证、公式求值、
-新 CLI 和日志。Assertion 仅保留建模接口；非整数族、一般随机支持域验证、宏步时钟、
-自动 c 网格细化与多 job 配置解析留待后续实现。真实测试和运行记录以 README 为准。
+新 CLI 和日志。Assertion 仅保留建模接口；内置 Uniform/Bernoulli/Normal 的随机支持域
+和随机初始化期望已经接入，布尔有限域宏步见 4.4，c 二分见 6.2；非整数族、其他一般分布、一般宏步与
+多 job 配置解析留待后续实现。真实测试和运行记录以 README 为准。
 
 ### 12.3 必需测试
 
-- 默认 D=2、最高总次数、可配置步长/上限、允许高次系数为零；不把结果再次取幂。
+- 默认 D=1、最高总次数、可配置步长/上限、允许高次系数为零；不把结果再次取幂。
 - 原整数幂对应的 V 被次数族覆盖，但一般多项式不被误标为 eta**k 的因式分解。
 - D 与 SOS order 独立，更新导致 residual 次数增长时匹配完整；编码不足明确诊断。
 - 当前 D 无证书后升阶；首个成功 D 内比较后默认停止；继续优化模式保留旧证书。
@@ -528,7 +594,7 @@ d=0 时左侧为 1；整数 d>=1 时至少为 `1.04**d>1`，所以这个限定�
 尾界 A 直接取 V(initial)，assertion 界直接取 Theta(initial)。
 
 理论文档末尾 `Pr[violate by n]` 的指数衰减写法仍需在未来单独同步事件语义；当前采用
-明确的 late_bad_exit 和独立的 eventual assertion violation 规则。终止性未知的处理
+明确的 round_survival / late_bad_exit 和独立的 eventual assertion violation 规则。终止性未知的处理
 依靠非负停止/前不动点论证，不等于任意输入一定有有限次数的证书。
 
 非整数 k 保留独立讨论和实现位置，其数学条件及求解算法尚未确定。未知 eta 的

@@ -1,0 +1,30 @@
+# Two-dimensional variant with probabilistic branches
+# Source: Tail Probabilities for Randomized Program Runtimes via Martingales for Higher Moments (2019), Appendix E, Listing 1.7, PDF pp.36-37
+# URL: https://arxiv.org/pdf/1811.06779v2
+# Independently normalized pseudocode; NOT a native input file for any baseline tool.
+# C is a ghost counter: one increment per loop-body execution; not CFG runtime.
+# if * denotes demonic nondeterminism, NOT a random coin.
+
+x := 3;
+y := 2;
+C := 0;
+while x > y do
+    C := C + 1;
+    if * then
+        if prob(0.7) then
+            r ~ Uniform(-2, 1);
+            x := x + r
+        else
+            r ~ Uniform(-2, 1);
+            y := y + r
+        fi
+    else
+        if prob(0.7) then
+            r ~ Uniform(-1, 2);
+            y := y + r
+        else
+            r ~ Uniform(-1, 2);
+            x := x + r
+        fi
+    fi
+od

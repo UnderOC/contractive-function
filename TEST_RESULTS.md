@@ -244,3 +244,37 @@ conda run -n contractive-frontend-test-20260814 \
 阶段 2/3 的两个真实 `analyze` CLI 均生成可追溯产物。Kelly scalar model 由 exact
 arithmetic 验证，polynomial 模型只报告 obligation generation，不越过尚未实现的
 求解边界。README、环境依赖和本记录中的命令与实际执行一致。
+
+## 新增非有界 Kelly 样例与默认路由复核（2026-09-11）
+
+新增 `kelly_unbounded.pp`：循环条件为 `wealth >= 0.5`，每轮以 `0.6/0.4` 的概率
+乘以 `1.2/0.8`，没有固定轮数上界，且由于随机路径可能永不离开循环。其
+`C(wealth)=wealth^-1/2` 证书满足严格收缩条件；`refute (wealth <= 0.45)` 仅作为
+事件谓词，默认分析不把它路由成 assertion violation。
+
+实际执行（省略 `--goal` 和 `--certificate`）：
+
+```bash
+conda run -n contractive-frontend-test-20260814 \
+  contractive analyze kelly_unbounded.pp \
+  --out-dir generated/kelly_unbounded_stage23 \
+  --analysis-id kelly_unbounded_tail \
+  --event 'wealth <= 0.45' --horizon 4 \
+  --rho 199/200 --degree 1 \
+  --initial wealth=1 --initial round=0
+```
+
+命令成功（状态码 `0`），结果摘要为 `goal_kind=tail_bound`、
+`certificate_id=polynomial-eta`、`status=not_solved`，backend route 为
+`affine_polynomial_obligations`。生成的 `template.json`、`obligations.json` 和
+`polynomial_model.json` 共含 32 条 obligation，包含 `eta_positive`、`contraction`、
+`tail_normalization` 标签，且 `decision_coefficients_affine=true`；输出树中没有
+`assertion_violation` 证书目录。
+
+新增 CLI 集成测试 `test_unbounded_kelly_defaults_to_tail_polynomial_obligations` 明确
+锁定该行为。完整回归测试：
+
+```text
+.......................................                                  [100%]
+39 passed in 2.56s
+```

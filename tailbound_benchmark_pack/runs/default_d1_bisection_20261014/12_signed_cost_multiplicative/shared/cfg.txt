@@ -1,0 +1,54 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp
+initial: L_assign_8
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: C, x, y
+declared_random_variables: r
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(x >= 0 and x <= 1 and y >= 0 and C = y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:32:1
+  L_while_1 [while] invariant=(x >= 0 and y >= 0 and C = y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:14:1
+  L_assign_1 [assign] invariant=(x >= 0 and y >= 0 and C = 0.5 * y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:22:5
+  L_assign_2 [assign] invariant=(x >= 0 and y >= 0 and C = y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:20:5
+  L_assign_3 [assign] invariant=(x >= 0 and y >= 0 and C = 1.5 * y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:27:5
+  L_assign_4 [assign] invariant=(x >= 0 and y >= 0 and C = y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:25:5
+  L_probabilistic_1 [probabilistic] invariant=(x >= 0 and y >= 0 and C = y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:18:3
+  L_assign_5 [assign] invariant=(x >= 1 and y >= 0 and C = y) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:16:3
+  L_assign_6 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:12:1
+  L_assign_7 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:11:1
+  L_assign_8 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp:10:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(false)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: y := 0.5 * y
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: C := C - 0.5 * y
+  T_5: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: y := 1.5 * y
+  T_6: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_assign_3; update: C := C + 0.5 * y
+  T_7: L_probabilistic_1 guard=(true)
+    branch 1: p=0.5 -> L_assign_2; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_4; update: identity
+  T_8: L_assign_5 guard=(true)
+    branch 1: p=1 -> L_probabilistic_1; update: x := x + r; samples: r ~ Uniform(-1, 0.5) [fresh]
+  T_9: L_while_1 guard=(x >= 1)
+    branch 1: p=1 -> L_assign_5; update: identity
+  T_10: L_while_1 guard=(not x >= 1)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_11: L_assign_6 guard=(true)
+    branch 1: p=1 -> L_while_1; update: C := y
+  T_12: L_assign_7 guard=(true)
+    branch 1: p=1 -> L_assign_6; update: y := 1
+  T_13: L_assign_8 guard=(true)
+    branch 1: p=1 -> L_assign_7; update: x := 1

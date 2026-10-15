@@ -7,6 +7,7 @@ from contractive_tool.probability.distributions import (
     IndependentRandomModel,
     JointMomentProvider,
     NormalDistribution,
+    SupportRegion,
     UniformDistribution,
     distribution_from_ast,
 )
@@ -18,6 +19,7 @@ __all__ = [
     "IndependentRandomModel",
     "JointMomentProvider",
     "NormalDistribution",
+    "SupportRegion",
     "UniformDistribution",
     "distribution_from_ast",
 ]

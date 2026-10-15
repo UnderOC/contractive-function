@@ -1,0 +1,1956 @@
+{
+  "domains": {
+    "L_assign_1": [
+      {
+        "equalities": [
+          "C - y/2"
+        ],
+        "generators": [
+          "x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_assign_2": [
+      {
+        "equalities": [
+          "C - y"
+        ],
+        "generators": [
+          "x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_assign_3": [
+      {
+        "equalities": [
+          "C - 3*y/2"
+        ],
+        "generators": [
+          "x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_assign_4": [
+      {
+        "equalities": [
+          "C - y"
+        ],
+        "generators": [
+          "x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_assign_5": [
+      {
+        "equalities": [
+          "C - y"
+        ],
+        "generators": [
+          "x - 1",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_probabilistic_1": [
+      {
+        "equalities": [
+          "C - y"
+        ],
+        "generators": [
+          "x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_refute_1": [
+      {
+        "equalities": [
+          "C - y"
+        ],
+        "generators": [
+          "x",
+          "1 - x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [
+          "C - y"
+        ],
+        "generators": [
+          "x",
+          "y"
+        ],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "C",
+          "x",
+          "y"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "C": "1",
+    "x": "1",
+    "y": "1"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "initialization_steps": 3,
+  "initialization_trace": [
+    {
+      "destination": "L_assign_7",
+      "location": "L_assign_8",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_13",
+      "values": {
+        "x": "1"
+      }
+    },
+    {
+      "destination": "L_assign_6",
+      "location": "L_assign_7",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_12",
+      "values": {
+        "x": "1",
+        "y": "1"
+      }
+    },
+    {
+      "destination": "L_while_1",
+      "location": "L_assign_6",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_11",
+      "values": {
+        "C": "1",
+        "x": "1",
+        "y": "1"
+      }
+    }
+  ],
+  "locations": [
+    "L_assign_1",
+    "L_assign_2",
+    "L_assign_3",
+    "L_assign_4",
+    "L_assign_5",
+    "L_probabilistic_1",
+    "L_refute_1",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_8",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_13"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_7",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_12"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_6",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_11"
+    },
+    {
+      "kind": "initial_control_invariant",
+      "location": "L_while_1",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1/2"
+                ]
+              },
+              "reduced_conclusion": "y/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y/2"
+            ],
+            "generators": [
+              "x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "3*y/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "3*y/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "3/2"
+                ]
+              },
+              "reduced_conclusion": "3*y/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - 3*y/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + 3*y/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - 3*y/2"
+            ],
+            "generators": [
+              "x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x - 1",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "r + x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "r + x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x - 1",
+                    "y",
+                    "r + 1",
+                    "1/2 - r"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "r"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "r + x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x - 1",
+                  "y",
+                  "r + 1",
+                  "1/2 - r"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "r"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x - 1",
+                    "y",
+                    "r + 1",
+                    "1/2 - r"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "r"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x - 1",
+                  "y",
+                  "r + 1",
+                  "1/2 - r"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "r"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x - 1",
+                  "y",
+                  "r + 1",
+                  "1/2 - r"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "r"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x - 1",
+                  "y",
+                  "r + 1",
+                  "1/2 - r"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "r"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x - 1",
+              "y",
+              "r + 1",
+              "1/2 - r"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y",
+              "r"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [
+        {
+          "arguments": [
+            "-1",
+            "1/2"
+          ],
+          "distribution": "Uniform",
+          "symbol": "r"
+        }
+      ],
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1/2",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1/2"
+        },
+        "reduced_conclusion": "1/2",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1/2",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1/2"
+        },
+        "reduced_conclusion": "1/2",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "1 - x",
+            "y"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "1 - x",
+              "y"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y",
+            "x - 1"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x - 1",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y",
+                    "x - 1"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "x - 1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "x - 1"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y",
+                    "x - 1"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "x - 1"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "x - 1"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "x - 1"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "y",
+              "x - 1"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "x",
+            "y",
+            "1 - x"
+          ],
+          "variables": [
+            "x",
+            "y"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_10"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y",
+                    "1 - x"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "1 - x"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "1 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y",
+                    "1 - x"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "1 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "1 - x"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "y",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x",
+                    "y",
+                    "1 - x"
+                  ],
+                  "variables": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "y",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "1 - x"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "C - y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "1 - x"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "conclusion": "-C + y",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "x",
+                  "y",
+                  "1 - x"
+                ],
+                "variables": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "C - y"
+            ],
+            "generators": [
+              "x",
+              "y",
+              "1 - x"
+            ],
+            "variables": [
+              "C",
+              "x",
+              "y"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_10"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

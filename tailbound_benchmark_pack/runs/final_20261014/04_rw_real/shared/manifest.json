@@ -1,0 +1,127 @@
+{
+  "artifacts": {
+    "ast.json": "43f16f3f870ae1f53f7bb7720a5aefa68e792f028620bbcf9ad2507d12d8d4ad",
+    "cfg.dot": "57d8697f467c006982de9c39f12590b5e1203fc284177715283d66ba3fe35499",
+    "cfg.json": "45b437601b69a01281df32c47bc6bde08af935b1d818404cb68ddffc1f879aa6",
+    "cfg.txt": "8c02603ac50c089b967a94f6e670d8e1f96a5a63a26b42e05e4a78db7e30b489",
+    "source.normalized.pp": "b92626674c98ed2525c1eaf4ed79362b28bc7cdeabf315bf5486440a951842b1",
+    "validation.json": "dcae77c4c093afe98a8bc963869e95968e1ea5a95253f13d154645b1b5e91a4d"
+  },
+  "generated_at": "2026-10-13T20:11:26.780871+00:00",
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+    "sha256": "2801e1701a227c5e35a84e155e93331ab0714f9ab4e0cb203c1316e4e35a2176"
+  },
+  "phase": "frontend_pcfg",
+  "python_version": "3.11.15",
+  "random_samples": [
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 21,
+              "end_line": 7,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+              "node": "SourceSpan",
+              "start_column": 20,
+              "start_line": 7
+            },
+            "text": "0"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 24,
+              "end_line": 7,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+              "node": "SourceSpan",
+              "start_column": 23,
+              "start_line": 7
+            },
+            "text": "1"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 25,
+          "end_line": 7,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+          "node": "SourceSpan",
+          "start_column": 12,
+          "start_line": 7
+        }
+      },
+      "fresh": true,
+      "symbol": "r",
+      "transition_id": "T_3"
+    },
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 21,
+              "end_line": 7,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+              "node": "SourceSpan",
+              "start_column": 20,
+              "start_line": 7
+            },
+            "text": "0"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 24,
+              "end_line": 7,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+              "node": "SourceSpan",
+              "start_column": 23,
+              "start_line": 7
+            },
+            "text": "1"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 25,
+          "end_line": 7,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/04_rw_real.pp",
+          "node": "SourceSpan",
+          "start_column": 12,
+          "start_line": 7
+        }
+      },
+      "fresh": true,
+      "symbol": "r",
+      "transition_id": "T_4"
+    }
+  ],
+  "schema_version": 1,
+  "semantics": {
+    "failure_terminal": "l_f",
+    "normal_terminal": "l_t",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "refute": "predicate true transitions to failure terminal",
+    "strict_inequalities": "preserved exactly in pCFG guards; no SOS margin applied",
+    "updates": "simultaneous within a transition; source statements remain sequential"
+  },
+  "statistics": {
+    "branches": 11,
+    "locations": 8,
+    "probability_obligations": 0,
+    "program_variables": 1,
+    "random_samples": 2,
+    "transition_groups": 10
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.4.0"
+  }
+}

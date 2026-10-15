@@ -1,0 +1,97 @@
+===============================================================================
+                                     CVXPY                                     
+                                     v1.9.3                                    
+===============================================================================
+INFO: Your problem has 137 variables, 204 constraints, and 0 parameters.
+INFO: It is compliant with the following grammars: DCP, DQCP
+INFO: DCP verification time: 0.0000 seconds.
+INFO: Expression tree has 8 nodes.
+INFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+INFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+INFO: Your problem is compiled with the CPP canonicalization backend.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+INFO: Compiling problem (target solver=MOSEK).
+INFO: Reduction chain: Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK
+INFO: Applying reduction Dcp2Cone
+INFO: Applying reduction CvxAttr2Constr
+INFO: Applying reduction ExactCone2Cone
+INFO: Applying reduction EliminateZeroSized
+INFO: Applying reduction ConeMatrixStuffing
+INFO: Applying reduction MOSEK
+INFO: Finished problem compilation (took 1.517e-01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+INFO: Invoking solver MOSEK  to obtain a solution.
+
+
+INFO: MOSEK warning 54 (MSK_RES_WRN_LARGE_CON_FX): The equality constraint '' (17) is fixed to numerically large value  2.2e+08.
+INFO: MOSEK warning 54 (MSK_RES_WRN_LARGE_CON_FX): The equality constraint '' (18) is fixed to numerically large value  4.4e+16.
+INFO: MOSEK warning 54 (MSK_RES_WRN_LARGE_CON_FX): The equality constraint '' (19) is fixed to numerically large value  8.9e+24.
+INFO: Problem
+INFO:   Name                   :                 
+INFO:   Objective sense        : maximize        
+INFO:   Type                   : CONIC (conic optimization problem)
+INFO:   Constraints            : 137             
+INFO:   Affine conic cons.     : 0               
+INFO:   Disjunctive cons.      : 0               
+INFO:   Cones                  : 0               
+INFO:   Scalar variables       : 100             
+INFO:   Matrix variables       : 16 (scalarized: 72)
+INFO:   Integer variables      : 0               
+INFO: 
+INFO: Optimizer started.
+INFO: Presolve started.
+INFO: Linear dependency checker started.
+INFO: Linear dependency checker terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 23
+INFO: Eliminator terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 3
+INFO: Eliminator terminated.
+INFO: Eliminator - tries                  : 2                 time                   : 0.00            
+INFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            
+INFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               
+INFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               
+INFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               
+INFO: Presolve terminated. Time: 0.00    
+INFO: Optimizer  - threads                : 1               
+INFO: Optimizer  - solved problem         : the primal      
+INFO: Optimizer  - Constraints            : 96              
+INFO: Optimizer  - Cones                  : 9               
+INFO: Optimizer  - Scalar variables       : 86                conic                  : 52              
+INFO: Optimizer  - Semi-definite variables: 8                 scalarized             : 48              
+INFO: Factor     - setup time             : 0.00            
+INFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            
+INFO: Factor     - nonzeros before factor : 3143              after factor           : 3150            
+INFO: Factor     - dense dim.             : 0                 flops                  : 1.58e+05        
+INFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+INFO: 0   4.4e+24  1.1e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  
+INFO: 1   3.4e+24  8.5e-01  1.1e+01  -1.00e+00  -3.096506522e-01  1.104582705e+01   7.3e-01  0.00  
+INFO: 2   1.6e+24  4.1e-01  9.3e+00  -1.00e+00  3.254194027e-01   1.298168182e+01   3.6e-01  0.00  
+INFO: 3   1.2e+24  3.1e-01  4.9e+01  -1.00e+00  1.037995354e+00   9.040640318e+01   2.6e-01  0.00  
+INFO: 4   5.8e+23  1.4e-01  5.2e+01  -1.00e+00  2.607535863e+00   1.386529713e+02   1.1e-01  0.00  
+INFO: 5   2.2e+23  5.6e-02  8.0e+01  -1.00e+00  7.616195712e+00   3.466476980e+02   4.2e-02  0.00  
+INFO: 6   1.1e+23  2.9e-02  4.3e+01  -1.00e+00  1.528518085e+01   2.496949404e+02   2.1e-02  0.00  
+INFO: 7   4.0e+22  1.0e-02  4.2e+01  -1.00e+00  6.798311286e+01   4.129956415e+02   7.8e-03  0.00  
+INFO: 8   8.2e+21  2.1e-03  8.4e+00  -1.00e+00  4.140257242e+02   9.532193158e+01   1.6e-03  0.00  
+INFO: 9   7.5e+20  1.9e-04  6.3e+00  -1.00e+00  4.743879292e+03   -4.154176651e+02  1.5e-04  0.00  
+INFO: 10  3.5e+17  8.7e-08  8.3e+00  -1.00e+00  1.035070783e+07   -1.956208532e+06  6.7e-08  0.00  
+INFO: 11  4.7e+11  1.2e-13  2.0e+00  -1.00e+00  7.600656389e+12   -1.414093415e+12  9.2e-14  0.00  
+INFO: Optimizer terminated. Time: 0.00    
+INFO: 
+INFO: 
+INFO: Interior-point solution summary
+INFO:   Problem status  : PRIMAL_INFEASIBLE
+INFO:   Solution status : PRIMAL_INFEASIBLE_CER
+INFO:   Dual.    obj: 5.3630740417e+03    nrm: 9e-12    Viol.  con: 1e-20    var: 5e-14    barvar: 1e-13  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+INFO: Problem status: unbounded
+INFO: Optimal value: -inf
+INFO: Compilation took 1.517e-01 seconds
+INFO: Solver (including time spent in interface) took 4.300e-03 seconds

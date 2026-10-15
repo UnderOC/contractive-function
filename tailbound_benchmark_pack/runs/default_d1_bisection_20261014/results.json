@@ -1,0 +1,419 @@
+{
+  "status": "complete",
+  "run_index": "run_index.json",
+  "search_options": {
+    "c_values": null,
+    "continue_after_success": false,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 1,
+    "max_attempts_per_point": 2,
+    "max_c_steps": 10,
+    "max_decisions": 20000,
+    "max_degree": 6,
+    "max_order": 4,
+    "max_parameter_points": 32,
+    "max_products": 256,
+    "max_psd_dimension": 80,
+    "per_attempt_seconds": 30,
+    "strategy": "auto",
+    "tail_rule": "auto",
+    "total_seconds": 300,
+    "verbose": true
+  },
+  "elapsed_seconds": 195.31945311278105,
+  "counts": {
+    "proved": 2,
+    "no_certificate_found": 10
+  },
+  "skipped": [
+    {
+      "id": "09_rw_1d_demonic",
+      "reason": "demonic nondeterminism; not replaced with probabilistic branches"
+    },
+    {
+      "id": "10_rw_2d_demonic",
+      "reason": "demonic nondeterminism; not replaced with probabilistic branches"
+    },
+    {
+      "id": "11_rw_2d_variant",
+      "reason": "demonic nondeterminism; not replaced with probabilistic branches"
+    }
+  ],
+  "attempt_counts": {
+    "proved": 2,
+    "infeasible": 473,
+    "numerical_issue": 77,
+    "solved_unverified": 1,
+    "unbounded": 5
+  },
+  "instances": [
+    {
+      "instance": "01_coupon2",
+      "status": "proved",
+      "actual_degrees": [
+        1
+      ],
+      "parameter_points": 10,
+      "attempts": 19,
+      "attempt_statuses": {
+        "proved": 1,
+        "infeasible": 18
+      },
+      "stop_reason": "first_successful_degree",
+      "tail_rule": "round_survival",
+      "round_diagnostic": null,
+      "elapsed_seconds": 1.7453931220807135,
+      "selection": {
+        "A_exact": "2",
+        "A_numeric": 2.0,
+        "c": "1/2",
+        "certificate": "analyses/tailbound/degrees/1/c-001/attempts/001/certificate.json",
+        "clock": {
+          "exit_step_counts": [
+            2
+          ],
+          "pcfg_relation": "T = 2 + 3*K + 2",
+          "prefix_steps": 2,
+          "round_step_counts": [
+            3
+          ],
+          "unit": "completed_loop_iterations"
+        },
+        "degree": 1,
+        "event": "K > n",
+        "exponential_expression": "(2) * exp(-(-log(1/2))*n)",
+        "expression": "(2) * (1/2)**n",
+        "lambda_expression": "-log(1/2)",
+        "lambda_numeric": 0.6931471805599453,
+        "n_domain": "nonnegative integers",
+        "probability_expression": "min(1, (2) * (1/2)**n)",
+        "rule": "round_survival",
+        "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+        "time_unit": "completed_loop_iterations"
+      },
+      "d1_attempts": 19,
+      "summary": "01_coupon2/summary.json",
+      "run_log": "logs/01_coupon2.run.log"
+    },
+    {
+      "instance": "02_coupon4",
+      "status": "proved",
+      "actual_degrees": [
+        1
+      ],
+      "parameter_points": 10,
+      "attempts": 19,
+      "attempt_statuses": {
+        "infeasible": 18,
+        "proved": 1
+      },
+      "stop_reason": "first_successful_degree",
+      "tail_rule": "round_survival",
+      "round_diagnostic": null,
+      "elapsed_seconds": 5.04044631216675,
+      "selection": {
+        "A_exact": "4",
+        "A_numeric": 4.0,
+        "c": "3/4",
+        "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json",
+        "clock": {
+          "exit_step_counts": [
+            2
+          ],
+          "pcfg_relation": "T = 4 + 4*K + 2",
+          "prefix_steps": 4,
+          "round_step_counts": [
+            4
+          ],
+          "unit": "completed_loop_iterations"
+        },
+        "degree": 1,
+        "event": "K > n",
+        "exponential_expression": "(4) * exp(-(-log(3/4))*n)",
+        "expression": "(4) * (3/4)**n",
+        "lambda_expression": "-log(3/4)",
+        "lambda_numeric": 0.2876820724517809,
+        "n_domain": "nonnegative integers",
+        "probability_expression": "min(1, (4) * (3/4)**n)",
+        "rule": "round_survival",
+        "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+        "time_unit": "completed_loop_iterations"
+      },
+      "d1_attempts": 19,
+      "summary": "02_coupon4/summary.json",
+      "run_log": "logs/02_coupon4.run.log"
+    },
+    {
+      "instance": "03_rw_int",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "parameter_points": 32,
+      "attempts": 64,
+      "attempt_statuses": {
+        "infeasible": 59,
+        "numerical_issue": 5
+      },
+      "stop_reason": "parameter_budget",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Round update does not preserve the Boolean header invariant",
+      "elapsed_seconds": 17.580009412951767,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "03_rw_int/summary.json",
+      "run_log": "logs/03_rw_int.run.log"
+    },
+    {
+      "instance": "04_rw_real",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "parameter_points": 32,
+      "attempts": 64,
+      "attempt_statuses": {
+        "infeasible": 58,
+        "numerical_issue": 6
+      },
+      "stop_reason": "parameter_budget",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+      "elapsed_seconds": 18.09216421796009,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "04_rw_real/summary.json",
+      "run_log": "logs/04_rw_real.run.log"
+    },
+    {
+      "instance": "05_rdwalk_uniform_d1",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 32,
+      "attempts": 64,
+      "attempt_statuses": {
+        "infeasible": 56,
+        "numerical_issue": 8
+      },
+      "stop_reason": "parameter_budget",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Sampled updates require a separate round kernel compiler",
+      "elapsed_seconds": 16.370088306022808,
+      "selection": null,
+      "d1_attempts": 16,
+      "summary": "05_rdwalk_uniform_d1/summary.json",
+      "run_log": "logs/05_rdwalk_uniform_d1.run.log"
+    },
+    {
+      "instance": "05_rdwalk_uniform_d5",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 28,
+      "attempts": 56,
+      "attempt_statuses": {
+        "infeasible": 45,
+        "numerical_issue": 11
+      },
+      "stop_reason": "max_degree",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Sampled updates require a separate round kernel compiler",
+      "elapsed_seconds": 11.234161640051752,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "05_rdwalk_uniform_d5/summary.json",
+      "run_log": "logs/05_rdwalk_uniform_d5.run.log"
+    },
+    {
+      "instance": "05_rdwalk_uniform_d10",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 21,
+      "attempts": 42,
+      "attempt_statuses": {
+        "infeasible": 32,
+        "numerical_issue": 10
+      },
+      "stop_reason": "max_degree",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Sampled updates require a separate round kernel compiler",
+      "elapsed_seconds": 7.252497712848708,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "05_rdwalk_uniform_d10/summary.json",
+      "run_log": "logs/05_rdwalk_uniform_d10.run.log"
+    },
+    {
+      "instance": "05_rdwalk_uniform_d20",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 21,
+      "attempts": 42,
+      "attempt_statuses": {
+        "infeasible": 31,
+        "numerical_issue": 10,
+        "solved_unverified": 1
+      },
+      "stop_reason": "max_degree",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Sampled updates require a separate round kernel compiler",
+      "elapsed_seconds": 7.214875242207199,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "05_rdwalk_uniform_d20/summary.json",
+      "run_log": "logs/05_rdwalk_uniform_d20.run.log"
+    },
+    {
+      "instance": "06_rw_real_large",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 14,
+      "attempts": 28,
+      "attempt_statuses": {
+        "infeasible": 17,
+        "numerical_issue": 6,
+        "unbounded": 5
+      },
+      "stop_reason": "max_degree",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+      "elapsed_seconds": 7.72624092688784,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "06_rw_real_large/summary.json",
+      "run_log": "logs/06_rw_real_large.run.log"
+    },
+    {
+      "instance": "07_polynomial_tail",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 28,
+      "attempts": 56,
+      "attempt_statuses": {
+        "infeasible": 49,
+        "numerical_issue": 7
+      },
+      "stop_reason": "max_degree",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+      "elapsed_seconds": 114.00712232012302,
+      "selection": null,
+      "d1_attempts": 20,
+      "summary": "07_polynomial_tail/summary.json",
+      "run_log": "logs/07_polynomial_tail.run.log"
+    },
+    {
+      "instance": "08_escape_200",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "parameter_points": 20,
+      "attempts": 40,
+      "attempt_statuses": {
+        "infeasible": 32,
+        "numerical_issue": 8
+      },
+      "stop_reason": "max_degree",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Sampled updates require a separate round kernel compiler",
+      "elapsed_seconds": 14.453062908025458,
+      "selection": null,
+      "d1_attempts": 18,
+      "summary": "08_escape_200/summary.json",
+      "run_log": "logs/08_escape_200.run.log"
+    },
+    {
+      "instance": "12_signed_cost_multiplicative",
+      "status": "no_certificate_found",
+      "actual_degrees": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "parameter_points": 32,
+      "attempts": 64,
+      "attempt_statuses": {
+        "infeasible": 58,
+        "numerical_issue": 6
+      },
+      "stop_reason": "parameter_budget",
+      "tail_rule": "late_bad_exit",
+      "round_diagnostic": "Sampled updates require a separate round kernel compiler",
+      "elapsed_seconds": 158.33268189011142,
+      "selection": null,
+      "d1_attempts": 20,
+      "summary": "12_signed_cost_multiplicative/summary.json",
+      "run_log": "logs/12_signed_cost_multiplicative.run.log"
+    }
+  ],
+  "unresolved_errors": [],
+  "audit": {
+    "all_source_and_artifact_hashes_match": true,
+    "all_have_actual_D1_solver_attempts": true,
+    "all_returncodes_zero": true,
+    "all_stderr_empty": true,
+    "selected_round_certificates_exactly_checked": true
+  }
+}

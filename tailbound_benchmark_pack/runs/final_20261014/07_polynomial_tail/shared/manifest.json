@@ -1,0 +1,127 @@
+{
+  "artifacts": {
+    "ast.json": "6103c1444492f6d894197778d871a532590472a13464f2241361e9bc41bd36c2",
+    "cfg.dot": "d201fe5b5d3eaa89560f6d7109649737b9fd67299d2437c876c9ae3e29ebf4cb",
+    "cfg.json": "f0f4f99b4226260580b083c0f918b8f8a694ce02feed4c90d74a006d8355a62b",
+    "cfg.txt": "47f80b84012dca19b1b0a0ba1fb3d5ac19bbc4dc838a4ce69d382bfc979edfcb",
+    "source.normalized.pp": "3a67a8820b94606eec08463d5deba94d9098b3ac800e93b21b84c2765d6be06a",
+    "validation.json": "dcae77c4c093afe98a8bc963869e95968e1ea5a95253f13d154645b1b5e91a4d"
+  },
+  "generated_at": "2026-10-13T20:12:43.662939+00:00",
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+    "sha256": "6a560e6b5411d12a8ba12aef744061def684f1a8bcf1b0201480d62134e59e61"
+  },
+  "phase": "frontend_pcfg",
+  "python_version": "3.11.15",
+  "random_samples": [
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 17,
+              "end_line": 15,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+              "node": "SourceSpan",
+              "start_column": 16,
+              "start_line": 15
+            },
+            "text": "0"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 20,
+              "end_line": 15,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+              "node": "SourceSpan",
+              "start_column": 19,
+              "start_line": 15
+            },
+            "text": "1"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 21,
+          "end_line": 15,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+          "node": "SourceSpan",
+          "start_column": 8,
+          "start_line": 15
+        }
+      },
+      "fresh": true,
+      "symbol": "__sample_r_1",
+      "transition_id": "T_4"
+    },
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 15,
+              "end_line": 9,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+              "node": "SourceSpan",
+              "start_column": 14,
+              "start_line": 9
+            },
+            "text": "0"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 18,
+              "end_line": 9,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+              "node": "SourceSpan",
+              "start_column": 17,
+              "start_line": 9
+            },
+            "text": "1"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 19,
+          "end_line": 9,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+          "node": "SourceSpan",
+          "start_column": 6,
+          "start_line": 9
+        }
+      },
+      "fresh": true,
+      "symbol": "__sample_r_2",
+      "transition_id": "T_7"
+    }
+  ],
+  "schema_version": 1,
+  "semantics": {
+    "failure_terminal": "l_f",
+    "normal_terminal": "l_t",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "refute": "predicate true transitions to failure terminal",
+    "strict_inequalities": "preserved exactly in pCFG guards; no SOS margin applied",
+    "updates": "simultaneous within a transition; source statements remain sequential"
+  },
+  "statistics": {
+    "branches": 10,
+    "locations": 8,
+    "probability_obligations": 0,
+    "program_variables": 2,
+    "random_samples": 2,
+    "transition_groups": 10
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.4.0"
+  }
+}

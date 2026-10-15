@@ -1,0 +1,100 @@
+analysis: kelly_unbounded_tail
+goal: tail_bound
+objective: minimize 1568239201*eta_L_while_1_0/1600000000 + 1568239201*eta_L_while_1_1/1600000000
+
+[tail_eta_positive_l_t] tags=eta_positive,k=1
+  domain: true
+  prove: eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round >= 0
+[tail_eta_positive_l_f] tags=eta_positive,k=1
+  domain: true
+  prove: eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round >= 0
+[tail_eta_positive_L_refute_1] tags=eta_positive,k=1
+  domain: 0 < wealth and wealth < 0.5 and 0 <= round
+  prove: eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round >= 0
+[tail_eta_positive_L_while_1] tags=eta_positive,k=1
+  domain: 0 < wealth and 0 <= round
+  prove: eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round >= 0
+[tail_eta_positive_L_assign_1] tags=eta_positive,k=1
+  domain: 0 < wealth and 0 <= round
+  prove: eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round >= 0
+[tail_eta_positive_L_assign_2] tags=eta_positive,k=1
+  domain: 0.5 <= wealth and 0 <= round
+  prove: eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round >= 0
+[tail_eta_positive_L_assign_3] tags=eta_positive,k=1
+  domain: 0.5 <= wealth and 0 <= round
+  prove: eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round >= 0
+[tail_eta_positive_L_probabilistic_1] tags=eta_positive,k=1
+  domain: 0.5 <= wealth and 0 <= round
+  prove: eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round >= 0
+[tail_eta_positive_L_assign_4] tags=eta_positive,k=1
+  domain: wealth = 1
+  prove: eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round >= 0
+[tail_eta_positive_L_assign_5] tags=eta_positive,k=1
+  domain: true
+  prove: eta_L_assign_5_0 + eta_L_assign_5_1*wealth + eta_L_assign_5_2*round >= 0
+[tail_contraction_T_absorb_normal] tags=at_horizon,contraction,k=1
+  domain: true and true
+  prove: 199*eta_l_t_0/200 + 199*eta_l_t_1*wealth/200 + 199*eta_l_t_2*round/200 >= eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round
+[tail_contraction_T_absorb_failure] tags=at_horizon,contraction,k=1
+  domain: true and true
+  prove: 199*eta_l_f_0/200 + 199*eta_l_f_1*wealth/200 + 199*eta_l_f_2*round/200 >= eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round
+[tail_contraction_T_1] tags=at_horizon,contraction,k=1
+  domain: 0 < wealth and wealth < 0.5 and 0 <= round and not wealth <= 0.45
+  prove: 199*eta_L_refute_1_0/200 + 199*eta_L_refute_1_1*wealth/200 + 199*eta_L_refute_1_2*round/200 >= eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round
+[tail_contraction_T_2] tags=at_horizon,contraction,k=1
+  domain: 0 < wealth and wealth < 0.5 and 0 <= round and wealth <= 0.45
+  prove: 199*eta_L_refute_1_0/200 + 199*eta_L_refute_1_1*wealth/200 + 199*eta_L_refute_1_2*round/200 >= eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round
+[tail_contraction_T_3] tags=at_horizon,contraction,k=1
+  domain: 0 < wealth and 0 <= round and true
+  prove: 199*eta_L_assign_1_0/200 + 199*eta_L_assign_1_1*wealth/200 + 199*eta_L_assign_1_2*round/200 >= eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round + eta_L_while_1_2
+[tail_contraction_T_4] tags=at_horizon,contraction,k=1
+  domain: 0.5 <= wealth and 0 <= round and true
+  prove: 199*eta_L_assign_2_0/200 + 199*eta_L_assign_2_1*wealth/200 + 199*eta_L_assign_2_2*round/200 >= eta_L_assign_1_0 + 6*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round
+[tail_contraction_T_5] tags=at_horizon,contraction,k=1
+  domain: 0.5 <= wealth and 0 <= round and true
+  prove: 199*eta_L_assign_3_0/200 + 199*eta_L_assign_3_1*wealth/200 + 199*eta_L_assign_3_2*round/200 >= eta_L_assign_1_0 + 4*eta_L_assign_1_1*wealth/5 + eta_L_assign_1_2*round
+[tail_contraction_T_6] tags=at_horizon,contraction,k=1
+  domain: 0.5 <= wealth and 0 <= round and true
+  prove: 199*eta_L_probabilistic_1_0/200 + 199*eta_L_probabilistic_1_1*wealth/200 + 199*eta_L_probabilistic_1_2*round/200 >= 3*eta_L_assign_2_0/5 + 3*eta_L_assign_2_1*wealth/5 + 3*eta_L_assign_2_2*round/5 + 2*eta_L_assign_3_0/5 + 2*eta_L_assign_3_1*wealth/5 + 2*eta_L_assign_3_2*round/5
+[tail_contraction_T_7] tags=at_horizon,contraction,k=1
+  domain: 0 < wealth and 0 <= round and wealth >= 0.5
+  prove: 199*eta_L_while_1_0/200 + 199*eta_L_while_1_1*wealth/200 + 199*eta_L_while_1_2*round/200 >= eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round
+[tail_contraction_T_8] tags=at_horizon,contraction,k=1
+  domain: 0 < wealth and 0 <= round and not wealth >= 0.5
+  prove: 199*eta_L_while_1_0/200 + 199*eta_L_while_1_1*wealth/200 + 199*eta_L_while_1_2*round/200 >= eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round
+[tail_contraction_T_9] tags=at_horizon,contraction,k=1
+  domain: wealth = 1 and true
+  prove: 199*eta_L_assign_4_0/200 + 199*eta_L_assign_4_1*wealth/200 + 199*eta_L_assign_4_2*round/200 >= eta_L_while_1_0 + eta_L_while_1_1*wealth
+[tail_contraction_T_10] tags=at_horizon,contraction,k=1
+  domain: true and true
+  prove: 199*eta_L_assign_5_0/200 + 199*eta_L_assign_5_1*wealth/200 + 199*eta_L_assign_5_2*round/200 >= eta_L_assign_4_0 + eta_L_assign_4_1 + eta_L_assign_4_2*round
+[tail_normalization_L_assign_1] tags=at_horizon,k=1,tail_normalization
+  domain: 0 < wealth and 0 <= round and wealth <= 0.45
+  prove: eta_L_assign_1_0 + eta_L_assign_1_1*wealth + eta_L_assign_1_2*round >= 1
+[tail_normalization_L_assign_2] tags=at_horizon,k=1,tail_normalization
+  domain: 0.5 <= wealth and 0 <= round and wealth <= 0.45
+  prove: eta_L_assign_2_0 + eta_L_assign_2_1*wealth + eta_L_assign_2_2*round >= 1
+[tail_normalization_L_assign_3] tags=at_horizon,k=1,tail_normalization
+  domain: 0.5 <= wealth and 0 <= round and wealth <= 0.45
+  prove: eta_L_assign_3_0 + eta_L_assign_3_1*wealth + eta_L_assign_3_2*round >= 1
+[tail_normalization_L_assign_4] tags=at_horizon,k=1,tail_normalization
+  domain: wealth = 1 and wealth <= 0.45
+  prove: eta_L_assign_4_0 + eta_L_assign_4_1*wealth + eta_L_assign_4_2*round >= 1
+[tail_normalization_L_assign_5] tags=at_horizon,k=1,tail_normalization
+  domain: true and wealth <= 0.45
+  prove: eta_L_assign_5_0 + eta_L_assign_5_1*wealth + eta_L_assign_5_2*round >= 1
+[tail_normalization_L_probabilistic_1] tags=at_horizon,k=1,tail_normalization
+  domain: 0.5 <= wealth and 0 <= round and wealth <= 0.45
+  prove: eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*wealth + eta_L_probabilistic_1_2*round >= 1
+[tail_normalization_L_refute_1] tags=at_horizon,k=1,tail_normalization
+  domain: 0 < wealth and wealth < 0.5 and 0 <= round and wealth <= 0.45
+  prove: eta_L_refute_1_0 + eta_L_refute_1_1*wealth + eta_L_refute_1_2*round >= 1
+[tail_normalization_L_while_1] tags=at_horizon,k=1,tail_normalization
+  domain: 0 < wealth and 0 <= round and wealth <= 0.45
+  prove: eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round >= 1
+[tail_normalization_l_f] tags=at_horizon,k=1,tail_normalization
+  domain: true and wealth <= 0.45
+  prove: eta_l_f_0 + eta_l_f_1*wealth + eta_l_f_2*round >= 1
+[tail_normalization_l_t] tags=at_horizon,k=1,tail_normalization
+  domain: true and wealth <= 0.45
+  prove: eta_l_t_0 + eta_l_t_1*wealth + eta_l_t_2*round >= 1

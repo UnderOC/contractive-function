@@ -1,0 +1,98 @@
+===============================================================================
+                                     CVXPY                                     
+                                     v1.9.3                                    
+===============================================================================
+INFO: Your problem has 137 variables, 204 constraints, and 0 parameters.
+INFO: It is compliant with the following grammars: DCP, DQCP
+INFO: DCP verification time: 0.0000 seconds.
+INFO: Expression tree has 8 nodes.
+INFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+INFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+INFO: Your problem is compiled with the CPP canonicalization backend.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+INFO: Compiling problem (target solver=MOSEK).
+INFO: Reduction chain: Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK
+INFO: Applying reduction Dcp2Cone
+INFO: Applying reduction CvxAttr2Constr
+INFO: Applying reduction ExactCone2Cone
+INFO: Applying reduction EliminateZeroSized
+INFO: Applying reduction ConeMatrixStuffing
+INFO: Applying reduction MOSEK
+INFO: Finished problem compilation (took 1.499e-01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+INFO: Invoking solver MOSEK  to obtain a solution.
+
+
+INFO: Problem
+INFO:   Name                   :                 
+INFO:   Objective sense        : maximize        
+INFO:   Type                   : CONIC (conic optimization problem)
+INFO:   Constraints            : 137             
+INFO:   Affine conic cons.     : 0               
+INFO:   Disjunctive cons.      : 0               
+INFO:   Cones                  : 0               
+INFO:   Scalar variables       : 100             
+INFO:   Matrix variables       : 16 (scalarized: 72)
+INFO:   Integer variables      : 0               
+INFO: 
+INFO: Optimizer started.
+INFO: Presolve started.
+INFO: Linear dependency checker started.
+INFO: Linear dependency checker terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 23
+INFO: Eliminator terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 3
+INFO: Eliminator terminated.
+INFO: Eliminator - tries                  : 2                 time                   : 0.00            
+INFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            
+INFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               
+INFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               
+INFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               
+INFO: Presolve terminated. Time: 0.00    
+INFO: Optimizer  - threads                : 1               
+INFO: Optimizer  - solved problem         : the primal      
+INFO: Optimizer  - Constraints            : 96              
+INFO: Optimizer  - Cones                  : 9               
+INFO: Optimizer  - Scalar variables       : 84                conic                  : 52              
+INFO: Optimizer  - Semi-definite variables: 8                 scalarized             : 48              
+INFO: Factor     - setup time             : 0.00            
+INFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            
+INFO: Factor     - nonzeros before factor : 3143              after factor           : 3150            
+INFO: Factor     - dense dim.             : 0                 flops                  : 1.58e+05        
+INFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+INFO: 0   4.1e+00  1.0e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  
+INFO: 1   1.3e+00  3.3e-01  5.3e-01  -8.39e-01  2.357136389e-01   -1.597250018e+00  3.2e-01  0.00  
+INFO: 2   3.1e-01  7.7e-02  1.6e-01  -6.50e-01  5.056841415e-01   -3.680126106e+00  7.5e-02  0.00  
+INFO: 3   8.2e-02  2.1e-02  1.6e-02  6.72e-01   5.609017549e-01   7.728976156e-02   2.0e-02  0.00  
+INFO: 4   1.9e-02  4.8e-03  1.3e-03  1.24e+00   7.973520999e-01   7.481999704e-01   4.6e-03  0.00  
+INFO: 5   6.3e-03  1.6e-03  4.1e-04  6.20e-01   2.178306363e+00   2.120131176e+00   1.5e-03  0.00  
+INFO: 6   1.9e-03  4.7e-04  1.1e-04  3.70e-01   3.609182666e+00   3.557006198e+00   4.6e-04  0.00  
+INFO: 7   5.3e-04  1.3e-04  3.1e-05  6.18e-02   5.490533506e+00   5.435820305e+00   1.3e-04  0.00  
+INFO: 8   1.5e-04  3.8e-05  9.6e-06  2.95e-02   7.726353729e+00   7.661635367e+00   3.7e-05  0.00  
+INFO: 9   6.3e-05  1.6e-05  5.8e-06  -3.27e-01  1.081422629e+01   1.067221529e+01   1.5e-05  0.00  
+INFO: 10  2.5e-05  6.4e-06  3.3e-06  -4.64e-01  1.674673452e+01   1.645761885e+01   6.2e-06  0.00  
+INFO: 11  7.0e-06  1.7e-06  5.2e-06  -1.35e+00  1.329090291e+02   1.233885259e+02   1.7e-06  0.00  
+INFO: 12  2.7e-06  6.8e-07  4.4e-06  -6.66e+00  6.357057234e+01   1.947748820e+01   6.6e-07  0.00  
+INFO: 13  3.8e-08  9.5e-09  8.6e-07  -1.29e+00  8.740263145e+03   4.270859559e+01   9.2e-09  0.00  
+INFO: 14  3.2e-11  7.0e-15  6.6e-10  -1.01e+00  9.569326772e+09   3.037664624e+01   6.8e-15  0.00  
+INFO: 15  4.4e-16  3.2e-20  3.4e-13  -1.00e+00  1.706054907e-02   1.044092701e-18   1.4e-22  0.00  
+INFO: Optimizer terminated. Time: 0.00    
+INFO: 
+INFO: 
+INFO: Interior-point solution summary
+INFO:   Problem status  : DUAL_INFEASIBLE
+INFO:   Solution status : DUAL_INFEASIBLE_CER
+INFO:   Primal.  obj: 1.7060549071e-02    nrm: 1e+01    Viol.  con: 7e-16    var: 0e+00    barvar: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+INFO: Problem status: infeasible
+INFO: Optimal value: inf
+INFO: Compilation took 1.499e-01 seconds
+INFO: Solver (including time spent in interface) took 3.786e-03 seconds

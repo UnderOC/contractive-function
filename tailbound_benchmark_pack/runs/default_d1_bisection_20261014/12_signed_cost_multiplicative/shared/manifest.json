@@ -1,0 +1,84 @@
+{
+  "artifacts": {
+    "ast.json": "2693f6844b5c04c9f1bdd5a22766acbfb436e6a4d75246da8346fff2cd939ca8",
+    "cfg.dot": "2f29532fef11549c251bbaad249e1f4bfdf0fab735a44148dddf546becdb282e",
+    "cfg.json": "ed0c63cf07a1a9953e77cfa515f02b3365f5fc52594fc908b49166d893432f31",
+    "cfg.txt": "07188430cc759ba93fb7f9d24d93c3458c7a96c3f9e1a7e2a19ce02c6d2a9301",
+    "source.normalized.pp": "eef58bc08367555a1a8ddbba47661f035b4caabd129f5572e6eeb907763e8c5c",
+    "validation.json": "2e385693ec4fdb8573ca714fc5bd445d0ee5be69d0b89efbaf6c17950aed2398"
+  },
+  "generated_at": "2026-10-14T00:41:19.529848+00:00",
+  "input": {
+    "path": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp",
+    "sha256": "c54abdd452566bf4249fe6f3c160d4b3a3e15d9aad27031da8d6072b93020038"
+  },
+  "phase": "frontend_pcfg",
+  "python_version": "3.11.15",
+  "random_samples": [
+    {
+      "distribution": {
+        "arguments": [
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 22,
+              "end_line": 8,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp",
+              "node": "SourceSpan",
+              "start_column": 20,
+              "start_line": 8
+            },
+            "text": "-1"
+          },
+          {
+            "node": "Number",
+            "span": {
+              "end_column": 27,
+              "end_line": 8,
+              "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp",
+              "node": "SourceSpan",
+              "start_column": 24,
+              "start_line": 8
+            },
+            "text": "0.5"
+          }
+        ],
+        "name": "Uniform",
+        "node": "DistributionExpr",
+        "span": {
+          "end_column": 28,
+          "end_line": 8,
+          "file": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp",
+          "node": "SourceSpan",
+          "start_column": 12,
+          "start_line": 8
+        }
+      },
+      "fresh": true,
+      "symbol": "r",
+      "transition_id": "T_8"
+    }
+  ],
+  "schema_version": 1,
+  "semantics": {
+    "failure_terminal": "l_f",
+    "normal_terminal": "l_t",
+    "random_independence": "all samples are mutually independent",
+    "random_sampling": "fresh_on_each_transition",
+    "refute": "predicate true transitions to failure terminal",
+    "strict_inequalities": "preserved exactly in pCFG guards; no SOS margin applied",
+    "updates": "simultaneous within a transition; source statements remain sequential"
+  },
+  "statistics": {
+    "branches": 16,
+    "locations": 13,
+    "probability_obligations": 0,
+    "program_variables": 3,
+    "random_samples": 1,
+    "transition_groups": 15
+  },
+  "tool": {
+    "name": "contractive-tool",
+    "version": "0.4.0"
+  }
+}

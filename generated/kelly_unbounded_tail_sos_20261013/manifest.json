@@ -1,0 +1,91 @@
+{
+  "artifacts": {
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts.json": "9f1e4d1b61e7619d0d44ba40183343004055eaa20ede6ace9f660281f58bdb5a",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/certificate.json": "47d7fc467253249344c2aceea178745a408b98849c05d61d7bd086795d34dce4",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/conic_model.json": "f7913048f1c3fb5bc3b7bd8f21c525b2ed75fc72927fc9c2ec612c7c70e35219",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/encoding_plan.json": "8da8b697a864b38c6c62a7718f29a81f4f850077bbbcbe91c594567bb61f1c7d",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/result.json": "53063dec1b4a70a2be8724887402c249de489686f53fcc072f31a223e73e53f3",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/solver.json": "801861adf09f0d10c6319dbb41efc31852a7e3c83b512303f7912be0be2104b9",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/solver.log": "429536a1581e98d0bce871fafe21cbbb23bde2f1a8491376b1d381e951f92c4f",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/attempts/attempt-001/verification.json": "1dfd5a0bd98af8f28fc7fe0c1eb8222b6cd3482a298fef79aad7e9d144688768",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/obligations.json": "9a552a20b57cdb615a9604e2064783313c7cedc7fe2ff203e8a5411a6aabaa54",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/obligations.txt": "c892031c37cf9915833a72fef114e183f3bf813ef552f36f0e8c1b268d464410",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/reference.json": "51f7719c092f21d283890928f3171ce3194e783564ae84ec9df44abc7523f213",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/result.json": "57aec4056dfef2be8ad21c7e5587ce3fd8a8e8b17416190f39b5902f4add1f96",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/strategy_selection.json": "d8feee8e4bb692d60d9cc8d0fee7a414154846a38a2d4b0fe7b9a6283f077a0d",
+    "analyses/kelly_tail_16/certificates/polynomial-k1/template.json": "827fdfd9e290f0ee250728f84eaa95feeafd5681312db791b35c25ac80c2c3bd",
+    "analyses/kelly_tail_16/goal.json": "7adfc3944b062ab0fe9ac314fd3c17af3b7e8216d12b21aa04bf8fe198640ed7",
+    "analyses/kelly_tail_16/reachability.json": "150b5cb96534e98a922c46ad786a5f24e6c61bbd9cbd910d49307724a7fba6f2",
+    "analyses/kelly_tail_16/summary.json": "12bc8a0c94e7b6f37853b5e99aafbcdbea6b25cc38213a059448aa9d9f0900d4",
+    "shared/ast.json": "c764de64bcf42e37b4a6144065bcbf5538a37fd465e11cdb45d5f7d79f26a439",
+    "shared/cfg.dot": "4c12b12eac312e40e24163003e6c2708b561ff2ff6226e31f0783640f87cce7e",
+    "shared/cfg.json": "133fefb60afc0a0e4b5486c2fb13f2da0b7a83260782ec4103f9bb51b92ef2af",
+    "shared/cfg.txt": "4219a7c5624d1bd00dd224ee23788ccf37eb6c0d799d16dd380655de4479b10e",
+    "shared/manifest.json": "20dd30dd0c845689257ba652d0edbdca61193b1efe9d52c8e999500ed8344aa7",
+    "shared/source.normalized.pp": "e37f04e383bd6830ae0dcf1d5ea7ade5b18a165c34127956336dc4507a59d05a",
+    "shared/validation.json": "f290936e30ca70d107137e51a70f5c5b8d05cccc0280fda7a70d3912850ce378",
+    "summary.json": "dfeaaea88c05e5ae8e1e8212222ec68e832eace1613a5389a449742d158d9f88"
+  },
+  "backend": "cvxpy",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "domain_evidence": "exact finite-support reachability; no arbitrary state bound",
+  "goal": {
+    "absorbing_terminals_preserved": true,
+    "analysis_id": "kelly_tail_16",
+    "bound_rule": "Pr[event at horizon] <= Phi_0(initial)",
+    "event": "wealth <= 0.45",
+    "event_mode": "at_horizon",
+    "horizon": 16,
+    "initial": {
+      "round": "0",
+      "wealth": "1"
+    },
+    "initial_location": "L_while_1",
+    "kind": "tail_bound",
+    "time_unit": "pcfg_transition"
+  },
+  "matlab_invoked": false,
+  "options": {
+    "analysis_id": "kelly_tail_16",
+    "base": "wealth",
+    "degree": 2,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "eta": null,
+    "fallback": false,
+    "handelman_degree": 2,
+    "initial_order": 1,
+    "k_policy": "fixed",
+    "k_values": [
+      1
+    ],
+    "max_attempts": 2,
+    "max_decisions": 20000,
+    "max_handelman_degree": 4,
+    "max_order": 3,
+    "max_products": 256,
+    "max_psd_dimension": 80,
+    "max_states": 10000,
+    "mode": "solve",
+    "per_attempt_seconds": 60,
+    "strategy": "putinar",
+    "template": "polynomial",
+    "total_seconds": 180.0,
+    "verbose": true
+  },
+  "python_version": "3.11.15",
+  "schema_version": 3,
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_unbounded.pp",
+  "source_sha256": "0531ea3fc7b50e04c327b7c07ffc90b4a8de25407545786c612e70bd000c487b",
+  "strict_guard_policy": "closure",
+  "tool_version": "0.3.0"
+}

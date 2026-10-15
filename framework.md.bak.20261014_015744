@@ -1,0 +1,679 @@
+# Contractive Function 框架：未知多项式 eta 的统一合成
+
+更新日期：2026-10-14。本次仅调整设计文档，不修改代码、README 或已有生成产物。
+修改前版本保存在 `framework.md.bak.20261014_002832`。
+
+## 1. 目标、默认参数与可行性结论
+
+框架面向支持的概率程序，统一建立含未知系数的多项式模板，通过程序约束合成 eta。
+不预先为 Kelly 等样例指定非多项式 eta，不采用特殊 scalar moment 求解路径作为结果。
+所有程序的终止性默认未知；不要求 almost-sure termination，也不条件于终止。
+
+保留两个 goal：
+
+| Goal | 要求合成的对象 | 最终输出 |
+| --- | --- | --- |
+| `exponential_tail` | 满足 contractive 与指数模板前不动点条件的多项式 eta | 对全部允许整数 n 成立的 `A*exp(-lambda*n)` |
+| `assertion_violation` | 满足 contractive 合成约束及 violation 前不动点条件的多项式 eta | 最终 violation 概率上界 `Theta(initial)` |
+
+共同默认设置：
+
+- eta 为每个相关程序位置上的未知多项式，最高总次数 D 可配置，默认 D=2。
+- k 是外层离散参数，暂取 {1,2}；保留以后实现 k 选择算法的接口。
+- 普通收缩因子 c 在 (0,1) 中进行有限搜索，每次内层求解时固定 c。
+- 在配置的搜索轮数、模型次数和时间预算内合成、验证候选；预算结束后停止。
+- 找到候选时输出预算内已验证候选中的最优者及选择准则；未找到时报告搜索失败/未知，
+  不声称不存在任何次数的多项式证书。
+- 全流程使用 Python，建模为 CVXPY，凸规划求解器为 MOSEK；positivity 策略模块化。
+
+该方向可行，但必须保留三项数学限制：
+
+1. “任意问题”表示统一尝试，不保证任意程序都有指定次数的多项式证书。输入须满足
+   当前程序语义、代数与分布支持能力；不支持的输入明确报告 unsupported。
+2. 固定 c、k=1 后，基本 eta 系数合成可形成 LP/SDP；固定 k=2 仍会产生未知系数的
+   平方和乘积。不能直接把原始约束作为仿射 SDP。
+3. 一阶 contractive 因子 c 与 k 阶指数模板的收缩因子 rho_k 不同；k>1 不能默认
+   `rho_k=c**k`。本框架通过第 5 节的可证明矩上界构建凸充分条件，保持 eta 未知。
+
+指定 horizon 的时间层模板求解不再属于目标框架；n 仅在输出公式和事后求值中出现。
+
+## 2. 总体流程与模块边界
+
+```text
+.pp -> AST -> grouped pCFG -> 语义/不变量证据
+    -> goal：exponential_tail / assertion_violation
+    -> 未知多项式模板 eta_l(x; a)，默认 degree=2
+    -> 有限参数搜索：k、c、必要的比值界参数
+    -> contractive + goal-specific 前不动点/边界约束
+    -> capability check
+       |-> k=1：仿射系数约束
+       `-> k=2：经过证明的 moment-envelope 凸充分条件
+    -> PositivityStrategy -> ConicModel -> CVXPY -> MOSEK
+    -> 重构 eta 系数并严格验证全部原始/充分条件
+    -> 保存已证明候选 -> 预算结束 -> 选择和输出
+```
+
+Parser、CFG、goal、模板、参数搜索、positivity 和 solver 分开实现。每条 obligation
+记录 goal、位置、transition、源码、k/c/比值界参数点及采用的推导规则。
+
+程序随机量的分布矩仍由 expectation 模块计算；这只是通用约束生成中的代数步骤。
+它不等于固定一个非多项式函数，再绕过 eta 系数合成返回特殊解析答案。
+
+同一参数点的所有位置模板系数必须联合求解；不同 obligations 可使用不同策略，但
+不能各自选一组 eta 系数后拼成“证书”。不同 k/c 参数点独立，失败不覆盖已证明结果。
+
+## 3. 程序语义、全域不变量与计时
+
+### 3.1 pCFG 与概率语义
+
+复用现有语法和 grouped pCFG：赋值、skip、if、prob、while、assume、assert、refute、
+随机声明/赋值和 invariant annotation。更新采用 simultaneous substitution。
+
+概率组内所有分支一起取加权期望；概率非负且和为 1 须在源域上成立。随机支持、分布
+参数、fresh sampling 和独立性写入 manifest。未知随机量或不成立的概率条件不能忽略。
+
+正常终止 l_t 和 assertion failure l_f 分离。`assert E` 在 E 不成立时失败，`refute E`
+在 E 成立时失败。无限运行概率质量不得丢失或重新归一化。Assume 的阻塞/拒绝语义
+须明确，不能自动解释为条件化；首版未支持情形报告 unsupported。
+
+如允许多个同时启用的非确定性 group，须逐个动作证明并声明 scheduler 范围；首版可
+明确拒绝，不得将非确定性与概率选择混合。所有 goal 共用未篡改的源 pCFG。
+
+### 3.2 全时域证据
+
+每个位置的半代数域 I_l 来自 annotation 或 provider，并验证：初始覆盖、转移及随机
+支持下的归纳保持、概率合法和所需矩存在。仅给出假设时，输出必须标明条件性结论；
+无条件 `proved` 需要上述前提的证明。
+
+有限 n 的可达支持或财富上界不能代替全时域不变量。不能为了启用 Handelman 或
+Putinar 完备性条件，擅自加入财富上限、球约束或其他缩域。
+
+严格 guard 可为多项式不等式证明取覆盖闭包；不得加正 margin 缩小原 guard。析取完整
+拆分并限制区域数。仿射 equality 可精确消元，其余使用 ideal multiplier。
+
+eta 的严格正性通过单独 obligation 证明。首版可配置 `eta>=epsilon>0` 的充分条件，
+但固定 epsilon 是对候选族的额外限制，并非所有正多项式都满足；应记录在结果中。
+terminal 上允许 goal 边界取 0，不对它错误地强制严格正性。
+
+### 3.3 指数路径的时钟
+
+时钟为 pCFG 转移数或经过证明的循环轮数。终止后时钟冻结，rho/c 的严格收缩只作用
+于停止前的计数转移。循环轮次须有原 CFG 计数边或宏步覆盖证据，不能假设内循环终止。
+
+首版凸矩包络实现支持组内统一的增量 delta∈{0,1}：计数 group 的 delta=1，其他
+control-flow group 的 delta=0。对零增量组仍证明非增条件；必要的比值界单独配置。
+同一概率 group 的 branch 增量不一致时，不得拆开概率组来凑条件；首版报告该时钟
+不支持，或在后续实现经过证明的加权矩规则。
+
+完整局部式为 `sum_j p_j E[rho**(-delta_j) V_next] <= V_src`。
+本文件单步简写均指统一 delta=1 的 group；具体实现必须保留时钟信息。
+
+## 4. 多项式模板与参数含义
+
+### 4.1 未知系数模板
+
+对每个需要合成的位置建立：
+
+```text
+eta_l(x; a_l) = sum_(|alpha|<=D) a_(l,alpha) * x**alpha
+D = 2 by default
+```
+
+这里 D 是 eta 的最高总次数，不是 `eta**k` 的次数，也不是 SOS relaxation order。
+例如两个变量、D=2 时：
+
+```text
+eta_l(x,y) = a0 + a1*x + a2*y + a3*x*x + a4*x*y + a5*y*y
+```
+
+所有 a 均由求解器合成。允许最高次系数为零，得到低于 D 次的证书。默认使用全部
+程序变量；显式变量投影需要证明义务覆盖依据，并在配置中记录。
+
+所有位置系数、边界参数和域均与 n 无关。禁止使用 `max_reachable_wealth(n)` 初始化
+固定 eta 并将结果当成“已合成多项式”。候选初值只可辅助算法，最终 eta 仍须由定义的
+合成问题得到并验证。
+
+### 4.2 c、rho_k、lambda 的区别
+
+沿计数一步的普通 contractive 条件为：
+
+```text
+E[W_next | x] <= c * W_src(x),  0<c<1
+```
+
+W 在普通位置为 eta；在 terminal 的取值由各 goal 定义。无终止边界的普通转移上
+即为 `E[eta_next]<=c*eta_src`。不能把进入终止的分支从总期望中随意删掉。
+
+对于指数模板 `Phi_i = eta**k * exp(-lambda*(n-i))`，还必须有：
+
+```text
+E[W_next**k | x] <= rho_k * W_src(x)**k
+rho_k = exp(-lambda),  0<rho_k<1
+```
+
+k=1 时可取 rho_1=c。k=2 时必须另行证明 rho_2 的上界；一阶条件不能单独推出
+`rho_2=c*c`。采用第 5 节包络后，rho_k 由固定 c 和比值界计算，或者在 eta 合成后
+通过固定系数的原始 k 阶约束认证更紧的 rho_k。该后处理只改进速率，不替代 eta 合成。
+
+### 4.3 凸性检查
+
+设 `eta=a+b*x`。当 k=2 时：
+
+```text
+eta**2 = a*a + 2*a*b*x + b*b*x*x
+```
+
+固定 c/k 不会消除这些未知系数乘积。直接对原始 k 阶式匹配系数会得到非线性约束，
+MOSEK 的凸 LP/SDP 接口不能按原式求解。PSD 提升后去掉 rank-one 条件也不等价；
+除非重构出真实 eta 并验证，不能返回提升变量作为 eta 的平方。
+
+首版默认 `synthesis_mode=moment_envelope`：k=1 使用精确仿射条件，k=2 使用下面的
+凸充分条件。精确非凸 eta 合成保留为未来独立算法；未实现时返回 unsupported，不能
+静默冻结 eta 或换成任意高次证书来假装支持。
+
+## 5. k=2 的凸充分条件：单步比值包络
+
+### 5.1 在未知 eta 上建立线性条件
+
+外层为每种 group 类型选取固定有理常数 `0<=L<=U`。对每个 branch、其完整随机支持
+以及源 invariant/guard，证明：
+
+```text
+L * W_src(x) <= W_next(update(x,r)) <= U * W_src(x)
+```
+
+W 对 eta 系数仿射，L/U 固定，因此这两条是可进入 SOS/LP 的仿射系数多项式条件。
+它们是逐 branch 的辅助支持界；普通 contractive 条件仍然对整个概率组取期望。
+非确定性随机更新要覆盖完整支持，有限矩或采样检查不能代替这些路径级界。
+
+允许 L=0，以覆盖正常终止值为 0 的分支。本方法针对固定整数 k，直接使用多项式幂，
+不经 `log(W_next)`，因此不要求对零终止值取对数。W_src 在普通位置保持严格正。
+
+### 5.2 二阶推导及一般整数扩展
+
+令 `R=W_next/W_src`，在 L<=R<=U 上有：
+
+```text
+(R-L)*(R-U) <= 0
+R**2 <= (L+U)*R - L*U
+```
+
+结合 `E[R]<=c` 得：
+
+```text
+E[R**2] <= (L+U)*c - L*U = rho_2
+```
+
+也可完全避免除法，用 `W_next**2 <= (L+U)*W_src*W_next-L*U*W_src**2`
+及 W_src>=0 推导同一结论。所有需要求解的条件仍是一阶 eta 条件与固定比值界。
+
+有效指数候选需要 `0<rho_2<1`；仅 c<1 不够。比如 L=1/2、U=3/2、c=4/5 时，
+`rho_2=17/20`，能产生正衰减率。配置的 L/U/c 若不兼容或不能证明则放弃该参数点。
+L=U 时直接使用固定比例的 k 阶幂，不能使用除以 U-L 的公式。
+
+未来固定整数 k>=1 可用凸函数 r**k 在 [L,U] 上的弦：
+
+```text
+alpha_k = (U**k-L**k)/(U-L)
+beta_k  = (U*L**k-L*U**k)/(U-L)
+rho_k   = alpha_k*c + beta_k
+```
+
+k=1 回到 rho_1=c。首版仍只承诺 k=1,2。
+
+### 5.3 零计数组和保守性
+
+对 delta=0 的 group，用 `c_eff=1`，要求包络给出的 k 阶因子不超过 1；对 delta=1
+用 `c_eff=c`，要求不超过统一 rho_k。零计数组的 L/U 可以与计数组不同，例如
+`0<=R<=1` 是保证其 k 阶非增的充分条件，但可能排除某些本来可行的期望非增模板。
+
+该包络是充分条件，不与原始 k 阶前不动点完全等价。需要有限的 L/U 参数搜索，且在
+随机支持无界、比值无有限上界或多位置要求冲突时可能失败。失败不能推断原始模板
+不存在。不得用未经证明的比值界；不得将该模式称为原始非凸问题的全局最优解。
+
+合成后的真实 eta 必须通过严格的包络推导验证，从而证明原始 k 阶条件；还可将 eta
+固定后构造原始 k 阶多项式残差进行独立 SOS 检查。后者单独失败不推翻已完整验证的
+充分条件证明，但不能宣称它也已验证。
+
+Hoeffding 不是首版必需依赖。若以后增加，须单独验证 log-ratio 有界性、零边界处理
+及正衰减条件，不能从一阶 c 自动获得 lambda。
+
+## 6. 路径一：统一指数尾界的合成约束
+
+### 6.1 事件、归一化和模板
+
+保留终止性未知时的 `late_bad_exit`：令 T 为有限终止时刻（允许 T=∞），N_t 为
+累计时钟，目标是：
+
+```text
+Pr[T<infinity, N_T>n, terminal_state in B] <= A*rho_k**n
+for every integer n>=0
+```
+
+该事件不条件于终止，不包括无限运行。累计“截至 n 已经 violation”的概率随 n
+不减，不能套用趋于零的指数界；可能不终止时 `Pr[T>n]` 也不能默认具有该界。
+更多状态尾事件需独立的已验证定理，不能仅修改 event 名称。
+
+默认将 H 固定为 1，合成 eta 的同时要求坏 terminal 域上 `eta>=1`。于是
+`V_l=eta_l**k`，`A=eta_initial(x0)**k`。若用户显式指定 H>0，则归一化后 W=eta/H；
+H 是固定参数，不能与 eta 同时作为未知量相除。
+
+普通位置 W=eta，terminal 可继续使用非负多项式 W，并在 B 上要求 W>=1；也可用
+已完整分片的边界 W_bad=1、W_good=0。边界模式进入配置，进入 terminal 的分支必须
+参与 E[W_next] 与包络证明。对 terminal 不再合成严格收缩的吸收自环约束。
+
+### 6.2 每个固定参数点的模型
+
+固定 D、k、c、L/U、invariant、clock 和 positivity 编码次数：
+
+1. 建立所有位置 eta 的未知系数、正性和坏集归一化条件。
+2. 对计数组证明 `E[W_next]<=c*W_src`，对零计数组证明 `E[W_next]<=W_src`。
+3. k=1 直接使用 rho_1=c；k=2 建立第 5 节包络与速率条件。
+4. 固定参数点的优化目标为 `minimize eta_initial(x0)`。因 eta_initial>=0、k 固定，
+   它与最小化最终前因子 A=eta_initial(x0)**k 等价，无需把幂目标交给 LP/SDP。
+5. 经过完整验证后输出 eta、c、rho_k、A 和符号 `lambda=-log(rho_k)`。
+
+位置 eta 系数由该模型合成；没有预设 reciprocal eta 或特殊乘法识别捷径。
+
+### 6.3 从前不动点到指数结论
+
+原始要求是 `E[V_next]<=rho_k*V_src`（计数一步）及零计数组非增。对应停止后的过程：
+
+```text
+M_t = rho_k**(-N_(t wedge T)) * V(X_(t wedge T))
+```
+
+是非负超鞅。终止后时钟与 V 冻结，结合有限截断及 Fatou 得：
+
+```text
+Pr[T<infinity, N_T>n, terminal_state in B]
+  <= eta_initial(x0)**k * rho_k**n
+  = A * exp(-lambda*n)
+```
+
+无需 T 几乎处处有限。指数模板中的时间因子用于证明与结果表达，不生成随 n 增长的
+时间层决策变量。域、次数、系数和参数搜索不得使用求值时刻 n。
+
+## 7. 路径二：Assertion Violation 的合成约束
+
+### 7.1 保留原 template 的边界和目标
+
+目标仍为 `Pr[exists finite t: location_t=l_f]`。正常终止与无限运行均不计为 failure。
+采用 `project_detail.md` 中的 factorized template：
+
+```text
+Theta_l = q_l*eta_l**k  at ordinary locations
+Theta_normal = 0
+Theta_failure = 1
+q_l = exp(b_l) > 0
+```
+
+默认 q_l=1，eta 的全部系数未知、D=2。对固定正 q，它可吸收到位置多项式的正缩放
+中，因此在没有额外 eta 尺度约束时不必独立搜索 q。若保留显式 q，其值须固定或外层
+搜索；未知 q 与未知 eta 相乘仍非凸。固定 epsilon 等额外尺度约束也须随缩放一致处理。
+吸收后普通 contractive 条件作用于缩放后的 W；若另要求未缩放 eta 满足同一个 c，
+位置相关缩放未必保留该附加条件，不能宣称两种合成问题完全等价。
+
+首版使用 q=1，定义普通位置 W_l=eta_l，正常终止 W_t=0、failure W_f=1，
+于是 Theta=W**k。最终上界为 `Theta(initial)=eta_initial(x0)**k`。
+
+### 7.2 两类约束不能混同
+
+Assertion 的必要证明义务是：
+
+```text
+E[Theta_next] <= Theta_src
+Theta_normal=0, Theta_failure=1, Theta_ordinary>=0
+```
+
+它本身没有 c<1 要求。按照当前任务的 contractive eta 合成策略，另外要求普通源 group：
+
+```text
+E[W_next] <= c*W_src, 0<c<1
+```
+
+该期望包含 failure 的常数 1 和正常终止的 0。k=1 时此条件蕴含所需前不动点；k=2
+再用比值包络证明 `E[W_next**2]<=r_2*W_src**2`，要求 `r_2<=1`。
+Assertion 不需要 r_2<1，也不把它输出为时间指数速率。
+
+这里使用普通转移的预期或已证明的宏转移；若跨多条原边合成宏步，必须保证不会跳过
+assertion failure。不能借用 tail 时钟而遗漏中间 failure 的 pre-fixed-point 条件。
+
+搜索 c 是用户选择的更强合成条件，并非所有合法 violation 证书都具备严格收缩。
+若满足原始 pre-fixed-point 的 eta 存在而严格 c 条件不成立，该搜索仍可能找不到；
+报告需指明 `contractive_eta` 候选族，不能说 violation 无法上界。
+
+### 7.3 优化与证明
+
+固定 k/c/比值界后最小化 eta_initial，与最小化 eta_initial**k 等价。按原始
+pre-fixed-point 与两个边界严格验证；由有限步 failure 概率的递增极限得到 eventual
+violation 上界，不依赖终止性。输出所有已验证 eta 系数、参数及最终概率界。
+
+两条路径共用合成器、expectation、strategy、CVXPY/MOSEK 和验证组件；原始前不动点、
+边界、速率判断和最终选择器由不同 goal adapter 负责。
+
+## 8. 搜索轮次、停止与“最优”的定义
+
+### 8.1 有限搜索协议
+
+“求解轮”定义为调度器外层的一轮候选扩展，不是程序执行轮数，也不是 MOSEK 内部
+迭代数。配置 `max_rounds`，同时设置总模型数和时间预算。
+
+默认 D 固定为用户指定值，不暗中超过它；SOS order 的提高不改变 eta 最高次数。
+k 先枚举 {1,2}。c 使用位于 (0,1) 的有理网格，后续轮可在已有点附近细化。k=2
+增加有限的 L/U 候选；k=1 不要求无用的比值搜索。
+
+```text
+proved = []
+for search_round in 1..max_rounds:
+    points = parameter_policy.next_round(k_values, c_grid, ratio_grid)
+    for point in points within budgets:
+        create fresh unknown polynomial coefficients, degree <= D
+        build contractive + goal + envelope constraints
+        try available positivity strategies/orders within point budget
+        if solved and rigorously verified:
+            add eta and recomputed bound to proved
+        record all failures without discarding earlier proved candidates
+    stop if global budget exhausted or no further distinct points
+if proved is empty:
+    return no_certificate_found with search scope and reasons
+else:
+    select best verified candidate(s) under declared policy
+```
+
+不因一个 c/k 或一个 strategy 失败就停止全部搜索，也不因第一次成功就默认停止所有
+后续改进。搜索预算结束必须返回，不能无限提高次数或重试。
+
+固定候选参数和充分条件下，某些可行性随 c 具有单调性，但 rho_k<1、比值配置和
+选择目标会限制搜索区间。首版使用网格；二分必须明确可靠的可行/不可行证据。
+数值失败或没有重构出证书不能当成原始非凸约束不可行。
+
+### 8.2 最优的限定与默认选择
+
+Assertion：在全部已严格验证候选中，选择最小 `eta_initial**k`。
+
+指数尾界：A 和 rho 都影响曲线，可能互有优劣。默认
+`selection=fastest_decay_then_prefactor`：先选择最小 rho（最大 lambda），再选择
+最小 A；同时保存未被支配的已证明候选及可选下包络 `min_i A_i*rho_i**n`。
+
+这是预算内、指定模板族/充分条件下按配置排序的最佳已证明结果，不能称为原始问题
+全局最优，也不能声称默认单条曲线对每个 n 都最小。若用户要求限制前因子，可增加
+A_max 后再比较速率。n 不参与默认搜索；`evaluate_at` 仅做求值。
+
+### 8.3 状态
+
+- `proved`：完整语义及数学证明通过，并输出系数和界。
+- `not_solved`：仅建模，未求解。
+- `solved_unverified`：有数值候选，未得到完整严格证明。
+- `no_certificate_found`：预算内没有已证明模板；记录 D/k/c/比值界/策略范围。
+- `unsupported`：配置、程序能力、clock 或算法当前不支持。
+- 每个 attempt 另存 generation/solver/verification failure、超时和 raw solver status。
+
+`no_certificate_found` 不等于“程序不 contractive”或“所有多项式都不存在”。只有有
+独立数学证明时才额外报告特定候选族的不存在性结论。
+
+## 9. PositivityStrategy、CVXPY 与验证
+
+### 9.1 模块化编码及降级
+
+复用 Putinar、Schmüdgen、Handelman registry，每个策略消费固定域上的多项式
+`h(x)>=0`，只输出后端无关 fragment。域 generators 不含 eta 决策系数。
+
+| 策略 | 表示 | 后端 |
+| --- | --- | --- |
+| Putinar | `h=sigma0+sum sigma_i*g_i+sum tau_j*e_j` | SOS Gram/SDP |
+| Schmüdgen | SOS 乘平方自由 generator 产品，再加 equality ideal | SDP |
+| Handelman | 固定仿射 generators 的非负系数产品组合 | LP；首版仅识别出的有界域 |
+
+包络中的 eta 不等式是待证 conclusion，不得反过来当作含未知参数的 domain generator。
+这样固定 c/L/U 后，系数匹配仍对所有决策变量仿射。
+
+静态 auto 对有界仿射域可优先 Handelman，其余先 Putinar，再尝试 Schmüdgen。
+可选的域分析/成本排序模块缺失时退回保守静态选择。仅启用一个可用策略仍可运行。
+各策略失败只丢弃其局部 fragment；所有义务完整覆盖后才调用 solver。
+
+域无界时，找到并精确验证的 SOS 表示仍是充分证明；不宣称 Putinar/Schmüdgen 的
+完备性条件已成立。不得为此伪造紧致域。缺失/关闭插件记录原因，未知拼写报配置错误。
+
+### 9.2 建模与资源限制
+
+Gram 展开对上三角非对角项乘 2；匹配所有单项式，包含目标中的零系数项。Equality
+multipliers 自由，Handelman 系数非负且包含空乘积。模板系数与 Gram/乘子联合求解。
+
+ConicModel 用精确仿射数据导出/重建，CVXPY 检查 DCP，MOSEK 只解通过能力检查的
+凸问题。不能靠 CVXPY 的非凸例外模式绕过 k=2 的数学问题。
+
+分别限制 max_rounds、参数点数、attempt 数、DNF/product 数量、SOS order、PSD 大小、
+决策数和时间。展开前检查组合规模。总时限若只能在阶段边界检查，须标记为软预算。
+
+运行环境沿用 README 中的 `contractive-frontend-test-20260814`。现有 solver extra
+为 CVXPY 1.9.3、NumPy 2.4.6、SciPy 1.17.1、MOSEK 11.2.6。Model-only 不调用
+solver，不依赖许可证；许可证和数值故障隔离到对应 attempt。
+
+### 9.3 严格验证
+
+完整证明依次包含：
+
+1. 初态、归纳 invariant、概率、分布支持/矩、计时或宏步以及事件语义。
+2. 原始 eta 系数、正性、边界、普通 contractive 条件及所有包络支撑条件。
+3. 精确系数恒等式、非负系数和 PSD；包络公式参数条件及其对原始 k 阶式的推导。
+4. Tail 的 rho_k∈(0,1) 或 assertion 的 k 阶前不动点；从重构系数计算 A/Theta(initial)。
+5. 选择比较、符号 `-log(rho_k)` 和显示数值的可靠舍入。
+
+复用有理重构/精确 PSD。固定 eta 后做原始 k 阶残差验证是可选的第二条证明路径，
+其 Gram multiplier 需要重新求解，不能沿用修改前的数值矩阵。
+
+记录 `proof_method=moment_envelope` 或 `direct_kth_residual`，明确是凸充分条件合成，
+并导出原始 k 阶条件。不能仅检验有限可达状态后声称全域已证明。
+
+旧时间层模板的倒序修正不适用于位置循环证书；任意系数修正都须重新验证全部相关
+条件。对尚未通过的候选禁止以截断到 [0,1] 制造有效上界。
+
+## 10. 模块与当前实现的迁移
+
+| 组件 | 当前可复用能力 | 本次规划新增/替换 |
+| --- | --- | --- |
+| `frontend/`、`cfg/` | AST、grouped CFG、源码追踪 | 复用，完善全域语义证据 |
+| `algebra/`、`expectation.py`、`probability/` | 精确多项式和随机期望 | 复用，加入路径级 ratio 支持义务 |
+| `analysis/templates.py` | 多项式 basis/系数 | 统一 `PolynomialEtaTemplate(degree=2)`，分离 D/k/SOS order |
+| `analysis/k_policy.py` | 固定 {1,2} 及优化接口占位 | 复用 |
+| 新 `parameter_search.py` | 尚未实现 | c/比值界网格、轮次预算和结果保留 |
+| 新 `moment_envelope.py` | 尚未实现 | 包络约束生成、参数有效性与证明规则 |
+| 新 `exponential_tail.py` | 尚未实现新规则 | n-independent eta、停止事件/时钟、函数结果 |
+| assertion goal | 已有 obligation 原型 | 统一未知 eta 合成、c 搜索和原始前不动点验证 |
+| `positivity/`、`backends/cvxpy/` | 三种编码、ConicModel、solver、严格代数验证 | 复用 |
+| 当前 `finite_tail.py`、`tail_pipeline.py` | 时间层 tail 和求解 glue | 退出目标生产规则，提取通用调度/日志后迁移 |
+| `analysis/reachability.py` | 有限支持检查 | 仅测试/诊断，不生成统一证明域 |
+| 旧 Kelly scalar moment 原型 | 特定解析计算 | 不属于新合成路径，不作为自动 fallback |
+
+新增 `domains.py` / `clocks.py` 管理全域与时钟证据，`results.py` 管理函数和 violation
+常数界；通用 job runner 可共享不变量证据，两个 goal 的义务、边界和选择保持独立。
+
+关键 IR：
+
+```text
+PolynomialEtaTemplate: variables, degree, basis, unknown_coefficients, locations
+SearchPoint: round, k, c, ratio_bounds_by_group_kind, synthesis_mode
+GoalObligations: original_prefixed_point, contractive, boundary, envelope, origin
+EncodingPlan: complete_coverage, strategies, orders, budget, fallback_reasons
+VerifiedCandidate: eta_coefficients, c, k, rho_k?, A_or_violation_bound, proof_method
+SearchSummary: attempted_scope, stop_reason, selection_policy, best, proved_candidates
+```
+
+源码现有功能不因本文修改而自动迁移。历史 62 项测试和 README 数值日志针对旧实现，
+不能作为新规则已经通过的证据。本轮只改 framework，不改代码和历史结果。
+
+## 11. 配置与运行产物规划
+
+以下为待实现接口；示例 c/L/U 网格只是有限搜索设置，不承诺某个样例一定成功。
+
+```toml
+[program]
+source = "kelly_unbounded.pp"
+termination = "unknown"
+
+[[analysis_jobs]]
+id = "polynomial_tail"
+goal = "exponential_tail"
+event_mode = "late_bad_exit"
+terminal_event = "wealth <= 0.45"
+clock = "loop_round"
+clock_loop = "unique_while"
+initial_location = "unique_while_header"
+initial = { wealth = 1, round = 0 }
+selection = "fastest_decay_then_prefactor"
+evaluate_at = [10, 100, 1000]
+
+[analysis_jobs.template]
+kind = "polynomial_eta"
+degree = 2
+normalization_scale = "1"
+positivity_margin = "1/1000000"
+k_policy = "fixed"
+k_values = [1, 2]
+
+[analysis_jobs.search]
+synthesis_mode = "moment_envelope"
+max_rounds = 5
+c_candidates = ["1/2", "3/4", "9/10", "99/100"]
+ratio_pairs_counted = [["0", "1"], ["1/2", "3/2"], ["0", "2"]]
+ratio_pairs_uncounted = [["0", "1"]]
+max_parameter_points = 128
+
+[[analysis_jobs]]
+id = "polynomial_violation"
+goal = "assertion_violation"
+event_mode = "eventual"
+initial_location = "unique_while_header"
+initial = { wealth = 1, round = 0 }
+selection = "smallest_proved_bound"
+
+[analysis_jobs.template]
+kind = "polynomial_eta"
+degree = 2
+q_policy = "unit"
+positivity_margin = "1/1000000"
+k_policy = "fixed"
+k_values = [1, 2]
+
+[analysis_jobs.search]
+synthesis_mode = "moment_envelope"
+contractive_eta = true
+max_rounds = 5
+c_candidates = ["1/2", "3/4", "9/10", "99/100"]
+ratio_pairs = [["0", "1"], ["0", "2"], ["0", "4"]]
+max_parameter_points = 128
+
+[positivity]
+strategy = "auto"
+enabled = ["putinar", "schmudgen", "handelman"]
+on_unavailable = "fallback"
+initial_order = 1
+max_order = 3
+max_attempts_per_point = 4
+max_products = 256
+max_psd_dimension = 80
+
+[backend]
+name = "cvxpy"
+solver = "MOSEK"
+per_attempt_seconds = 60
+total_seconds = 300
+
+[verification]
+mode = "rigorous"
+```
+
+输入域 provider/证据政策须显式绑定；缺少条件不能自动视为已证明。配置中的次数、
+c 区间、L/U 顺序和 k 支持范围检查失败时报告清晰诊断。
+
+```text
+contractive build-model --config analysis.toml --out-dir generated/model
+contractive solve --config analysis.toml --out-dir generated/solve
+contractive evaluate generated/solve --analysis-id polynomial_tail --n 10 100 1000
+contractive strategies list --json
+```
+
+`evaluate` 不重建模型、不求解；新增命令与旧 CLI 的迁移须有明确说明。目标入口不要求
+horizon，不启用 scalar moment fallback。
+
+产物按 job -> k -> search round/parameter point -> encoding attempt 隔离，保存：
+
+- 源程序/pCFG、域与时钟证据、配置/版本/hash；
+- 未知模板及合成出的 eta 系数、原始 k 阶义务、实际使用的充分条件；
+- c/L/U/k、rho_k 计算、strategy/order/预算、solver 日志和验证结果；
+- 搜索覆盖范围、停止原因、所有已证明候选和选择依据；
+- 指数式与可选下包络/求值表，或 violation 概率上界。
+
+默认输出目录须为新目录，旧结果不得混入本次候选集。
+
+## 12. 样例预期与“不一定找到”的解释
+
+`kelly_unbounded.pp` 必须与其他程序一样使用未知多项式 eta，默认 degree=2、k={1,2}、
+搜索 c。此前 `eta(w)=w**(-1/2)` 的解析证书只说明另一非多项式族可以成功，不证明
+当前多项式族可行，也不再作为本框架的求解捷径或成功验收要求。
+
+尤其在仅使用 wealth 的单个循环头多项式、完整无界活跃域 w>=0.5 上，存在明确障碍：
+若 eta(w) 非零且在该半轴为正，最高次项为 a_d*w**d、a_d>0。对足够大的 w 两个
+分支都继续运行，一轮更新要求：
+
+```text
+E[eta(G*w)] <= c*eta(w)
+=> 0.6*1.2**d + 0.4*0.8**d <= c
+```
+
+d=0 时左侧为 1；整数 d>=1 时由凸性及 E[G]=1.04 得左侧至少为 1.04**d>1。
+因此该特定多项式族无法满足 c<1。此论证范围仅为上述 wealth-only/full-domain 模型，
+不能未经证明外推为所有多变量、分片、不同不变量或不同规则均不可行。
+
+所以验收应同时包含：
+
+- 一个具有已知多项式 eta 的正例，验证实际合成出的系数、k=1/2 包络和两类 goal；
+- Kelly 等可能无模板的输入，验证有限预算后停止并返回准确诊断；
+- 原始 k 阶可行但某个比值包络不可行的例子，展示充分条件的保守性。
+
+不能为保证 Kelly 成功而改成固定 reciprocal eta、有限 n 包围域或更换需要上界的事件。
+
+## 13. 实施顺序与验收
+
+1. **统一模板与规则。** 落实 degree=2 未知 eta、两类 goal 的原始前不动点、边界及
+   c/rho 区分；移除生产设计中的时间层和特殊 scalar 路径。
+2. **k=1 正例。** 固定 c 的未知系数 -> 仅启用 Putinar -> CVXPY/MOSEK -> 全域严格
+   验证，分别覆盖统一 tail 和 assertion。不要用固定 eta 的结果代替合成。
+3. **k=2 包络。** 实现 L/U 搜索、仿射义务及精确推导；检测直接非凸建模并拒绝；
+   对实际合成 eta 验证原始条件由充分条件推出。
+4. **有限外层搜索。** k/c/比值界/编码次数调度、轮数与时间停止、已证明结果保留和
+   最优选择；明确不保证找到或全局最优。
+5. **语义与交付。** 补齐 invariant、clock、停止规则证据，多 job 配置、产物和
+   公式求值，更新真实运行记录；保留既有前端/后端回归。
+
+必须覆盖的测试：
+
+- 默认 D=2 及可配置次数；D、k、SOS order 不混淆；输出包含求得的 eta 系数。
+- c∈(0,1)，k=1 rho=c；k=2 用真实包络或直接证明，拒绝错误 rho=c**2。
+- 弦界恒等式、L=0、L=U、terminal 0/1、比值界随机支持与零计数组。
+- Assertion 前不动点只需 r_k<=1；严格 c 合成是额外限制，失败状态不夸大。
+- 预算内无证书、部分参数失败、首次成功后继续改进、已有 proved 不被失败覆盖。
+- Tail 默认速率优先策略和 A/rho 未被支配集合；assertion 选择最小真实上界。
+- 缺失/关闭可选策略、完整覆盖、Gram 因子、JSON 重建、无界域及预展开预算。
+- MOSEK 真实 LP/SDP、许可证失败隔离、数值 optimal 与 proved 分离、扰动证书拒绝。
+- n 只用于求值：修改 evaluate_at 不影响模型/系数，不调用 solver。
+- 终止性未知、有限停止与无限运行、错误 invariant 和未经证明缩域不得产生无条件证明。
+- 保留原 parser/pCFG/expectation 测试，旧时间层专用测试随代码迁移单独处理。
+
+未来扩展包括更紧的凸矩上界、经原始约束验证的非凸系数搜索、自动选择 k、自动 invariant
+以及更一般的 clock。任何模块未实现均报告能力边界，不伪装成已支持。
+
+## 14. 与 project_detail.md 的对应
+
+保留其未知 eta contractive function、power/exponential template 与 assertion factorized
+pre-fixed-point 作为原始数学约束。本文新增的是可执行的保守凸合成方式和有限调度。
+
+- c 是普通一阶收缩，rho_k 是幂模板的矩收缩；两者的区别必须在代码/产物中保留。
+- k=2 的原始系数问题非凸；moment_envelope 只提供经过证明的充分条件。
+- Assertion 的 q=exp(b) 默认吸收到 eta 的位置缩放，边界仍为正常 0、失败 1。
+- 理论文档末尾 `Pr[violate by n]` 的指数衰减表达不能直接用于累计事件；当前 tail
+  采用已明确证明的 late_bad_exit，assertion 分析 eventual violation。
+- 未知终止性不影响非负停止/前不动点论证，但不能因此假定所有输入有该次数的模板。
+
+本次不改 `project_detail.md` 和源码；上述差异作为后续实现与理论同步的明确依据。

@@ -1,0 +1,58 @@
+{
+  "artifacts": {
+    "analyses/tailbound/degrees/1/c-001/attempts/001/conic_model.json": "867fca42ee1f22f23654ffbc7e7e506bde517e022127eb770193d5b0fede10c6",
+    "analyses/tailbound/degrees/1/c-001/attempts/001/encoding_plan.json": "75cf74b9ad2016710479b4cbe786dbdfef148237c2596d20d2313231a22e0b18",
+    "analyses/tailbound/degrees/1/c-001/polynomial_problem.json": "c61a112a3aee69b15922b251524649e6c6c208187013bcb14c66cfacfc47c8e0",
+    "analyses/tailbound/domain_evidence.json": "dbb78ac7cd3a3271b0b91980b80dccc427fa3c65f54baebe0d72a97e2005d4f1",
+    "analyses/tailbound/goal.json": "38e568a368320c286866c50e61a193109fa03ed36c83b69807ce8c2616dc3744",
+    "analyses/tailbound/search_history.json": "4cc7e45359a72ba8abc2e0a2c460a44d53009f85ea24547ea970e5dae83e5038",
+    "shared/ast.json": "0eb50c81018b7755e4945308fd1873dd4392a9e23457aad6bc21dcbda46e50ea",
+    "shared/cfg.dot": "88eb085745a31510d2fb22fd91a55364ef7a5b4231837c2c9d97fd41f8c77e07",
+    "shared/cfg.json": "2d6ac5bc3f0db6218d8545615e2eef5660ad9ad844918799cb4dc3ea2caac855",
+    "shared/cfg.txt": "334dc3c74c3ace7cb3ffd1c18150f069e7b3424b33b7bf65615c141ff3af7d44",
+    "shared/manifest.json": "41e11563f7cb646b6448e6a2164b7b0a947cb243b801589105263813b5da40e1",
+    "shared/source.normalized.pp": "4725d2f069dce9c2b0da8b0df97ab2cdda4b43ecfb9caca61fd3cc5f787b6c1c",
+    "shared/validation.json": "a428f3415ef92da3222c5fd6bc830ff7ec218be858363055ffdbd4cd9de2390c",
+    "summary.json": "5cc48f0366cda6caf89b5546034618e71578e08d7c34517e12518bdfbc45405c"
+  },
+  "backend": "cvxpy",
+  "budget_policy": "soft checks between symbolic stages; hard solver optimizer time limit",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "goal": "tailbound",
+  "matlab_invoked": false,
+  "mode": "model_only",
+  "options": {
+    "c_values": null,
+    "continue_after_success": false,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 1,
+    "max_attempts_per_point": 2,
+    "max_c_steps": 10,
+    "max_decisions": 20000,
+    "max_degree": 6,
+    "max_order": 4,
+    "max_parameter_points": 32,
+    "max_products": 256,
+    "max_psd_dimension": 80,
+    "per_attempt_seconds": 30,
+    "strategy": "auto",
+    "tail_rule": "auto",
+    "total_seconds": 300,
+    "verbose": true
+  },
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/RCD_example.pp",
+  "source_sha256": "51ef69490b9b68aab969d7dd673787f89b2ff9c75f0cef3bc4fa80b024bdec87",
+  "tool_version": "0.4.0"
+}

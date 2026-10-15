@@ -1,0 +1,35 @@
+{
+  "bound": {
+    "A_exact": "4",
+    "A_numeric": 4.0,
+    "c": "9/10",
+    "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 4 + 4*K + 2",
+      "prefix_steps": 4,
+      "round_step_counts": [
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 1,
+    "event": "K > n",
+    "exponential_expression": "(4) * exp(-(-log(9/10))*n)",
+    "expression": "(4) * (9/10)**n",
+    "lambda_expression": "-log(9/10)",
+    "lambda_numeric": 0.1053605156578263,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (4) * (9/10)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "-c0 - c1 - c2 - c3 + 4"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

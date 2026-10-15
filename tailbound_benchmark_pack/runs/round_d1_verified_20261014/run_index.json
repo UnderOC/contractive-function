@@ -1,0 +1,100 @@
+[
+  {
+    "name": "01_coupon2",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "tailbound_benchmark_pack/pp/01_coupon2.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "1",
+      "--max-degree",
+      "1",
+      "--out-dir",
+      "tailbound_benchmark_pack/runs/round_d1_verified_20261014/01_coupon2"
+    ],
+    "exit_code": 0,
+    "status": "proved",
+    "elapsed_seconds": 1.290682550985366,
+    "selection": {
+      "A_exact": "2",
+      "A_numeric": 2.0,
+      "c": "1/2",
+      "certificate": "analyses/tailbound/degrees/1/c-001/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 3*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "exponential_expression": "(2) * exp(-(-log(1/2))*n)",
+      "expression": "(2) * (1/2)**n",
+      "lambda_expression": "-log(1/2)",
+      "lambda_numeric": 0.6931471805599453,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (2) * (1/2)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  },
+  {
+    "name": "02_coupon4",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "tailbound_benchmark_pack/pp/02_coupon4.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "1",
+      "--max-degree",
+      "1",
+      "--out-dir",
+      "tailbound_benchmark_pack/runs/round_d1_verified_20261014/02_coupon4"
+    ],
+    "exit_code": 0,
+    "status": "proved",
+    "elapsed_seconds": 3.386915051843971,
+    "selection": {
+      "A_exact": "4",
+      "A_numeric": 4.0,
+      "c": "9/10",
+      "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 4 + 4*K + 2",
+        "prefix_steps": 4,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "exponential_expression": "(4) * exp(-(-log(9/10))*n)",
+      "expression": "(4) * (9/10)**n",
+      "lambda_expression": "-log(9/10)",
+      "lambda_numeric": 0.1053605156578263,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (4) * (9/10)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  }
+]

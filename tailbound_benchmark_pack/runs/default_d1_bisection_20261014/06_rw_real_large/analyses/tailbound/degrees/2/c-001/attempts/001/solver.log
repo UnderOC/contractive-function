@@ -1,0 +1,94 @@
+===============================================================================
+                                     CVXPY                                     
+                                     v1.9.3                                    
+===============================================================================
+INFO: Your problem has 65 variables, 91 constraints, and 0 parameters.
+INFO: It is compliant with the following grammars: DCP, DQCP
+INFO: DCP verification time: 0.0000 seconds.
+INFO: Expression tree has 8 nodes.
+INFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+INFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+INFO: Your problem is compiled with the CPP canonicalization backend.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+INFO: Compiling problem (target solver=MOSEK).
+INFO: Reduction chain: Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK
+INFO: Applying reduction Dcp2Cone
+INFO: Applying reduction CvxAttr2Constr
+INFO: Applying reduction ExactCone2Cone
+INFO: Applying reduction EliminateZeroSized
+INFO: Applying reduction ConeMatrixStuffing
+INFO: Applying reduction MOSEK
+INFO: Finished problem compilation (took 5.280e-02 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+INFO: Invoking solver MOSEK  to obtain a solution.
+
+
+INFO: MOSEK warning 54 (MSK_RES_WRN_LARGE_CON_FX): The equality constraint '' (13) is fixed to numerically large value  4.0e+08.
+INFO: MOSEK warning 54 (MSK_RES_WRN_LARGE_CON_FX): The equality constraint '' (14) is fixed to numerically large value  8.0e+16.
+INFO: Problem
+INFO:   Name                   :                 
+INFO:   Objective sense        : maximize        
+INFO:   Type                   : CONIC (conic optimization problem)
+INFO:   Constraints            : 65              
+INFO:   Affine conic cons.     : 0               
+INFO:   Disjunctive cons.      : 0               
+INFO:   Cones                  : 0               
+INFO:   Scalar variables       : 59              
+INFO:   Matrix variables       : 8 (scalarized: 24)
+INFO:   Integer variables      : 0               
+INFO: 
+INFO: Optimizer started.
+INFO: Presolve started.
+INFO: Linear dependency checker started.
+INFO: Linear dependency checker terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 18
+INFO: Eliminator terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 3
+INFO: Eliminator terminated.
+INFO: Eliminator - tries                  : 2                 time                   : 0.00            
+INFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            
+INFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               
+INFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               
+INFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               
+INFO: Presolve terminated. Time: 0.00    
+INFO: Optimizer  - threads                : 1               
+INFO: Optimizer  - solved problem         : the primal      
+INFO: Optimizer  - Constraints            : 28              
+INFO: Optimizer  - Cones                  : 9               
+INFO: Optimizer  - Scalar variables       : 47                conic                  : 33              
+INFO: Optimizer  - Semi-definite variables: 0                 scalarized             : 0               
+INFO: Factor     - setup time             : 0.00            
+INFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            
+INFO: Factor     - nonzeros before factor : 225               after factor           : 253             
+INFO: Factor     - dense dim.             : 0                 flops                  : 3.93e+03        
+INFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+INFO: 0   8.0e+16  8.0e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  
+INFO: 1   6.4e+16  6.6e+00  6.5e+07  -1.00e+00  -2.862220046e+00  7.207870799e+07   8.3e-01  0.00  
+INFO: 2   2.4e+16  2.4e+00  3.9e+07  -1.00e+00  7.120389425e+00   7.207871580e+07   3.0e-01  0.00  
+INFO: 3   6.5e+15  6.7e-01  2.1e+07  -1.00e+00  5.391378666e+01   7.207881124e+07   8.4e-02  0.00  
+INFO: 4   1.8e+14  1.8e-02  3.4e+06  -1.00e+00  2.377469147e+03   7.208068819e+07   2.3e-03  0.00  
+INFO: 5   6.4e+09  6.7e-07  2.1e+04  -1.00e+00  6.495557634e+07   1.245465974e+08   8.3e-08  0.00  
+INFO: 6   2.5e+04  2.6e-12  7.5e+06  -1.00e+00  1.644632559e+13   1.225201057e+08   3.3e-13  0.00  
+INFO: 7   8.4e+00  8.8e-16  1.4e+05  -1.00e+00  5.383571449e+16   4.346967778e+16   1.1e-16  0.00  
+INFO: 8   2.2e+00  2.3e-16  2.0e+05  -1.46e+00  5.443994717e+17   2.469551719e+17   2.9e-17  0.00  
+INFO: 9   5.8e-01  6.0e-17  6.4e+04  -2.98e+00  4.383871455e+17   -1.562862056e+16  7.4e-18  0.00  
+INFO: Optimizer terminated. Time: 0.00    
+INFO: 
+INFO: 
+INFO: Interior-point solution summary
+INFO:   Problem status  : PRIMAL_INFEASIBLE
+INFO:   Solution status : PRIMAL_INFEASIBLE_CER
+INFO:   Dual.    obj: -9.7110415770e-02   nrm: 5e-17    Viol.  con: 1e-18    var: 3e-18    barvar: 7e-18  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+INFO: Problem status: unbounded
+INFO: Optimal value: -inf
+INFO: Compilation took 5.280e-02 seconds
+INFO: Solver (including time spent in interface) took 1.855e-03 seconds

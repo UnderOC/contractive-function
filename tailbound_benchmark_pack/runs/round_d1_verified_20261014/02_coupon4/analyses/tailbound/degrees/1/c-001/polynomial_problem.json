@@ -1,0 +1,771 @@
+{
+  "c": "1/2",
+  "certificate_family": "polynomial",
+  "context": {
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 4 + 4*K + 2",
+      "prefix_steps": 4,
+      "round_step_counts": [
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "event": "K > n",
+    "rule": "round_survival",
+    "time_unit": "completed_loop_iterations"
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2",
+    "eta_L_while_1_3",
+    "eta_L_while_1_4"
+  ],
+  "degree": 1,
+  "expressions": {
+    "L_while_1": "c0*eta_L_while_1_4 + c1*eta_L_while_1_3 + c2*eta_L_while_1_2 + c3*eta_L_while_1_1 + eta_L_while_1_0"
+  },
+  "goal": "tailbound",
+  "objective": "eta_L_while_1_0",
+  "obligations": [
+    {
+      "conclusion": "eta_L_while_1_0 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_0_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/4 - eta_L_while_1_3/4 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_0_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_1_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/4 - eta_L_while_1_3/4 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_1_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_2 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_2_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/2 - eta_L_while_1_3/4 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_2_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_2 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_3_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/2 - eta_L_while_1_3/4 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_3_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_3 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_4_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/4 - eta_L_while_1_3/2 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_4_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_3 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_5_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/4 - eta_L_while_1_3/2 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_5_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_2 + eta_L_while_1_3 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_6_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/2 - eta_L_while_1_3/2 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_6_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_2 + eta_L_while_1_3 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_7_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/2 - eta_L_while_1_3/2 - eta_L_while_1_4/4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_7_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_8_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/4 - eta_L_while_1_3/4 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_8_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_9_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/4 - eta_L_while_1_3/4 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_9_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_2 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_10_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/2 - eta_L_while_1_3/4 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_10_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_2 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_11_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/2 - eta_L_while_1_3/4 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_11_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_3 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_12_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/4 - eta_L_while_1_3/2 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_12_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 0,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_3 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_13_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/2 - eta_L_while_1_2/4 - eta_L_while_1_3/2 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_13_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 0,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_2 + eta_L_while_1_3 + eta_L_while_1_4 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_14_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/2 - eta_L_while_1_1/4 - eta_L_while_1_2/2 - eta_L_while_1_3/2 - eta_L_while_1_4/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_14_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 1,
+          "c3": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_2 + eta_L_while_1_3 + eta_L_while_1_4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_15_completed_zero_lower",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "completed_zero_lower"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0 - eta_L_while_1_1 - eta_L_while_1_2 - eta_L_while_1_3 - eta_L_while_1_4",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_15_completed_zero_upper",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1,
+          "c2": 1,
+          "c3": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "completed_zero_upper"
+      ]
+    }
+  ]
+}

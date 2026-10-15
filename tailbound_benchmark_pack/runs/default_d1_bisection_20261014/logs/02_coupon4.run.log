@@ -1,0 +1,60 @@
+===== RUN METADATA =====
+{
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/02_coupon4.pp",
+    "--goal",
+    "tailbound",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/runs/default_d1_bisection_20261014/02_coupon4",
+    "--initial-degree",
+    "1",
+    "--max-degree",
+    "6",
+    "--degree-step",
+    "1",
+    "--max-c-steps",
+    "10",
+    "--tail-rule",
+    "auto",
+    "--max-order",
+    "4",
+    "--max-attempts-per-point",
+    "2",
+    "--max-parameter-points",
+    "32",
+    "--strategy",
+    "auto",
+    "--enabled-strategies",
+    "putinar",
+    "schmudgen",
+    "handelman",
+    "--max-products",
+    "256",
+    "--max-psd-dimension",
+    "80",
+    "--max-decisions",
+    "20000",
+    "--total-seconds",
+    "300",
+    "--per-attempt-seconds",
+    "30",
+    "--family",
+    "polynomial"
+  ],
+  "command_shell_escaped": "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python -m contractive_tool solve /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/pp/02_coupon4.pp --goal tailbound --out-dir /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/runs/default_d1_bisection_20261014/02_coupon4 --initial-degree 1 --max-degree 6 --degree-step 1 --max-c-steps 10 --tail-rule auto --max-order 4 --max-attempts-per-point 2 --max-parameter-points 32 --strategy auto --enabled-strategies putinar schmudgen handelman --max-products 256 --max-psd-dimension 80 --max-decisions 20000 --total-seconds 300 --per-attempt-seconds 30 --family polynomial",
+  "cwd": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function",
+  "elapsed_seconds": 5.4994374450761825,
+  "finished_utc": "2026-10-14T00:40:48.260309Z",
+  "launch_error": null,
+  "returncode": 0,
+  "started_utc": "2026-10-14T00:40:42.760861Z"
+}
+===== STDOUT BEGIN =====
+{"attempt_count": 19, "certificate_family": "polynomial", "contraction_searches": [{"best_verified_c": "3/4", "degree": 1, "interval": ["767/1024", "3/4"], "lower_endpoint_is_nonexistence_proof": false, "max_steps": 10, "method": "bisection", "steps": [{"c": "1/2", "interval_after": ["1/2", "1"], "interval_before": ["0", "1"], "iteration": 1, "status": "infeasible"}, {"c": "3/4", "interval_after": ["1/2", "3/4"], "interval_before": ["1/2", "1"], "iteration": 2, "status": "proved"}, {"c": "5/8", "interval_after": ["5/8", "3/4"], "interval_before": ["1/2", "3/4"], "iteration": 3, "status": "infeasible"}, {"c": "11/16", "interval_after": ["11/16", "3/4"], "interval_before": ["5/8", "3/4"], "iteration": 4, "status": "infeasible"}, {"c": "23/32", "interval_after": ["23/32", "3/4"], "interval_before": ["11/16", "3/4"], "iteration": 5, "status": "infeasible"}, {"c": "47/64", "interval_after": ["47/64", "3/4"], "interval_before": ["23/32", "3/4"], "iteration": 6, "status": "infeasible"}, {"c": "95/128", "interval_after": ["95/128", "3/4"], "interval_before": ["47/64", "3/4"], "iteration": 7, "status": "infeasible"}, {"c": "191/256", "interval_after": ["191/256", "3/4"], "interval_before": ["95/128", "3/4"], "iteration": 8, "status": "infeasible"}, {"c": "383/512", "interval_after": ["383/512", "3/4"], "interval_before": ["191/256", "3/4"], "iteration": 9, "status": "infeasible"}, {"c": "767/1024", "interval_after": ["767/1024", "3/4"], "interval_before": ["383/512", "3/4"], "iteration": 10, "status": "infeasible"}], "stop_reason": "max_c_steps", "upper_endpoint_verified": true}], "degrees_attempted": [1], "elapsed_seconds": 5.04044631216675, "goal": "tailbound", "out_dir": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/tailbound_benchmark_pack/runs/default_d1_bisection_20261014/02_coupon4", "parameter_points": 10, "pareto_candidates": [{"A_exact": "4", "A_numeric": 4.0, "c": "3/4", "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json", "clock": {"exit_step_counts": [2], "pcfg_relation": "T = 4 + 4*K + 2", "prefix_steps": 4, "round_step_counts": [4], "unit": "completed_loop_iterations"}, "degree": 1, "event": "K > n", "exponential_expression": "(4) * exp(-(-log(3/4))*n)", "expression": "(4) * (3/4)**n", "lambda_expression": "-log(3/4)", "lambda_numeric": 0.2876820724517809, "n_domain": "nonnegative integers", "probability_expression": "min(1, (4) * (3/4)**n)", "rule": "round_survival", "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination", "time_unit": "completed_loop_iterations"}], "proved_candidates": [{"A_exact": "4", "A_numeric": 4.0, "c": "3/4", "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json", "clock": {"exit_step_counts": [2], "pcfg_relation": "T = 4 + 4*K + 2", "prefix_steps": 4, "round_step_counts": [4], "unit": "completed_loop_iterations"}, "degree": 1, "event": "K > n", "exponential_expression": "(4) * exp(-(-log(3/4))*n)", "expression": "(4) * (3/4)**n", "lambda_expression": "-log(3/4)", "lambda_numeric": 0.2876820724517809, "n_domain": "nonnegative integers", "probability_expression": "min(1, (4) * (3/4)**n)", "rule": "round_survival", "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination", "time_unit": "completed_loop_iterations"}], "selection": {"A_exact": "4", "A_numeric": 4.0, "c": "3/4", "certificate": "analyses/tailbound/degrees/1/c-002/attempts/001/certificate.json", "clock": {"exit_step_counts": [2], "pcfg_relation": "T = 4 + 4*K + 2", "prefix_steps": 4, "round_step_counts": [4], "unit": "completed_loop_iterations"}, "degree": 1, "event": "K > n", "exponential_expression": "(4) * exp(-(-log(3/4))*n)", "expression": "(4) * (3/4)**n", "lambda_expression": "-log(3/4)", "lambda_numeric": 0.2876820724517809, "n_domain": "nonnegative integers", "probability_expression": "min(1, (4) * (3/4)**n)", "rule": "round_survival", "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination", "time_unit": "completed_loop_iterations"}, "status": "proved", "stop_reason": "first_successful_degree", "tail_rule": "round_survival", "termination": "proved_almost_sure", "termination_assumed": false}
+===== STDOUT END =====
+===== STDERR BEGIN =====
+===== STDERR END =====

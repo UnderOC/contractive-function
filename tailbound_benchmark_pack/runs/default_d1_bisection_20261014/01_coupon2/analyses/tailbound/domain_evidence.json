@@ -1,0 +1,1069 @@
+{
+  "domains": {
+    "L_assign_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "c0",
+          "1 - c0",
+          "c1",
+          "1 - c1"
+        ],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ],
+    "L_assign_2": [
+      {
+        "equalities": [],
+        "generators": [
+          "c0",
+          "1 - c0",
+          "c1",
+          "1 - c1"
+        ],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ],
+    "L_probabilistic_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "c0",
+          "1 - c0",
+          "c1",
+          "1 - c1",
+          "-c0 - c1 + 2"
+        ],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ],
+    "L_refute_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "c0",
+          "1 - c0",
+          "c1",
+          "1 - c1",
+          "c0 + c1 - 2"
+        ],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "c0",
+          "1 - c0",
+          "c1",
+          "1 - c1"
+        ],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "c0",
+          "c1"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "c0": "0",
+    "c1": "0"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "initialization_steps": 2,
+  "initialization_trace": [
+    {
+      "destination": "L_assign_3",
+      "location": "L_assign_4",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_9",
+      "values": {
+        "c0": "0"
+      }
+    },
+    {
+      "destination": "L_while_1",
+      "location": "L_assign_3",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_8",
+      "values": {
+        "c0": "0",
+        "c1": "0"
+      }
+    }
+  ],
+  "locations": [
+    "L_assign_1",
+    "L_assign_2",
+    "L_probabilistic_1",
+    "L_refute_1",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_4",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_9"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_3",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_8"
+    },
+    {
+      "kind": "initial_control_invariant",
+      "location": "L_while_1",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "method": "constant",
+              "value": "1"
+            },
+            {
+              "method": "constant",
+              "value": "0"
+            },
+            {
+              "conclusion": "c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "method": "constant",
+              "value": "1"
+            },
+            {
+              "method": "constant",
+              "value": "0"
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1",
+              "-c0 - c1 + 2"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1",
+              "-c0 - c1 + 2"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1",
+              "c0 + c1 - 2"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "-c0 - c1 + 2",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "-c0 - c1 + 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "1",
+                "0"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1",
+              "-c0 - c1 + 2"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "c0 + c1 - 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c0",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "c0 + c1 - 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "c0 + c1 - 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1 - c1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "c0 + c1 - 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "c0 + c1 - 2",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "c0",
+                  "1 - c0",
+                  "c1",
+                  "1 - c1",
+                  "c0 + c1 - 2"
+                ],
+                "variables": [
+                  "c0",
+                  "c1"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "c0",
+              "1 - c0",
+              "c1",
+              "1 - c1",
+              "c0 + c1 - 2"
+            ],
+            "variables": [
+              "c0",
+              "c1"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

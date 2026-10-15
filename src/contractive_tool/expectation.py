@@ -65,6 +65,14 @@ class ExpectationEngine:
             result += coefficient * random_model.moment(powers)
         return self.polynomials.normalize(result)
 
+    def random_expectation(
+        self,
+        expression: Polynomial | sp.Expr | int | str,
+        random_model: IndependentRandomModel,
+    ) -> Polynomial:
+        """Eliminate independent random symbols from a polynomial exactly."""
+        return self._eliminate_random(self.polynomials.normalize(expression), random_model)
+
     def trace_branch(
         self,
         function: Polynomial,

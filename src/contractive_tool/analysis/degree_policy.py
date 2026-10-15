@@ -4,7 +4,7 @@ from contractive_tool.errors import AnalysisError
 
 @dataclass(frozen=True)
 class DegreePolicy:
-    initial_degree: int = 2
+    initial_degree: int = 1
     max_degree: int = 6
     step: int = 1
     continue_after_success: bool = False

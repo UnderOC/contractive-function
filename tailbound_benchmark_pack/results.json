@@ -1,0 +1,172 @@
+{
+  "status": "complete",
+  "unresolved_errors": [],
+  "regression_log": "tailbound_benchmark_pack/runs/final_20261014/regression.log",
+  "benchmarks": [
+    {
+      "id": "01_coupon2",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/01_coupon2.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/01_coupon2/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/01_coupon2.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "初值 c0=c1=0；保留每次独立的公平券抽取。原目标是集齐两种券所需的循环次数；转换在集齐后执行 refute true，把全部有限退出作为 failure。当前事件为 Pr[T<∞, T>n, failure]，T 从程序入口按 pCFG 转移计时。若 K 是抽取/循环次数，则 T=3K+4；源 ghost 计数器已删除。"
+        }
+      ]
+    },
+    {
+      "id": "02_coupon4",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/02_coupon4.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/02_coupon4/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/02_coupon4.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "初值四个券标志均为 0；保留两层独立公平分支及其顺序，每轮均匀选择四券之一。原目标是集齐四券的循环次数；转换以 refute true 把全部有限退出作为 failure。当前事件为 Pr[T<∞, T>n, failure]，入口 pCFG 时钟；若 K 为完整抽取次数，则 T=4K+6。"
+        }
+      ]
+    },
+    {
+      "id": "03_rw_int",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/03_rw_int.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/03_rw_int/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/03_rw_int.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "参数为 x0=1，步长 -1/+1 的概率分别为 3/5、2/5。原 refute(x<1) 在该整数状态空间等价于首次到达 0；转换在 while 退出后 refute true，事件是 Pr[T<∞, T>n, failure]。T 为入口 pCFG 转移数；若 K 为随机游走更新次数，则 T=3K+3。"
+        }
+      ]
+    },
+    {
+      "id": "04_rw_real",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/04_rw_real.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/04_rw_real/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/04_rw_real.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "参数为 x0=2；先以 7/10、3/10 选择减/加分支，再在所选分支取新的连续 Uniform[0,1] 样本，顺序未改变。原目标是首次 x<0；转换的 refute true 将该有限退出作为 failure，事件为 Pr[T<∞, T>n, failure]。random 声明不产生转移，取样与 x 更新合并为一个 pCFG 转移；若 K 为循环次数，则 T=3K+3。"
+        }
+      ]
+    },
+    {
+      "id": "05_rdwalk_uniform",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/05_rdwalk_uniform_d1.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/05_rdwalk_uniform_d1/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/05_rdwalk_uniform_d1.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "具体参数 d=1、x0=0；每轮使用新的连续 Uniform[-1,2] 增量。原非尾递归程序的终止执行更新序列和最终 tick 总数被循环保存，但调用/返回开销与中间成本轨迹不在比较范围；refute true 测试有限运行时间事件 Pr[T<∞, T>n, failure]。random 声明不计步，取样与更新合并；若 K 为更新次数，则 T=2K+3。"
+        },
+        {
+          "pp": "tailbound_benchmark_pack/pp/05_rdwalk_uniform_d5.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/05_rdwalk_uniform_d5/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/05_rdwalk_uniform_d5.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "具体参数 d=5、x0=0；每轮使用新的连续 Uniform[-1,2] 增量。原非尾递归程序的终止执行更新序列和最终 tick 总数被循环保存，但调用/返回开销与中间成本轨迹不在比较范围；refute true 测试有限运行时间事件 Pr[T<∞, T>n, failure]。random 声明不计步，取样与更新合并；若 K 为更新次数，则 T=2K+3。"
+        },
+        {
+          "pp": "tailbound_benchmark_pack/pp/05_rdwalk_uniform_d10.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/05_rdwalk_uniform_d10/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/05_rdwalk_uniform_d10.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "具体参数 d=10、x0=0；每轮使用新的连续 Uniform[-1,2] 增量。原非尾递归程序的终止执行更新序列和最终 tick 总数被循环保存，但调用/返回开销与中间成本轨迹不在比较范围；refute true 测试有限运行时间事件 Pr[T<∞, T>n, failure]。random 声明不计步，取样与更新合并；若 K 为更新次数，则 T=2K+3。"
+        },
+        {
+          "pp": "tailbound_benchmark_pack/pp/05_rdwalk_uniform_d20.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/05_rdwalk_uniform_d20/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/05_rdwalk_uniform_d20.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "具体参数 d=20、x0=0；每轮使用新的连续 Uniform[-1,2] 增量。原非尾递归程序的终止执行更新序列和最终 tick 总数被循环保存，但调用/返回开销与中间成本轨迹不在比较范围；refute true 测试有限运行时间事件 Pr[T<∞, T>n, failure]。random 声明不计步，取样与更新合并；若 K 为更新次数，则 T=2K+3。"
+        }
+      ]
+    },
+    {
+      "id": "06_rw_real_large",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/06_rw_real_large.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/06_rw_real_large/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/06_rw_real_large.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "参数为论文给出的 x0=200000000；保留先按 7/10、3/10 选减/加分支、再取新的连续 Uniform[0,1] 样本的顺序。原目标为首次 x<0；refute true 测试有限退出事件 Pr[T<∞, T>n, failure]。random 声明不计步且取样与更新合并；若 K 为循环次数，则 T=3K+3。"
+        }
+      ]
+    },
+    {
+      "id": "07_polynomial_tail",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/07_polynomial_tail.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/07_polynomial_tail/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/07_polynomial_tail.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "参数为 m0=1；守卫前先取初始连续 Uniform[0,1]，每个继续迭代的循环体内再取独立新样本，顺序保留。原循环计数尾为 P[K>n]=1/(n+2)^2，不存在统一严格指数尾；当前 refute true 事件是 Pr[T<∞, T>n, failure]。显式 Uniform 赋值各自占一个 pCFG 转移；T=3K+4。"
+        }
+      ]
+    },
+    {
+      "id": "08_escape_200",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/08_escape_200.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/08_escape_200/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/08_escape_200.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "参数为 x0=0；每轮先以新连续 Uniform[-1,0.5] 更新 x，再按更新后的 x>=200 判断，真分支才以独立新 Uniform[-1,2] 更新，顺序保留。原无条件运行时间把不终止轨迹计为 +∞，而当前 late_bad_exit 只测试 Pr[T<∞, T>n, failure]，排除不终止轨迹，不能与原 Table 2 数值等同。两个 random 声明均不计步，采样与对应更新合并；若 K 为循环次数，则 T=4K+3。"
+        }
+      ]
+    },
+    {
+      "id": "09_rw_1d_demonic",
+      "status": "skipped_nondeterministic",
+      "reason": "源程序含 if * 恶魔非确定性，调度器可观察此前随机结果；当前输入/后端未实现对所有允许调度器成立的尾界。按要求跳过，未把非确定分支替换为随机分支。"
+    },
+    {
+      "id": "10_rw_2d_demonic",
+      "status": "skipped_nondeterministic",
+      "reason": "源程序先恶魔式选择坐标再连续采样；当前输入/后端未实现该调度语义及其最坏情形尾界。按要求跳过，并保留附录所给采样顺序，未随机化分支。"
+    },
+    {
+      "id": "11_rw_2d_variant",
+      "status": "skipped_nondeterministic",
+      "reason": "源程序含恶魔非确定选择，之后才有 7/10、3/10 概率分支与连续采样；当前输入/后端不支持该调度语义。按要求跳过，未以公平硬币等随机选择替代。"
+    },
+    {
+      "id": "12_signed_cost_multiplicative",
+      "status": "tested",
+      "instances": [
+        {
+          "pp": "tailbound_benchmark_pack/pp/12_signed_cost_multiplicative.pp",
+          "summary": "tailbound_benchmark_pack/runs/final_20261014/12_signed_cost_multiplicative/summary.json",
+          "run_log": "tailbound_benchmark_pack/runs/final_20261014/logs/12_signed_cost_multiplicative.run.log",
+          "returncode": 0,
+          "status": "no_certificate_found",
+          "semantic_notes": "参数为 x0=y0=1 且 C0=y；保留每轮新的连续 Uniform[-1,0.5] x 更新、公平乘子分支以及原 signed cost 更新，始终 C=y。原目标是终止输出成本 C 的尾，而当前后端并不支持 cost tail：refute true 实际测试运行时间事件 Pr[T<∞, T>n, failure]。random r 声明不计步且采样与 x 更新合并；若 K 为循环次数，则 T=5K+5；不得把本结果当作原成本界。"
+        }
+      ]
+    }
+  ]
+}
