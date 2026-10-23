@@ -194,7 +194,9 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
         'termination_assumed':False}
     if kernel:
         write_json(root/'round_evidence.json',kernel.to_data())
+        summary['expectation_mode'] = kernel.to_data().get('expectation_mode','finite_boolean_survival')
         goal_data.update(event_mode='round_survival',event='K > n',
+            expectation_mode=summary['expectation_mode'],
             event_source='loop survival (bounds all late exits, including assertion failures)',
             clock='completed_loop_iterations',clock_relation=kernel.to_data()['clock'],
             prefix_adjustment='none; deterministic initialization precedes round zero',

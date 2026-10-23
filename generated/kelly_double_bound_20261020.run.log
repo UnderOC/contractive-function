@@ -1,0 +1,64 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/__main__.py", line 3, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/cli.py", line 87, in main
+    result = run_analysis(args.source,args.goal,args.out_dir,options=SearchOptions(**fields),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/analysis_pipeline.py", line 281, in run_analysis
+    write_json(attempt_path/'conic_model.json',model.to_data())
+                                               ^^^^^^^^^^^^^^^
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/positivity/ir.py", line 64, in to_data
+    "coefficient_equalities": [affine(x) for x in self.equalities],
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/positivity/ir.py", line 64, in <listcomp>
+    "coefficient_equalities": [affine(x) for x in self.equalities],
+                               ^^^^^^^^^
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/positivity/ir.py", line 59, in affine
+    return {"constant": rational_data(constant), "coefficients": {
+                                                                 ^
+  File "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/src/contractive_tool/positivity/ir.py", line 60, in <dictcomp>
+    str(x): rational_data(sp.diff(expr, x)) for x in free}}
+                          ^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/function.py", line 2511, in diff
+    return f.diff(*symbols, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/expr.py", line 3606, in diff
+    return _derivative_dispatch(self, *symbols, **assumptions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/function.py", line 1938, in _derivative_dispatch
+    return Derivative(expr, *variables, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/function.py", line 1466, in __new__
+    obj = cls._dispatch_eval_derivative_n_times(expr, v, count)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/function.py", line 1927, in _dispatch_eval_derivative_n_times
+    return expr._eval_derivative_n_times(v, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/basic.py", line 1975, in _eval_derivative_n_times
+    obj = obj._eval_derivative(s)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/cache.py", line 72, in wrapper
+    retval = cfunc(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/add.py", line 504, in _eval_derivative
+    return self.func(*[a.diff(s) for a in self.args])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/add.py", line 504, in <listcomp>
+    return self.func(*[a.diff(s) for a in self.args])
+                       ^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/expr.py", line 3606, in diff
+    return _derivative_dispatch(self, *symbols, **assumptions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/function.py", line 1938, in _derivative_dispatch
+    return Derivative(expr, *variables, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/function.py", line 1264, in __new__
+    symbols_or_none = getattr(expr, "free_symbols", None)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/lib/python3.11/site-packages/sympy/core/basic.py", line 725, in free_symbols
+    return empty.union(*(a.free_symbols for a in self.args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

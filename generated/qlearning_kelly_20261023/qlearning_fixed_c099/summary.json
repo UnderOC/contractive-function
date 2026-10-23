@@ -1,0 +1,124 @@
+{
+  "attempt_count": 2,
+  "boolean_round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+  "certificate_family": "polynomial",
+  "contraction_searches": [
+    {
+      "candidates": [
+        "99/100"
+      ],
+      "degree": 2,
+      "method": "explicit_grid"
+    }
+  ],
+  "degrees_attempted": [
+    2
+  ],
+  "elapsed_seconds": 10.704350870102644,
+  "expectation_mode": "exact_piecewise_survival",
+  "goal": "tailbound",
+  "out_dir": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/qlearning_kelly_20261023/qlearning_fixed_c099",
+  "parameter_points": 1,
+  "pareto_candidates": [
+    {
+      "A_exact": "187835106097679903628187/18758731802776406477344",
+      "A_numeric": 10.013209212249581,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "99/100",
+      "certificate": "analyses/tailbound/degrees/2/c-001/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 5*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(187835106097679903628187/18758731802776406477344) * exp(-(-log(99/100))*n)",
+      "expression": "(187835106097679903628187/18758731802776406477344) * (99/100)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(99/100)",
+      "lambda_numeric": 0.010050335853501442,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (187835106097679903628187/18758731802776406477344) * (99/100)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "proved_candidates": [
+    {
+      "A_exact": "187835106097679903628187/18758731802776406477344",
+      "A_numeric": 10.013209212249581,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "99/100",
+      "certificate": "analyses/tailbound/degrees/2/c-001/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 5*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(187835106097679903628187/18758731802776406477344) * exp(-(-log(99/100))*n)",
+      "expression": "(187835106097679903628187/18758731802776406477344) * (99/100)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(99/100)",
+      "lambda_numeric": 0.010050335853501442,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (187835106097679903628187/18758731802776406477344) * (99/100)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "selection": {
+    "A_exact": "187835106097679903628187/18758731802776406477344",
+    "A_numeric": 10.013209212249581,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "99/100",
+    "certificate": "analyses/tailbound/degrees/2/c-001/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 5*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        5
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(187835106097679903628187/18758731802776406477344) * exp(-(-log(99/100))*n)",
+    "expression": "(187835106097679903628187/18758731802776406477344) * (99/100)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(99/100)",
+    "lambda_numeric": 0.010050335853501442,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (187835106097679903628187/18758731802776406477344) * (99/100)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "status": "proved",
+  "stop_reason": "first_successful_degree",
+  "tail_rule": "round_survival",
+  "termination": "proved_almost_sure",
+  "termination_assumed": false
+}

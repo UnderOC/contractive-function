@@ -1,0 +1,109 @@
+[
+  {
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "kelly_double_bound.pp",
+      "--goal",
+      "tailbound",
+      "--out-dir",
+      "generated/unknown_search_20261023/kelly_double_bound"
+    ],
+    "execution_status": "completed",
+    "returncode": 0,
+    "elapsed_seconds": 25.906359537038952,
+    "external_timeout_seconds": 360,
+    "status": "proved",
+    "selection": {
+      "A_exact": "407/127",
+      "A_numeric": 3.204724409448819,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "505/512",
+      "certificate": "analyses/tailbound/degrees/1/c-009/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 4*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(407/127) * exp(-(-log(505/512))*n)",
+      "expression": "(407/127) * (505/512)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(505/512)",
+      "lambda_numeric": 0.013766195764147959,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (407/127) * (505/512)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    "degrees": [
+      1
+    ],
+    "stop_reason": "first_successful_degree"
+  },
+  {
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "qlearning.pp",
+      "--goal",
+      "tailbound",
+      "--out-dir",
+      "generated/unknown_search_20261023/qlearning"
+    ],
+    "execution_status": "completed",
+    "returncode": 0,
+    "elapsed_seconds": 142.1729625291191,
+    "external_timeout_seconds": 360,
+    "status": "proved",
+    "selection": {
+      "A_exact": "2221361501727377849659376653/131649100964423727560295420",
+      "A_numeric": 16.87335109358376,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "63/64",
+      "certificate": "analyses/tailbound/degrees/2/c-006/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 5*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(2221361501727377849659376653/131649100964423727560295420) * exp(-(-log(63/64))*n)",
+      "expression": "(2221361501727377849659376653/131649100964423727560295420) * (63/64)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(63/64)",
+      "lambda_numeric": 0.015748356968139168,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (2221361501727377849659376653/131649100964423727560295420) * (63/64)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    "degrees": [
+      1,
+      2
+    ],
+    "stop_reason": "first_successful_degree"
+  }
+]

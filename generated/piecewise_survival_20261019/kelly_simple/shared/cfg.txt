@@ -1,0 +1,45 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp
+initial: L_assign_5
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: round, wealth
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(0 <= wealth and round = 3) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:32:1
+  L_while_1 [while] invariant=(0 <= wealth and 0 <= round and round <= 3) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:16:1
+  L_assign_1 [assign] invariant=(0 <= wealth and 0 <= round and round <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:27:3
+  L_assign_2 [assign] invariant=(0 <= wealth and 0 <= round and round <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:20:5
+  L_assign_3 [assign] invariant=(0 <= wealth and 0 <= round and round <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:23:5
+  L_probabilistic_1 [probabilistic] invariant=(0 <= wealth and 0 <= round and round <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:18:3
+  L_assign_4 [assign] invariant=(wealth = 1) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:13:14
+  L_assign_5 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp:12:8
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(not wealth <= 0.6)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(wealth <= 0.6)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: round := round + 1
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: wealth := wealth * 1.2
+  T_5: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: wealth := wealth * 0.8
+  T_6: L_probabilistic_1 guard=(true)
+    branch 1: p=0.6 -> L_assign_2; update: identity
+    branch 2: p=1 - 0.6 -> L_assign_3; update: identity
+  T_7: L_while_1 guard=(round <= 2)
+    branch 1: p=1 -> L_probabilistic_1; update: identity
+  T_8: L_while_1 guard=(not round <= 2)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_9: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_while_1; update: round := 0
+  T_10: L_assign_5 guard=(true)
+    branch 1: p=1 -> L_assign_4; update: wealth := 1

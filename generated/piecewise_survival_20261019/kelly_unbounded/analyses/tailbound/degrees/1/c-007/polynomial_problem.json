@@ -1,0 +1,304 @@
+{
+  "c": "127/128",
+  "certificate_family": "polynomial",
+  "context": {
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 4*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "kernel": "symbolic",
+    "round_preexpectations": [
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "12*wealth - 5",
+            "8*wealth - 5"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "12*wealth - 5",
+            "8*wealth - 5"
+          ],
+          "strict_generators": [],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "expression": "eta_L_while_1_0 + 26*eta_L_while_1_1*wealth/25 + eta_L_while_1_2*round + eta_L_while_1_2"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "12*wealth - 5",
+            "5 - 8*wealth"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "12*wealth - 5"
+          ],
+          "strict_generators": [
+            "5 - 8*wealth"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "expression": "3*eta_L_while_1_0/5 + 18*eta_L_while_1_1*wealth/25 + 3*eta_L_while_1_2*round/5 + 3*eta_L_while_1_2/5"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "8*wealth - 5",
+            "5 - 12*wealth"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "8*wealth - 5"
+          ],
+          "strict_generators": [
+            "5 - 12*wealth"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "expression": "2*eta_L_while_1_0/5 + 8*eta_L_while_1_1*wealth/25 + 2*eta_L_while_1_2*round/5 + 2*eta_L_while_1_2/5"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1",
+            "5 - 12*wealth",
+            "5 - 8*wealth"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "2*wealth - 1"
+          ],
+          "strict_generators": [
+            "5 - 12*wealth",
+            "5 - 8*wealth"
+          ],
+          "variables": [
+            "round",
+            "wealth"
+          ]
+        },
+        "expression": "0"
+      }
+    ],
+    "rule": "round_survival",
+    "time_unit": "completed_loop_iterations"
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2"
+  ],
+  "degree": 1,
+  "expressions": {
+    "L_while_1": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round"
+  },
+  "goal": "tailbound",
+  "objective": "eta_L_while_1_0 + eta_L_while_1_1",
+  "obligations": [
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "wealth",
+          "round"
+        ],
+        "variables": [
+          "round",
+          "wealth"
+        ]
+      },
+      "id": "round_nonnegative_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*wealth + eta_L_while_1_2*round - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "wealth",
+          "round",
+          "wealth - 1/2"
+        ],
+        "variables": [
+          "round",
+          "wealth"
+        ]
+      },
+      "id": "round_normalization_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "normalization",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/128 - 153*eta_L_while_1_1*wealth/3200 - eta_L_while_1_2*round/128 - eta_L_while_1_2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "wealth",
+          "round",
+          "2*wealth - 1",
+          "12*wealth - 5",
+          "8*wealth - 5"
+        ],
+        "variables": [
+          "round",
+          "wealth"
+        ]
+      },
+      "id": "round_contraction_0_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "251*eta_L_while_1_0/640 + 871*eta_L_while_1_1*wealth/3200 + 251*eta_L_while_1_2*round/640 - 3*eta_L_while_1_2/5",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "wealth",
+          "round",
+          "2*wealth - 1",
+          "12*wealth - 5",
+          "5 - 8*wealth"
+        ],
+        "variables": [
+          "round",
+          "wealth"
+        ]
+      },
+      "id": "round_contraction_1_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "379*eta_L_while_1_0/640 + 2151*eta_L_while_1_1*wealth/3200 + 379*eta_L_while_1_2*round/640 - 2*eta_L_while_1_2/5",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "wealth",
+          "round",
+          "2*wealth - 1",
+          "8*wealth - 5",
+          "5 - 12*wealth"
+        ],
+        "variables": [
+          "round",
+          "wealth"
+        ]
+      },
+      "id": "round_contraction_2_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "127*eta_L_while_1_0/128 + 127*eta_L_while_1_1*wealth/128 + 127*eta_L_while_1_2*round/128",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "wealth",
+          "round",
+          "2*wealth - 1",
+          "5 - 12*wealth",
+          "5 - 8*wealth"
+        ],
+        "variables": [
+          "round",
+          "wealth"
+        ]
+      },
+      "id": "round_contraction_3_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    }
+  ]
+}

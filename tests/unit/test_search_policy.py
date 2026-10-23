@@ -17,7 +17,8 @@ def test_parameter_budget_and_numerical_failure_do_not_claim_nonexistence(tmp_pa
     history=json.loads((tmp_path/'limited/analyses/tailbound/search_history.json').read_text())
     assert history[0]['status']=='numerical_issue'
     search=result['contraction_searches'][0]
-    assert search['interval']==['0','1'] and search['stop_reason']=='oracle_inconclusive'
+    assert search['interval']==['0','1'] and search['stop_reason'] is None
+    assert len(search['steps'])==1  # The global budget stops the pending probe.
 
 
 def test_environment_failure_stops_without_escalating(tmp_path,monkeypatch):

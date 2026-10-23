@@ -1,0 +1,85 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp
+initial: L_assign_10
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: q1, q2
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_refute_1 [refute] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:64:1
+  L_while_1 [while] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:16:1
+  L_assign_1 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:24:9
+  L_assign_2 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:27:9
+  L_probabilistic_1 [probabilistic] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:22:7
+  L_assign_3 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:33:9
+  L_assign_4 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:36:9
+  L_probabilistic_2 [probabilistic] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:31:7
+  L_probabilistic_3 [probabilistic] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:20:5
+  L_assign_5 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:45:9
+  L_assign_6 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:48:9
+  L_probabilistic_4 [probabilistic] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:43:7
+  L_assign_7 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:54:9
+  L_assign_8 [assign] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:57:9
+  L_probabilistic_5 [probabilistic] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:52:7
+  L_probabilistic_6 [probabilistic] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:41:5
+  L_branch_1 [branch] invariant=(0 <= q1 and q1 <= 2 and 0 <= q2 and q2 <= 2) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:18:3
+  L_assign_9 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:13:1
+  L_assign_10 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/qlearning.pp:12:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_refute_1 guard=(false)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_refute_1 guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q1 := 0.875 * q1 + 0.0625 * q1 + 0.0625
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q1 := 0.875 * q1 + 0.0625 * q1 + 0.125
+  T_5: L_probabilistic_1 guard=(true)
+    branch 1: p=0.5 -> L_assign_1; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_2; update: identity
+  T_6: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q2 := 0.875 * q2 + 0.0625 * q1
+  T_7: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q2 := 0.875 * q2 + 0.0625 * q1 + 0.0625
+  T_8: L_probabilistic_2 guard=(true)
+    branch 1: p=0.5 -> L_assign_3; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_4; update: identity
+  T_9: L_probabilistic_3 guard=(true)
+    branch 1: p=0.5 -> L_probabilistic_1; update: identity
+    branch 2: p=1 - 0.5 -> L_probabilistic_2; update: identity
+  T_10: L_assign_5 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q1 := 0.875 * q1 + 0.0625 * q2 + 0.0625
+  T_11: L_assign_6 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q1 := 0.875 * q1 + 0.0625 * q2 + 0.125
+  T_12: L_probabilistic_4 guard=(true)
+    branch 1: p=0.5 -> L_assign_5; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_6; update: identity
+  T_13: L_assign_7 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q2 := 0.875 * q2 + 0.0625 * q2
+  T_14: L_assign_8 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q2 := 0.875 * q2 + 0.0625 * q2 + 0.0625
+  T_15: L_probabilistic_5 guard=(true)
+    branch 1: p=0.5 -> L_assign_7; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_8; update: identity
+  T_16: L_probabilistic_6 guard=(true)
+    branch 1: p=0.5 -> L_probabilistic_4; update: identity
+    branch 2: p=1 - 0.5 -> L_probabilistic_5; update: identity
+  T_17: L_branch_1 guard=(q1 >= q2)
+    branch 1: p=1 -> L_probabilistic_3; update: identity
+  T_18: L_branch_1 guard=(not q1 >= q2)
+    branch 1: p=1 -> L_probabilistic_6; update: identity
+  T_19: L_while_1 guard=((q1 - 1.5) * (q1 - 1.5) + (q2 - 1) * (q2 - 1) > 0.0625)
+    branch 1: p=1 -> L_branch_1; update: identity
+  T_20: L_while_1 guard=(not (q1 - 1.5) * (q1 - 1.5) + (q2 - 1) * (q2 - 1) > 0.0625)
+    branch 1: p=1 -> L_refute_1; update: identity
+  T_21: L_assign_9 guard=(true)
+    branch 1: p=1 -> L_while_1; update: q2 := 2
+  T_22: L_assign_10 guard=(true)
+    branch 1: p=1 -> L_assign_9; update: q1 := 0

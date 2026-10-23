@@ -1,0 +1,134 @@
+{
+  "options": {
+    "initial_degree": 1,
+    "max_degree": 2,
+    "degree_step": 1,
+    "continue_after_success": false,
+    "c_values": null,
+    "max_c_steps": 10,
+    "max_order": 4,
+    "max_attempts_per_point": 2,
+    "max_parameter_points": 32,
+    "strategy": "auto",
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "max_products": 256,
+    "max_psd_dimension": 80,
+    "max_decisions": 20000,
+    "total_seconds": 120,
+    "per_attempt_seconds": 30,
+    "verbose": false,
+    "family": "polynomial",
+    "tail_rule": "auto"
+  },
+  "results": [
+    {
+      "source": "RCD_example.pp",
+      "status": "proved",
+      "degrees": [
+        1,
+        2
+      ],
+      "expectation_mode": "exact_piecewise_survival",
+      "A": "1024",
+      "c": "5/8",
+      "seconds": 7.33,
+      "stop_reason": "first_successful_degree",
+      "summary": "RCD_example/summary.json"
+    },
+    {
+      "source": "tailbound_benchmark_pack/pp/01_coupon2.pp",
+      "status": "proved",
+      "degrees": [
+        1
+      ],
+      "expectation_mode": "finite_boolean_survival",
+      "A": "2",
+      "c": "1/2",
+      "seconds": 1.105,
+      "stop_reason": "first_successful_degree",
+      "summary": "01_coupon2/summary.json"
+    },
+    {
+      "source": "tailbound_benchmark_pack/pp/02_coupon4.pp",
+      "status": "proved",
+      "degrees": [
+        1
+      ],
+      "expectation_mode": "finite_boolean_survival",
+      "A": "4",
+      "c": "3/4",
+      "seconds": 4.229,
+      "stop_reason": "first_successful_degree",
+      "summary": "02_coupon4/summary.json"
+    },
+    {
+      "source": "kelly_unbounded.pp",
+      "status": "no_certificate_found",
+      "degrees": [
+        1,
+        2
+      ],
+      "expectation_mode": "exact_piecewise_survival",
+      "A": null,
+      "c": null,
+      "seconds": 6.852,
+      "stop_reason": "max_degree",
+      "summary": "kelly_unbounded/summary.json"
+    },
+    {
+      "source": "tailbound_benchmark_pack/pp/03_rw_int.pp",
+      "status": "no_certificate_found",
+      "degrees": [
+        1,
+        2
+      ],
+      "expectation_mode": "exact_piecewise_survival",
+      "A": null,
+      "c": null,
+      "seconds": 2.463,
+      "stop_reason": "max_degree",
+      "summary": "03_rw_int/summary.json"
+    },
+    {
+      "source": "tests/fixtures/halving.pp",
+      "status": "proved",
+      "degrees": [
+        1
+      ],
+      "expectation_mode": "exact_piecewise_survival",
+      "A": "4",
+      "c": "1/2",
+      "seconds": 0.925,
+      "stop_reason": "first_successful_degree",
+      "summary": "halving/summary.json"
+    },
+    {
+      "source": "tests/fixtures/geometric_exit.pp",
+      "status": "proved",
+      "degrees": [
+        1
+      ],
+      "expectation_mode": "finite_boolean_survival",
+      "A": "1",
+      "c": "1/2",
+      "seconds": 0.296,
+      "stop_reason": "first_successful_degree",
+      "summary": "geometric_exit/summary.json"
+    },
+    {
+      "source": "kelly_simple.pp",
+      "status": "unsupported",
+      "degrees": [],
+      "expectation_mode": null,
+      "A": null,
+      "c": null,
+      "seconds": 0.65,
+      "stop_reason": "semantic_evidence_unavailable",
+      "summary": "kelly_simple/summary.json"
+    }
+  ]
+}

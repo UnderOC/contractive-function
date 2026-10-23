@@ -122,3 +122,15 @@ def test_affine_model_rejects_unknown_products():
     a,b=sp.symbols("a b")
     with pytest.raises(ValueError,match="Non-affine"):
         ConicModel(["a","b"],a*b).to_data()
+
+
+def test_zero_face_guesses_do_not_relax_exact_verification():
+    a,b=sp.symbols('a b')
+    # Numerical noise in a nearly zero block may be removed, but every original
+    # rational constraint must still hold; contradictory equalities reject it.
+    model=ConicModel(['a','b'],a,[a+b],['a','b'])
+    recovered=reconstruct(model,{'a':2e-7,'b':3e-7})
+    assert recovered['status']=='proved'
+    assert recovered['exact_values']=={'a':'0','b':'0'}
+    bad=ConicModel(['a','b'],a,[a+b+sp.Rational(1,10**8)],['a','b'])
+    assert reconstruct(bad,{'a':2e-7,'b':3e-7})['status']!='proved'

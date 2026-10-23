@@ -1,0 +1,82 @@
+{
+  "coefficient_equalities": [
+    {
+      "coefficients": {
+        "eta_L_while_1_0": "1",
+        "o0_constant": "-1"
+      },
+      "constant": "-1"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_0": "1",
+        "eta_L_while_1_1": "1",
+        "o2_constant": "-1"
+      },
+      "constant": "0"
+    }
+  ],
+  "coverage": {
+    "round_0_contraction": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "x": 0
+        }
+      },
+      "strategy": "exact_identity",
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    "round_0_normalization": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "x": 0
+        }
+      },
+      "strategy": "constant",
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    "round_1_completed_nonnegative": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "x": 1
+        }
+      },
+      "strategy": "constant",
+      "tags": [
+        "round_survival",
+        "completed_nonnegative"
+      ]
+    }
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "o0_constant",
+    "o2_constant"
+  ],
+  "model_kind": "lp",
+  "nonnegative": [
+    "o0_constant",
+    "o2_constant"
+  ],
+  "objective": {
+    "coefficients": {
+      "eta_L_while_1_0": "1"
+    },
+    "constant": "0"
+  },
+  "psd_blocks": [],
+  "schema_version": 1
+}

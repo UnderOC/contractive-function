@@ -1,0 +1,241 @@
+{
+  "coefficient_equalities": [
+    {
+      "coefficients": {
+        "o0_s0_q_1_1": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_1": "1",
+        "o0_s0_q_0_1": "-2",
+        "o0_s1_sos": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_0": "1",
+        "o0_s0_q_0_0": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "o1_s0_q_1_1": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_1": "1",
+        "o1_s0_q_0_1": "-2",
+        "o1_s1_sos": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_0": "1",
+        "o1_s0_q_0_0": "-1",
+        "o1_s1_sos": "1"
+      },
+      "constant": "-1"
+    },
+    {
+      "coefficients": {
+        "o2_s0_q_1_1": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_1": "-1/128",
+        "o2_s0_q_0_1": "-2",
+        "o2_s1_sos": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_0": "-65/128",
+        "o2_s0_q_0_0": "-1",
+        "o2_s1_sos": "2"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "o3_a3": "-1",
+        "o3_a4": "1",
+        "o3_a5": "-1"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_1": "63/128",
+        "o3_a1": "1",
+        "o3_a2": "-1",
+        "o3_a3": "4",
+        "o3_a4": "-3",
+        "o3_a5": "2"
+      },
+      "constant": "0"
+    },
+    {
+      "coefficients": {
+        "eta_L_while_1_0": "63/128",
+        "o3_a0": "-1",
+        "o3_a1": "-2",
+        "o3_a2": "1",
+        "o3_a3": "-4",
+        "o3_a4": "2",
+        "o3_a5": "-1"
+      },
+      "constant": "0"
+    }
+  ],
+  "coverage": {
+    "round_contraction_0_0": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    "round_contraction_1_0": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "strategy": "handelman",
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    "round_nonnegative_0": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "nonnegative",
+        "round_survival"
+      ]
+    },
+    "round_normalization_0": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "strategy": "putinar",
+      "tags": [
+        "normalization",
+        "round_survival"
+      ]
+    }
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "o0_s0_q_0_0",
+    "o0_s0_q_0_1",
+    "o0_s0_q_1_1",
+    "o0_s1_sos",
+    "o1_s0_q_0_0",
+    "o1_s0_q_0_1",
+    "o1_s0_q_1_1",
+    "o1_s1_sos",
+    "o2_s0_q_0_0",
+    "o2_s0_q_0_1",
+    "o2_s0_q_1_1",
+    "o2_s1_sos",
+    "o3_a0",
+    "o3_a1",
+    "o3_a2",
+    "o3_a3",
+    "o3_a4",
+    "o3_a5"
+  ],
+  "model_kind": "sdp",
+  "nonnegative": [
+    "o0_s1_sos",
+    "o1_s1_sos",
+    "o2_s1_sos",
+    "o3_a0",
+    "o3_a1",
+    "o3_a2",
+    "o3_a3",
+    "o3_a4",
+    "o3_a5"
+  ],
+  "objective": {
+    "coefficients": {
+      "eta_L_while_1_0": "1",
+      "eta_L_while_1_1": "4"
+    },
+    "constant": "0"
+  },
+  "psd_blocks": [
+    {
+      "basis": [
+        "1",
+        "x"
+      ],
+      "id": "o0_s0",
+      "matrix": [
+        [
+          "o0_s0_q_0_0",
+          "o0_s0_q_0_1"
+        ],
+        [
+          "o0_s0_q_0_1",
+          "o0_s0_q_1_1"
+        ]
+      ]
+    },
+    {
+      "basis": [
+        "1",
+        "x"
+      ],
+      "id": "o1_s0",
+      "matrix": [
+        [
+          "o1_s0_q_0_0",
+          "o1_s0_q_0_1"
+        ],
+        [
+          "o1_s0_q_0_1",
+          "o1_s0_q_1_1"
+        ]
+      ]
+    },
+    {
+      "basis": [
+        "1",
+        "x"
+      ],
+      "id": "o2_s0",
+      "matrix": [
+        [
+          "o2_s0_q_0_0",
+          "o2_s0_q_0_1"
+        ],
+        [
+          "o2_s0_q_0_1",
+          "o2_s0_q_1_1"
+        ]
+      ]
+    }
+  ],
+  "schema_version": 1
+}

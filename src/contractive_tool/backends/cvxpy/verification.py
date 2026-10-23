@@ -86,17 +86,25 @@ def reconstruct(model, values, *, denominators=(1000, 1000000, 1000000000)):
     """
     if set(model.decisions) != set(values) or not all(math.isfinite(v) for v in values.values()):
         return {"status":"verification_failed", "reason":"Missing or nonfinite decision values"}
-    zero_names = {name for name in model.nonnegative if abs(values[name]) < 1e-8}
-    for block in model.psd_blocks:
-        matrix = block['matrix']
-        for i,row in enumerate(matrix):
-            if abs(values[row[i]]) < 1e-8:
-                zero_names.update(row)
-    if zero_names:
-        face = _reconstruct(model, values,
-                            [sp.Symbol(name) for name in sorted(zero_names)]+model.equalities,
-                            denominators=denominators)
-        if face['status']=='proved':
-            face['recovered_zero_face'] = sorted(zero_names)
-            return face
+    tried_faces = set()
+    # Additional partition constraints can leave a whole Gram block near zero.
+    # These thresholds only propose extra exact equations, never relax proof
+    # tolerances: _reconstruct still checks the original cone over rationals.
+    for threshold in (1e-8, 1e-6):
+        zero_names = {name for name in model.nonnegative if abs(values[name]) < threshold}
+        for block in model.psd_blocks:
+            matrix = block['matrix']
+            for i,row in enumerate(matrix):
+                if abs(values[row[i]]) < threshold:
+                    zero_names.update(row)
+        key = frozenset(zero_names)
+        if zero_names and key not in tried_faces:
+            tried_faces.add(key)
+            face = _reconstruct(model, values,
+                                [sp.Symbol(name) for name in sorted(zero_names)]+model.equalities,
+                                denominators=denominators)
+            if face['status']=='proved':
+                face['recovered_zero_face'] = sorted(zero_names)
+                face['zero_face_guess_threshold'] = threshold
+                return face
     return _reconstruct(model, values, model.equalities, denominators=denominators)

@@ -1,0 +1,430 @@
+{
+  "attempt_count": 40,
+  "boolean_round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+  "certificate_family": "polynomial",
+  "contraction_searches": [
+    {
+      "best_verified_c": null,
+      "degree": 1,
+      "interval": [
+        "1023/1024",
+        "1"
+      ],
+      "lower_endpoint_is_nonexistence_proof": false,
+      "max_steps": 10,
+      "method": "bisection",
+      "steps": [
+        {
+          "c": "1/2",
+          "interval_after": [
+            "1/2",
+            "1"
+          ],
+          "interval_before": [
+            "0",
+            "1"
+          ],
+          "iteration": 1,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "3/4",
+          "interval_after": [
+            "3/4",
+            "1"
+          ],
+          "interval_before": [
+            "1/2",
+            "1"
+          ],
+          "iteration": 2,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "7/8",
+          "interval_after": [
+            "7/8",
+            "1"
+          ],
+          "interval_before": [
+            "3/4",
+            "1"
+          ],
+          "iteration": 3,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "15/16",
+          "interval_after": [
+            "15/16",
+            "1"
+          ],
+          "interval_before": [
+            "7/8",
+            "1"
+          ],
+          "iteration": 4,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "31/32",
+          "interval_after": [
+            "31/32",
+            "1"
+          ],
+          "interval_before": [
+            "15/16",
+            "1"
+          ],
+          "iteration": 5,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "63/64",
+          "interval_after": [
+            "63/64",
+            "1"
+          ],
+          "interval_before": [
+            "31/32",
+            "1"
+          ],
+          "iteration": 6,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "127/128",
+          "interval_after": [
+            "127/128",
+            "1"
+          ],
+          "interval_before": [
+            "63/64",
+            "1"
+          ],
+          "iteration": 7,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "255/256",
+          "interval_after": [
+            "255/256",
+            "1"
+          ],
+          "interval_before": [
+            "127/128",
+            "1"
+          ],
+          "iteration": 8,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "511/512",
+          "interval_after": [
+            "511/512",
+            "1"
+          ],
+          "interval_before": [
+            "255/256",
+            "1"
+          ],
+          "iteration": 9,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "1023/1024",
+          "interval_after": [
+            "1023/1024",
+            "1"
+          ],
+          "interval_before": [
+            "511/512",
+            "1"
+          ],
+          "iteration": 10,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        }
+      ],
+      "stop_reason": "max_c_steps",
+      "unknown_policy": "preserve_interval_probe_upper_skip_tested",
+      "upper_endpoint_verified": false
+    },
+    {
+      "best_verified_c": "63/64",
+      "degree": 2,
+      "interval": [
+        "15/16",
+        "63/64"
+      ],
+      "lower_endpoint_is_nonexistence_proof": false,
+      "max_steps": 10,
+      "method": "bisection",
+      "steps": [
+        {
+          "c": "1/2",
+          "interval_after": [
+            "1/2",
+            "1"
+          ],
+          "interval_before": [
+            "0",
+            "1"
+          ],
+          "iteration": 1,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "3/4",
+          "interval_after": [
+            "3/4",
+            "1"
+          ],
+          "interval_before": [
+            "1/2",
+            "1"
+          ],
+          "iteration": 2,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "7/8",
+          "interval_after": [
+            "7/8",
+            "1"
+          ],
+          "interval_before": [
+            "3/4",
+            "1"
+          ],
+          "iteration": 3,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "15/16",
+          "interval_after": [
+            "15/16",
+            "1"
+          ],
+          "interval_before": [
+            "7/8",
+            "1"
+          ],
+          "iteration": 4,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "31/32",
+          "interval_after": [
+            "15/16",
+            "1"
+          ],
+          "interval_before": [
+            "15/16",
+            "1"
+          ],
+          "iteration": 5,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "63/64",
+          "interval_after": [
+            "15/16",
+            "63/64"
+          ],
+          "interval_before": [
+            "15/16",
+            "1"
+          ],
+          "iteration": 6,
+          "proposal": "unknown_upper_probe",
+          "status": "proved"
+        },
+        {
+          "c": "123/128",
+          "interval_after": [
+            "15/16",
+            "63/64"
+          ],
+          "interval_before": [
+            "15/16",
+            "63/64"
+          ],
+          "iteration": 7,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "249/256",
+          "interval_after": [
+            "15/16",
+            "63/64"
+          ],
+          "interval_before": [
+            "15/16",
+            "63/64"
+          ],
+          "iteration": 8,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        },
+        {
+          "c": "501/512",
+          "interval_after": [
+            "15/16",
+            "63/64"
+          ],
+          "interval_before": [
+            "15/16",
+            "63/64"
+          ],
+          "iteration": 9,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        },
+        {
+          "c": "1005/1024",
+          "interval_after": [
+            "15/16",
+            "63/64"
+          ],
+          "interval_before": [
+            "15/16",
+            "63/64"
+          ],
+          "iteration": 10,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        }
+      ],
+      "stop_reason": "max_c_steps",
+      "unknown_policy": "preserve_interval_probe_upper_skip_tested",
+      "upper_endpoint_verified": true
+    }
+  ],
+  "degrees_attempted": [
+    1,
+    2
+  ],
+  "elapsed_seconds": 141.220104503911,
+  "expectation_mode": "exact_piecewise_survival",
+  "goal": "tailbound",
+  "out_dir": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/unknown_search_20261023/qlearning",
+  "parameter_points": 20,
+  "pareto_candidates": [
+    {
+      "A_exact": "2221361501727377849659376653/131649100964423727560295420",
+      "A_numeric": 16.87335109358376,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "63/64",
+      "certificate": "analyses/tailbound/degrees/2/c-006/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 5*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(2221361501727377849659376653/131649100964423727560295420) * exp(-(-log(63/64))*n)",
+      "expression": "(2221361501727377849659376653/131649100964423727560295420) * (63/64)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(63/64)",
+      "lambda_numeric": 0.015748356968139168,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (2221361501727377849659376653/131649100964423727560295420) * (63/64)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "proved_candidates": [
+    {
+      "A_exact": "2221361501727377849659376653/131649100964423727560295420",
+      "A_numeric": 16.87335109358376,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "63/64",
+      "certificate": "analyses/tailbound/degrees/2/c-006/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 5*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(2221361501727377849659376653/131649100964423727560295420) * exp(-(-log(63/64))*n)",
+      "expression": "(2221361501727377849659376653/131649100964423727560295420) * (63/64)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(63/64)",
+      "lambda_numeric": 0.015748356968139168,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (2221361501727377849659376653/131649100964423727560295420) * (63/64)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "selection": {
+    "A_exact": "2221361501727377849659376653/131649100964423727560295420",
+    "A_numeric": 16.87335109358376,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "63/64",
+    "certificate": "analyses/tailbound/degrees/2/c-006/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 5*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        5
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(2221361501727377849659376653/131649100964423727560295420) * exp(-(-log(63/64))*n)",
+    "expression": "(2221361501727377849659376653/131649100964423727560295420) * (63/64)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(63/64)",
+    "lambda_numeric": 0.015748356968139168,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (2221361501727377849659376653/131649100964423727560295420) * (63/64)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "status": "proved",
+  "stop_reason": "first_successful_degree",
+  "tail_rule": "round_survival",
+  "termination": "proved_almost_sure",
+  "termination_assumed": false
+}

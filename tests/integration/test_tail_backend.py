@@ -188,10 +188,11 @@ def test_bisection_preserves_verified_certificate_on_inconclusive_next_point(tmp
     result=run_analysis(PROJECT/'tests/fixtures/geometric_exit.pp','tailbound',tmp_path/'partial',
                         options=SearchOptions(initial_degree=1,max_c_steps=4,max_attempts_per_point=1))
     assert result['status']=='proved' and result['selection']['c']=='1/2'
-    assert result['parameter_points']==2
+    assert result['parameter_points']==4
     search=result['contraction_searches'][0]
     assert search['interval']==['0','1/2']
-    assert search['stop_reason']=='oracle_inconclusive'
+    assert search['stop_reason']=='max_c_steps'
+    assert [row['c'] for row in search['steps']]==['1/2','1/4','3/8','7/16']
 
 
 def test_rcd_symbolic_round_synthesis_is_generic_and_matches_exact_tail(tmp_path,mosek_available):
@@ -204,6 +205,11 @@ def test_rcd_symbolic_round_synthesis_is_generic_and_matches_exact_tail(tmp_path
     assert result['degrees_attempted']==[1,2]
     bound=result['selection']
     assert bound['kernel']=='symbolic' and bound['c']=='5/8' and bound['A_exact']=='1024'
+    assert bound['expectation_mode']=='exact_piecewise_survival'
+    problem=json.loads((out/bound['certificate']).parents[2].joinpath('polynomial_problem.json').read_text())
+    cases=problem['context']['round_preexpectations']
+    assert len(cases)==4 and any(row['expression']=='0' for row in cases)
+    assert all('exact_domain' in row for row in cases)
     assert result['termination']=='proved_almost_sure' and not result['termination_assumed']
     certificate=json.loads((out/bound['certificate']).read_text())
     eta=sp.sympify(next(iter(certificate['polynomials'].values())))
@@ -229,3 +235,20 @@ def test_symbolic_nonterminating_loop_cannot_obtain_zero_certificate(tmp_path,mo
                         options=SearchOptions(max_degree=1,max_c_steps=2))
     assert result['tail_rule']=='round_survival' and result['selection'] is None
     assert result['status']=='no_certificate_found'
+
+
+def test_exact_exit_partition_synthesizes_constant_certificate(tmp_path,mosek_available):
+    from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
+    source=tmp_path/'exit_at_boundary.pp'
+    source.write_text('x := 2; while x > 1 do x := 1 od; refute true;')
+    result=run_analysis(source,'tailbound',tmp_path/'exit',
+                        options=SearchOptions(max_degree=1,max_c_steps=3))
+    assert result['status']=='proved'
+    bound=result['selection']
+    assert bound['kernel']=='symbolic' and bound['expectation_mode']=='exact_piecewise_survival'
+    assert bound['A_exact']=='1' and bound['c']=='1/8'
+    certificate=json.loads((tmp_path/'exit'/bound['certificate']).read_text())
+    eta=sp.sympify(next(iter(certificate['polynomials'].values())))
+    assert eta==1
+    # The old raw rule would require 1 <= c here, excluding this certificate.
+    assert eta>sp.Rational(bound['c'])*eta

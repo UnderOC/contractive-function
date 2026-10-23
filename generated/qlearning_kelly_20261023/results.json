@@ -1,0 +1,183 @@
+[
+  {
+    "record": "kelly_auto.execution.json",
+    "name": "kelly_auto",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "kelly_double_bound.pp",
+      "--goal",
+      "tailbound",
+      "--out-dir",
+      "generated/qlearning_kelly_20261023/kelly_auto"
+    ],
+    "execution_status": "external_timeout",
+    "returncode": null,
+    "elapsed_seconds": 360.05899722501636,
+    "hard_timeout_seconds": 360
+  },
+  {
+    "record": "kelly_fixed_control.execution.json",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "kelly_double_bound.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "1",
+      "--max-degree",
+      "1",
+      "--c-values",
+      "99/100",
+      "--out-dir",
+      "generated/qlearning_kelly_20261023/kelly_fixed_control"
+    ],
+    "execution_status": "completed",
+    "returncode": 0,
+    "elapsed_seconds": 2.5172732160426676,
+    "hard_timeout_seconds": 60,
+    "status": "proved",
+    "selection": {
+      "A_exact": "113003675/59825304",
+      "A_numeric": 1.8888942879421056,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "99/100",
+      "certificate": "analyses/tailbound/degrees/1/c-001/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 4*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(113003675/59825304) * exp(-(-log(99/100))*n)",
+      "expression": "(113003675/59825304) * (99/100)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(99/100)",
+      "lambda_numeric": 0.010050335853501442,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (113003675/59825304) * (99/100)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  },
+  {
+    "record": "qlearning_auto.execution.json",
+    "name": "qlearning_auto",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "qlearning.pp",
+      "--goal",
+      "tailbound",
+      "--out-dir",
+      "generated/qlearning_kelly_20261023/qlearning_auto"
+    ],
+    "execution_status": "completed",
+    "returncode": 0,
+    "elapsed_seconds": 326.0290668751113,
+    "hard_timeout_seconds": 360,
+    "status": "no_certificate_found",
+    "stop_reason": "time_budget",
+    "selection": null
+  },
+  {
+    "record": "qlearning_fixed.execution.json",
+    "name": "qlearning_fixed",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "qlearning.pp",
+      "--goal",
+      "tailbound",
+      "--out-dir",
+      "generated/qlearning_kelly_20261023/qlearning_fixed",
+      "--initial-degree",
+      "2",
+      "--max-degree",
+      "2",
+      "--c-values",
+      "31/32"
+    ],
+    "execution_status": "completed",
+    "returncode": 0,
+    "elapsed_seconds": 11.981141420081258,
+    "hard_timeout_seconds": 360,
+    "status": "no_certificate_found",
+    "stop_reason": "max_degree",
+    "selection": null
+  },
+  {
+    "record": "qlearning_fixed_c099.execution.json",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "qlearning.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "2",
+      "--max-degree",
+      "2",
+      "--c-values",
+      "99/100",
+      "--out-dir",
+      "generated/qlearning_kelly_20261023/qlearning_fixed_c099"
+    ],
+    "execution_status": "completed",
+    "returncode": 0,
+    "elapsed_seconds": 11.587932051159441,
+    "hard_timeout_seconds": 120,
+    "status": "proved",
+    "selection": {
+      "A_exact": "187835106097679903628187/18758731802776406477344",
+      "A_numeric": 10.013209212249581,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "99/100",
+      "certificate": "analyses/tailbound/degrees/2/c-001/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 5*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(187835106097679903628187/18758731802776406477344) * exp(-(-log(99/100))*n)",
+      "expression": "(187835106097679903628187/18758731802776406477344) * (99/100)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(99/100)",
+      "lambda_numeric": 0.010050335853501442,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (187835106097679903628187/18758731802776406477344) * (99/100)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  }
+]

@@ -9,7 +9,9 @@ class ContractionBisection:
 
 Only verified feasibility tightens the upper endpoint. An infeasible response
 is a solver/encoding observation, not a proof of polynomial nonexistence.
-An inconclusive response stops this degree without discarding prior witnesses.
+An inconclusive response leaves both endpoints unchanged and probes toward the
+upper endpoint. Previously inconclusive points are skipped, not treated as
+infeasible. Every probe counts against the same per-degree budget.
 """
 
     def __init__(self, max_steps=10):
@@ -21,12 +23,25 @@ An inconclusive response stops this degree without discarding prior witnesses.
         self.history = []
         self.stop_reason = None
         self.pending = None
+        self.next_probe = None
+        self.tested = set()
+        self.pending_reason = None
 
     def candidates(self):
         for _ in range(self.max_steps):
             if self.stop_reason:
                 return
-            self.pending = (self.lower+self.upper)/2
+            candidate = self.next_probe if self.next_probe is not None else (self.lower+self.upper)/2
+            reason = 'unknown_upper_probe' if self.next_probe is not None else 'interval_bisection'
+            self.next_probe = None
+            # A midpoint can revisit an unknown after either endpoint changes.
+            # Explore the open gap on its upper side without moving the lower
+            # endpoint or asserting anything about the skipped point.
+            while candidate in self.tested:
+                candidate = (candidate+self.upper)/2
+                reason = 'skip_tested_point'
+            self.pending = candidate
+            self.pending_reason = reason
             yield self.pending
             if self.pending is not None:
                 raise AnalysisError('Bisection requires feedback before the next candidate')
@@ -37,14 +52,16 @@ An inconclusive response stops this degree without discarding prior witnesses.
         if status not in ('proved','infeasible','unknown'):
             raise AnalysisError('Invalid bisection oracle status')
         c = self.pending
+        self.tested.add(c)
         before = [str(self.lower),str(self.upper)]
         if status == 'proved':
             self.upper = self.best_verified = c
         elif status == 'infeasible':
             self.lower = c
         else:
-            self.stop_reason = 'oracle_inconclusive'
+            self.next_probe = (c+self.upper)/2
         self.history.append({'iteration':len(self.history)+1,'c':str(c),'status':status,
+                             'proposal':self.pending_reason,
                              'interval_before':before,
                              'interval_after':[str(self.lower),str(self.upper)]})
         self.pending = None
@@ -53,6 +70,7 @@ An inconclusive response stops this degree without discarding prior witnesses.
 
     def to_data(self):
         return {'method':'bisection','max_steps':self.max_steps,
+                'unknown_policy':'preserve_interval_probe_upper_skip_tested',
                 'interval':[str(self.lower),str(self.upper)],
                 'best_verified_c':str(self.best_verified) if self.best_verified is not None else None,
                 'stop_reason':self.stop_reason,'steps':self.history,

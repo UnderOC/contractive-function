@@ -1,0 +1,182 @@
+{
+  "c": "63/128",
+  "certificate_family": "polynomial",
+  "context": {
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 3*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        3
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "event": "K > n",
+    "kernel": "boolean",
+    "rule": "round_survival",
+    "time_unit": "completed_loop_iterations"
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2"
+  ],
+  "degree": 1,
+  "expressions": {
+    "L_while_1": "c0*eta_L_while_1_2 + c1*eta_L_while_1_1 + eta_L_while_1_0"
+  },
+  "goal": "tailbound",
+  "objective": "eta_L_while_1_0",
+  "obligations": [
+    {
+      "conclusion": "eta_L_while_1_0 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_0_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-65*eta_L_while_1_0/128 - eta_L_while_1_1/2 - eta_L_while_1_2/2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_0_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_1_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/128 - eta_L_while_1_1/128",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_1_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 0,
+          "c1": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_2 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_2_normalization",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_while_1_0/128 - eta_L_while_1_2/128",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_2_contraction",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 0
+        }
+      },
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1 + eta_L_while_1_2",
+      "domain": {
+        "equalities": [],
+        "generators": [],
+        "variables": []
+      },
+      "id": "round_3_completed_nonnegative",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "c0": 1,
+          "c1": 1
+        }
+      },
+      "tags": [
+        "round_survival",
+        "completed_nonnegative"
+      ]
+    }
+  ]
+}

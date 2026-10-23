@@ -1,0 +1,53 @@
+{
+  "artifacts": {
+    "analyses/tailbound/search_history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "shared/ast.json": "7239fed9f0879d66cf334e94c1fa3f8379c7569ec24f0eb5767bf3cf48f13113",
+    "shared/cfg.dot": "cf189c4858c6be22b3913262c029f842356419b8b1375742fae2625c86db83da",
+    "shared/cfg.json": "ea4fada0f65a39b097056f83f3cd481a5df5e1fb9d96c1b8470616fb1f358446",
+    "shared/cfg.txt": "60e0ad1b2b9e398ac98791a317da2d7f5973a7d891334502e7750a75387af889",
+    "shared/manifest.json": "f93520ef5597ea76a7cc046f610ef14e80e3ffedddfb19e646f47b4b49bebc45",
+    "shared/source.normalized.pp": "91483b1f2ccc2d6e3efc748a36537f3aef664c91bf493e3d3acae698aa525e92",
+    "shared/validation.json": "f290936e30ca70d107137e51a70f5c5b8d05cccc0280fda7a70d3912850ce378",
+    "summary.json": "2b9a91665d85d3553ab97a0170e7180b284d4758fd5b4f54533041446f73e245"
+  },
+  "backend": "cvxpy",
+  "budget_policy": "soft checks between symbolic stages; hard solver optimizer time limit",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "goal": "tailbound",
+  "matlab_invoked": false,
+  "mode": "solve",
+  "options": {
+    "c_values": null,
+    "continue_after_success": false,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 1,
+    "max_attempts_per_point": 2,
+    "max_c_steps": 10,
+    "max_decisions": 20000,
+    "max_degree": 2,
+    "max_order": 4,
+    "max_parameter_points": 32,
+    "max_products": 256,
+    "max_psd_dimension": 80,
+    "per_attempt_seconds": 30,
+    "strategy": "auto",
+    "tail_rule": "auto",
+    "total_seconds": 120,
+    "verbose": false
+  },
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/kelly_simple.pp",
+  "source_sha256": "41ee86d43ff7e206e82a59759f641529c5506de177c11604a4b5ad50711c8cbb",
+  "tool_version": "0.4.0"
+}

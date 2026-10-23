@@ -21,16 +21,32 @@ def compile_round(source):
 
 def holds(domain, values):
     return (all(g.subs(values)>=0 for g in domain.generators)
-            and all(e.subs(values)==0 for e in domain.equalities))
+            and all(e.subs(values)==0 for e in domain.equalities)
+            and all(g.subs(values)>0 for g in getattr(domain,'strict',())))
 
 
 def test_rcd_symbolic_expectation_and_nonzero_exit_boundary():
     cfg,kernel=compile_round((PROJECT/'RCD_example.pp').read_text())
     x,y=sp.symbols('x y')
     f=(x*x+x*y+y*y)/2
-    cases=kernel.preconditions(f)
-    assert len(cases)==1
-    assert sp.expand(cases[0][1]-sp.Rational(3,16)*(x*x+y*y))==0
+    cases=kernel.partitioned_preconditions(f)
+    assert len(cases)==4
+    assert kernel.expectation_mode=='exact_piecewise_survival'
+    assert {p for _,p in cases}=={sp.Integer(0),sp.Rational(3,16)*x*x,
+        sp.Rational(3,16)*y*y,sp.Rational(3,16)*(x*x+y*y).expand()}
+    # Check exact indicators, including landing exactly on the exit boundary.
+    for state in ({x:-sp.Rational(1,2),y:1},
+                  {x:-sp.Rational(1,32),y:sp.Rational(1,16)},
+                  {x:-sp.Rational(1,40),y:sp.Rational(1,20)},
+                  {x:sp.Rational(1,40),y:sp.Rational(1,40)}):
+        state={key:sp.Rational(value) for key,value in state.items()}
+        expected=0
+        for updated in ({x:-state[y]/2,y:state[y]}, {x:state[x],y:-state[x]/2}):
+            after=f.subs(updated)
+            if after>sp.Rational(3,8192):
+                expected+=after/2
+        matches=[p.subs(state) for domain,p in cases if holds(domain,state)]
+        assert matches and all(v==expected for v in matches)
     assert kernel.to_data()['clock']['pcfg_relation']=='T = 2 + 3*K + 2'
     problem=make_symbolic_round_problem(cfg,kernel,2,sp.Rational(5,8))
     assert len(problem.decisions)==6
@@ -63,6 +79,7 @@ def test_fresh_samples_are_integrated_at_each_occurrence():
     x,y=sp.symbols('x y')
     cases=kernel.preconditions(x*y)
     assert len(cases)==1 and cases[0][1]==sp.Rational(1,4)
+    assert kernel.to_data()['expectation_mode']=='raw_round_moments'
 
 
 @pytest.mark.parametrize('source,reason',[
@@ -82,7 +99,7 @@ def test_random_initial_state_objective_and_no_prefix_discount():
     assert problem.objective==coefficient0+sp.Rational(3,2)*coefficient1
 
 
-def test_raw_contraction_does_not_normalize_on_closed_exit_region():
+def test_survival_contraction_does_not_normalize_on_closed_exit_region():
     cfg,kernel=compile_round('x := 2; {x >= 0} while x > 1 do {x >= 0} x := 0.5*x od; refute true;')
     problem=make_symbolic_round_problem(cfg,kernel,1,sp.Rational(1,2))
     a,b=map(sp.Symbol,problem.decisions)
@@ -91,3 +108,65 @@ def test_raw_contraction_does_not_normalize_on_closed_exit_region():
         for v in (sp.Rational(1,2),1,2,10):
             if holds(o.domain,{x:v}):
                 assert o.conclusion.subs(vals).subs(x,v)>=0
+
+
+@pytest.mark.parametrize('guard,after,expected',[
+    ('x > 1','1',0), ('x >= 1','1',1),
+    ('x < 3','3',0), ('x <= 3','3',1),
+    ('x != 1','1',0), ('x = 2','2',1),
+    ('x > 1 and x < 3','1',0), ('x > 1 or x < 0','0',0),
+])
+def test_boundary_is_classified_before_closing_domains(guard,after,expected):
+    _,kernel=compile_round(f'x := 2; while {guard} do x := {after} od; refute true;')
+    cases=kernel.partitioned_preconditions(sp.Integer(1))
+    matches=[p for d,p in cases if holds(d,{sp.Symbol('x'):2})]
+    assert matches and all(p==expected for p in matches)
+
+
+def test_two_branch_survival_partition_matches_direct_execution():
+    _,kernel=compile_round('''x := 4; while x > 1 do
+      if prob(0.5) then x := 0.5*x else x := 0.25*x fi
+    od; refute true;''')
+    x=sp.Symbol('x'); eta=1+x+x*x
+    cases=kernel.partitioned_preconditions(eta)
+    for v in (sp.Rational(3,2),2,3,4,5,8):
+        v=sp.Rational(v)
+        expected=sum((eta.subs(x,target)/2 if target>1 else 0)
+                     for target in (v/2,sp.Rational(v,4)))
+        matches=[p.subs(x,v) for d,p in cases if holds(d,{x:v})]
+        assert matches and all(p==expected for p in matches)
+
+
+def test_guard_pullback_through_multiple_assignments_and_state_probability():
+    _,kernel=compile_round('''x := 2; p := 0.25;
+      {0 <= p and p <= 1} while x > 1 do
+        {0 <= p and p <= 1} if prob(p) then
+          {0 <= p and p <= 1} x := x + 2;
+          {0 <= p and p <= 1} x := 0.5*x
+        else
+          {0 <= p and p <= 1} x := x - 1
+        fi
+      od; refute true;''')
+    x,p=sp.symbols('x p')
+    cases=kernel.partitioned_preconditions(1+x*x)
+    for v in (sp.Rational(3,2),2,3,4):
+        v=sp.Rational(v)
+        expected=sum(prob*(1+target*target) if target>1 else 0
+                     for prob,target in ((sp.Rational(1,4),(v+2)/2),(sp.Rational(3,4),v-1)))
+        vals={x:v,p:sp.Rational(1,4)}
+        matches=[expr.subs(vals) for d,expr in cases if holds(d,vals)]
+        assert matches and all(expr==expected for expr in matches)
+
+
+def test_piecewise_case_budget_is_explicit():
+    cfg=build_cfg(check_program(parse_text('''x := 4; while x > 1 do
+        if prob(0.5) then x := 0.5*x else x := 0.25*x fi od; refute true;''')))
+    with pytest.raises(AnalysisError,match='case budget'):
+        prepare_symbolic_round_kernel(cfg,prepare_program(cfg),max_cases=2)
+
+
+def test_continuous_sampling_keeps_labeled_raw_rule():
+    _,kernel=compile_round('x := 2; while x > 1 do x := Uniform(0,2) od; refute true;')
+    assert kernel.expectation_mode=='raw_round_moments'
+    cases=kernel.preconditions(sp.Symbol('x'))
+    assert len(cases)==1 and cases[0][1]==1

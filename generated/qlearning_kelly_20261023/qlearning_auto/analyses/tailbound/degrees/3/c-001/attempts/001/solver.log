@@ -1,0 +1,91 @@
+===============================================================================
+                                     CVXPY                                     
+                                     v1.9.3                                    
+===============================================================================
+INFO: Your problem has 2723 variables, 4693 constraints, and 0 parameters.
+INFO: It is compliant with the following grammars: DCP, DQCP
+INFO: DCP verification time: 0.0000 seconds.
+INFO: Expression tree has 8 nodes.
+INFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+INFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+INFO: Your problem is compiled with the CPP canonicalization backend.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+INFO: Compiling problem (target solver=MOSEK).
+INFO: Reduction chain: Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK
+INFO: Applying reduction Dcp2Cone
+INFO: Applying reduction CvxAttr2Constr
+INFO: Applying reduction ExactCone2Cone
+INFO: Applying reduction EliminateZeroSized
+INFO: Applying reduction ConeMatrixStuffing
+INFO: Applying reduction MOSEK
+INFO: Finished problem compilation (took 4.042e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+INFO: Invoking solver MOSEK  to obtain a solution.
+
+
+INFO: Problem
+INFO:   Name                   :                 
+INFO:   Objective sense        : maximize        
+INFO:   Type                   : CONIC (conic optimization problem)
+INFO:   Constraints            : 2723            
+INFO:   Affine conic cons.     : 0               
+INFO:   Disjunctive cons.      : 0               
+INFO:   Cones                  : 0               
+INFO:   Scalar variables       : 580             
+INFO:   Matrix variables       : 358 (scalarized: 2643)
+INFO:   Integer variables      : 0               
+INFO: 
+INFO: Optimizer started.
+INFO: Presolve started.
+INFO: Linear dependency checker started.
+INFO: Linear dependency checker terminated.
+INFO: Eliminator started.
+INFO: Freed constraints in eliminator : 9
+INFO: Eliminator terminated.
+INFO: Eliminator - tries                  : 1                 time                   : 0.00            
+INFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            
+INFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               
+INFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               
+INFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               
+INFO: Presolve terminated. Time: 0.01    
+INFO: Optimizer  - threads                : 1               
+INFO: Optimizer  - solved problem         : the primal      
+INFO: Optimizer  - Constraints            : 2699            
+INFO: Optimizer  - Cones                  : 1               
+INFO: Optimizer  - Scalar variables       : 557               conic                  : 496             
+INFO: Optimizer  - Semi-definite variables: 358               scalarized             : 2643            
+INFO: Factor     - setup time             : 0.11            
+INFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            
+INFO: Factor     - nonzeros before factor : 7.08e+04          after factor           : 1.03e+05        
+INFO: Factor     - dense dim.             : 2                 flops                  : 4.64e+06        
+INFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+INFO: 0   8.0e+00  1.0e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.13  
+INFO: 1   4.2e+00  5.2e-01  6.2e-01  -6.34e-01  7.264740416e-02   -4.544406556e-01  5.2e-01  0.14  
+INFO: 2   1.3e+00  1.6e-01  2.3e-01  -4.89e-01  1.968025251e-01   -1.249211692e+00  1.6e-01  0.15  
+INFO: 3   4.7e-01  5.9e-02  6.3e-02  1.15e-01   3.732857147e-01   -4.785639812e-01  5.9e-02  0.15  
+INFO: 4   1.3e-01  1.6e-02  1.0e-02  6.13e-01   5.684705428e-01   2.636381366e-01   1.6e-02  0.16  
+INFO: 5   5.2e-02  6.5e-03  3.4e-03  6.13e-01   9.811836484e-01   7.605347608e-01   6.5e-03  0.16  
+INFO: 6   1.4e-02  1.8e-03  1.1e-03  1.58e-01   3.120936389e+00   2.752585861e+00   1.8e-03  0.17  
+INFO: 7   4.4e-03  5.5e-04  8.3e-04  -8.50e-01  1.643786227e+01   1.421130213e+01   5.5e-04  0.17  
+INFO: 8   1.6e-03  1.9e-04  2.3e-03  -2.54e+00  2.547668463e+02   1.171671731e+02   1.9e-04  0.18  
+INFO: 9   3.9e-04  4.9e-05  7.4e-04  -2.65e+00  2.537241185e+02   2.589009498e+01   4.9e-05  0.18  
+INFO: 10  1.1e-04  1.4e-05  4.2e-04  -1.22e+00  9.123709465e+02   2.919739732e+01   1.4e-05  0.19  
+INFO: 11  2.7e-05  3.3e-06  2.1e-04  -1.08e+00  4.154752044e+03   3.250607252e+01   3.3e-06  0.19  
+INFO: 12  1.4e-05  1.8e-06  1.5e-04  -9.89e-01  7.586642492e+03   3.320832626e+01   1.8e-06  0.20  
+INFO: 13  1.1e-05  1.3e-06  1.2e-04  -7.50e-01  7.989950666e+03   2.602421149e+01   1.3e-06  0.21  
+INFO: 14  8.3e-06  1.0e-06  1.0e-04  -7.52e-01  9.880958821e+03   1.995815720e+01   1.1e-06  0.21  
+INFO: 15  7.2e-06  9.0e-07  1.1e-04  -1.39e+00  1.499066372e+04   1.677739032e+01   1.1e-06  0.22  
+INFO: 16  7.2e-06  9.0e-07  1.1e-04  -1.39e+00  1.499066372e+04   1.677739032e+01   1.1e-06  0.23  
+INFO: 17  7.2e-06  9.0e-07  1.1e-04  -1.39e+00  1.499066372e+04   1.677739032e+01   1.1e-06  0.25  
+INFO: Optimizer terminated. Time: 0.27    
+INFO: 
+INFO: 
+INFO: Interior-point solution summary
+INFO:   Problem status  : UNKNOWN
+INFO:   Solution status : UNKNOWN
+INFO:   Primal.  obj: 1.4990663725e+04    nrm: 1e+07    Viol.  con: 3e+02    var: 0e+00    barvar: 0e+00  
+INFO:   Dual.    obj: 1.6777390319e+01    nrm: 1e+06    Viol.  con: 0e+00    var: 1e-01    barvar: 1e-01  

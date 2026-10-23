@@ -1,6 +1,6 @@
 # Contractive Function 框架：次数递增的多项式证书合成
 
-更新日期：2026-10-15。本文与 0.4.0 实现同步；本轮符号宏步修改前版本已备份为 `framework.md.bak.20261015_symbolic_rounds`。
+更新日期：2026-10-23。本文与当前实现同步；本轮 unknown 搜索优化前版本已备份为 `framework.md.bak.20261023_unknown_search`。
 Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，不调用后端。
 
 ## 1. 当前目标与默认行为
@@ -214,10 +214,20 @@ Pr[T<infinity, N_T>n, terminal_state in B]
 
 符号编译器保留实数符号状态，在已验证 invariant 域上逆序组合每条转移的代入与
 期望，返回从循环入口到下一次入口的一轮前期望。支持多项式更新、概率分支、
-确定性分支与可用精确矩消元的独立 fresh sampling；相同声明的多次采样按各次转移
-分别消元。确定分支的守卫经更新反向代入，并对各分支组合的覆盖域分别建立义务，
-不能把确定分支改成概率分支。严格守卫使用闭包覆盖，交叠边界检查两侧义务。
-若拉回后的守卫依赖新样本，则需要截断矩积分，当前明确拒绝，不直接用无条件矩。
+确定性分支。无循环体采样的有限概率分支使用 `exact_piecewise_survival`：在下一次
+入口将活动域的值设为 V、退出域的值设为 0，逆序拉回守卫和多项式更新。对概率
+分支取组合域交集并累加加权值；确定分支按守卫分区，不给它们虚构概率。
+
+`analysis/guard_regions.py` 在反向代入期间保留 `>`/`>=`/`=` 的精确语义，支持
+布尔组合、守卫补集及 `!=` 两侧区域。先删除常量矛盾、直接冲突并去重，最后才
+将严格不等式放宽为闭合的 SOS 证明域。例如更新恒为边界值时，`0 > 0` 会被
+删除，不会错误变为活动后继。每个精确域上的前期望多项式正确；闭合证明域的
+交叠边界可能检查两侧表达式，仍有保守性，不声称整个 SOS 搜索是完备的。
+
+循环体包含 fresh sampling 时，本轮不扩展截断积分，保留旧的 `raw_round_moments`
+充分条件并在产物中显式标记；相同声明的多次采样按各次转移独立消元。如果连旧
+规则中的确定分支守卫都依赖新样本，则仍明确拒绝，不使用无条件矩冒充截断矩。
+仅初始化含采样不影响 sample-free 循环体使用精确分区，A 仍由初始精确期望计算。
 
 两种编译器均要求轮内有限、全部循环体路径返回入口、退出后缀有限到达终端。
 嵌套循环、轮内提前退出和 assume 暂不支持。符号编译最多 4096 个结构展开节点、
@@ -232,10 +242,13 @@ completed:   不要求 V=0；生存过程 Z 置零
 objective:   minimize A = E[V(initial)]      # 确定初态直接代入
 ```
 
-令 `Z_n = 1_{K>n} V(X_n)`，其中 K 是循环体执行轮数。布尔版本要求精确 killed
-前期望 `E[1_{next active} V(X')] <= c V(X)`。符号版本先实现较保守但保持多项式的
-充分条件 `Pre_round(V) <= c V`，在 I∩G 上证明。因更新后仍在 I、V 非负，
-置零退出分支只会减小期望，因此得到 `E[Z_(n+1)] <= c E[Z_n]` 和：
+令 `Z_n = 1_{K>n} V(X_n)`，其中 K 是循环体执行轮数。布尔版本以及无循环体采样
+的符号版本均计算 killed 前期望 `E[1_{next active} V(X')]`。后者得到分段多项式
+P_j，在每个精确分区的闭合覆盖域与 I 的交集上证明 `c V - P_j >= 0`，未知系数
+仍为仿射。保留 I 上 V 非负、I∩G 上 V≥1 的边界要求。
+
+含循环体采样的旧规则继续证明 `Pre_round(V) <= c V`，因 V 在后继域非负而推出
+killed 收缩。两种规则均得到 `E[Z_(n+1)] <= c E[Z_n]` 和：
 
 ```text
 Pr[K>n] <= E[Z_n] <= A*c**n, n=0,1,2,...
@@ -247,8 +260,10 @@ RCD 的正确证书。失败终端归一化为 1 是另一路 late_bad_exit/asse
 
 固定 c 后，未知 V 系数和 positivity 乘子仍组成凸 LP/SDP；符号版本调用已有
 系数匹配、等式 ideal multiplier、CVXPY/MOSEK 及精确有理验证。逐参数点的
-polynomial_problem.json 另存符号 round_preexpectations，round_evidence.json 保存
-域、源转移、结构覆盖依据及计时；源码初始化/归纳性证据继续保留。
+polynomial_problem.json 的 round_preexpectations 保存 exact_domain（含严格生成元）、
+domain（闭合证明域）与 expression。summary、goal、round_evidence 和候选记录标记
+expectation_mode；round_evidence 另保存域、源转移、结构覆盖依据及计时。
+源码初始化/归纳性证据继续保留。
 
 几乎处处终止是证书推论，不是输入假设。轮次时钟不计初始化和有限退出后缀；
 若每轮和后缀长度固定为 r、q，则存 `T=p+r*K+q`。固定步数关系用于解释时钟，
@@ -330,8 +345,12 @@ all_proved = []
 for D in degree_schedule(initial_degree, max_degree, degree_step):
     current_proved = []
     lower, upper = 0, 1  # endpoints are not evaluated; upper is not yet verified
+    next_probe = None; tested = set()
     for step in range(max_c_steps) within global parameter/time budgets:
-        c = (lower + upper)/2  # exact rational arithmetic
+        c = next_probe if present else (lower + upper)/2
+        next_probe = None
+        while c in tested: c = (c + upper)/2
+        tested.add(c)  # every probe is distinct and uses exact rational arithmetic
         create all location polynomials of degree <= D
         build full goal obligations with fixed c
         try supported positivity strategies/orders within point budget
@@ -342,7 +361,8 @@ for D in degree_schedule(initial_degree, max_degree, degree_step):
         elif all attempted encodings report infeasible:
             lower = c  # encoding/solver feedback, not a nonexistence proof
         else:
-            record unknown; stop this degree's c search without moving endpoints
+            record unknown without moving either endpoint
+            next_probe = (c + upper)/2  # exploration, not an inferred lower bound
     if current_proved and not continue_after_success:
         return select_best(all_proved), stop_reason="first_successful_degree"
     stop global search if time/model/global budget is exhausted
@@ -365,9 +385,14 @@ else:
 - 只有完整验证通过才更新上端；初始上端 1 不是可行候选。全部已尝试编码报告
   infeasible 才更新下端。有限 positivity 编码和数值不可行均不能证明原始多项式族
   不存在，故保存的区间是搜索区间，不宣称包围数学最优值。
-- 数值错误、超时、未通过精确验证或建模失败时不移动端点，停止当前 D 的 c 搜索；
-  保留已有证书，无证书时按现有升阶策略继续，环境致命错误仍停止整个任务。
-  摘要 `contraction_searches` 逐 D 保存端点、每步反馈、已验证 c 和停止原因。
+- 数值错误、单次超时、未通过精确验证或建模失败记为 unknown，不移动端点；
+  在当前 D 的剩余预算内改探测 `(c+upper)/2`。未找到证书时 upper=1，向 1 探测；
+  已有证书时向已验证上端探测，始终保留该证书。unknown 不是不可行反馈。
+  proved/infeasible 后恢复区间二分，若候选已测过则向 upper 再折半跳过，避免
+  重复消耗同一点。所有探测计入原 max_c_steps 与全局预算，不引入无限重试。
+  当前次数预算结束后，无证书才按既有规则升阶；全局预算或环境致命错误仍停止。
+  摘要 `contraction_searches` 保存 unknown_policy、每步 proposal、端点、反馈、
+  已验证 c 和停止原因。启发式跳点不保证遍历可行点，也不构成最优性证明。
 - `--c-values` 仍可显式指定旧网格以复现历史记录；未指定时不执行固定网格。
   Assertion 后端仍只生成首个 c=1/2 模型，不运行二分求解；未来纯 pre-fixed-point
   模式不需要搜索 c。
@@ -518,7 +543,8 @@ optional evaluations / manifest with versions, assumptions and hashes
 | `analysis/certificate_families.py` | 直接多项式族与非整数族占位 |
 | `analysis/goals.py` | Tail/assertion 边界、收缩/前不动点义务和目标 |
 | `analysis/rounds.py` | 精确布尔宏步、域归纳保持、killed 生存期望 |
-| `analysis/symbolic_rounds.py` | 实数符号宏步、条件域拉回、精确矩消元与非零多项式退出边界 |
+| `analysis/symbolic_rounds.py` | 符号宏步、精确分段生存前期望、采样时的旧矩规则与非零退出边界 |
+| `analysis/guard_regions.py` | 精确开闭守卫域、补集与拉回、空域简化、到闭合证明域的转换 |
 | `analysis_pipeline.py` | 有界调度、证明后选择、日志隔离和 manifest |
 | `positivity/` | 可选策略 registry、域处理、SOS/LP 系数匹配 |
 | `backends/cvxpy/` | DCP 建模、MOSEK、精确有理/PSD 验证 |

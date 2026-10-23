@@ -1,0 +1,71 @@
+{
+  "attempts": [
+    {
+      "denominator": 1000,
+      "equalities_exact": true,
+      "negative_coefficient_count": 0,
+      "nonpsd_count": 0
+    }
+  ],
+  "bound_exact": "1",
+  "bound_numeric": 1.0,
+  "coverage": {
+    "round_0_contraction": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "x": 0
+        }
+      },
+      "strategy": "exact_identity",
+      "tags": [
+        "round_survival",
+        "contraction"
+      ]
+    },
+    "round_0_normalization": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "x": 0
+        }
+      },
+      "strategy": "constant",
+      "tags": [
+        "round_survival",
+        "normalization"
+      ]
+    },
+    "round_1_completed_nonnegative": {
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1",
+        "state": {
+          "x": 1
+        }
+      },
+      "strategy": "constant",
+      "tags": [
+        "round_survival",
+        "completed_nonnegative"
+      ]
+    }
+  },
+  "exact_values": {
+    "eta_L_while_1_0": "1",
+    "eta_L_while_1_1": "-1",
+    "o0_constant": "0",
+    "o2_constant": "0"
+  },
+  "method": "rational_affine_reconstruction_exact_psd",
+  "recovered_zero_face": [
+    "o0_constant",
+    "o2_constant"
+  ],
+  "round_evidence": "round_evidence.json",
+  "semantic_evidence": "domain_evidence.json",
+  "status": "proved",
+  "zero_face_guess_threshold": 1e-08
+}

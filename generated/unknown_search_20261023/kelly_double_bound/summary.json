@@ -1,0 +1,335 @@
+{
+  "attempt_count": 18,
+  "boolean_round_diagnostic": "Round update does not preserve the Boolean header invariant",
+  "certificate_family": "polynomial",
+  "contraction_searches": [
+    {
+      "best_verified_c": "505/512",
+      "degree": 1,
+      "interval": [
+        "1007/1024",
+        "505/512"
+      ],
+      "lower_endpoint_is_nonexistence_proof": false,
+      "max_steps": 10,
+      "method": "bisection",
+      "steps": [
+        {
+          "c": "1/2",
+          "interval_after": [
+            "1/2",
+            "1"
+          ],
+          "interval_before": [
+            "0",
+            "1"
+          ],
+          "iteration": 1,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "3/4",
+          "interval_after": [
+            "3/4",
+            "1"
+          ],
+          "interval_before": [
+            "1/2",
+            "1"
+          ],
+          "iteration": 2,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "7/8",
+          "interval_after": [
+            "7/8",
+            "1"
+          ],
+          "interval_before": [
+            "3/4",
+            "1"
+          ],
+          "iteration": 3,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "15/16",
+          "interval_after": [
+            "15/16",
+            "1"
+          ],
+          "interval_before": [
+            "7/8",
+            "1"
+          ],
+          "iteration": 4,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "31/32",
+          "interval_after": [
+            "31/32",
+            "1"
+          ],
+          "interval_before": [
+            "15/16",
+            "1"
+          ],
+          "iteration": 5,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "63/64",
+          "interval_after": [
+            "31/32",
+            "1"
+          ],
+          "interval_before": [
+            "31/32",
+            "1"
+          ],
+          "iteration": 6,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "127/128",
+          "interval_after": [
+            "31/32",
+            "127/128"
+          ],
+          "interval_before": [
+            "31/32",
+            "1"
+          ],
+          "iteration": 7,
+          "proposal": "unknown_upper_probe",
+          "status": "proved"
+        },
+        {
+          "c": "251/256",
+          "interval_after": [
+            "251/256",
+            "127/128"
+          ],
+          "interval_before": [
+            "31/32",
+            "127/128"
+          ],
+          "iteration": 8,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "505/512",
+          "interval_after": [
+            "251/256",
+            "505/512"
+          ],
+          "interval_before": [
+            "251/256",
+            "127/128"
+          ],
+          "iteration": 9,
+          "proposal": "interval_bisection",
+          "status": "proved"
+        },
+        {
+          "c": "1007/1024",
+          "interval_after": [
+            "1007/1024",
+            "505/512"
+          ],
+          "interval_before": [
+            "251/256",
+            "505/512"
+          ],
+          "iteration": 10,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        }
+      ],
+      "stop_reason": "max_c_steps",
+      "unknown_policy": "preserve_interval_probe_upper_skip_tested",
+      "upper_endpoint_verified": true
+    }
+  ],
+  "degrees_attempted": [
+    1
+  ],
+  "elapsed_seconds": 25.460096946917474,
+  "expectation_mode": "exact_piecewise_survival",
+  "goal": "tailbound",
+  "out_dir": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/unknown_search_20261023/kelly_double_bound",
+  "parameter_points": 10,
+  "pareto_candidates": [
+    {
+      "A_exact": "113/73",
+      "A_numeric": 1.547945205479452,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "127/128",
+      "certificate": "analyses/tailbound/degrees/1/c-007/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 4*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(113/73) * exp(-(-log(127/128))*n)",
+      "expression": "(113/73) * (127/128)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(127/128)",
+      "lambda_numeric": 0.007843177461025893,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (113/73) * (127/128)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "407/127",
+      "A_numeric": 3.204724409448819,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "505/512",
+      "certificate": "analyses/tailbound/degrees/1/c-009/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 4*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(407/127) * exp(-(-log(505/512))*n)",
+      "expression": "(407/127) * (505/512)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(505/512)",
+      "lambda_numeric": 0.013766195764147959,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (407/127) * (505/512)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "proved_candidates": [
+    {
+      "A_exact": "113/73",
+      "A_numeric": 1.547945205479452,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "127/128",
+      "certificate": "analyses/tailbound/degrees/1/c-007/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 4*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(113/73) * exp(-(-log(127/128))*n)",
+      "expression": "(113/73) * (127/128)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(127/128)",
+      "lambda_numeric": 0.007843177461025893,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (113/73) * (127/128)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "407/127",
+      "A_numeric": 3.204724409448819,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "505/512",
+      "certificate": "analyses/tailbound/degrees/1/c-009/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 2 + 4*K + 2",
+        "prefix_steps": 2,
+        "round_step_counts": [
+          4
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(407/127) * exp(-(-log(505/512))*n)",
+      "expression": "(407/127) * (505/512)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(505/512)",
+      "lambda_numeric": 0.013766195764147959,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (407/127) * (505/512)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "selection": {
+    "A_exact": "407/127",
+    "A_numeric": 3.204724409448819,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "505/512",
+    "certificate": "analyses/tailbound/degrees/1/c-009/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 4*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 1,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(407/127) * exp(-(-log(505/512))*n)",
+    "expression": "(407/127) * (505/512)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(505/512)",
+    "lambda_numeric": 0.013766195764147959,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (407/127) * (505/512)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "status": "proved",
+  "stop_reason": "first_successful_degree",
+  "tail_rule": "round_survival",
+  "termination": "proved_almost_sure",
+  "termination_assumed": false
+}

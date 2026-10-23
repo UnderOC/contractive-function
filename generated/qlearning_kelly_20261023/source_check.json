@@ -1,0 +1,74 @@
+{
+  "source": "qlearning.pp",
+  "invariant_check": "passed",
+  "kernel": {
+    "status": "proved",
+    "method": "symbolic_acyclic_round_composition",
+    "header": "L_while_1",
+    "variables": [
+      "q1",
+      "q2"
+    ],
+    "domain": [
+      {
+        "variables": [
+          "q1",
+          "q2"
+        ],
+        "generators": [
+          "q1",
+          "2 - q1",
+          "q2",
+          "2 - q2"
+        ],
+        "equalities": []
+      }
+    ],
+    "entry_transition": "T_19",
+    "transitions": [
+      "T_1",
+      "T_10",
+      "T_11",
+      "T_12",
+      "T_13",
+      "T_14",
+      "T_15",
+      "T_16",
+      "T_17",
+      "T_18",
+      "T_19",
+      "T_2",
+      "T_20",
+      "T_3",
+      "T_4",
+      "T_5",
+      "T_6",
+      "T_7",
+      "T_8",
+      "T_9"
+    ],
+    "coverage": "all branches of the structured CFG; conditional cases checked separately",
+    "invariant_evidence": "domain_evidence.json",
+    "strict_guards": "exact through pullback; closed covering proof domains; no positive margin",
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "expectation_mode": "exact_piecewise_survival",
+    "contraction": "piecewise killed expectation; closed-domain sufficient proof",
+    "sampling_policy": "rounds with sampling retain raw moments; no truncated integration",
+    "clock": {
+      "unit": "completed_loop_iterations",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        5
+      ],
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 5*K + 2"
+    }
+  },
+  "piece_count": 32,
+  "exact_rational_grid_active_states": 76,
+  "matched_cases": 76,
+  "comparison": "piecewise expectation agrees with direct four-outcome Q-learning update including max ties and exit guards",
+  "scope": "finite regression check, not a substitute for certificate verification"
+}
