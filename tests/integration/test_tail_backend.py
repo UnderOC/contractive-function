@@ -205,7 +205,7 @@ def test_round_tail_synthesis_recovers_exact_coupon_certificate(tmp_path,mosek_a
     assert verification['round_evidence'] == 'round_evidence.json'
 
 
-def test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only(tmp_path):
+def test_round_mode_rejects_unsupported_input_and_assertion_builds_its_own_model(tmp_path):
     from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
     options = SearchOptions(initial_degree=1,max_degree=1,tail_rule='round_survival')
     source=tmp_path/'nested.pp'
@@ -214,9 +214,10 @@ def test_round_mode_rejects_unsupported_input_and_assertion_stays_model_only(tmp
     assert unsupported['status'] == 'unsupported'
     assert unsupported['stop_reason'] == 'round_evidence_unavailable'
     assertion = run_analysis(PROJECT/'tailbound_benchmark_pack/pp/02_coupon4.pp','assertion_violation',
-                             tmp_path/'assertion',options=options)
+                             tmp_path/'assertion',options=options,model_only=True)
     assert assertion['status'] == 'not_solved'
-    assert assertion['stop_reason'] == 'assertion_backend_not_implemented'
+    assert assertion['stop_reason'] == 'model_only'
+    assert list((tmp_path/'assertion').rglob('conic_model.json'))
     assert not list((tmp_path/'assertion').rglob('solver.json'))
 
 

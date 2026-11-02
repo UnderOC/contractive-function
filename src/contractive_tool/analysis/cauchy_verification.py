@@ -4,21 +4,11 @@ import sympy as sp
 from contractive_tool.analysis.cauchy import (
     CauchyOptions, ExponentOptions, EtaTemplate, build_fixed_model,
     build_template_model, verify_exponent)
-from contractive_tool.backends.cvxpy.verification import exact_psd
+from contractive_tool.backends.cvxpy.verification import check_conic_values
 from contractive_tool.errors import AnalysisError
 from contractive_tool.positivity.base import EncodingLimits
 from contractive_tool.probability.fractional_moments import rational
 from contractive_tool.analysis.cauchy_expressions import parse_expression
-
-
-def check_conic_values(model, values):
-    if set(values) != set(model.decisions):
-        return False
-    sub = {sp.Symbol(name): rational(value) for name, value in values.items()}
-    return (all(e.xreplace(sub) == 0 for e in model.equalities)
-            and all(sub[sp.Symbol(n)] >= 0 for n in model.nonnegative)
-            and all(exact_psd([[sub[sp.Symbol(n)] for n in row] for row in block['matrix']])
-                    for block in model.psd_blocks))
 
 
 def verify_result(round_, result):

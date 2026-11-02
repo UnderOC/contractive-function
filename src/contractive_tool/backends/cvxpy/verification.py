@@ -114,3 +114,13 @@ def reconstruct(model, values, *, denominators=(1000, 1000000, 1000000000), dead
                 face['zero_face_guess_threshold'] = threshold
                 return face
     return _reconstruct(model, values, model.equalities, denominators=denominators, deadline=deadline)
+
+
+def check_conic_values(model, values):
+    if set(values) != set(model.decisions):
+        return False
+    sub = {sp.Symbol(name): sp.Rational(value) for name, value in values.items()}
+    return (all(e.xreplace(sub) == 0 for e in model.equalities)
+            and all(sub[sp.Symbol(n)] >= 0 for n in model.nonnegative)
+            and all(exact_psd([[sub[sp.Symbol(n)] for n in row] for row in block['matrix']])
+                    for block in model.psd_blocks))

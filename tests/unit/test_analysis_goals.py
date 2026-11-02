@@ -29,7 +29,8 @@ def test_direct_degree_prefix_clock_and_affine_coefficients():
                for o in problem.obligations)
     assertion=make_problem(cfg,evidence,2,c,'assertion_violation')
     assert assertion.objective == assertion.expressions[evidence.start].subs({'x':4})
-    assert any('prefixed_point' in o.tags for o in assertion.obligations)
+    assert any('full_first_moment' in o.tags for o in assertion.obligations)
+    assert assertion.expressions[cfg.normal_terminal] == sp.Rational(1,1000000)
 
 
 def test_degree_schedule_and_fractional_extension():

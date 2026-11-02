@@ -2,7 +2,7 @@
  * Kelly process stopped on leaving [0.5, 2).
  * The annotations are inductive range bounds checked by the frontend.
  * One update from an active state leaves wealth in [0.4, 2.4].
- * refute true marks every finite loop exit for the tailbound interface;
+ * refute (wealth < 0.5) marks lower exits as assertion failures;
  * both lower and upper exits count as termination, with no fixed horizon.
  */
 
@@ -25,4 +25,4 @@ while wealth >= 0.5 and wealth < 2 do
 od;
 
 {0.4 <= wealth and wealth <= 2.4 and 0 <= round}
-refute true;
+refute (wealth < 0.5);

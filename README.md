@@ -100,7 +100,7 @@ conda run -n contractive-frontend-test-20260814 \
 
 也可使用 `python -m contractive_tool` 代替 `contractive`。命令成功时向 stdout 输出一行 JSON 摘要；词法、语法、语义或 CFG 验证失败时向 stderr 输出带文件、行、列的诊断并以状态码 `2` 退出。
 
-### 统一指数尾界与 assertion 建模
+### 统一指数尾界与 assertion violation 求解
 
 只需程序和目标；事件从 assert/refute 获得，初始状态或初始分布从源码直线初始化前缀获得：
 
@@ -112,7 +112,8 @@ conda run -n contractive-frontend-test-20260814 \
   contractive solve kelly_unbounded.pp --goal assertion_violation
 ```
 
-第二条仅生成约束并返回 `not_solved: assertion_backend_not_implemented`。第一条默认从
+第二条使用独立的完整一阶矩 assertion 求解流程，返回经过验证的最终违规概率上界；
+详见 [Assertion 使用说明](docs/assertion_violation.md)。以下次数与二分默认行为描述的是第一条 tailbound 命令。第一条默认从
 D=1 搜索到 D=6；每个次数从区间 (0,1) 开始二分 c，默认最多 10 个参数点，
 用 `--max-c-steps` 配置。只在没有已验证结果时继续升阶；全局参数点和时间预算仍生效。
 首个成功次数内先选最小的已验证 c，再比较 A。`--continue-after-success` 可以继续升阶。
@@ -604,7 +605,8 @@ conda run -n contractive-frontend-test-20260814 python -m contractive_tool solve
 0.6/0.4 分支以及 1.2/0.8 财富更新。守卫为 `wealth >= 0.5 and wealth < 2`，
 下穿 0.5 或达到/超过 2 均退出。新增可验证的范围标注：入口及更新之后财富位于
 `[0.4,2.4]`、round 非负，分支入口财富位于守卫的闭包 `[0.5,2]`。
-末尾 `refute true` 是当前接口的有限退出标记；没有指定 horizon，也未改动概率。
+本节历史实验使用末尾 `refute true` 作为有限退出标记；没有指定 horizon，也未改动概率。
+2026-11-02 起当前源码改为 `refute (wealth < 0.5)`，同时支持下界违规与完整 round-survival 尾界。
 
 使用 README 的 conda 环境与真实 MOSEK：
 
@@ -780,3 +782,21 @@ c=123/128 和 491/512 得到证书；最后 981/1024 无数值候选，仍标记
 - [Kelly 自动结果](generated/certificate_repair_20261023/kelly_auto/summary.json)
 
 框架已同步，修改前备份为 `framework.md.bak.20261023_certificate_repair`。
+
+## 2026-11-02：独立 assertion violation 分支
+
+已实现 note §2.2 的原始多项式 eta 完整一阶矩收缩合成，复用现有 CVXPY/MOSEK、
+正性编码、精确证书验证和修复。Assertion 的建模、搜索、事件输出与重放流程独立于 tailbound。
+整数幂并入模板次数；不搜索 k，不包含 §2.3 比较实验。
+
+Kelly 下界退出的已验证概率上界为 **0.618341181**（向上取整），独立精确递推给出的
+真实概率区间为 **[0.311575478865929, 0.311575478865930]**。两者不是同一个结论。
+仅传源码与 goal 的默认命令也已跑通，返回上界约 0.622866785。
+
+- [流程、数学规则和命令](docs/assertion_violation.md)
+- [本次实验及测试报告](generated/assertion_kelly_20261102/RESULTS.md)
+- [已验证搜索结果](generated/assertion_kelly_20261102/search/summary.json)
+- [独立重放](generated/assertion_kelly_20261102/independent_check.json)
+
+本次最终回归为 **185 passed in 56.93s**，包含原有 tailbound 测试。
+此前日志中 assertion 仅建模的描述属于历史状态。

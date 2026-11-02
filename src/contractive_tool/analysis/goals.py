@@ -29,6 +29,9 @@ class PolynomialProblem:
 
 
 def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000):
+    if goal == 'assertion_violation':
+        from contractive_tool.analysis.assertion import make_assertion_problem
+        return make_assertion_problem(cfg, evidence, degree, c, max_decisions=max_decisions)
     if goal not in {'tailbound','assertion_violation'}:
         raise AnalysisError('Unknown analysis goal')
     if not 0<c<1:

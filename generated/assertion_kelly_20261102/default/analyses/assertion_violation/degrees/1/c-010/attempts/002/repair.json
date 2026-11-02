@@ -1,0 +1,1695 @@
+{
+  "attempts": [
+    {
+      "gram": [
+        {
+          "eigenvalues": [
+            6.870289523126261e-12,
+            0.009015406345249935,
+            0.12305258190367008
+          ],
+          "id": "o0_s0"
+        },
+        {
+          "eigenvalues": [
+            6.79346733226969e-12,
+            0.01435499529752951,
+            0.09698726375046664
+          ],
+          "id": "o1_s0"
+        },
+        {
+          "eigenvalues": [
+            6.7801253099735495e-12,
+            0.05465874392316002,
+            0.10293730492494683
+          ],
+          "id": "o2_s0"
+        },
+        {
+          "eigenvalues": [
+            6.777589548644101e-12,
+            0.03609682004957405,
+            0.09092901941791037
+          ],
+          "id": "o3_s0"
+        },
+        {
+          "eigenvalues": [
+            6.921424963341306e-12,
+            0.005141214192547743,
+            0.12797629516162468
+          ],
+          "id": "o4_s0"
+        },
+        {
+          "eigenvalues": [
+            6.915137441862969e-12,
+            0.00759997421380658,
+            0.12570865477825308
+          ],
+          "id": "o5_s0"
+        },
+        {
+          "eigenvalues": [
+            6.938049566678459e-12,
+            0.003969607987154715,
+            0.11433416442804438
+          ],
+          "id": "o6_s0"
+        },
+        {
+          "eigenvalues": [
+            6.7676548406217385e-12,
+            0.003822086799561038,
+            0.07421674106606305
+          ],
+          "id": "o7_s0"
+        },
+        {
+          "eigenvalues": [
+            -2.5626795301728046e-11,
+            0.0005600339679193904,
+            0.0019390075905733853
+          ],
+          "id": "o8_s0"
+        },
+        {
+          "eigenvalues": [
+            -1.6857232473917382e-11,
+            0.0007692893796749649,
+            0.005508265687129249
+          ],
+          "id": "o9_s0"
+        },
+        {
+          "eigenvalues": [
+            -1.0824530160015547e-11,
+            0.0009726364405185278,
+            0.00782116068659168
+          ],
+          "id": "o10_s0"
+        },
+        {
+          "eigenvalues": [
+            -2.2661166685631408e-11,
+            0.0005920281398890897,
+            0.003327373064095268
+          ],
+          "id": "o11_s0"
+        },
+        {
+          "eigenvalues": [
+            -2.4331093104257575e-11,
+            0.0005869018975076877,
+            0.0038175722501422164
+          ],
+          "id": "o12_s0"
+        },
+        {
+          "eigenvalues": [
+            6.781186156535387e-12,
+            0.004807415079266402,
+            0.08066092981713838
+          ],
+          "id": "o13_s0"
+        },
+        {
+          "eigenvalues": [
+            6.7562807103746765e-12,
+            0.0021772544424614646,
+            0.07878564982122559
+          ],
+          "id": "o14_s0"
+        }
+      ],
+      "original_objective_numeric": 0.7723752485988122,
+      "solver": {
+        "elapsed_seconds": 0.3974573127925396,
+        "log": "===============================================================================\n                                     CVXPY                                     \n                                     v1.9.3                                    \n===============================================================================\nINFO: Your problem has 224 variables, 478 constraints, and 0 parameters.\nINFO: It is compliant with the following grammars: DCP, DQCP\nINFO: DCP verification time: 0.0031 seconds.\nINFO: Expression tree has 8 nodes.\nINFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)\nINFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.\nINFO: Your problem is compiled with the CPP canonicalization backend.\n-------------------------------------------------------------------------------\n                                  Compilation                                  \n-------------------------------------------------------------------------------\nINFO: Compiling problem (target solver=MOSEK).\nINFO: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK\nINFO: Applying reduction FlipObjective\nINFO: Applying reduction Dcp2Cone\nINFO: Applying reduction CvxAttr2Constr\nINFO: Applying reduction ExactCone2Cone\nINFO: Applying reduction EliminateZeroSized\nINFO: Applying reduction ConeMatrixStuffing\nINFO: Applying reduction MOSEK\nINFO: Finished problem compilation (took 3.809e-01 seconds).\n-------------------------------------------------------------------------------\n                                Numerical solver                               \n-------------------------------------------------------------------------------\nINFO: Invoking solver MOSEK  to obtain a solution.\n\n\nINFO: Problem\nINFO:   Name                   :                 \nINFO:   Objective sense        : maximize        \nINFO:   Type                   : CONIC (conic optimization problem)\nINFO:   Constraints            : 224             \nINFO:   Affine conic cons.     : 0               \nINFO:   Disjunctive cons.      : 0               \nINFO:   Cones                  : 0               \nINFO:   Scalar variables       : 208             \nINFO:   Matrix variables       : 30 (scalarized: 180)\nINFO:   Integer variables      : 0               \nINFO: \nINFO: Optimizer started.\nINFO: Presolve started.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 75\nINFO: Eliminator terminated.\nINFO: Linear dependency checker started.\nINFO: Linear dependency checker terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 17\nINFO: Eliminator terminated.\nINFO: Eliminator - tries                  : 2                 time                   : 0.00            \nINFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            \nINFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               \nINFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               \nINFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               \nINFO: Presolve terminated. Time: 0.00    \nINFO: Optimizer  - threads                : 1               \nINFO: Optimizer  - solved problem         : the primal      \nINFO: Optimizer  - Constraints            : 117             \nINFO: Optimizer  - Cones                  : 1               \nINFO: Optimizer  - Scalar variables       : 102               conic                  : 16              \nINFO: Optimizer  - Semi-definite variables: 30                scalarized             : 180             \nINFO: Factor     - setup time             : 0.00            \nINFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            \nINFO: Factor     - nonzeros before factor : 832               after factor           : 1108            \nINFO: Factor     - dense dim.             : 0                 flops                  : 2.06e+04        \nINFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  \nINFO: 0   4.4e+01  6.2e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  \nINFO: 1   1.9e+01  2.7e+00  1.5e-01  1.39e+00   5.734269702e-02   2.491530972e-01   4.4e-01  0.00  \nINFO: 2   9.9e+00  1.4e+00  6.3e-02  1.98e+00   -1.232889093e-01  -7.255053038e-02  2.3e-01  0.00  \nINFO: 3   3.0e+00  4.2e-01  8.0e-03  1.48e+00   -2.176772780e-02  -5.515490448e-03  6.8e-02  0.00  \nINFO: 4   1.2e+00  1.7e-01  1.3e-03  1.79e+00   -6.913153388e-03  -1.315772339e-03  2.7e-02  0.00  \nINFO: 5   4.1e-01  5.8e-02  1.9e-04  2.30e+00   -1.465769991e-03  -3.532044077e-04  9.4e-03  0.00  \nINFO: 6   1.1e-01  1.5e-02  1.8e-05  1.72e+00   -3.373559046e-04  -1.184381163e-04  2.4e-03  0.00  \nINFO: 7   2.4e-02  3.3e-03  1.4e-06  1.45e+00   -6.220093439e-05  -2.158834623e-05  5.4e-04  0.00  \nINFO: 8   4.0e-03  5.6e-04  9.0e-08  1.13e+00   -1.015727003e-05  -3.677380382e-06  9.0e-05  0.00  \nINFO: 9   8.9e-04  1.3e-04  8.3e-09  1.05e+00   -2.064290319e-06  -6.006872364e-07  2.0e-05  0.00  \nINFO: 10  2.0e-04  2.8e-05  8.4e-10  1.01e+00   -4.292537349e-07  -1.015381231e-07  4.5e-06  0.00  \nINFO: 11  5.3e-05  7.4e-06  1.1e-10  1.01e+00   -1.206460041e-07  -3.331246757e-08  1.2e-06  0.00  \nINFO: 12  1.7e-05  2.3e-06  2.0e-11  9.93e-01   -3.501043975e-08  -7.224709141e-09  3.8e-07  0.00  \nINFO: 13  3.4e-06  4.8e-07  1.8e-12  1.01e+00   -7.387309891e-09  -1.710184700e-09  7.8e-08  0.00  \nINFO: 14  9.8e-07  1.4e-07  2.7e-13  9.97e-01   -2.019979237e-09  -3.855749831e-10  2.2e-08  0.00  \nINFO: 15  2.4e-07  3.4e-08  3.3e-14  1.00e+00   -4.633139052e-10  -6.263381981e-11  5.5e-09  0.00  \nINFO: 16  6.4e-08  8.9e-09  4.4e-15  9.91e-01   -1.198536381e-10  -1.396572863e-11  1.4e-09  0.00  \nINFO: 17  1.9e-08  2.7e-09  7.2e-16  9.97e-01   -3.341569139e-11  -1.444399422e-12  4.4e-10  0.01  \nINFO: Optimizer terminated. Time: 0.01    \nINFO: \nINFO: \nINFO: Interior-point solution summary\nINFO:   Problem status  : PRIMAL_AND_DUAL_FEASIBLE\nINFO:   Solution status : OPTIMAL\nINFO:   Primal.  obj: -3.3415691389e-11   nrm: 1e+00    Viol.  con: 2e-09    var: 3e-10    barvar: 0e+00  \nINFO:   Dual.    obj: -1.4443994222e-12   nrm: 1e+00    Viol.  con: 0e+00    var: 2e-10    barvar: 3e-11  \n-------------------------------------------------------------------------------\n                                    Summary                                    \n-------------------------------------------------------------------------------\nINFO: Problem status: optimal\nINFO: Optimal value: 1.444e-12\nINFO: Compilation took 3.809e-01 seconds\nINFO: Solver (including time spent in interface) took 6.502e-03 seconds\n",
+        "mosek_params": {
+          "MSK_DPAR_INTPNT_CO_TOL_DFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_PFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_REL_GAP": 1e-09,
+          "MSK_DPAR_OPTIMIZER_MAX_TIME": 19.865537482313812,
+          "MSK_IPAR_NUM_THREADS": 1
+        },
+        "objective": 1.4443994221867905e-12,
+        "objective_kind": "psd_margin",
+        "raw_status": "optimal",
+        "solver": "MOSEK",
+        "stats": {
+          "num_iters": 17,
+          "solve_time": 0.005112485960125923
+        },
+        "status": "solved_unverified",
+        "values": {
+          "eta_L_assign_1_0": 1.2693024660450938,
+          "eta_L_assign_1_1": -0.4908705257506926,
+          "eta_L_assign_1_2": 0.0032741265835952694,
+          "eta_L_assign_2_0": 1.2680361498141264,
+          "eta_L_assign_2_1": -0.5831028190049921,
+          "eta_L_assign_2_2": 0.0032742087885294893,
+          "eta_L_assign_3_0": 1.2675364930676334,
+          "eta_L_assign_3_1": -0.3845875714363183,
+          "eta_L_assign_3_2": 0.0032743901615100196,
+          "eta_L_probabilistic_1_0": 1.2673988461751189,
+          "eta_L_probabilistic_1_1": -0.5002760255850165,
+          "eta_L_probabilistic_1_2": 0.0032742348825941002,
+          "eta_L_refute_1_0": 1.2573427401875252,
+          "eta_L_refute_1_1": -0.5011749497484003,
+          "eta_L_refute_1_2": 0.0019767517523970337,
+          "eta_L_while_1_0": 1.2656845483632742,
+          "eta_L_while_1_1": -0.49330929976446186,
+          "eta_L_while_1_2": 0.003274188205727065,
+          "o0_s0_q_0_0": 0.1042784680116462,
+          "o0_s0_q_0_1": -0.04229041935743608,
+          "o0_s0_q_0_2": -3.718463230381044e-09,
+          "o0_s0_q_1_1": 0.027789520237273345,
+          "o0_s0_q_1_2": 3.397254061349279e-09,
+          "o0_s0_q_2_2": 6.8707576132575855e-12,
+          "o0_s1_sos": 0.0029860112580784304,
+          "o0_s2_sos": 0.09980607999811558,
+          "o0_s3_sos": -0.0,
+          "o0_s4_sos": 0.0011115808094909337,
+          "o0_s5_sos": 0.0003274117713702236,
+          "o0_s6_sos": 0.00032741313027184814,
+          "o10_s0_q_0_0": 0.003616303347888334,
+          "o10_s0_q_0_1": -0.0033341029184462963,
+          "o10_s0_q_0_2": -4.178433468380872e-08,
+          "o10_s0_q_1_1": 0.005177493759401621,
+          "o10_s0_q_1_2": -1.6316344536576814e-07,
+          "o10_s0_q_2_2": 8.99572355696091e-12,
+          "o10_s1_sos": 0.0011488832859542202,
+          "o10_s2_sos": 0.0004527092880268757,
+          "o10_s3_sos": -0.0,
+          "o10_s4_sos": 0.0025887468797008103,
+          "o10_s5_sos": 2.999579693384848e-07,
+          "o10_s6_sos": 2.735890479454333e-07,
+          "o11_s0_q_0_0": 0.0016989972372301561,
+          "o11_s0_q_0_1": -0.0013425951644043192,
+          "o11_s0_q_0_2": -1.0117404570336567e-07,
+          "o11_s0_q_1_1": 0.0022204039320819526,
+          "o11_s0_q_1_2": -1.022997376108605e-07,
+          "o11_s0_q_2_2": 1.2011082020839596e-11,
+          "o11_s1_sos": 0.00039519067291575796,
+          "o11_s2_sos": 0.00022023924202688172,
+          "o11_s3_sos": -0.0,
+          "o11_s4_sos": 0.0011102019660409763,
+          "o11_s5_sos": 1.550567318065747e-07,
+          "o11_s6_sos": 1.0551398839142839e-07,
+          "o12_s0_q_0_0": 0.0018626616309381,
+          "o12_s0_q_0_1": -0.0015792391588088904,
+          "o12_s0_q_0_2": -1.0184291295818303e-07,
+          "o12_s0_q_1_1": 0.002541812480623291,
+          "o12_s0_q_1_2": -1.0525668219130891e-07,
+          "o12_s0_q_2_2": 1.1757419703911417e-11,
+          "o12_s10_sos": 7.378451063973007e-21,
+          "o12_s11_sos": 9.011402969764564e-05,
+          "o12_s12_sos": 2.113531266321494e-05,
+          "o12_s13_sos": 1.5937179776075146e-07,
+          "o12_s14_sos": 1.0823023113880684e-07,
+          "o12_s15_sos": 0.0008257951471749768,
+          "o12_s1_sos": 1.486712229020748e-17,
+          "o12_s2_sos": -3.1035287187397564e-17,
+          "o12_s3_sos": -0.0,
+          "o12_s4_sos": 0.0012722707576277906,
+          "o12_s5_sos": 0.0002466250537147872,
+          "o12_s6_sos": -2.710505431213761e-20,
+          "o12_s7_sos": -8.26187995817964e-21,
+          "o12_s8_sos": 8.917441846265447e-05,
+          "o12_s9_sos": 0.00019730052744790005,
+          "o13_s0_q_0_0": 0.016878728498352896,
+          "o13_s0_q_0_1": -0.027747701574701477,
+          "o13_s0_q_0_2": -4.925950072668999e-09,
+          "o13_s0_q_1_1": 0.06858961639804625,
+          "o13_s0_q_1_2": -1.722878215576211e-09,
+          "o13_s0_q_2_2": 6.786821979539728e-12,
+          "o13_s10_sos": 0.006486738816191924,
+          "o13_s1_sos": 0.011930207640032652,
+          "o13_s2_sos": -0.0,
+          "o13_s3_sos": -4.336808689942018e-19,
+          "o13_s4_sos": 0.015045916405021209,
+          "o13_s5_sos": -2.168404344971009e-19,
+          "o13_s6_sos": 0.002594696215628056,
+          "o13_s7_sos": 0.008254649260300912,
+          "o13_s8_sos": 5.850358959373171e-20,
+          "o13_s9_sos": 0.0013956876204962861,
+          "o14_s0_q_0_0": 0.06666703587990323,
+          "o14_s0_q_0_1": -0.027955800192457622,
+          "o14_s0_q_0_2": -5.802667261829896e-10,
+          "o14_s0_q_1_1": 0.014295868383783753,
+          "o14_s0_q_1_2": -1.501461079231161e-10,
+          "o14_s0_q_2_2": 6.75634593135593e-12,
+          "o14_s10_sos": 0.0032433460356760943,
+          "o14_s1_sos": -1.3010426069826053e-17,
+          "o14_s2_sos": 0.006018641540761205,
+          "o14_s3_sos": -0.0,
+          "o14_s4_sos": 0.015820688429815495,
+          "o14_s5_sos": -0.0,
+          "o14_s6_sos": -0.0,
+          "o14_s7_sos": 0.0015163003359291087,
+          "o14_s8_sos": 0.0006486691470767757,
+          "o14_s9_sos": 0.004375474012685859,
+          "o1_s0_q_0_0": 0.08102303357804223,
+          "o1_s0_q_0_1": -0.032623670980656105,
+          "o1_s0_q_0_2": -2.058098177775758e-09,
+          "o1_s0_q_1_1": 0.03031922546995352,
+          "o1_s0_q_1_2": 3.2770834881896843e-09,
+          "o1_s0_q_2_2": 6.793868473352186e-12,
+          "o1_s1_sos": 0.010008086756303436,
+          "o1_s2_sos": 0.6136697142311706,
+          "o1_s3_sos": -4.336808689942018e-19,
+          "o1_s4_sos": 0.01515961273497676,
+          "o1_s5_sos": 0.0010913999321306308,
+          "o1_s6_sos": 0.002182806418428238,
+          "o2_s0_q_0_0": 0.10257968533076246,
+          "o2_s0_q_0_1": 0.004139742458064687,
+          "o2_s0_q_0_2": -6.193493653402687e-09,
+          "o2_s0_q_1_1": 0.05501636351734405,
+          "o2_s0_q_1_2": 2.9382735969804995e-10,
+          "o2_s0_q_2_2": 6.780504647914697e-12,
+          "o2_s1_sos": 0.0530520803208665,
+          "o2_s2_sos": 0.6365121257875408,
+          "o2_s3_sos": -0.0,
+          "o2_s4_sos": 0.027508181758672024,
+          "o2_s5_sos": 0.0010914671243959625,
+          "o2_s6_sos": 0.0021829348364466447,
+          "o3_s0_q_0_0": 0.08563490304738244,
+          "o3_s0_q_0_1": -0.01619445510547539,
+          "o3_s0_q_0_2": -3.906878097861085e-09,
+          "o3_s0_q_1_1": 0.04139093642010172,
+          "o3_s0_q_1_2": 2.5198328804750664e-09,
+          "o3_s0_q_2_2": 6.777850547776827e-12,
+          "o3_s1_sos": 0.026808322233066006,
+          "o3_s2_sos": 0.624981100890452,
+          "o3_s3_sos": 8.673617379884035e-19,
+          "o3_s4_sos": 0.02069546821005086,
+          "o3_s5_sos": 0.001091410872339591,
+          "o3_s6_sos": 0.0021828267843449433,
+          "o4_s0_q_0_0": 0.10834109357798538,
+          "o4_s0_q_0_1": -0.045015002334114165,
+          "o4_s0_q_0_2": -5.0269236461969194e-09,
+          "o4_s0_q_1_1": 0.024776415776186524,
+          "o4_s0_q_1_2": 3.3523656332452742e-09,
+          "o4_s0_q_2_2": 6.9219211706971e-12,
+          "o4_s1_sos": 0.001954062354629277,
+          "o4_s2_sos": 0.09805784420532812,
+          "o4_s3_sos": -0.0,
+          "o4_s4_sos": 0.000991056631047461,
+          "o4_s5_sos": 0.00019767457148892867,
+          "o4_s6_sos": 0.00019767591243518196,
+          "o5_s0_q_0_0": 0.10641972263855698,
+          "o5_s0_q_0_1": -0.0436592192031285,
+          "o5_s0_q_0_2": -4.9730300857054395e-09,
+          "o5_s0_q_1_1": 0.02688890635350219,
+          "o5_s0_q_1_2": 3.5050873389427226e-09,
+          "o5_s0_q_2_2": 6.915608860387711e-12,
+          "o5_s1_sos": 0.0030005657868853036,
+          "o5_s2_sos": 0.0992565256164875,
+          "o5_s3_sos": -0.0,
+          "o5_s4_sos": 0.0010755562541400875,
+          "o5_s5_sos": 0.00032741813273680094,
+          "o5_s6_sos": 0.0003274195347717365,
+          "o6_s0_q_0_0": 0.09794576817214404,
+          "o6_s0_q_0_1": -0.03924434420040097,
+          "o6_s0_q_0_2": -5.114513398446446e-09,
+          "o6_s0_q_1_1": 0.020358004243054506,
+          "o6_s0_q_1_2": 3.206627013281326e-09,
+          "o6_s0_q_2_2": 6.93860570933366e-12,
+          "o6_s10_sos": 0.0005201805957731919,
+          "o6_s1_sos": -1.3010426069826053e-18,
+          "o6_s2_sos": 0.099256064899827,
+          "o6_s3_sos": -0.0,
+          "o6_s4_sos": 0.00361292477014653,
+          "o6_s5_sos": 1.0842021724855044e-19,
+          "o6_s6_sos": -0.0,
+          "o6_s7_sos": 0.0003672647976034403,
+          "o6_s8_sos": 0.0002080735209600821,
+          "o6_s9_sos": 0.002403065221908891,
+          "o7_s0_q_0_0": 0.018306458829372943,
+          "o7_s0_q_0_1": -0.028457430105475228,
+          "o7_s0_q_0_2": 2.833807986015965e-10,
+          "o7_s0_q_1_1": 0.05973236903625102,
+          "o7_s0_q_1_2": 6.940783286744566e-10,
+          "o7_s0_q_2_2": 6.767742304762884e-12,
+          "o7_s10_sos": 0.009883451523483681,
+          "o7_s1_sos": 0.003884841195805608,
+          "o7_s2_sos": -2.3635607360183997e-17,
+          "o7_s3_sos": 4.336808689942018e-19,
+          "o7_s4_sos": 0.19646129599544973,
+          "o7_s5_sos": -4.336808689942018e-19,
+          "o7_s6_sos": 0.0039533803317621415,
+          "o7_s7_sos": 0.012198513954251158,
+          "o7_s8_sos": 3.028089795176132e-20,
+          "o7_s9_sos": 0.006225277050626056,
+          "o8_s0_q_0_0": 0.0012927997722680176,
+          "o8_s0_q_0_1": -0.0006881271789375983,
+          "o8_s0_q_0_2": -1.294079207572888e-07,
+          "o8_s0_q_1_1": 0.001206241749075667,
+          "o8_s0_q_1_2": -7.367946009065532e-08,
+          "o8_s0_q_2_2": 1.1522296043906834e-11,
+          "o8_s1_sos": 0.00012562617150083555,
+          "o8_s2_sos": 3.511984073055821e-05,
+          "o8_s3_sos": -4.336808689942018e-19,
+          "o8_s4_sos": 4.824966996302668e-05,
+          "o8_s5_sos": 4.5093670434839366e-08,
+          "o8_s6_sos": 1.5621886398577235e-08,
+          "o9_s0_q_0_0": 0.0025487201600496137,
+          "o9_s0_q_0_1": -0.002294843454634089,
+          "o9_s0_q_0_2": -6.685714619185823e-08,
+          "o9_s0_q_1_1": 0.0037288348800697964,
+          "o9_s0_q_1_2": -1.4339476589200536e-07,
+          "o9_s0_q_2_2": 9.827573607111931e-12,
+          "o9_s1_sos": 0.0007765046927729804,
+          "o9_s2_sos": 0.0003258028947793201,
+          "o9_s3_sos": 4.336808689942018e-19,
+          "o9_s4_sos": 0.0018644174400348982,
+          "o9_s5_sos": 2.2985912255664386e-07,
+          "o9_s6_sos": 1.72928713329277e-07
+        }
+      },
+      "stage": "margin",
+      "status": "solved_unverified",
+      "verification": {
+        "attempts": [
+          {
+            "denominator": 1000,
+            "equalities_exact": true,
+            "negative_coefficient_count": 0,
+            "negative_coefficients": [],
+            "nonpsd_blocks": [
+              "o1_s0",
+              "o2_s0",
+              "o3_s0",
+              "o4_s0",
+              "o6_s0",
+              "o7_s0",
+              "o8_s0",
+              "o13_s0",
+              "o14_s0"
+            ],
+            "nonpsd_count": 9
+          },
+          {
+            "denominator": 1000000,
+            "equalities_exact": true,
+            "negative_coefficient_count": 0,
+            "negative_coefficients": [],
+            "nonpsd_blocks": [
+              "o0_s0",
+              "o1_s0",
+              "o2_s0",
+              "o3_s0",
+              "o4_s0",
+              "o5_s0",
+              "o6_s0",
+              "o7_s0",
+              "o13_s0",
+              "o14_s0"
+            ],
+            "nonpsd_count": 10
+          },
+          {
+            "denominator": 1000000000,
+            "equalities_exact": true,
+            "negative_coefficient_count": 0,
+            "negative_coefficients": [],
+            "nonpsd_blocks": [
+              "o0_s0",
+              "o1_s0",
+              "o2_s0",
+              "o3_s0",
+              "o4_s0",
+              "o5_s0",
+              "o6_s0",
+              "o7_s0",
+              "o8_s0",
+              "o9_s0",
+              "o10_s0",
+              "o11_s0",
+              "o12_s0",
+              "o13_s0",
+              "o14_s0"
+            ],
+            "nonpsd_count": 15
+          }
+        ],
+        "method": "rational_affine_reconstruction_exact_psd",
+        "reason": "No exactly feasible rational reconstruction found",
+        "status": "solved_unverified"
+      }
+    },
+    {
+      "direct_reconstruction": {
+        "reason": "Inconsistent exact coefficient equalities",
+        "status": "verification_failed"
+      },
+      "face_guess": {
+        "blocks": [
+          {
+            "denominator": 1000,
+            "id": "o0_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o1_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o2_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o3_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o4_s0",
+            "kernel": [
+              [
+                "5/12",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o5_s0",
+            "kernel": [
+              [
+                "5/12",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o6_s0",
+            "kernel": [
+              [
+                "5/12",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o7_s0",
+            "kernel": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "1/2",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o8_s0",
+            "kernel": [
+              [
+                "1/1000"
+              ],
+              [
+                "1/1000"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o9_s0",
+            "kernel": [
+              [
+                "1/1000"
+              ],
+              [
+                "1/1000"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o10_s0",
+            "kernel": [
+              [
+                "1/1000"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o11_s0",
+            "kernel": [
+              [
+                "1/1000"
+              ],
+              [
+                "1/1000"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o12_s0",
+            "kernel": [
+              [
+                "1/1000"
+              ],
+              [
+                "1/1000"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o13_s0",
+            "kernel": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "366/827",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-07
+          },
+          {
+            "denominator": 1000,
+            "id": "o14_s0",
+            "kernel": [
+              [
+                "369/809",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-07
+          }
+        ],
+        "zero_scalars": [
+          "o0_s3_sos",
+          "o1_s3_sos",
+          "o2_s3_sos",
+          "o3_s3_sos",
+          "o4_s1_sos",
+          "o4_s3_sos",
+          "o5_s1_sos",
+          "o5_s3_sos",
+          "o6_s1_sos",
+          "o6_s3_sos",
+          "o6_s4_sos",
+          "o6_s5_sos",
+          "o6_s6_sos",
+          "o6_s7_sos",
+          "o7_s1_sos",
+          "o7_s2_sos",
+          "o7_s3_sos",
+          "o7_s5_sos",
+          "o7_s8_sos",
+          "o8_s3_sos",
+          "o8_s6_sos",
+          "o9_s3_sos",
+          "o10_s3_sos",
+          "o11_s3_sos",
+          "o12_s1_sos",
+          "o12_s2_sos",
+          "o12_s3_sos",
+          "o12_s6_sos",
+          "o12_s7_sos",
+          "o12_s10_sos",
+          "o13_s1_sos",
+          "o13_s2_sos",
+          "o13_s3_sos",
+          "o13_s4_sos",
+          "o13_s5_sos",
+          "o13_s7_sos",
+          "o13_s8_sos",
+          "o13_s9_sos",
+          "o14_s1_sos",
+          "o14_s2_sos",
+          "o14_s3_sos",
+          "o14_s4_sos",
+          "o14_s5_sos",
+          "o14_s6_sos",
+          "o14_s7_sos",
+          "o14_s9_sos"
+        ]
+      },
+      "gram": [
+        {
+          "eigenvalues": [
+            8.017472428740768e-12,
+            0.0010406680512488199,
+            0.17244298871471286
+          ],
+          "id": "o0_s0"
+        },
+        {
+          "eigenvalues": [
+            7.959537229612846e-12,
+            0.0025767591719714406,
+            0.14450880272995725
+          ],
+          "id": "o1_s0"
+        },
+        {
+          "eigenvalues": [
+            7.955015194839941e-12,
+            0.05809306804692783,
+            0.12014245422053471
+          ],
+          "id": "o2_s0"
+        },
+        {
+          "eigenvalues": [
+            7.961899235168645e-12,
+            0.027131331562122916,
+            0.12407179252305708
+          ],
+          "id": "o3_s0"
+        },
+        {
+          "eigenvalues": [
+            7.988614715740846e-12,
+            1.3460798698145733e-11,
+            0.12303397271969291
+          ],
+          "id": "o4_s0"
+        },
+        {
+          "eigenvalues": [
+            -1.0890957699127959e-12,
+            7.987840823402079e-12,
+            0.12492777683395119
+          ],
+          "id": "o5_s0"
+        },
+        {
+          "eigenvalues": [
+            7.994221052524964e-12,
+            9.062460730614411e-12,
+            0.11513250520515693
+          ],
+          "id": "o6_s0"
+        },
+        {
+          "eigenvalues": [
+            6.5104333856184595e-12,
+            8.012305604781013e-12,
+            0.1048651004061627
+          ],
+          "id": "o7_s0"
+        },
+        {
+          "eigenvalues": [
+            -3.209276171590741e-11,
+            3.7940503779341864e-05,
+            0.003216993757184315
+          ],
+          "id": "o8_s0"
+        },
+        {
+          "eigenvalues": [
+            -3.147260807496535e-11,
+            3.6847708679851505e-05,
+            0.010041239665245871
+          ],
+          "id": "o9_s0"
+        },
+        {
+          "eigenvalues": [
+            -3.377200522691273e-11,
+            4.0518075119513116e-05,
+            0.005357085528056485
+          ],
+          "id": "o10_s0"
+        },
+        {
+          "eigenvalues": [
+            -2.76776919477578e-11,
+            3.3020933410793894e-05,
+            0.004529262853587318
+          ],
+          "id": "o11_s0"
+        },
+        {
+          "eigenvalues": [
+            -2.9953802410621744e-11,
+            3.537300423619629e-05,
+            0.005079805480653115
+          ],
+          "id": "o12_s0"
+        },
+        {
+          "eigenvalues": [
+            6.966844714441289e-12,
+            7.955022554142058e-12,
+            8.238554301757886e-11
+          ],
+          "id": "o13_s0"
+        },
+        {
+          "eigenvalues": [
+            -5.097413336074698e-12,
+            7.943526862174563e-12,
+            8.966881648389462e-11
+          ],
+          "id": "o14_s0"
+        }
+      ],
+      "original_objective_numeric": 0.7368873436617989,
+      "solver": {
+        "elapsed_seconds": 0.5215526302345097,
+        "log": "===============================================================================\n                                     CVXPY                                     \n                                     v1.9.3                                    \n===============================================================================\nINFO: Your problem has 224 variables, 587 constraints, and 0 parameters.\nINFO: It is compliant with the following grammars: DCP, DQCP\nINFO: DCP verification time: 0.0057 seconds.\nINFO: Expression tree has 8 nodes.\nINFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)\nINFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.\nINFO: Your problem is compiled with the CPP canonicalization backend.\n-------------------------------------------------------------------------------\n                                  Compilation                                  \n-------------------------------------------------------------------------------\nINFO: Compiling problem (target solver=MOSEK).\nINFO: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK\nINFO: Applying reduction FlipObjective\nINFO: Applying reduction Dcp2Cone\nINFO: Applying reduction CvxAttr2Constr\nINFO: Applying reduction ExactCone2Cone\nINFO: Applying reduction EliminateZeroSized\nINFO: Applying reduction ConeMatrixStuffing\nINFO: Applying reduction MOSEK\nINFO: Finished problem compilation (took 4.959e-01 seconds).\n-------------------------------------------------------------------------------\n                                Numerical solver                               \n-------------------------------------------------------------------------------\nINFO: Invoking solver MOSEK  to obtain a solution.\n\n\nINFO: Problem\nINFO:   Name                   :                 \nINFO:   Objective sense        : maximize        \nINFO:   Type                   : CONIC (conic optimization problem)\nINFO:   Constraints            : 224             \nINFO:   Affine conic cons.     : 0               \nINFO:   Disjunctive cons.      : 0               \nINFO:   Cones                  : 0               \nINFO:   Scalar variables       : 317             \nINFO:   Matrix variables       : 30 (scalarized: 180)\nINFO:   Integer variables      : 0               \nINFO: \nINFO: Optimizer started.\nINFO: Presolve started.\nINFO: Linear dependency checker started.\nINFO: Linear dependency checker terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 66\nINFO: Eliminator terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 2\nINFO: Eliminator terminated.\nINFO: Eliminator - tries                  : 2                 time                   : 0.00            \nINFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            \nINFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               \nINFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               \nINFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               \nINFO: Presolve terminated. Time: 0.00    \nINFO: Optimizer  - threads                : 1               \nINFO: Optimizer  - solved problem         : the primal      \nINFO: Optimizer  - Constraints            : 110             \nINFO: Optimizer  - Cones                  : 1               \nINFO: Optimizer  - Scalar variables       : 148               conic                  : 78              \nINFO: Optimizer  - Semi-definite variables: 30                scalarized             : 180             \nINFO: Factor     - setup time             : 0.00            \nINFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            \nINFO: Factor     - nonzeros before factor : 3664              after factor           : 3800            \nINFO: Factor     - dense dim.             : 0                 flops                  : 2.09e+05        \nINFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  \nINFO: 0   2.3e+01  1.0e+00  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  \nINFO: 1   1.2e+01  5.4e-01  2.9e-01  1.35e+00   -3.008062777e-02  1.004841547e-01   5.4e-01  0.00  \nINFO: 2   3.7e+00  1.6e-01  3.5e-02  1.50e+00   3.559221923e-02   8.089277748e-02   1.6e-01  0.00  \nINFO: 3   6.3e-01  2.7e-02  1.5e-03  1.47e+00   -5.270528307e-04  7.898498646e-03   2.7e-02  0.00  \nINFO: 4   1.6e-01  6.9e-03  9.4e-05  1.91e+00   -9.000613732e-04  5.806099458e-04   6.9e-03  0.00  \nINFO: 5   7.3e-02  3.2e-03  2.5e-05  2.47e+00   -6.184236307e-04  -2.323191955e-04  3.2e-03  0.00  \nINFO: 6   2.0e-02  8.5e-04  3.7e-06  1.40e+00   -2.189137113e-04  -1.308097407e-04  8.5e-04  0.00  \nINFO: 7   1.8e-03  8.0e-05  9.4e-08  1.15e+00   -1.838992234e-05  -1.049825603e-05  8.0e-05  0.00  \nINFO: 8   2.2e-04  9.4e-06  3.6e-09  1.03e+00   -2.194395064e-06  -1.278482303e-06  9.4e-06  0.00  \nINFO: 9   1.7e-05  7.5e-07  6.2e-11  1.09e+00   -1.883922927e-07  -1.151502182e-07  7.5e-07  0.00  \nINFO: 10  2.0e-06  8.6e-08  2.4e-12  1.01e+00   -2.124176363e-08  -1.291138206e-08  8.6e-08  0.00  \nINFO: 11  5.2e-07  2.3e-08  3.4e-13  9.84e-01   -5.322959746e-09  -3.098152824e-09  2.2e-08  0.00  \nINFO: 12  1.6e-07  6.9e-09  5.7e-14  1.00e+00   -1.643512498e-09  -9.813830203e-10  7.0e-09  0.00  \nINFO: 13  4.1e-08  1.8e-09  7.4e-15  1.00e+00   -4.178540242e-10  -2.474006115e-10  1.8e-09  0.00  \nINFO: 14  3.5e-08  1.5e-09  6.0e-15  1.00e+00   -3.599927616e-10  -2.122296573e-10  1.6e-09  0.00  \nINFO: 15  3.3e-08  1.4e-09  5.4e-15  1.00e+00   -3.357128951e-10  -1.972768126e-10  1.5e-09  0.01  \nINFO: 16  3.2e-08  1.3e-09  4.7e-15  1.00e+00   -3.061143677e-10  -1.796992522e-10  1.4e-09  0.01  \nINFO: 17  3.2e-08  1.3e-09  4.7e-15  1.00e+00   -3.061143677e-10  -1.796992522e-10  1.4e-09  0.01  \nINFO: 18  3.2e-08  1.3e-09  4.7e-15  1.00e+00   -3.061143677e-10  -1.796992522e-10  1.4e-09  0.01  \nINFO: Optimizer terminated. Time: 0.01    \nINFO: \nINFO: \nINFO: Interior-point solution summary\nINFO:   Problem status  : PRIMAL_AND_DUAL_FEASIBLE\nINFO:   Solution status : OPTIMAL\nINFO:   Primal.  obj: -3.0611436766e-10   nrm: 2e+01    Viol.  con: 3e-08    var: 1e-09    barvar: 0e+00  \nINFO:   Dual.    obj: -1.7969925220e-10   nrm: 1e+00    Viol.  con: 0e+00    var: 1e-10    barvar: 1e-10  \n-------------------------------------------------------------------------------\n                                    Summary                                    \n-------------------------------------------------------------------------------\nINFO: Problem status: optimal\nINFO: Optimal value: 1.797e-10\nINFO: Compilation took 4.959e-01 seconds\nINFO: Solver (including time spent in interface) took 1.162e-02 seconds\n",
+        "mosek_params": {
+          "MSK_DPAR_INTPNT_CO_TOL_DFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_PFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_REL_GAP": 1e-09,
+          "MSK_DPAR_OPTIMIZER_MAX_TIME": 19.153920030221343,
+          "MSK_IPAR_NUM_THREADS": 1
+        },
+        "objective": 1.7969925220403053e-10,
+        "objective_kind": "psd_margin",
+        "raw_status": "optimal",
+        "solver": "MOSEK",
+        "stats": {
+          "num_iters": 19,
+          "solve_time": 0.010120035149157047
+        },
+        "status": "solved_unverified",
+        "values": {
+          "eta_L_assign_1_0": 1.2675357594704724,
+          "eta_L_assign_1_1": -0.5235544994304301,
+          "eta_L_assign_1_2": 0.004410205219845639,
+          "eta_L_assign_2_0": 1.26704063273967,
+          "eta_L_assign_2_1": -0.6235829459272941,
+          "eta_L_assign_2_2": 0.004410257705919725,
+          "eta_L_assign_3_0": 1.2622861421578397,
+          "eta_L_assign_3_1": -0.4029076764453188,
+          "eta_L_assign_3_2": 0.004409812504827162,
+          "eta_L_probabilistic_1_0": 1.2651036331739247,
+          "eta_L_probabilistic_1_1": -0.5333712895302705,
+          "eta_L_probabilistic_1_2": 0.004410127730968606,
+          "eta_L_refute_1_0": 1.2631961810848622,
+          "eta_L_refute_1_1": -0.5263313254136354,
+          "eta_L_refute_1_2": 0.002560409983274559,
+          "eta_L_while_1_0": 1.2632347319980046,
+          "eta_L_while_1_1": -0.5263473883362058,
+          "eta_L_while_1_2": 0.004410171192903183,
+          "o0_s0_q_0_0": 0.1463642373020502,
+          "o0_s0_q_0_1": -0.06156181638720971,
+          "o0_s0_q_0_2": -3.7825827483709975e-16,
+          "o0_s0_q_1_1": 0.027119419463911516,
+          "o0_s0_q_1_2": 1.781464712606789e-15,
+          "o0_s0_q_2_2": 8.01747242874077e-12,
+          "o0_s1_sos": 0.0003928586081866081,
+          "o0_s2_sos": 0.0956659068391792,
+          "o0_s3_sos": 0.0,
+          "o0_s4_sos": 0.0010847767785564606,
+          "o0_s5_sos": 0.0004410205219837844,
+          "o0_s6_sos": 0.000441020521984497,
+          "o10_s0_q_0_0": 7.789115387629851e-05,
+          "o10_s0_q_0_1": 0.00044418459912182043,
+          "o10_s0_q_0_2": -7.78897236903414e-08,
+          "o10_s0_q_1_1": 0.005319712371411438,
+          "o10_s0_q_1_2": -4.4418232166205403e-07,
+          "o10_s0_q_2_2": 4.4116254546207134e-11,
+          "o10_s1_sos": 0.0011582731554785168,
+          "o10_s2_sos": 0.0005559775722108751,
+          "o10_s3_sos": 0.0,
+          "o10_s4_sos": 0.002659856185705719,
+          "o10_s5_sos": 4.684056393065281e-07,
+          "o10_s6_sos": 4.844663528894819e-08,
+          "o11_s0_q_0_0": 0.002309200734712473,
+          "o11_s0_q_0_1": -0.002247945884223589,
+          "o11_s0_q_0_2": -6.125136920713627e-08,
+          "o11_s0_q_1_1": 0.0022530829859064017,
+          "o11_s0_q_1_2": -5.134252944998518e-09,
+          "o11_s0_q_2_2": 3.870154544607501e-11,
+          "o11_s1_sos": 0.0005040304116813838,
+          "o11_s2_sos": 0.0001870507154501655,
+          "o11_s3_sos": 0.0,
+          "o11_s4_sos": 0.0011265414929532008,
+          "o11_s5_sos": 1.8852939509577407e-08,
+          "o11_s6_sos": 2.743737312915778e-08,
+          "o12_s0_q_0_0": 0.00259302980931681,
+          "o12_s0_q_0_1": -0.002521967266462723,
+          "o12_s0_q_0_2": -7.105905401034835e-08,
+          "o12_s0_q_1_1": 0.0025221486043409073,
+          "o12_s0_q_1_2": -1.787126891388463e-10,
+          "o12_s0_q_2_2": 4.1277790886265454e-11,
+          "o12_s10_sos": 0.0,
+          "o12_s11_sos": 0.0002005847283909283,
+          "o12_s12_sos": 1.9778574147953948e-05,
+          "o12_s13_sos": 1.7235716476578848e-08,
+          "o12_s14_sos": 3.411400757488e-08,
+          "o12_s15_sos": 0.0008590540650532212,
+          "o12_s1_sos": 0.0,
+          "o12_s2_sos": 0.0,
+          "o12_s3_sos": 0.0,
+          "o12_s4_sos": 1.3108004265349749e-16,
+          "o12_s5_sos": 0.00018071460905629108,
+          "o12_s6_sos": 0.0,
+          "o12_s7_sos": 0.0,
+          "o12_s8_sos": 0.0003489671879791117,
+          "o12_s9_sos": 0.0004773515881712137,
+          "o13_s0_q_0_0": 4.8518461850125486e-11,
+          "o13_s0_q_0_1": -3.751301671457561e-11,
+          "o13_s0_q_0_2": 2.899333757010268e-14,
+          "o13_s0_q_1_1": 4.0834066777959215e-11,
+          "o13_s0_q_1_2": -9.695543938441757e-15,
+          "o13_s0_q_2_2": 7.954881658077492e-12,
+          "o13_s10_sos": 0.009248133109172347,
+          "o13_s1_sos": 0.0,
+          "o13_s2_sos": 0.0,
+          "o13_s3_sos": 0.0,
+          "o13_s4_sos": 0.0,
+          "o13_s5_sos": 0.0,
+          "o13_s6_sos": 0.003699253243672817,
+          "o13_s7_sos": 0.0,
+          "o13_s8_sos": 0.0,
+          "o13_s9_sos": 0.0,
+          "o14_s0_q_0_0": 7.061980475883236e-11,
+          "o14_s0_q_0_1": -3.7977626213311443e-11,
+          "o14_s0_q_0_2": 1.0313979579169353e-13,
+          "o14_s0_q_1_1": 1.395197322130549e-11,
+          "o14_s0_q_1_2": -1.5872146555527277e-13,
+          "o14_s0_q_2_2": 7.94315202985663e-12,
+          "o14_s10_sos": 0.004624066556100703,
+          "o14_s1_sos": 0.0,
+          "o14_s2_sos": 0.0,
+          "o14_s3_sos": 0.0,
+          "o14_s4_sos": 0.0,
+          "o14_s5_sos": 0.0,
+          "o14_s6_sos": 0.0,
+          "o14_s7_sos": 0.0,
+          "o14_s8_sos": 0.000924813311156652,
+          "o14_s9_sos": 0.0,
+          "o1_s0_q_0_0": 0.11548967621377153,
+          "o1_s0_q_0_1": -0.05724189222018765,
+          "o1_s0_q_0_2": -1.3269696135483547e-15,
+          "o1_s0_q_1_1": 0.03159588568815716,
+          "o1_s0_q_1_2": -2.729992634350253e-15,
+          "o1_s0_q_2_2": 7.95953722961285e-12,
+          "o1_s1_sos": 0.0023226969331440195,
+          "o1_s2_sos": 0.5927342695735998,
+          "o1_s3_sos": 0.0,
+          "o1_s4_sos": 0.01579794284407858,
+          "o1_s5_sos": 0.0014700859019777667,
+          "o1_s6_sos": 0.0029401718039500733,
+          "o2_s0_q_0_0": 0.1173235184353221,
+          "o2_s0_q_0_1": -0.012921564772662207,
+          "o2_s0_q_0_2": -5.6612818918581175e-16,
+          "o2_s0_q_1_1": 0.06091200383214044,
+          "o2_s0_q_1_2": -2.4724388878192167e-15,
+          "o2_s0_q_2_2": 7.955015194839941e-12,
+          "o2_s1_sos": 0.04906150486465577,
+          "o2_s2_sos": 0.6274675662096569,
+          "o2_s3_sos": 0.0,
+          "o2_s4_sos": 0.03045600191607022,
+          "o2_s5_sos": 0.001469937501612728,
+          "o2_s6_sos": 0.0029398750032205113,
+          "o3_s0_q_0_0": 0.10627658021434613,
+          "o3_s0_q_0_1": -0.03752874235825163,
+          "o3_s0_q_0_2": -1.7786950266919418e-15,
+          "o3_s0_q_1_1": 0.04492654387083385,
+          "o3_s0_q_1_2": -3.6164202957702466e-15,
+          "o3_s0_q_2_2": 7.961899235168647e-12,
+          "o3_s1_sos": 0.020830755949569624,
+          "o3_s2_sos": 0.612291676389991,
+          "o3_s3_sos": 0.0,
+          "o3_s4_sos": 0.022463271935416924,
+          "o3_s5_sos": 0.001470042576995543,
+          "o3_s6_sos": 0.0029400851539838533,
+          "o4_s0_q_0_0": 0.10483368089924185,
+          "o4_s0_q_0_1": -0.04368070036907902,
+          "o4_s0_q_0_2": 9.631193304815643e-15,
+          "o4_s0_q_1_1": 0.018200291833911704,
+          "o4_s0_q_1_2": 2.7234960615362682e-14,
+          "o4_s0_q_2_2": 7.988766760145896e-12,
+          "o4_s1_sos": 0.0,
+          "o4_s2_sos": 0.09798614836208602,
+          "o4_s3_sos": 0.0,
+          "o4_s4_sos": 0.0007280116733564681,
+          "o4_s5_sos": 0.0002560409983124568,
+          "o4_s6_sos": 0.0002560409983233508,
+          "o5_s0_q_0_0": 0.10644733647373575,
+          "o5_s0_q_0_1": -0.04435305686451366,
+          "o5_s0_q_0_2": 1.6618507458697105e-14,
+          "o5_s0_q_1_1": 0.018480440359126566,
+          "o5_s0_q_1_2": 4.206027882371205e-14,
+          "o5_s0_q_2_2": 7.987615572050884e-12,
+          "o5_s1_sos": 0.0,
+          "o5_s2_sos": 0.09787730152254658,
+          "o5_s3_sos": 0.0,
+          "o5_s4_sos": 0.0007392176143650626,
+          "o5_s5_sos": 0.0004410171192668057,
+          "o5_s6_sos": 0.00044101711928362983,
+          "o6_s0_q_0_0": 0.09810106952526011,
+          "o6_s0_q_0_1": -0.040875445631750856,
+          "o6_s0_q_0_2": 1.009331590986565e-14,
+          "o6_s0_q_1_1": 0.01703143568895845,
+          "o6_s0_q_1_2": 2.7842593753931165e-14,
+          "o6_s0_q_2_2": 7.995040924883176e-12,
+          "o6_s10_sos": 0.0006737715383181661,
+          "o6_s1_sos": 0.0,
+          "o6_s2_sos": 0.09879110705815405,
+          "o6_s3_sos": 0.0,
+          "o6_s4_sos": 0.0,
+          "o6_s5_sos": 0.0,
+          "o6_s6_sos": 0.0,
+          "o6_s7_sos": 0.0,
+          "o6_s8_sos": 0.00026950861533840345,
+          "o6_s9_sos": 0.001703143568895845,
+          "o7_s0_q_0_0": 0.020973020086441065,
+          "o7_s0_q_0_1": -0.0419460401598602,
+          "o7_s0_q_0_2": 3.2879742394949766e-14,
+          "o7_s0_q_1_1": 0.08389208032623292,
+          "o7_s0_q_1_2": 1.3964802110159126e-14,
+          "o7_s0_q_2_2": 8.01145872208459e-12,
+          "o7_s10_sos": 0.012801659228429657,
+          "o7_s1_sos": 0.0,
+          "o7_s2_sos": 0.0,
+          "o7_s3_sos": 0.0,
+          "o7_s4_sos": 5.551115123125783e-17,
+          "o7_s5_sos": 0.0,
+          "o7_s6_sos": 0.005120663691366277,
+          "o7_s7_sos": 0.03428551078413237,
+          "o7_s8_sos": 0.0,
+          "o7_s9_sos": 0.025896302751509077,
+          "o8_s0_q_0_0": 0.001622733195695401,
+          "o8_s0_q_0_1": -0.0015895196154154696,
+          "o8_s0_q_0_2": -3.321008822430793e-08,
+          "o8_s0_q_1_1": 0.0016322009893846216,
+          "o8_s0_q_1_2": -4.267923827868415e-08,
+          "o8_s0_q_2_2": 4.379087328301517e-11,
+          "o8_s1_sos": 0.0003198937068117485,
+          "o8_s2_sos": 3.6345110477994935e-05,
+          "o8_s3_sos": 0.0,
+          "o8_s4_sos": 6.528803957538487e-05,
+          "o8_s5_sos": 1.707169531147366e-08,
+          "o8_s6_sos": 0.0,
+          "o9_s0_q_0_0": 0.005078946146469379,
+          "o9_s0_q_0_1": -0.005002036861411667,
+          "o9_s0_q_0_2": -7.690716794053575e-08,
+          "o9_s0_q_1_1": 0.0049991411534500065,
+          "o9_s0_q_1_2": 2.897178589176527e-09,
+          "o9_s0_q_2_2": 4.253373076709674e-11,
+          "o9_s1_sos": 0.0012672700680203385,
+          "o9_s2_sos": 0.0003268356663507499,
+          "o9_s3_sos": 0.0,
+          "o9_s4_sos": 0.0024995705767250033,
+          "o9_s5_sos": 2.00404371729974e-08,
+          "o9_s6_sos": 4.5875231524347854e-08
+        }
+      },
+      "stage": "face",
+      "status": "verification_failed",
+      "verification": {
+        "reason": "Inconsistent exact coefficient equalities",
+        "status": "verification_failed"
+      }
+    },
+    {
+      "direct_reconstruction": {
+        "reason": "Inconsistent exact coefficient equalities",
+        "status": "verification_failed"
+      },
+      "face_guess": {
+        "blocks": [
+          {
+            "denominator": 1000000,
+            "id": "o0_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o1_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o2_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o3_s0",
+            "kernel": [
+              [
+                "0"
+              ],
+              [
+                "0"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o4_s0",
+            "kernel": [
+              [
+                "5/12",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o5_s0",
+            "kernel": [
+              [
+                "5/12",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o6_s0",
+            "kernel": [
+              [
+                "5/12",
+                "0"
+              ],
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o7_s0",
+            "kernel": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "1/2",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 1,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o8_s0",
+            "kernel": [
+              [
+                "256/425133"
+              ],
+              [
+                "522/997781"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o9_s0",
+            "kernel": [
+              [
+                "664/998435"
+              ],
+              [
+                "335/574757"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o10_s0",
+            "kernel": [
+              [
+                "229/452130"
+              ],
+              [
+                "492/999617"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o11_s0",
+            "kernel": [
+              [
+                "173/200890"
+              ],
+              [
+                "428/595423"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o12_s0",
+            "kernel": [
+              [
+                "355/403988"
+              ],
+              [
+                "501/676780"
+              ],
+              [
+                "1"
+              ]
+            ],
+            "rank_guess": 2,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o13_s0",
+            "kernel": [
+              [
+                "1",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 0,
+            "threshold": 1e-06
+          },
+          {
+            "denominator": 1000000,
+            "id": "o14_s0",
+            "kernel": [
+              [
+                "1",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "1"
+              ]
+            ],
+            "rank_guess": 0,
+            "threshold": 1e-06
+          }
+        ],
+        "zero_scalars": [
+          "o0_s3_sos",
+          "o1_s3_sos",
+          "o2_s3_sos",
+          "o3_s3_sos",
+          "o4_s1_sos",
+          "o4_s3_sos",
+          "o5_s1_sos",
+          "o5_s3_sos",
+          "o6_s1_sos",
+          "o6_s3_sos",
+          "o6_s4_sos",
+          "o6_s5_sos",
+          "o6_s6_sos",
+          "o6_s7_sos",
+          "o7_s1_sos",
+          "o7_s2_sos",
+          "o7_s3_sos",
+          "o7_s5_sos",
+          "o7_s8_sos",
+          "o8_s3_sos",
+          "o8_s5_sos",
+          "o8_s6_sos",
+          "o9_s3_sos",
+          "o9_s6_sos",
+          "o10_s3_sos",
+          "o11_s3_sos",
+          "o11_s5_sos",
+          "o11_s6_sos",
+          "o12_s1_sos",
+          "o12_s2_sos",
+          "o12_s3_sos",
+          "o12_s6_sos",
+          "o12_s7_sos",
+          "o12_s10_sos",
+          "o12_s13_sos",
+          "o12_s14_sos",
+          "o13_s1_sos",
+          "o13_s2_sos",
+          "o13_s3_sos",
+          "o13_s4_sos",
+          "o13_s5_sos",
+          "o13_s7_sos",
+          "o13_s8_sos",
+          "o13_s9_sos",
+          "o14_s1_sos",
+          "o14_s2_sos",
+          "o14_s3_sos",
+          "o14_s4_sos",
+          "o14_s5_sos",
+          "o14_s6_sos",
+          "o14_s7_sos",
+          "o14_s9_sos"
+        ]
+      },
+      "stage": "face",
+      "status": "repair_budget"
+    }
+  ],
+  "elapsed_seconds": 1.4173328750766814,
+  "initial_gram": [
+    {
+      "eigenvalues": [
+        7.907147062172315e-11,
+        0.0009680142155611481,
+        0.3974907973859951
+      ],
+      "id": "o0_s0"
+    },
+    {
+      "eigenvalues": [
+        7.808642818971617e-11,
+        0.002357452305870386,
+        0.25441121599063543
+      ],
+      "id": "o1_s0"
+    },
+    {
+      "eigenvalues": [
+        7.804472201912215e-11,
+        0.04848079581372785,
+        0.20800114054608057
+      ],
+      "id": "o2_s0"
+    },
+    {
+      "eigenvalues": [
+        7.821157939643295e-11,
+        0.02064950106870494,
+        0.2271196125617455
+      ],
+      "id": "o3_s0"
+    },
+    {
+      "eigenvalues": [
+        -2.827503874877159e-10,
+        7.922465408469813e-11,
+        0.3856680726034869
+      ],
+      "id": "o4_s0"
+    },
+    {
+      "eigenvalues": [
+        -3.541523199163139e-10,
+        8.00852324950779e-11,
+        0.39872552814749357
+      ],
+      "id": "o5_s0"
+    },
+    {
+      "eigenvalues": [
+        -3.874883013770419e-10,
+        7.918626662624221e-11,
+        0.3121803252632086
+      ],
+      "id": "o6_s0"
+    },
+    {
+      "eigenvalues": [
+        -4.0158258135577595e-10,
+        8.014482721582208e-11,
+        0.14484336591159536
+      ],
+      "id": "o7_s0"
+    },
+    {
+      "eigenvalues": [
+        -1.8306578484113524e-10,
+        0.0005261117980992004,
+        0.0013702440379723315
+      ],
+      "id": "o8_s0"
+    },
+    {
+      "eigenvalues": [
+        -3.094138721538262e-10,
+        0.000487976455474537,
+        0.005479920259697877
+      ],
+      "id": "o9_s0"
+    },
+    {
+      "eigenvalues": [
+        -2.1383250030621608e-10,
+        0.0005632559341509536,
+        0.007059110224166774
+      ],
+      "id": "o10_s0"
+    },
+    {
+      "eigenvalues": [
+        -4.551123480007669e-10,
+        0.0004920307147051005,
+        0.0025832342553150406
+      ],
+      "id": "o11_s0"
+    },
+    {
+      "eigenvalues": [
+        -4.0317845749389267e-10,
+        0.0004199319050075408,
+        0.0029548963561396037
+      ],
+      "id": "o12_s0"
+    },
+    {
+      "eigenvalues": [
+        -3.916979188668341e-10,
+        8.01714624797975e-11,
+        1.1218374100882665e-07
+      ],
+      "id": "o13_s0"
+    },
+    {
+      "eigenvalues": [
+        -4.257921512050291e-10,
+        8.03353601914988e-11,
+        1.0307589962212203e-07
+      ],
+      "id": "o14_s0"
+    }
+  ],
+  "initial_verification": {
+    "attempts": [
+      {
+        "denominator": 1000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o0_s0",
+          "o1_s0",
+          "o2_s0",
+          "o3_s0",
+          "o4_s0",
+          "o5_s0",
+          "o6_s0",
+          "o7_s0",
+          "o13_s0"
+        ],
+        "nonpsd_count": 9
+      },
+      {
+        "denominator": 1000000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o0_s0",
+          "o1_s0",
+          "o2_s0",
+          "o3_s0",
+          "o4_s0",
+          "o5_s0",
+          "o6_s0",
+          "o7_s0",
+          "o9_s0",
+          "o10_s0",
+          "o11_s0",
+          "o12_s0",
+          "o13_s0",
+          "o14_s0"
+        ],
+        "nonpsd_count": 14
+      },
+      {
+        "denominator": 1000000000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 1,
+        "negative_coefficients": [
+          "o7_s1_sos"
+        ],
+        "nonpsd_blocks": [
+          "o0_s0",
+          "o1_s0",
+          "o2_s0",
+          "o3_s0",
+          "o4_s0",
+          "o5_s0",
+          "o6_s0",
+          "o7_s0",
+          "o8_s0",
+          "o9_s0",
+          "o10_s0",
+          "o11_s0",
+          "o12_s0",
+          "o13_s0",
+          "o14_s0"
+        ],
+        "nonpsd_count": 15
+      }
+    ],
+    "method": "rational_affine_reconstruction_exact_psd",
+    "reason": "No exactly feasible rational reconstruction found",
+    "status": "solved_unverified"
+  },
+  "max_solves": 2,
+  "objective_cap": "967164635271669/1250000000000000",
+  "solver_calls": 2,
+  "status": "solved_unverified"
+}

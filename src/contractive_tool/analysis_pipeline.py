@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
-from fractions import Fraction
 from importlib import metadata
 import hashlib
 import json
@@ -17,7 +16,8 @@ from contractive_tool import __version__
 from contractive_tool.analysis.degree_policy import DegreePolicy
 from contractive_tool.analysis.certificate_families import get_family
 from contractive_tool.analysis.parameter_search import ContractionBisection, FixedContractionGrid
-from contractive_tool.analysis.semantics import prepare_program, prove_nonnegative
+from contractive_tool.analysis.semantics import prepare_program
+from contractive_tool.backends.cvxpy.certification import certify_candidate
 from contractive_tool.analysis.rounds import prepare_round_kernel, make_round_problem
 from contractive_tool.analysis.symbolic_rounds import (
     prepare_symbolic_round_kernel, make_symbolic_round_problem, SymbolicRoundKernel)
@@ -55,6 +55,7 @@ class SearchOptions:
     verbose: bool = True
     family: str = 'polynomial'
     tail_rule: str = 'auto'
+    assertion_margin: str = '1/1000000'
     symbolic_workflow: bool = True
     workflow_config: str | None = None
     comparison_ns: tuple[int, ...] = (5, 20, 100)
@@ -95,30 +96,6 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def exact_template_check(problem, numerical_values):
-    """Alternative certificate: rounded coefficients, original-domain exact identities.
-
-    No time-indexed repair, sampling, or assumption that rounding preserves feasibility.
-    """
-    for denominator in (1000,1000000):
-        values = {sp.Symbol(name):sp.Rational(Fraction(numerical_values[name]).limit_denominator(denominator))
-                  for name in problem.decisions}
-        proofs=[]
-        for obligation in problem.obligations:
-            conclusion=sp.expand(obligation.conclusion.xreplace(values))
-            proof=prove_nonnegative(obligation.domain,conclusion)
-            if proof is None:
-                break
-            proofs.append({'id':obligation.id,'proof':proof})
-        else:
-            bound=problem.objective.xreplace(values)
-            if bound>=0:
-                return {'status':'proved','method':'exact_original_domain_farkas',
-                        'bound_exact':str(bound),'bound_numeric':float(bound),
-                        'exact_values':{str(x):str(v) for x,v in values.items()},'obligations':proofs}
-    return {'status':'solved_unverified','reason':'No exact original-domain certificate recovered'}
-
-
 def selected_bound(candidate, problem, cfg):
     bound = {'degree':problem.degree,'c':str(problem.c),'A_exact':candidate['bound_exact'],
             'A_numeric':candidate['bound_numeric'],'lambda_expression':f'-log({problem.c})',
@@ -139,6 +116,9 @@ def _run_polynomial_analysis(source, goal, out_dir=None, *, options=None, model_
     policy,cs=options.validate()
     family=get_family(options.family)
     goal={'tail_bound':'tailbound','exponential_tail':'tailbound'}.get(goal,goal)
+    if goal == 'assertion_violation':
+        from contractive_tool.assertion_pipeline import run_assertion_analysis
+        return run_assertion_analysis(source, out_dir, options=options, model_only=model_only)
     if goal not in {'tailbound','assertion_violation'}:
         raise AnalysisError('Goal must be tailbound or assertion_violation')
     source=Path(source).resolve()
@@ -258,10 +238,6 @@ def _run_polynomial_analysis(source, goal, out_dir=None, *, options=None, model_
                 feedback('unknown')
                 continue
             write_json(point_path/'polynomial_problem.json',problem.to_data())
-            if goal=='assertion_violation':
-                summary.update(status='not_solved',stop_reason='assertion_backend_not_implemented',
-                               model=str(point_path/'polynomial_problem.json'))
-                return finish()
             max_degree=max((int(sp.Poly(o.conclusion,*o.domain.variables).total_degree())
                             if o.domain.variables and o.conclusion!=0 else 0 for o in problem.obligations),default=0)
             minimum_order=max(1,(max_degree+1)//2)
@@ -305,29 +281,16 @@ def _run_polynomial_analysis(source, goal, out_dir=None, *, options=None, model_
                             row['status']='unknown';summary['stop_reason']='time_budget';stop=True
                         else:
                             from contractive_tool.backends.cvxpy.mosek_solver import solve
-                            from contractive_tool.backends.cvxpy.verification import reconstruct
                             solved=solve(built,time_limit=min(remaining,options.per_attempt_seconds),verbose=options.verbose)
                             (attempt_path/'solver.log').write_text(solved.pop('log'),encoding='utf-8')
                             write_json(attempt_path/'solver.json',solved)
                             row.update(status=solved['status'],raw_status=solved['raw_status'])
                             if solved.get('values') is not None:
-                                verified=reconstruct(model,solved['values'])
-                                if verified['status']!='proved' and options.repair_seconds > 0 and options.repair_max_solves > 0:
-                                    from contractive_tool.backends.cvxpy.repair import repair, RepairOptions
-                                    repaired,audit=repair(model,solved['values'],
-                                        options=RepairOptions(options.repair_seconds, options.repair_relative_gap,
-                                                              options.repair_max_solves),
-                                        deadline=started+options.total_seconds,
-                                        solver_seconds=options.per_attempt_seconds,verbose=options.verbose)
-                                    audit['initial_verification']=verified
+                                verified,audit=certify_candidate(model,problem,solved['values'],
+                                    options=options,deadline=started+options.total_seconds)
+                                if audit is not None:
                                     write_json(attempt_path/'repair.json',audit)
                                     row['repair_status']=audit['status']
-                                    if repaired['status']=='proved':
-                                        verified=repaired
-                                if verified['status']!='proved':
-                                    fallback=exact_template_check(problem,solved['values'])
-                                    fallback['gram_reconstruction']=verified
-                                    verified=fallback
                                 if verified['status']=='proved':
                                     if sp.Rational(verified['bound_exact'])<0:
                                         raise AnalysisError('Verified objective must be nonnegative')
@@ -382,6 +345,9 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
     options = options or SearchOptions()
     options.validate()
     normalized_goal = {'tail_bound':'tailbound','exponential_tail':'tailbound'}.get(goal, goal)
+    if normalized_goal == 'assertion_violation':
+        from contractive_tool.assertion_pipeline import run_assertion_analysis
+        return run_assertion_analysis(source, out_dir, options=options, model_only=model_only)
     if (not options.symbolic_workflow or model_only or normalized_goal != 'tailbound'
             or options.tail_rule == 'late_bad_exit'):
         return _run_polynomial_analysis(source, goal, out_dir, options=options, model_only=model_only)

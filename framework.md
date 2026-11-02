@@ -1,7 +1,7 @@
 # Contractive Function 框架：次数递增的多项式证书合成
 
-更新日期：2026-10-23。本文与当前实现同步；本轮证书修复优化前版本已备份为 `framework.md.bak.20261023_certificate_repair`。
-Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，不调用后端。
+更新日期：2026-11-02。本文与当前实现同步；本轮证书修复优化前版本已备份为 `framework.md.bak.20261023_certificate_repair`。
+Tail 与 assertion violation 均已接入 CVXPY/MOSEK；assertion 使用独立的 §2.2 完整一阶矩工作流。
 
 ## 1. 当前目标与默认行为
 
@@ -13,7 +13,7 @@ Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，�
 | Goal | 直接合成的多项式 | 输出 |
 | --- | --- | --- |
 | `tailbound` | 各位置的非负证书 V_l | 对全部允许整数 n 成立的 `A*c**n = A*exp(-lambda*n)` |
-| `assertion_violation` | 各普通位置的非负证书 Theta_l | 当前生成约束；未来求最终 failure 概率上界 `Theta(initial)` |
+| `assertion_violation` | 各普通位置的严格正原始多项式 eta_l | 已验证的最终 failure 概率上界 `min(1,E[eta(initial)])` |
 
 现阶段采用整数幂对应的多项式路线：将原模板中的正整数 k 合并到最终证书的次数，
 直接合成 V 或 Theta。不再枚举 k=1、2，不要求恢复低次 eta 的幂分解，不采用 L/U
@@ -46,7 +46,7 @@ Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，�
 V_l(x; a_l) = sum_(|alpha|<=D) a_(l,alpha) * x**alpha
 ```
 
-Assertion 同样直接设置未知多项式 Theta。所有系数由求解器决定，允许最高次系数为零。
+Assertion 同样直接设置未知原始多项式 eta（H=1），辅助 Theta 仅用于证明。所有系数由求解器决定，允许最高次系数为零。
 默认使用全部程序变量；有依据的变量投影须显式配置并验证义务覆盖。
 
 例如两个变量且 D=2 时：
@@ -271,46 +271,34 @@ expectation_mode；round_evidence 另保存域、源转移、结构覆盖依据�
 
 ## 5. Assertion Violation 的证明规则
 
-当前只生成首个 D/c 参数点的直接多项式和严格前不动点义务，返回
-`not_solved: assertion_backend_not_implemented`；以下概率界输出和模式选择属于后续实现。
+以 `Assertion_Violation_Markov证明版.md` §2.2 为合成规则，§1 仅辅助证明。
+不提供 q=1 的第二套模式，不含 §2.3 比较及 c>1 分支。
 
-目标保留为最终 failure 概率：
-
-```text
-Pr[exists finite t: location_t=l_f] <= Theta(initial)
-```
-
-普通位置直接合成非负多项式 Theta，边界为：
+归一化 H=1，普通位置合成一般多项式 eta，不要求整数幂分解。默认认证：
 
 ```text
-Theta_normal = 0
-Theta_failure = 1
-E[Theta_next | location,x] <= Theta_src(location,x)
+eta_l >= delta > 0
+eta_normal = delta
+eta_failure = 1
+E[eta_next] <= c * eta_l, 0<c<1
+minimize A = E[eta_after_initialization]
 ```
 
-包含正常 0 和失败 1 的分支常数，不可漏掉进入终止的分支。由非负 pre-fixed-point
-和有限步 failure 概率的递增极限得到最终上界，允许无限运行，不需要预先证明终止。
+期望包含所有普通及终端后继的原始 eta；普通转移全部覆盖，终端自环不收缩。
+辅助 Theta 的终端值为 normal=0、failure=1，不能用它替换原始矩的终端值。
+默认 delta=1/1000000 是严格正性的充分条件，存在搜索局限；未找到证书不意味着
+程序必然违规。随机初始化使用精确初始期望，不条件化于终止。
 
-原 `Theta=q_l*eta_l**k` 中，正整数幂和正缩放统一包含在直接多项式族中。默认不再
-搜索 q、低次 eta 或整数 k，也不宣称恢复 factorization。优化目标是线性的
-`minimize Theta(initial)`，输出值不再取一次 k 次幂。
+输出最终违规概率 `Pr(tau_f<infinity)<=min(1,A)`，以及初始化后时钟的晚违规界
+`Pr(n<tau_f<infinity)<=min(1,A*c**(n+1))`。入口时钟单独修正直线前缀；最终概率
+不乘 c 的前缀修正。不将晚违规界当作累计违规概率或整个程序运行时间尾界。
 
-为延续用户要求的 c 搜索，默认 `synthesis_rule=contractive_prefixed_point`：对每个普通
-源 transition group、固定 `0<c<1`，使用更强的
+Assertion 在独立 pipeline 中搜索次数和接近 1 的有理数 c 网格，按最小已验证 A
+选择结果。没有显式 k 搜索：整数幂被一般多项式次数覆盖，Jensen 的 0<k<1 不改进
+k=1 的截断界。求解、正性编码、精确重构与修复复用原有模块。
 
-```text
-E[Theta_next] <= c*Theta_src.
-```
-
-该条件蕴含原始前不动点；终止后不要求严格收缩。它是合成策略的附加限制，并不是
-violation 上界定理的必要条件，失败时必须说明搜索使用了这一限制。
-
-未来实现 assertion 后端时可增加 `synthesis_rule=prefixed_point`，直接使用系数 1 的原始条件，此时不搜索 c，
-仍执行相同的次数递增、positivity 和严格验证流程。不得在严格模式失败后未经配置
-自动切换规则。两种模式均只输出 violation 常数界，不把 c 宣称为终止时间衰减率。
-
-Assertion 的规则覆盖所有原始 ordinary transitions；若使用宏步，须证明不会越过中间
-failure 而遗漏概率。Tail 时钟规则不能自动替代 assertion 的全部前不动点义务。
+具体接口和预算策略见 [docs/assertion_violation.md](docs/assertion_violation.md)。
+第 6 节的既有二分策略描述 tailbound；assertion 使用上述独立网格和概率目标。
 
 ## 6. 次数递增、预算与结果选择
 

@@ -26,14 +26,14 @@ def test_model_only_and_source_derived_goal(tmp_path):
     assert any('disabled' in p.read_text() for p in out.rglob('encoding_plan.json'))
 
 
-def test_assertion_never_invokes_backend(tmp_path):
+def test_assertion_model_only_never_invokes_backend(tmp_path):
     out=tmp_path/'assertion'
-    process=cli('solve',PROJECT/'kelly_unbounded.pp','--goal','assertion_violation','--out-dir',out)
+    process=cli('build-model',PROJECT/'kelly_unbounded.pp','--goal','assertion_violation','--out-dir',out)
     assert process.returncode==0,process.stderr
     result=json.loads(process.stdout)
-    assert result['status']=='not_solved' and result['stop_reason']=='assertion_backend_not_implemented'
+    assert result['status']=='not_solved' and result['stop_reason']=='model_only'
     assert list(out.rglob('polynomial_problem.json')) and not list(out.rglob('solver.json'))
-    assert not list(out.rglob('conic_model.json'))
+    assert list(out.rglob('conic_model.json'))
 
 
 def test_only_source_and_target_are_required(tmp_path):

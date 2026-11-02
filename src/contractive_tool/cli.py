@@ -38,7 +38,9 @@ def _parser():
         for field in ('total_seconds','per_attempt_seconds','repair_seconds','repair_relative_gap'):
             command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field))
         command.add_argument('--c-values', nargs='+', default=None,
-                             help='explicit grid override for reproducing previous runs; default is bisection')
+                             help='explicit c grid; defaults: tail bisection, assertion near-one grid')
+        command.add_argument('--assertion-margin', default=defaults.assertion_margin,
+                             help='positive rational lower bound for raw assertion eta (H=1)')
         command.add_argument('--continue-after-success', action='store_true')
         command.add_argument('--strategy', choices=('auto','putinar','schmudgen','handelman'), default='auto')
         command.add_argument('--enabled-strategies', nargs='+', choices=('putinar','schmudgen','handelman'),
@@ -57,8 +59,10 @@ def _parser():
     strategies.add_argument('--json', action='store_true')
     evaluate = commands.add_parser('evaluate', help='evaluate an already proved uniform bound; no new solve')
     evaluate.add_argument('artifacts', type=Path)
-    evaluate.add_argument('--n', type=int, required=True)
-    verify = commands.add_parser('verify', help='independently replay a symbolic workflow without solving')
+    evaluate.add_argument('--n', type=int)
+    evaluate.add_argument('--event', choices=('eventual','late_failure','point_failure'), default='eventual')
+    evaluate.add_argument('--clock', choices=('after_initialization','program_entry'), default='after_initialization')
+    verify = commands.add_parser('verify', help='independently replay assertion or symbolic tail certificates without solving')
     verify.add_argument('artifacts', type=Path)
     return parser
 
@@ -70,15 +74,25 @@ def main(argv=None):
             from contractive_tool.positivity.registry import StrategyRegistry
             result = StrategyRegistry().snapshot()
         elif args.command == 'verify':
-            from contractive_tool.analysis.symbolic_workflow import verify_workflow
-            result = verify_workflow(args.artifacts)
+            summary = json.loads((args.artifacts/'summary.json').read_text())
+            if summary.get('goal') == 'assertion_violation':
+                from contractive_tool.assertion_pipeline import verify_assertion
+                result = verify_assertion(args.artifacts)
+            else:
+                from contractive_tool.analysis.symbolic_workflow import verify_workflow
+                result = verify_workflow(args.artifacts)
         elif args.command == 'evaluate':
-            if not 0 <= args.n <= 10000:
+            if args.n is not None and not 0 <= args.n <= 10000:
                 raise AnalysisError('n must be an integer in [0,10000] for numeric evaluation')
             summary = json.loads((args.artifacts/'summary.json').read_text())
             if summary.get('status') != 'proved' or not summary.get('selection'):
                 raise AnalysisError('Artifact has no proved uniform bound')
-            if 'symbolic_workflow' in summary:
+            if summary.get('goal') != 'assertion_violation' and args.n is None:
+                raise AnalysisError('Tail evaluation requires --n')
+            if summary.get('goal') == 'assertion_violation':
+                from contractive_tool.assertion_pipeline import evaluate_assertion
+                result = evaluate_assertion(args.artifacts, event=args.event, n=args.n, clock=args.clock)
+            elif 'symbolic_workflow' in summary:
                 from contractive_tool.analysis.symbolic_workflow import compare_candidates, verify_workflow
                 checked = verify_workflow(args.artifacts)
                 if checked['status'] != 'proved':
