@@ -49,14 +49,25 @@ class SearchOptions:
     max_decisions: int = 20000
     total_seconds: float = 300
     per_attempt_seconds: float = 30
+    repair_seconds: float = 20
+    repair_relative_gap: float = 0.05
+    repair_max_solves: int = 2
     verbose: bool = True
     family: str = 'polynomial'
     tail_rule: str = 'auto'
+    symbolic_workflow: bool = True
+    workflow_config: str | None = None
+    comparison_ns: tuple[int, ...] = (5, 20, 100)
 
     def validate(self):
         degrees = DegreePolicy(self.initial_degree,self.max_degree,self.degree_step,self.continue_after_success)
         list(degrees.degrees())
         get_family(self.family)
+        if not isinstance(self.symbolic_workflow, bool):
+            raise AnalysisError('symbolic_workflow must be Boolean')
+        if (not self.comparison_ns or any(type(n) is not int or not 0 <= n <= 10000
+                                           for n in self.comparison_ns)):
+            raise AnalysisError('Comparison rounds must be integers in [0,10000]')
         ContractionBisection(self.max_c_steps)
         cs = FixedContractionGrid(self.c_values).candidates() if self.c_values is not None else None
         if self.tail_rule not in ('auto','round_survival','late_bad_exit'):
@@ -68,6 +79,10 @@ class SearchOptions:
                    self.max_psd_dimension,self.max_decisions,self.total_seconds,self.per_attempt_seconds)
         if any(not math.isfinite(v) or v<=0 for v in budgets) or self.max_order>8:
             raise AnalysisError('Budgets must be positive and finite; max_order <= 8')
+        if (any(not math.isfinite(v) or v < 0 for v in
+                (self.repair_seconds, self.repair_relative_gap, self.repair_max_solves))
+                or not isinstance(self.repair_max_solves, int) or self.repair_max_solves > 2):
+            raise AnalysisError('Repair budgets must be nonnegative and finite; repair_max_solves <= 2')
         return degrees,cs
 
 
@@ -119,7 +134,7 @@ def selected_bound(candidate, problem, cfg):
     return bound
 
 
-def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
+def _run_polynomial_analysis(source, goal, out_dir=None, *, options=None, model_only=False, _prepared=None):
     options=options or SearchOptions()
     policy,cs=options.validate()
     family=get_family(options.family)
@@ -161,7 +176,7 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
     try:
         if cfg.failure_terminal is None:
             raise AnalysisError('Source needs assert/refute to define the target event')
-        evidence=prepare_program(cfg)
+        evidence=_prepared[1] if _prepared is not None else prepare_program(cfg)
     except AnalysisError as error:
         summary.update(status='unsupported',stop_reason='semantic_evidence_unavailable',diagnostic=str(error))
         return finish()
@@ -297,6 +312,18 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
                             row.update(status=solved['status'],raw_status=solved['raw_status'])
                             if solved.get('values') is not None:
                                 verified=reconstruct(model,solved['values'])
+                                if verified['status']!='proved' and options.repair_seconds > 0 and options.repair_max_solves > 0:
+                                    from contractive_tool.backends.cvxpy.repair import repair, RepairOptions
+                                    repaired,audit=repair(model,solved['values'],
+                                        options=RepairOptions(options.repair_seconds, options.repair_relative_gap,
+                                                              options.repair_max_solves),
+                                        deadline=started+options.total_seconds,
+                                        solver_seconds=options.per_attempt_seconds,verbose=options.verbose)
+                                    audit['initial_verification']=verified
+                                    write_json(attempt_path/'repair.json',audit)
+                                    row['repair_status']=audit['status']
+                                    if repaired['status']=='proved':
+                                        verified=repaired
                                 if verified['status']!='proved':
                                     fallback=exact_template_check(problem,solved['values'])
                                     fallback['gram_reconstruction']=verified
@@ -348,3 +375,36 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
     else:
         summary['status']='no_certificate_found'
     return finish()
+
+
+def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
+    """Boolean rounds retain the old path; symbolic rounds use the staged search."""
+    options = options or SearchOptions()
+    options.validate()
+    normalized_goal = {'tail_bound':'tailbound','exponential_tail':'tailbound'}.get(goal, goal)
+    if (not options.symbolic_workflow or model_only or normalized_goal != 'tailbound'
+            or options.tail_rule == 'late_bad_exit'):
+        return _run_polynomial_analysis(source, goal, out_dir, options=options, model_only=model_only)
+    started = time.monotonic()
+    prepared = None
+    try:
+        cfg = build_cfg(check_program(parse_file(source)))
+        if cfg.failure_terminal is None:
+            raise AnalysisError('Source needs assert/refute')
+        try:
+            evidence = prepare_program(cfg)
+        except AnalysisError:
+            from contractive_tool.analysis.random_rounds import _invariant_prover
+            evidence = prepare_program(cfg, invariant_prover=_invariant_prover)
+        prepared = (cfg, evidence)
+        try:
+            prepare_round_kernel(cfg, evidence)
+        except AnalysisError:
+            kernel = prepare_symbolic_round_kernel(cfg, evidence)
+        else:
+            return _run_polynomial_analysis(source, goal, out_dir, options=options, _prepared=prepared)
+    except AnalysisError:
+        return _run_polynomial_analysis(source, goal, out_dir, options=options, _prepared=prepared)
+    from contractive_tool.analysis.symbolic_workflow import run_symbolic_workflow
+    return run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel,
+                                 _run_polynomial_analysis, started=started)

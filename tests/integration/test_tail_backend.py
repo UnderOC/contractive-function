@@ -18,6 +18,53 @@ from contractive_tool.positivity.selector import build_plan
 PROJECT=Path(__file__).resolve().parents[2]
 
 
+def test_real_margin_repair_preserves_original_model_and_cap(mosek_available):
+    from contractive_tool.backends.cvxpy.repair import repair
+    from contractive_tool.backends.cvxpy.verification import exact_psd
+    from contractive_tool.positivity.ir import ConicModel
+    a,b,d=sp.symbols('a b d')
+    model=ConicModel(['a','b','d'],a,[b-1,d-a-1],[],
+                     [{'id':'Q','matrix':[['a','b'],['b','d']]}])
+    values={'a':.618,'b':1.,'d':1.618}
+    assert reconstruct(model,values)['status']=='solved_unverified'
+    result,audit=repair(model,values)
+    assert result['status']=='proved' and result['repair_stage']=='margin_solve'
+    sub={sp.Symbol(n):sp.Rational(v) for n,v in result['exact_values'].items()}
+    assert all(e.xreplace(sub)==0 for e in model.equalities)
+    assert exact_psd([[sub[a],sub[b]],[sub[b],sub[d]]])
+    assert sp.Rational(result['bound_exact'])<=sp.Rational(audit['objective_cap'])
+
+
+def test_real_repair_solves_inside_general_singular_face(mosek_available,monkeypatch):
+    from contractive_tool.backends.cvxpy import repair as module
+    from contractive_tool.backends.cvxpy.verification import exact_psd
+    from contractive_tool.positivity.ir import ConicModel
+    x,y,z,a,b,d=sp.symbols('x y z a b d')
+    model=ConicModel(['x','y','z','a','b','d'],a,[4*x-12*y+9*z,b-1,d-a-1],[],
+                     [{'id':'singular','matrix':[['x','y'],['y','z']]},
+                      {'id':'interior','matrix':[['a','b'],['b','d']]}])
+    values={'x':.3141592653,'y':.3141592653*2/3+1e-10,'z':.3141592653*4/9,
+            'a':.618,'b':1.,'d':1.618}
+    real_solve=module.mosek_solver.solve
+    calls=0
+    def fail_first(*args,**kwargs):
+        nonlocal calls
+        calls+=1
+        if calls==1:
+            return {'status':'numerical_issue','raw_status':None,'log':'force face fallback'}
+        return real_solve(*args,**kwargs)
+    monkeypatch.setattr(module.mosek_solver,'solve',fail_first)
+    result,audit=module.repair(model,values)
+    assert result['status']=='proved' and result['repair_stage']=='face_solve'
+    assert calls==2 and audit['solver_calls']==2
+    sub={sp.Symbol(n):sp.Rational(v) for n,v in result['exact_values'].items()}
+    assert all(e.xreplace(sub)==0 for e in model.equalities)
+    assert exact_psd([[sub[x],sub[y]],[sub[y],sub[z]]])
+    assert sub[x]*sub[z]-sub[y]**2==0
+    assert exact_psd([[sub[a],sub[b]],[sub[b],sub[d]]])
+    assert sp.Rational(result['bound_exact'])<=sp.Rational(audit['objective_cap'])
+
+
 @pytest.fixture(scope="module")
 def mosek_available():
     pytest.importorskip("cvxpy")

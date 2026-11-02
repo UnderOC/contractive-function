@@ -1,6 +1,6 @@
 # Contractive Function 框架：次数递增的多项式证书合成
 
-更新日期：2026-10-23。本文与当前实现同步；本轮 unknown 搜索优化前版本已备份为 `framework.md.bak.20261023_unknown_search`。
+更新日期：2026-10-23。本文与当前实现同步；本轮证书修复优化前版本已备份为 `framework.md.bak.20261023_certificate_repair`。
 Tail 后端已接入 CVXPY/MOSEK；assertion violation 当前仅生成约束，不调用后端。
 
 ## 1. 当前目标与默认行为
@@ -512,6 +512,33 @@ CVXPY 1.9.3、NumPy 2.4.6、SciPy 1.17.1、MOSEK 11.2.6。Model-only 不求解�
 4. Tail 的 c∈(0,1) 及停止论证，或 assertion 的两个边界和最终 failure 概率论证。
 5. 从最终 V/Theta 系数直接计算 A/violation bound，验证选择比较、lambda 表达与求值。
 
+### 9.1 有预算的证书修复
+
+数值 optimal 不等于精确可验证；低秩 Gram 块附近的有理舍入与等式修正可能破坏 PSD。
+`backends/cvxpy/repair.py` 在原始有理重构失败后执行以下通用流程，不改变程序、D、c
+或原始证明义务，也不依赖样例名称：
+
+1. 保留原模型，限制 `A <= A_num + max(1e-4, abs(A_num)*repair_relative_gap)`，
+   默认相对余量为 0.05。对 Gram 块增加 `Q_j >= t I`，最大化 `0 <= t <= 1`，
+   再进行有理重构；若存在结构性奇异块，最优 t 可能为零。
+2. 若仍失败，从原数值 Gram 块猜测秩，通过主元列恢复有理零空间 N，加入线性
+   等式 `Q N = 0`，先直接重构。数值阈值只生成候选等式，不作为接受证书的容差。
+3. 必要时在猜测的低秩面上重新求解。令 P 为 `ker(N^T)` 的精确正交投影矩阵，
+   用 `Q >= t P` 寻找相对内部的余量；原来的 PSD 与全部系数等式仍保留。
+4. 所有候选均须满足原模型全部精确有理等式、标量非负与 PSD 检查，并检查恢复后的
+   精确目标不超出修复上限。输出使用最终精确 A，不能沿用更小的旧数值目标。
+5. 修复失败或预算耗尽仍为 unknown，不作为原问题不可行的证据。保留原有原域精确
+   验证备选路径；仍未证明时交回外层 c 搜索。
+
+默认每个数值候选 `repair_seconds=20`、`repair_max_solves=2`：一次余量求解与最多
+一次低秩面求解，至多两组零空间猜测。修复使用全局剩余时间，每次 MOSEK 调用也受
+原有 `per_attempt_seconds` 限制；符号处理与精确重构在阶段/循环边界检查时间，
+不是整个 Python 进程的硬抢占时限。设置 `--repair-seconds 0` 或
+`--repair-max-solves 0` 可关闭；`--repair-relative-gap` 控制目标余量。
+
+`repair.json` 保存初始验证、Gram 数值谱、候选零空间、每次求解与重构、目标上限和
+耗时。诊断中猜测的结构即使错误，也不能绕过原模型的精确验证。
+
 当前不验证“V 是 eta 的整数幂”，因为那不是新模板的要求。输出系数就是最终证书
 的系数。任何修改都须重新验证全部义务；旧时间层的倒序修正不能用于位置循环证书。
 
@@ -523,7 +550,7 @@ CVXPY 1.9.3、NumPy 2.4.6、SciPy 1.17.1、MOSEK 11.2.6。Model-only 不求解�
 ```text
 source / pCFG / domain_evidence / clock_evidence
 polynomial_template / obligations / encoding_plan / conic_model
-solver.json / solver.log / certificate.json / verification.json
+solver.json / solver.log / repair.json (if attempted) / certificate.json / verification.json
 search_history / stop_reason / selected_bound / other_proved_candidates
 optional evaluations / manifest with versions, assumptions and hashes
 ```
@@ -646,7 +673,29 @@ RCD_example.pp 是符号实数域正例：源码位置标注
 明确的 round_survival / late_bad_exit 和独立的 eventual assertion violation 规则。终止性未知的处理
 依靠非负停止/前不动点论证，不等于任意输入一定有有限次数的证书。
 
-非整数 k 保留独立讨论和实现位置，其数学条件及求解算法尚未确定。未知 eta 的
-非整数幂不能直接假装为多项式，也不默认恢复此前 L/U 包络或特殊 scalar 路线。
+非整数 k 已通过 Cauchy 状态范数约束和有限分布分数矩认证接入符号轮级路径，见下节。
+未知 eta 的非整数幂不直接作为多项式传给原期望引擎。
 
 理论文档暂不改动；新实现的数学事件语义与能力边界以本文及实际产物为准。
+
+## 14. 符号轮级的直接多项式与 Cauchy 组合搜索
+
+`run_analysis` 在布尔宏步不适用且符号轮级编译成功时进入组合调度。默认先用一半
+总预算执行原多项式搜索，保留所有已验证候选。每个比较轮数按完整 A*c^n 选择种子，
+另保留原最小 c 候选；固定这些实际合成的 eta 求 B 并搜索 k，再参数化其单项式
+系数进行 t -> eta -> k 搜索。第一阶段无证书则直接使用逐次升阶模板联合搜索。
+布尔宏步、显式 late_bad_exit 和只建模入口继续原流程。
+
+固定 eta 的状态义务为 `sum(q_j^2)<=B*eta^2`；未知 eta 时固定 t，用矩阵 SOS
+建立 `sum(q_j^2)<=t^2*eta^2` 并最小化初态值。两者均先验证状态证明，再搜索 k。
+分数矩和幂使用有理包围，得到 C>=eta(x0)^k、R>=Gamma(k)*B^(k/2)、R<1。
+全部候选证明同一事件 `Pr(K>n)<=min(1,C*R^n)`，K 为完整循环轮数。
+
+原多项式 V 作为 eta=V、k=1 进入组合候选池；次数不解释为指数。另在 Cauchy
+指数网格补齐整数点，分别比较直接多项式、整数、有理数和严格非整数候选。
+有理数池包含整数池。默认报告 n=5、20、100 的最好已验证界，保留所有有效候选；
+不宣称有限预算搜索得到全局最优。
+
+每个阶段的失败不覆盖前面已经证明的界。源码超出当前 Cauchy 随机展开范围时，记录
+原因并返回原方法的结果。`verify` 从源码重建两类证书并检查比较；`evaluate` 按指定
+n 重选。实现、预算、配置和边界详见 [docs/symbolic_workflow.md](docs/symbolic_workflow.md)。

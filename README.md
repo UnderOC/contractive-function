@@ -15,7 +15,15 @@
 ```
 
 当前版本为 `contractive-tool==0.4.0`，全部使用 Python。Assertion violation 暂时
-只生成义务；非整数 k 保留扩展位置。求解不读取 `generated/` 中的历史产物。
+只生成义务；符号轮级尾界已接入 Cauchy 有理数 k 搜索。求解不读取 `generated/` 中的历史产物。
+
+默认 `solve` 的符号轮级路径先运行直接多项式搜索；有证书时，固定实际合成的 eta
+执行 `B -> k`，再参数化其多项式支撑执行 `t -> eta -> k`；无证书时直接联合搜索。
+布尔宏步保持原流程。按 `n=5、20、100` 分别比较全部已验证候选的完整尾界，
+输出最佳整数与有理数指数结果。可用 `--no-symbolic-workflow` 单独运行旧方法。
+入口仍使用默认 `--family polynomial`；旧 `fractional_power` 占位不是组合流程入口。
+详见 [符号完整流程](docs/symbolic_workflow.md)、[Cauchy 独立 API](docs/cauchy_search.md)
+及 [笔记样例实测比较](generated/symbolic_workflow_20261031/analyses/tailbound/workflow/comparison.md)。
 
 ## 阶段 2/3 实现日志（2026-09-01）
 
@@ -734,3 +742,41 @@ Q-learning 在 D=2、c=31/32 精确验证失败后，继续探测 63/64 并成�
 - [Kelly 结果](generated/unknown_search_20261023/kelly_double_bound/summary.json) / [独立检查](generated/unknown_search_20261023/kelly_double_bound.independent_check.json)
 
 框架已同步，修改前备份为 `framework.md.bak.20261023_unknown_search`。
+
+## 2026-10-23：精确证书修复与 Q-learning 原失败参数恢复
+
+按要求先将修改前的完整版本推送至 `origin/main`，提交为 `6ae8d92`，随后实现
+`backends/cvxpy/repair.py`。本轮新增修复流程为：原始有理重构失败 → 带目标余量的
+PSD margin 求解 → 有理零空间恢复 → 必要时在低秩面内重新求解 → 原模型全部精确验证。
+没有放宽 PSD 或系数等式的验证容差，未修改输入样例，也不对样例名称特殊处理。
+
+默认每个候选最多两次额外求解，修复软预算 20 秒，使用全局剩余时间；A 的允许增量
+为 `max(1e-4,0.05*abs(A_num))`。最终尾界使用修复后的精确 A。可设置
+`--repair-seconds`、`--repair-relative-gap`、`--repair-max-solves`，时间或求解次数
+为零时关闭修复。失败仍为 unknown，不把修复模型的不可行当作原模型不可行。
+
+在 README 的 conda 环境中调用真实 MOSEK：
+
+| 测试 | 结果 | D | c | A（显示近似） | 墙钟 |
+|---|---|---:|---|---:|---:|
+| Q-learning：复测原失败参数 | proved | 2 | 31/32 | 50.51089999 | 16.04 秒 |
+| Q-learning：默认自动搜索 | proved | 2 | 491/512 | 87.53753623 | 139.29 秒 |
+| 双边 Kelly：默认自动搜索 | proved | 1 | 505/512 | 3.20472441 | 25.97 秒 |
+
+输出均为 `Pr(K>n) <= min(1,A*c^n)`，K 为完整循环轮数。两项默认搜索没有指定
+D、c、strategy 或参考模板系数。原来的 Q-learning D=2、c=31/32 现在可自动修复：
+数值最小目标约 48.10561905，修复后精确 A 约 50.51089999。自动搜索进一步在
+c=123/128 和 491/512 得到证书；最后 981/1024 无数值候选，仍标记 unknown 并保留已有证明。
+更小的 c 伴随更大的 A，不代表所有 n 上都更优或达到全局最优。
+
+完整回归 **127 passed in 20.75s**，包含真实 MOSEK 的余量修复和低秩面求解测试。
+三个最终证书另经独立检查：所有有理系数等式、非负标量、全部主子式（PSD）、
+目标、模板及产物哈希均通过。项目内部符号阶段仍使用软时间检查，不宣称硬抢占时限。
+
+- [完整报告、命令与精确参数](generated/certificate_repair_20261023/TEST_RESULTS.md)
+- [全量回归日志](generated/certificate_repair_20261023/regression.log)
+- [原失败参数的修复日志](generated/certificate_repair_20261023/qlearning_fixed/analyses/tailbound/degrees/2/c-001/attempts/002/repair.json)
+- [Q-learning 自动结果](generated/certificate_repair_20261023/qlearning_auto/summary.json)
+- [Kelly 自动结果](generated/certificate_repair_20261023/kelly_auto/summary.json)
+
+框架已同步，修改前备份为 `framework.md.bak.20261023_certificate_repair`。

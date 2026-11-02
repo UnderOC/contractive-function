@@ -178,7 +178,10 @@ class ProgramEvidence:
                 'strict_invariant_policy':'inductive_closed_overapproximation', 'proofs':self.proofs}
 
 
-def prepare_program(cfg):
+def prepare_program(cfg, *, invariant_prover=None):
+    # Optional stronger exact prover for new analysis families. Existing callers
+    # retain the original Farkas-only invariant-preservation rule.
+    invariant_prover = invariant_prover or require_nonnegative
     variables = tuple(sp.Symbol(name) for name in cfg.symbols.program_variables)
     terminals = {cfg.normal_terminal, cfg.failure_terminal}
     values, trace, seen = {}, [], set()
@@ -298,7 +301,7 @@ def prepare_program(cfg):
                             checks = []
                             try:
                                 for h in requirements:
-                                    checks.append(require_nonnegative(
+                                    checks.append(invariant_prover(
                                         support_domain, h.subs(update,simultaneous=True),
                                         f'invariant at {branch.destination}'))
                             except AnalysisError:

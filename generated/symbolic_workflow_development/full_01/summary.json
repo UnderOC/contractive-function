@@ -1,0 +1,3125 @@
+{
+  "analysis_workflow": "direct_polynomial_then_cauchy_symbolic",
+  "attempt_count": 12,
+  "boolean_round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+  "certificate_family": "polynomial",
+  "contraction_searches": [
+    {
+      "best_verified_c": "27/64",
+      "degree": 1,
+      "interval": [
+        "13/32",
+        "27/64"
+      ],
+      "lower_endpoint_is_nonexistence_proof": false,
+      "max_steps": 6,
+      "method": "bisection",
+      "steps": [
+        {
+          "c": "1/2",
+          "interval_after": [
+            "0",
+            "1/2"
+          ],
+          "interval_before": [
+            "0",
+            "1"
+          ],
+          "iteration": 1,
+          "proposal": "interval_bisection",
+          "status": "proved"
+        },
+        {
+          "c": "1/4",
+          "interval_after": [
+            "1/4",
+            "1/2"
+          ],
+          "interval_before": [
+            "0",
+            "1/2"
+          ],
+          "iteration": 2,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "3/8",
+          "interval_after": [
+            "3/8",
+            "1/2"
+          ],
+          "interval_before": [
+            "1/4",
+            "1/2"
+          ],
+          "iteration": 3,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "7/16",
+          "interval_after": [
+            "3/8",
+            "7/16"
+          ],
+          "interval_before": [
+            "3/8",
+            "1/2"
+          ],
+          "iteration": 4,
+          "proposal": "interval_bisection",
+          "status": "proved"
+        },
+        {
+          "c": "13/32",
+          "interval_after": [
+            "13/32",
+            "7/16"
+          ],
+          "interval_before": [
+            "3/8",
+            "7/16"
+          ],
+          "iteration": 5,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "27/64",
+          "interval_after": [
+            "13/32",
+            "27/64"
+          ],
+          "interval_before": [
+            "13/32",
+            "7/16"
+          ],
+          "iteration": 6,
+          "proposal": "interval_bisection",
+          "status": "proved"
+        }
+      ],
+      "stop_reason": "max_c_steps",
+      "unknown_policy": "preserve_interval_probe_upper_skip_tested",
+      "upper_endpoint_verified": true
+    }
+  ],
+  "degrees_attempted": [
+    1
+  ],
+  "elapsed_seconds": 10.368029084987938,
+  "expectation_mode": "raw_round_moments",
+  "goal": "tailbound",
+  "out_dir": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/symbolic_workflow_development/full_01",
+  "parameter_points": 6,
+  "pareto_candidates": [
+    {
+      "A_exact": "11929/6929",
+      "A_numeric": 1.7216048491845866,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "1/2",
+      "certificate": "analyses/tailbound/degrees/1/c-001/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 3 + 5*K + 2",
+        "prefix_steps": 3,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "raw_round_moments",
+      "exponential_expression": "(11929/6929) * exp(-(-log(1/2))*n)",
+      "expression": "(11929/6929) * (1/2)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(1/2)",
+      "lambda_numeric": 0.6931471805599453,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (11929/6929) * (1/2)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "36593/20193",
+      "A_numeric": 1.8121626306145695,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "7/16",
+      "certificate": "analyses/tailbound/degrees/1/c-004/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 3 + 5*K + 2",
+        "prefix_steps": 3,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "raw_round_moments",
+      "exponential_expression": "(36593/20193) * exp(-(-log(7/16))*n)",
+      "expression": "(36593/20193) * (7/16)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(7/16)",
+      "lambda_numeric": 0.8266785731844679,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (36593/20193) * (7/16)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "13354953/7278601",
+      "A_numeric": 1.8348241646986831,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "27/64",
+      "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 3 + 5*K + 2",
+        "prefix_steps": 3,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "raw_round_moments",
+      "exponential_expression": "(13354953/7278601) * exp(-(-log(27/64))*n)",
+      "expression": "(13354953/7278601) * (27/64)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(27/64)",
+      "lambda_numeric": 0.8630462173553428,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (13354953/7278601) * (27/64)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "polynomial_selection": {
+    "A_exact": "13354953/7278601",
+    "A_numeric": 1.8348241646986831,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "27/64",
+    "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 3 + 5*K + 2",
+      "prefix_steps": 3,
+      "round_step_counts": [
+        5
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 1,
+    "event": "K > n",
+    "expectation_mode": "raw_round_moments",
+    "exponential_expression": "(13354953/7278601) * exp(-(-log(27/64))*n)",
+    "expression": "(13354953/7278601) * (27/64)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(27/64)",
+    "lambda_numeric": 0.8630462173553428,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (13354953/7278601) * (27/64)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "proved_candidates": [
+    {
+      "A_exact": "11929/6929",
+      "A_numeric": 1.7216048491845866,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "1/2",
+      "certificate": "analyses/tailbound/degrees/1/c-001/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 3 + 5*K + 2",
+        "prefix_steps": 3,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "raw_round_moments",
+      "exponential_expression": "(11929/6929) * exp(-(-log(1/2))*n)",
+      "expression": "(11929/6929) * (1/2)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(1/2)",
+      "lambda_numeric": 0.6931471805599453,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (11929/6929) * (1/2)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "36593/20193",
+      "A_numeric": 1.8121626306145695,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "7/16",
+      "certificate": "analyses/tailbound/degrees/1/c-004/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 3 + 5*K + 2",
+        "prefix_steps": 3,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "raw_round_moments",
+      "exponential_expression": "(36593/20193) * exp(-(-log(7/16))*n)",
+      "expression": "(36593/20193) * (7/16)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(7/16)",
+      "lambda_numeric": 0.8266785731844679,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (36593/20193) * (7/16)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "13354953/7278601",
+      "A_numeric": 1.8348241646986831,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "27/64",
+      "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 3 + 5*K + 2",
+        "prefix_steps": 3,
+        "round_step_counts": [
+          5
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 1,
+      "event": "K > n",
+      "expectation_mode": "raw_round_moments",
+      "exponential_expression": "(13354953/7278601) * exp(-(-log(27/64))*n)",
+      "expression": "(13354953/7278601) * (27/64)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(27/64)",
+      "lambda_numeric": 0.8630462173553428,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (13354953/7278601) * (27/64)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "selection": {
+    "A_exact": "1340636340171/500000000000",
+    "c": "8712388395889571671029873/25000000000000000000000000",
+    "decay_upper": "8712388395889571671029873/25000000000000000000000000",
+    "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+    "event": "K > n",
+    "expression": "min(1, (1340636340171/500000000000)*(8712388395889571671029873/25000000000000000000000000)**n)",
+    "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:11",
+    "k": "13/8",
+    "method": "cauchy_fixed",
+    "prefactor_upper": "1340636340171/500000000000",
+    "reference": {
+      "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+      "candidate": 11
+    },
+    "selection_n": 5,
+    "selection_policy": "best at the first comparison n; evaluate reselects for each n",
+    "time_unit": "completed_loop_iterations",
+    "upper_bound_exact": "67297220438688215070738309514690514231614137347483280048828958798647717002242420127162017069225743845882914544814038521397734915935101403/4882812500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "upper_bound_numeric": 0.013782470745843347
+  },
+  "status": "proved",
+  "stop_reason": "first_successful_degree",
+  "symbolic_workflow": {
+    "candidates": [
+      {
+        "decay_upper": "1/2",
+        "eta": "5000*x/6929 + 1050*y/6929 + 1929/6929",
+        "event": "K > n",
+        "expression": "min(1, (11929/6929)*(1/2)**n)",
+        "id": "direct:0",
+        "k": "1",
+        "method": "direct_polynomial",
+        "prefactor_upper": "11929/6929",
+        "reference": {
+          "certificate": "analyses/tailbound/degrees/1/c-001/attempts/002/certificate.json"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "7/16",
+        "eta": "16400*x/20193 + 15775*y/80772 + 3793/20193",
+        "event": "K > n",
+        "expression": "min(1, (36593/20193)*(7/16)**n)",
+        "id": "direct:1",
+        "k": "1",
+        "method": "direct_polynomial",
+        "prefactor_upper": "36593/20193",
+        "reference": {
+          "certificate": "analyses/tailbound/degrees/1/c-004/attempts/002/certificate.json"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "27/64",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (13354953/7278601)*(27/64)**n)",
+        "id": "direct:2",
+        "k": "1",
+        "method": "direct_polynomial",
+        "prefactor_upper": "13354953/7278601",
+        "reference": {
+          "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "10154448649607076663939531/12500000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1163854292799/1000000000000)*(10154448649607076663939531/12500000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:0",
+        "k": "1/4",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1163854292799/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 0
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9170628555890395759516661/12500000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (125559020537/100000000000)*(9170628555890395759516661/12500000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:1",
+        "k": "3/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "125559020537/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 1
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "33192026437336812894949227/50000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (677278407433/500000000000)*(33192026437336812894949227/50000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:2",
+        "k": "1/2",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "677278407433/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 2
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "12043729151650408459391979/20000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (365331012629/250000000000)*(12043729151650408459391979/20000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:3",
+        "k": "5/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "365331012629/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 3
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "27402849012829763451008797/50000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1576506763821/1000000000000)*(27402849012829763451008797/50000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:4",
+        "k": "3/4",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1576506763821/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 4
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2003702227925148846716481/4000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1700768269363/1000000000000)*(2003702227925148846716481/4000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:5",
+        "k": "7/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1700768269363/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 5
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9207348934235647124297/20000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1834824164699/1000000000000)*(9207348934235647124297/20000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:6",
+        "k": "1",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1834824164699/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 6
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "42605880665234109288972141/100000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1979446451353/1000000000000)*(42605880665234109288972141/100000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:7",
+        "k": "9/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1979446451353/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 7
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "155381939517871102621221/390625000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (266933497577/125000000000)*(155381939517871102621221/390625000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:8",
+        "k": "5/4",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "266933497577/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 8
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "15016305557842630477731/40000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (575946812443/250000000000)*(15016305557842630477731/40000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:9",
+        "k": "11/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "575946812443/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 9
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "35894252158819080895882441/100000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (2485373576373/1000000000000)*(35894252158819080895882441/100000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:10",
+        "k": "3/2",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "2485373576373/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 10
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "8712388395889571671029873/25000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1340636340171/500000000000)*(8712388395889571671029873/25000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:11",
+        "k": "13/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1340636340171/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 11
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "430387647244101763484499/1250000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (289261270607/100000000000)*(430387647244101763484499/1250000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:12",
+        "k": "7/4",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "289261270607/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 12
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "3467747905426049587214931/10000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (3120610719179/1000000000000)*(3467747905426049587214931/10000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:13",
+        "k": "15/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "3120610719179/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 13
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "178220994877/500000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (3366579715363/1000000000000)*(178220994877/500000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:14",
+        "k": "2",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "3366579715363/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 14
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9351290711730378433874357/25000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (3631936181669/1000000000000)*(9351290711730378433874357/25000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:15",
+        "k": "17/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "3631936181669/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 15
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2503501474686313488034943/6250000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (3918208253773/1000000000000)*(2503501474686313488034943/6250000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:16",
+        "k": "9/4",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "3918208253773/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 16
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "10929417035059600675872579/25000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (2113522258103/500000000000)*(10929417035059600675872579/25000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:17",
+        "k": "19/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "2113522258103/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 17
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "48540570305051930876630811/100000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (570027937029/125000000000)*(48540570305051930876630811/100000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:18",
+        "k": "5/2",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "570027937029/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 18
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "3419379456952061618703/6250000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (4919663906037/1000000000000)*(3419379456952061618703/6250000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:19",
+        "k": "21/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "4919663906037/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 19
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "624527648114308722980163/1000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (5307435692211/1000000000000)*(624527648114308722980163/1000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:20",
+        "k": "11/4",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "5307435692211/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 20
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "36022099556011253480134141/50000000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (5725771956167/1000000000000)*(36022099556011253480134141/50000000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:21",
+        "k": "23/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "5725771956167/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 21
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "261931724925778420390521/312500000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (1544270453533/250000000000)*(261931724925778420390521/312500000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:22",
+        "k": "3",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "1544270453533/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 22
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "1227222306255984840631883/1250000000000000000000000",
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "event": "K > n",
+        "expression": "min(1, (666396427077/100000000000)*(1227222306255984840631883/1250000000000000000000000)**n)",
+        "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:23",
+        "k": "25/8",
+        "method": "cauchy_fixed",
+        "prefactor_upper": "666396427077/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+          "candidate": 23
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "20308897359354912283756739/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (1176766647273/1000000000000)*(20308897359354912283756739/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:0",
+        "k": "1/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1176766647273/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 0
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "18341257193261592438045917/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (159567903569/125000000000)*(18341257193261592438045917/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:1",
+        "k": "3/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "159567903569/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 1
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "33192026633912188959536279/50000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (692389871067/500000000000)*(33192026633912188959536279/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:2",
+        "k": "1/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "692389871067/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 2
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "15054661551025708893733969/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (751096747581/500000000000)*(15054661551025708893733969/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:3",
+        "k": "5/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "751096747581/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 3
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "6850712314071260664426157/12500000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (814781307181/500000000000)*(6850712314071260664426157/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:4",
+        "k": "3/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "814781307181/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 4
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "12523139054314372858032477/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (1767731202857/1000000000000)*(12523139054314372858032477/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:5",
+        "k": "7/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1767731202857/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 5
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "4603674521642761372709/10000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (119850933389/62500000000)*(4603674521642761372709/10000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:6",
+        "k": "1",
+        "method": "cauchy_joint",
+        "prefactor_upper": "119850933389/62500000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 6
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5325735154127166302579603/12500000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (1040103560433/500000000000)*(5325735154127166302579603/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:7",
+        "k": "9/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1040103560433/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 7
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "62152776727503911423793/156250000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (2256585296907/1000000000000)*(62152776727503911423793/156250000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:8",
+        "k": "5/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2256585296907/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 8
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9385191126510029168298343/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (1223959179627/500000000000)*(9385191126510029168298343/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:9",
+        "k": "11/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1223959179627/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 9
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "8973563199124541505689253/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (2655474314127/1000000000000)*(8973563199124541505689253/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:10",
+        "k": "3/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2655474314127/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 10
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "8712388563581242851783813/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (2880628680417/1000000000000)*(8712388563581242851783813/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:11",
+        "k": "13/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2880628680417/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 11
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "6886202498643965053137713/20000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (1562436802777/500000000000)*(6886202498643965053137713/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:12",
+        "k": "7/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1562436802777/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 12
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "34677479824478528387965353/100000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (847456938573/250000000000)*(34677479824478528387965353/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:13",
+        "k": "15/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "847456938573/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 13
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "178220999099/500000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (3677247035959/1000000000000)*(178220999099/500000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:14",
+        "k": "2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3677247035959/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 14
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "187025818942724314471919/500000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (3191228993/800000000)*(187025818942724314471919/500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:15",
+        "k": "17/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3191228993/800000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 15
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2503501541396331669115349/6250000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (4327261665699/1000000000000)*(2503501541396331669115349/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:16",
+        "k": "9/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "4327261665699/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 16
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "10929417342492701500732247/25000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (2347082401733/500000000000)*(10929417342492701500732247/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:17",
+        "k": "19/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2347082401733/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 17
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "6067571467804894235889351/12500000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (5092177202217/1000000000000)*(6067571467804894235889351/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:18",
+        "k": "5/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "5092177202217/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 18
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5471007301256657734099981/10000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (5523936577521/1000000000000)*(5471007301256657734099981/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:19",
+        "k": "21/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "5523936577521/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 19
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "624527668454583503222739/1000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (5992304293571/1000000000000)*(624527668454583503222739/1000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:20",
+        "k": "11/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "5992304293571/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 20
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9005525195699887650295247/12500000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (1625096081519/250000000000)*(9005525195699887650295247/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:21",
+        "k": "23/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1625096081519/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 21
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "4190907747759260151178513/5000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (881442979123/125000000000)*(4190907747759260151178513/5000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:22",
+        "k": "3",
+        "method": "cauchy_joint",
+        "prefactor_upper": "881442979123/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 22
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "98177788135472756975209443/100000000000000000000000000",
+        "eta": "312302*x/341649 + 21375094093750000*y/70499443374416529 + 384469681250000/4300020168118389",
+        "event": "K > n",
+        "expression": "min(1, (7649435469381/1000000000000)*(98177788135472756975209443/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:23",
+        "k": "25/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "7649435469381/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 23
+        },
+        "t": "42216229/100000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "4093146893496995233458601/5000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1173667378903/1000000000000)*(4093146893496995233458601/5000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:24",
+        "k": "1/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1173667378903/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 24
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "3710825925591495049232203/5000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (635751736647/500000000000)*(3710825925591495049232203/5000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:25",
+        "k": "3/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "635751736647/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 25
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "4213332798461860675613059/6250000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1377495116299/1000000000000)*(4213332798461860675613059/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:26",
+        "k": "1/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1377495116299/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 26
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "61387997072948755519051373/100000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (298464429753/200000000000)*(61387997072948755519051373/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:27",
+        "k": "5/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "298464429753/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 27
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5608525366778014523934171/10000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1616721082597/1000000000000)*(5608525366778014523934171/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:28",
+        "k": "3/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1616721082597/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 28
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "51459630160034855397705003/100000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1751489824819/1000000000000)*(51459630160034855397705003/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:29",
+        "k": "7/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1751489824819/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 29
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "47475393504495501593872123/100000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1897492795427/1000000000000)*(47475393504495501593872123/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:30",
+        "k": "1",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1897492795427/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 30
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "8821328695533524060666801/20000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (513916617967/250000000000)*(8821328695533524060666801/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:31",
+        "k": "9/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "513916617967/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 31
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "8073753779168788049703/19531250000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1113512697847/500000000000)*(8073753779168788049703/19531250000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:32",
+        "k": "5/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1113512697847/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 32
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "39163235104524086692693603/100000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1206334339967/500000000000)*(39163235104524086692693603/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:33",
+        "k": "11/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1206334339967/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 33
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "18794936545714598211662769/50000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (2613787058913/1000000000000)*(18794936545714598211662769/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:34",
+        "k": "3/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2613787058913/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 34
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9159118412998825362219777/25000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (2831670525737/1000000000000)*(9159118412998825362219777/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:35",
+        "k": "13/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2831670525737/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 35
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "7267193470561724485973781/20000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1533858303221/500000000000)*(7267193470561724485973781/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:36",
+        "k": "7/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1533858303221/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 36
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9184276802150618334478119/25000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (207714957741/62500000000)*(9184276802150618334478119/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:37",
+        "k": "15/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "207714957741/62500000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 37
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "189533855487/500000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (3600478908697/1000000000000)*(189533855487/500000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:38",
+        "k": "2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3600478908697/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 38
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "19966409932033669761157413/50000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (390061232017/100000000000)*(19966409932033669761157413/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:39",
+        "k": "17/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "390061232017/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 39
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5365951862076441497611223/12500000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (2112882321781/500000000000)*(5365951862076441497611223/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:40",
+        "k": "9/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2112882321781/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 40
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "117580802136221060245943/250000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (4578021437927/1000000000000)*(117580802136221060245943/250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:41",
+        "k": "19/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "4578021437927/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 41
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "26211072739388702672313947/50000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (2479821056533/500000000000)*(26211072739388702672313947/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:42",
+        "k": "5/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2479821056533/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 42
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "741408748721970340311681/1250000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (5373074421609/1000000000000)*(741408748721970340311681/1250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:43",
+        "k": "21/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "5373074421609/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 43
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "3398385032520689702704851/5000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (2910485079567/500000000000)*(3398385032520689702704851/5000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:44",
+        "k": "11/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2910485079567/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 44
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "614908437747000824662081/781250000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (1261240434611/200000000000)*(614908437747000824662081/781250000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:45",
+        "k": "23/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1261240434611/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 45
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9192422590982900208159857/10000000000000000000000000",
+        "eta": "160933465*x/180168822 + 1999917520000000*y/6608609247306077 + 374778796000000000/3375816272800886871",
+        "event": "K > n",
+        "expression": "min(1, (3415941394669/500000000000)*(9192422590982900208159857/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:46",
+        "k": "3",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3415941394669/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 46
+        },
+        "t": "1393135557/3200000000",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "10141421010606349605594103/12500000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (588560643301/500000000000)*(10141421010606349605594103/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:47",
+        "k": "1/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "588560643301/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 47
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "366119441816972974577631/500000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1277120335163/1000000000000)*(366119441816972974577631/500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:48",
+        "k": "3/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1277120335163/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 48
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "66213827441113320615734043/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1385614523371/1000000000000)*(66213827441113320615734043/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:49",
+        "k": "1/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1385614523371/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 49
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "60025687946129800910113189/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (187915691509/125000000000)*(60025687946129800910113189/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:50",
+        "k": "5/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "187915691509/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 50
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5459502979908798401900357/10000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (326207270097/200000000000)*(5459502979908798401900357/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:51",
+        "k": "3/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "326207270097/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 51
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2493399225970099948122657/5000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1769596484493/1000000000000)*(2493399225970099948122657/5000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:52",
+        "k": "7/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1769596484493/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 52
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2290047388043541/5000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1919927607377/1000000000000)*(2290047388043541/5000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:53",
+        "k": "1",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1919927607377/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 53
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "10590114267250375354169303/25000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (2083029690593/1000000000000)*(10590114267250375354169303/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:54",
+        "k": "9/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2083029690593/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 54
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "154387758296903946615801/390625000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1129993827689/500000000000)*(154387758296903946615801/390625000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:55",
+        "k": "5/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1129993827689/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 55
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "37276631553418020739397709/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (122598929471/50000000000)*(37276631553418020739397709/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:56",
+        "k": "11/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "122598929471/50000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 56
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "17809416948468521405373009/50000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1330139788301/500000000000)*(17809416948468521405373009/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:57",
+        "k": "3/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1330139788301/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 57
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "1727998032781845306861291/5000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1443138095949/500000000000)*(1727998032781845306861291/5000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:58",
+        "k": "13/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1443138095949/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 58
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "6824597348492521681359683/20000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (313147171793/100000000000)*(6824597348492521681359683/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:59",
+        "k": "7/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "313147171793/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 59
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "34345196295658294741794441/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (679499428899/200000000000)*(34345196295658294741794441/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:60",
+        "k": "15/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "679499428899/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 60
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "441/1250",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (3686122017567/1000000000000)*(441/1250)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:61",
+        "k": "2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3686122017567/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 61
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "36999214094685893604030279/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1999633104977/500000000000)*(36999214094685893604030279/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:62",
+        "k": "17/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1999633104977/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 62
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2474742594362117495721117/6250000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (433901269189/100000000000)*(2474742594362117495721117/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:63",
+        "k": "9/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "433901269189/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 63
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "134961664175764281574097/312500000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (1176905346631/250000000000)*(134961664175764281574097/312500000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:64",
+        "k": "19/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1176905346631/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 64
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "149754383169809778256183/312500000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (2553772101229/500000000000)*(149754383169809778256183/312500000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:65",
+        "k": "5/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2553772101229/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 65
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5397754890534541424102341/10000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (5541441343339/1000000000000)*(5397754890534541424102341/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:66",
+        "k": "21/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "5541441343339/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 66
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "192428237585828923146549/312500000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (6012199002973/1000000000000)*(192428237585828923146549/312500000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:67",
+        "k": "11/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "6012199002973/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 67
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "70988395654583120812163527/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (6522948563699/1000000000000)*(70988395654583120812163527/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:68",
+        "k": "23/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "6522948563699/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 68
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "1031710071084725781/1250000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (3538543712843/500000000000)*(1031710071084725781/1250000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:69",
+        "k": "3",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3538543712843/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 69
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "96614883712672182707305977/100000000000000000000000000",
+        "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+        "event": "K > n",
+        "expression": "min(1, (3839150802869/500000000000)*(96614883712672182707305977/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:70",
+        "k": "25/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3839150802869/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 70
+        },
+        "t": "21/50",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "10593244368800258597113717/12500000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (1158054850341/1000000000000)*(10593244368800258597113717/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:71",
+        "k": "1/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1158054850341/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 71
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "610714294518931469164551/781250000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (311554266887/250000000000)*(610714294518931469164551/781250000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:72",
+        "k": "3/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "311554266887/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 72
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "72245208643271410477171201/100000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (1341091036397/1000000000000)*(72245208643271410477171201/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:73",
+        "k": "1/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1341091036397/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 73
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "33468218580449831352164437/50000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (1443187719651/1000000000000)*(33468218580449831352164437/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:74",
+        "k": "5/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1443187719651/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 74
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "15555488406290998226029677/25000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (194132122431/125000000000)*(15555488406290998226029677/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:75",
+        "k": "3/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "194132122431/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 75
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "58086798504260316575019543/100000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (835645269347/500000000000)*(58086798504260316575019543/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:76",
+        "k": "7/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "835645269347/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 76
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "109049875621121/200000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (359705033581/200000000000)*(109049875621121/200000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:77",
+        "k": "1",
+        "method": "cauchy_joint",
+        "prefactor_upper": "359705033581/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 77
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "51540240491215887268306899/100000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (967723057331/500000000000)*(51540240491215887268306899/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:78",
+        "k": "9/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "967723057331/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 78
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "383966866341537324939639/781250000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (2082790794151/1000000000000)*(383966866341537324939639/781250000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:79",
+        "k": "5/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2082790794151/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 79
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2960960815489498078391409/6250000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (2241352760657/1000000000000)*(2960960815489498078391409/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:80",
+        "k": "11/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2241352760657/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 80
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "23132936862044578416500019/50000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (2411985981411/1000000000000)*(23132936862044578416500019/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:81",
+        "k": "3/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2411985981411/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 81
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "11469894101946126716413203/25000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (2595609435803/1000000000000)*(11469894101946126716413203/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:82",
+        "k": "13/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2595609435803/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 82
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "9259515914840533508270313/20000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (1396606032363/500000000000)*(9259515914840533508270313/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:83",
+        "k": "7/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1396606032363/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 83
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "47625806322228989164306509/100000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (37573226209/12500000000)*(47625806322228989164306509/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:84",
+        "k": "15/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "37573226209/12500000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 84
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "1/2",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (646938555917/200000000000)*(1/2)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:85",
+        "k": "2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "646938555917/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 85
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "26795941483296831837346399/50000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (1740474274171/500000000000)*(26795941483296831837346399/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:86",
+        "k": "17/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1740474274171/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 86
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "3663545921508169989975253/6250000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (93648791569/25000000000)*(3663545921508169989975253/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:87",
+        "k": "9/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "93648791569/25000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 87
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2041959482587030191531357/3125000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (4031129350193/1000000000000)*(2041959482587030191531357/3125000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:88",
+        "k": "19/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "4031129350193/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 88
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "74102234804877607633176921/100000000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (4338017492199/1000000000000)*(74102234804877607633176921/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:89",
+        "k": "5/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "4338017492199/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 89
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "2132652235778122554752631/2500000000000000000000000",
+        "eta": "4174728269*x/5284649700 + 1521757801*y/5227649664 + 709802713/3247335429",
+        "event": "K > n",
+        "expression": "min(1, (233413444817/50000000000)*(2132652235778122554752631/2500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:90",
+        "k": "21/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "233413444817/50000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 90
+        },
+        "t": "1/2",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "11087261796557773841450387/12500000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (1132828834429/1000000000000)*(11087261796557773841450387/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:91",
+        "k": "1/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1132828834429/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 91
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "837029996920529551868649/1000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (1205719937007/1000000000000)*(837029996920529551868649/1000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:92",
+        "k": "3/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1205719937007/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 92
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "39570330445588019840789983/50000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (641650584057/500000000000)*(39570330445588019840789983/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:93",
+        "k": "1/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "641650584057/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 93
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "7501547630606099985450567/10000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (1365874310887/1000000000000)*(7501547630606099985450567/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:94",
+        "k": "5/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1365874310887/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 94
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "35669710264810205349082187/50000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (290752113299/200000000000)*(35669710264810205349082187/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:95",
+        "k": "3/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "290752113299/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 95
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "68133552064607484459070101/100000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (773650901789/500000000000)*(68133552064607484459070101/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:96",
+        "k": "7/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "773650901789/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 96
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "327149626863363/500000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (1646861888081/1000000000000)*(327149626863363/500000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:97",
+        "k": "1",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1646861888081/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 97
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "7909250952577992155699317/12500000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (1752828098657/1000000000000)*(7909250952577992155699317/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:98",
+        "k": "9/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1752828098657/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 98
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "482247857611106470718289/781250000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (93280631657/50000000000)*(482247857611106470718289/781250000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:99",
+        "k": "5/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "93280631657/50000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 99
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "12174660284756877482542173/20000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (496413552989/250000000000)*(12174660284756877482542173/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:100",
+        "k": "11/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "496413552989/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 100
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "12163614087035097820227343/20000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (264177473087/125000000000)*(12163614087035097820227343/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:101",
+        "k": "3/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "264177473087/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 101
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "7712566778862037340432019/12500000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (562351586627/250000000000)*(7712566778862037340432019/12500000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:102",
+        "k": "13/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "562351586627/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 102
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "12739590345803964181142527/20000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (598535717839/250000000000)*(12739590345803964181142527/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:103",
+        "k": "7/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "598535717839/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 103
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "67035858850453341136562433/100000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (318524046209/125000000000)*(67035858850453341136562433/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:104",
+        "k": "15/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "318524046209/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 104
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "18/25",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (1356077039207/500000000000)*(18/25)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:105",
+        "k": "2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1356077039207/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 105
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "15790255593240519257450969/20000000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (577333158407/200000000000)*(15790255593240519257450969/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:106",
+        "k": "17/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "577333158407/200000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 106
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "5521530090558587004356617/6250000000000000000000000",
+        "eta": "3433737667*x/5437301514 + 28213617655*y/111263776404 + 2944875490/7672306939",
+        "event": "K > n",
+        "expression": "min(1, (3072406343441/1000000000000)*(5521530090558587004356617/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:107",
+        "k": "9/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "3072406343441/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 107
+        },
+        "t": "3/5",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "23045757911482678420994659/25000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (1105847799379/1000000000000)*(23045757911482678420994659/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:108",
+        "k": "1/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1105847799379/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 108
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "22171040587894896144050443/25000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (116290178477/100000000000)*(22171040587894896144050443/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:109",
+        "k": "3/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "116290178477/100000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 109
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "17096336731218815675689961/20000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (4776950607/3906250000)*(17096336731218815675689961/20000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:110",
+        "k": "1/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "4776950607/3906250000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 110
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "41301195130296766634485727/50000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (642996189791/500000000000)*(41301195130296766634485727/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:111",
+        "k": "5/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "642996189791/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 111
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "40041438747289446462056677/50000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (1352340561021/1000000000000)*(40041438747289446462056677/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:112",
+        "k": "3/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1352340561021/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 112
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "4873258951988625323116047/6250000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (1422111842979/1000000000000)*(4873258951988625323116047/6250000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:113",
+        "k": "7/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1422111842979/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 113
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "763349129347847/1000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (186935354177/125000000000)*(763349129347847/1000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:114",
+        "k": "1",
+        "method": "cauchy_joint",
+        "prefactor_upper": "186935354177/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 114
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "75255887330616964393362933/100000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (1572639252029/1000000000000)*(75255887330616964393362933/100000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:115",
+        "k": "9/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1572639252029/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 115
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "584727869741825022007977/781250000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (826888200171/500000000000)*(584727869741825022007977/781250000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:116",
+        "k": "5/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "826888200171/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 116
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "1504903622070592739885339/2000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (217387457009/125000000000)*(1504903622070592739885339/2000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:117",
+        "k": "11/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "217387457009/125000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 117
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "38319764026044217335067749/50000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (1828824992983/1000000000000)*(38319764026044217335067749/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:118",
+        "k": "3/2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1828824992983/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 118
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "19816067192413953277103463/25000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (120198720473/62500000000)*(19816067192413953277103463/25000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:119",
+        "k": "13/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "120198720473/62500000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 119
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "8342233646252171252600519/10000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (2022402093939/1000000000000)*(8342233646252171252600519/10000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:120",
+        "k": "7/4",
+        "method": "cauchy_joint",
+        "prefactor_upper": "2022402093939/1000000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 120
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "44750965819951557980782893/50000000000000000000000000",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (531685962093/250000000000)*(44750965819951557980782893/50000000000000000000000000)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:121",
+        "k": "15/8",
+        "method": "cauchy_joint",
+        "prefactor_upper": "531685962093/250000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 121
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "49/50",
+        "eta": "4644163355*x/9627327171 + 494575075*y/2380714632 + 230628185/434577528",
+        "event": "K > n",
+        "expression": "min(1, (1118234452521/500000000000)*(49/50)**n)",
+        "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:122",
+        "k": "2",
+        "method": "cauchy_joint",
+        "prefactor_upper": "1118234452521/500000000000",
+        "reference": {
+          "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+          "candidate": 122
+        },
+        "t": "7/10",
+        "time_unit": "completed_loop_iterations"
+      }
+    ],
+    "comparisons": [
+      {
+        "cauchy_integer": {
+          "decay_upper": "178220994877/500000000000",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (3366579715363/1000000000000)*(178220994877/500000000000)**n)",
+          "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:14",
+          "k": "2",
+          "method": "cauchy_fixed",
+          "prefactor_upper": "3366579715363/1000000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+            "candidate": 14
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "605317487498168824122739504942212038859659960380045586523935023545991/31250000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.019370159599941403
+        },
+        "direct_polynomial": {
+          "decay_upper": "27/64",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (13354953/7278601)*(27/64)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13354953/7278601",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "191628978586371/7815338313908224",
+          "upper_bound_numeric": 0.024519601185446688
+        },
+        "integer": {
+          "decay_upper": "178220994877/500000000000",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (3366579715363/1000000000000)*(178220994877/500000000000)**n)",
+          "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:14",
+          "k": "2",
+          "method": "cauchy_fixed",
+          "prefactor_upper": "3366579715363/1000000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+            "candidate": 14
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "605317487498168824122739504942212038859659960380045586523935023545991/31250000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.019370159599941403
+        },
+        "integer_over_rational_exact": "94580857421588878769178047647220631071821868809382122894364847429061093750000000000000000000000000000000000000000000000000000000000000000/67297220438688215070738309514690514231614137347483280048828958798647717002242420127162017069225743845882914544814038521397734915935101403",
+        "n": 5,
+        "noninteger": {
+          "decay_upper": "8712388395889571671029873/25000000000000000000000000",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (1340636340171/500000000000)*(8712388395889571671029873/25000000000000000000000000)**n)",
+          "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:11",
+          "k": "13/8",
+          "method": "cauchy_fixed",
+          "prefactor_upper": "1340636340171/500000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+            "candidate": 11
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "67297220438688215070738309514690514231614137347483280048828958798647717002242420127162017069225743845882914544814038521397734915935101403/4882812500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.013782470745843347
+        },
+        "numeric_is_display_only": true,
+        "rational": {
+          "decay_upper": "8712388395889571671029873/25000000000000000000000000",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (1340636340171/500000000000)*(8712388395889571671029873/25000000000000000000000000)**n)",
+          "id": "cauchy_fixed:analyses/tailbound/workflow/fixed_000/result.json:11",
+          "k": "13/8",
+          "method": "cauchy_fixed",
+          "prefactor_upper": "1340636340171/500000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+            "candidate": 11
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "67297220438688215070738309514690514231614137347483280048828958798647717002242420127162017069225743845882914544814038521397734915935101403/4882812500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.013782470745843347
+        },
+        "rational_no_worse": true,
+        "strict_improvement": true
+      },
+      {
+        "cauchy_integer": {
+          "decay_upper": "441/1250",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (3686122017567/1000000000000)*(441/1250)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:61",
+          "k": "2",
+          "method": "cauchy_joint",
+          "prefactor_upper": "3686122017567/1000000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 61
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "285326097497869283292472611761858104688922126243306559069368655167/86736173798840354720596224069595336914062500000000000000000000000000000000",
+          "upper_bound_numeric": 3.2895859363084337e-09
+        },
+        "direct_polynomial": {
+          "decay_upper": "27/64",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (13354953/7278601)*(27/64)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13354953/7278601",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "566131926381073462771836983560994553/9674920219348084457433522972763576311218176",
+          "upper_bound_numeric": 5.851541031303931e-08
+        },
+        "integer": {
+          "decay_upper": "441/1250",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (3686122017567/1000000000000)*(441/1250)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:61",
+          "k": "2",
+          "method": "cauchy_joint",
+          "prefactor_upper": "3686122017567/1000000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 61
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "285326097497869283292472611761858104688922126243306559069368655167/86736173798840354720596224069595336914062500000000000000000000000000000000",
+          "upper_bound_numeric": 3.2895859363084337e-09
+        },
+        "integer_over_rational_exact": "285072798574425799906235351475994316492563299479016873992611474472955020377813654123315200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/124309346951359358106627444817931905659185976987912269655301842676882108444535233184343970207490769786763557779069488776059127044778740849788291551496730171950429902805087272948672366098332096674776746019676263215812799570230319095569715247217851574679560420881697328316567985369403374430853599506232428646300195024816995387753962501940608871613707918362811832308421842543233428778627063338891832223533122777421597842636501013213184579400117369178565198114892888025969814251119216844808624429945027549678633",
+        "n": 20,
+        "noninteger": {
+          "decay_upper": "6824597348492521681359683/20000000000000000000000000",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (313147171793/100000000000)*(6824597348492521681359683/20000000000000000000000000)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:59",
+          "k": "7/4",
+          "method": "cauchy_joint",
+          "prefactor_upper": "313147171793/100000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 59
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "15041430981114482330901920822969760584761503215537384628291522963902735121788763215305620395106383144198390491267408141903154372418227642824383277731104350806002018239415560026789356297898183697647986268380827849113348747997868610563935544913360040536226810926685376726304726229697808306133285540254123866202323598002856441918229462734813673465258658121900231709319042947731244882213874664005911699047507856068013338959016622598795334107414201670606388971902039451142347524385425238221843556023348333511114593/10485760000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 1.4344626408686145e-09
+        },
+        "numeric_is_display_only": true,
+        "rational": {
+          "decay_upper": "6824597348492521681359683/20000000000000000000000000",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (313147171793/100000000000)*(6824597348492521681359683/20000000000000000000000000)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:59",
+          "k": "7/4",
+          "method": "cauchy_joint",
+          "prefactor_upper": "313147171793/100000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 59
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "15041430981114482330901920822969760584761503215537384628291522963902735121788763215305620395106383144198390491267408141903154372418227642824383277731104350806002018239415560026789356297898183697647986268380827849113348747997868610563935544913360040536226810926685376726304726229697808306133285540254123866202323598002856441918229462734813673465258658121900231709319042947731244882213874664005911699047507856068013338959016622598795334107414201670606388971902039451142347524385425238221843556023348333511114593/10485760000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 1.4344626408686145e-09
+        },
+        "rational_no_worse": true,
+        "strict_improvement": true
+      },
+      {
+        "cauchy_integer": {
+          "decay_upper": "441/1250",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (3686122017567/1000000000000)*(441/1250)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:61",
+          "k": "2",
+          "method": "cauchy_joint",
+          "prefactor_upper": "3686122017567/1000000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 61
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "10243034933577461067540619701377199837165035220274978441905057733603922570611740040993682932508765879822154987381633856742544435386561288395264061979690428387802184092919188905008283026762248373640508425476573572679055364139029624009213406426205834199074273012394090895648005567/4909093465297726553095771954986275642975215512499449565111549117187105254721715856460097884037331952277183571565131878513167918610424718902807514824108963452253105464459861928538941810984397307038307189941406250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 2.086543066654821e-45
+        },
+        "direct_polynomial": {
+          "decay_upper": "27/64",
+          "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+          "event": "K > n",
+          "expression": "min(1, (13354953/7278601)*(27/64)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13354953/7278601",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/1/c-006/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "1828179268927932007710487503364502501581272231282687073217103778927684273962632825453601844599536494859839971931417502336054450310987427081627538752953/30202668169172764228821370389070349244920342158446033462745291435543715243802804647293054126173438624209871425686900535443770529012643223167760715054456730206607204935420030620605901438976",
+          "upper_bound_numeric": 6.053038952346324e-38
+        },
+        "integer": {
+          "decay_upper": "441/1250",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (3686122017567/1000000000000)*(441/1250)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:61",
+          "k": "2",
+          "method": "cauchy_joint",
+          "prefactor_upper": "3686122017567/1000000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 61
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "10243034933577461067540619701377199837165035220274978441905057733603922570611740040993682932508765879822154987381633856742544435386561288395264061979690428387802184092919188905008283026762248373640508425476573572679055364139029624009213406426205834199074273012394090895648005567/4909093465297726553095771954986275642975215512499449565111549117187105254721715856460097884037331952277183571565131878513167918610424718902807514824108963452253105464459861928538941810984397307038307189941406250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 2.086543066654821e-45
+        },
+        "integer_over_rational_exact": "21859566701215160880231441190031498896852501524514013881633525436545900638954979917298852616820060766193206971116781002374496256585717487983628482292009971745232483497550243642435648889603892387757689207880191786204827161377282441344522671329375021280689157057282899442913279430205444675312979776068627639867625437069797655092547124280556658772795483295863449340679293839948266856903437614002995200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/661708069877617430345189082866817109635210888749752332730023062912923025378170210506301801841942955083789831796130749022545336097024179334399291071032921571858570709119515225643272242097754341279744910812360803005545234377154666453129233505675517221944394100906860728688852150237788829718709442540376387927783401926916841007774154841463970474814353442453435067071147874804442733551108835409120211757243824495864470929148175980809000511240324221918264598446745757244916939631835961324500043091207588914972681220314929091999007567836742534903001750425604722233941813657777181146020295227897492871317140916312882131060124617966625858032507639678965580245279523146560706244462997330820015107830366256276356249429361648733528990140781039592899631904454185865960305019464956306081345606009977289356911441008796565320630511791653389892303097633818257031761674642633609703670297853435763282313152266419157093757768938379268517213989384345222042466873225047426501561683602691021748101035150092901809814191290905431795068188672945167880612190828969349185299907704955234990450409010490865314730317745749759003509883761177518351472700617742577140145962073815167100633507746054896554504914592075906552962802074236864010889055018106181811965061458904191508942129410173736797780463146819274631120552534100439391587311087908242351688980646147174165973175753740173626501818054766725985322919717894089779165894959611197301342015617219755511849804753393958518077077795802642585803872268636784588632197400195502487791563781446235113497103438116239005897652203871991287909786892051200432986920127814598605521184915954176231369822519779970393513160663589193974165173204461734388974571201809728996686956261806392357256333584550720626730013198492752808252914094764981325198204247696837809525145757956516500393808031628697781434845044878768609836961205701545964749777029970827955100953675235743855199755451031931157886432210594152461067231001376214179319108150663681520937272156110272196225559238609179307401587104901391682939856572713439384414129269319383132565645469662963470409067588435536079321655894896395880334225872100180287201838931454707478517161362868475835411543823148656599364120669920403746372146494811461225933610903309441612416801272262528303826641852354768158890980032431124336683794957804692200698631179236437840738033308129562050250709318992265314183389205288747974816418195046963122973757741776663534011158978743073877143681116588863259786292035220026063181500171961111425858873355334831615909385833",
+        "n": 100,
+        "noninteger": {
+          "decay_upper": "6824597348492521681359683/20000000000000000000000000",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (313147171793/100000000000)*(6824597348492521681359683/20000000000000000000000000)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:59",
+          "k": "7/4",
+          "method": "cauchy_joint",
+          "prefactor_upper": "313147171793/100000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 59
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "80066676455191709071767879026884870265860517538720032260332790612463686070758595471262518022875097565138569647331820631727985667739925699462314219594983510194887055803461342302835941293828275294849134208295657163670973359635714640828637254186737583855271686209730148171351110178772448395963842547385542939261791633156937761940672735817140427452536766536865643115608892851337570759684169084503545622626502763999600982426929293677889061860079230852110016412056236626634949695452151320264505214036118258711694427658106420131879915708245846723263211801498171390306959452591038918668455722575596637429374050873858737858275078773961728821933424401154835209678822300733845455580022677029221828047474317009439106180952759496757007807034505790740855460438956489781196907355259713035842818327207252012186284362064384403796291926790060176968674813692009100843162631758666774144106040265727357159891424236718008344690041543891490582892715505771867138491660230738606688963715925613631520225253161241118987517146199557247203250829426365313554075090305291251421288832299583433844499490269394703082368447235720839424695935102479720528196774746851833957661410931635219176654437272642483095094665641184692908499050982660545317575657190847999247772436527407172581997658631022152531436040765132230365586856626153166382064641636897324554366658183808074082754266202561008806719984626773844224073285865184863279073290112954873462383889683590416933826375160668980687326413292119752882268544505050935224495885423655801022779217554994448733149516012064919713615916668510945837084213938195252391417335465566431268063374830455323995748524893376417615092440294292470873985957739869861065923115418977208599121707678573475228016363730637195834331597017623089798602605466562740348982713971317374952542636712738496547650771827072431553616250430331001790272305889887061734723020626470182567215394703525006479170409574863670104258297481892447789134951166521915697612086230305464033409930889342935743292667871710696195592039693068393635722645298326165514109641587645359040443101829218579919497178200699865597920363282463901520441330524121814751422510706019604900576524907085576084796802600987448523058601060368853311029725872186808337966919300442435102432953943765924763023664134926947225808583924166044738739189894367756284534372687608978729302030283677008080335827598064103016190093839938504952786601600682537879824686754976287615350236427911939134385415107252454434141336261623153644961520807294482528923675995514625525035685793/1267650600228229401496703205376000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 6.316147086648041e-47
+        },
+        "numeric_is_display_only": true,
+        "rational": {
+          "decay_upper": "6824597348492521681359683/20000000000000000000000000",
+          "eta": "242946959*x/264966632 + 280899575*y/925677207 + 2888298200/33532323489",
+          "event": "K > n",
+          "expression": "min(1, (313147171793/100000000000)*(6824597348492521681359683/20000000000000000000000000)**n)",
+          "id": "cauchy_joint:analyses/tailbound/workflow/joint_000/result.json:59",
+          "k": "7/4",
+          "method": "cauchy_joint",
+          "prefactor_upper": "313147171793/100000000000",
+          "reference": {
+            "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+            "candidate": 59
+          },
+          "t": "21/50",
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "80066676455191709071767879026884870265860517538720032260332790612463686070758595471262518022875097565138569647331820631727985667739925699462314219594983510194887055803461342302835941293828275294849134208295657163670973359635714640828637254186737583855271686209730148171351110178772448395963842547385542939261791633156937761940672735817140427452536766536865643115608892851337570759684169084503545622626502763999600982426929293677889061860079230852110016412056236626634949695452151320264505214036118258711694427658106420131879915708245846723263211801498171390306959452591038918668455722575596637429374050873858737858275078773961728821933424401154835209678822300733845455580022677029221828047474317009439106180952759496757007807034505790740855460438956489781196907355259713035842818327207252012186284362064384403796291926790060176968674813692009100843162631758666774144106040265727357159891424236718008344690041543891490582892715505771867138491660230738606688963715925613631520225253161241118987517146199557247203250829426365313554075090305291251421288832299583433844499490269394703082368447235720839424695935102479720528196774746851833957661410931635219176654437272642483095094665641184692908499050982660545317575657190847999247772436527407172581997658631022152531436040765132230365586856626153166382064641636897324554366658183808074082754266202561008806719984626773844224073285865184863279073290112954873462383889683590416933826375160668980687326413292119752882268544505050935224495885423655801022779217554994448733149516012064919713615916668510945837084213938195252391417335465566431268063374830455323995748524893376417615092440294292470873985957739869861065923115418977208599121707678573475228016363730637195834331597017623089798602605466562740348982713971317374952542636712738496547650771827072431553616250430331001790272305889887061734723020626470182567215394703525006479170409574863670104258297481892447789134951166521915697612086230305464033409930889342935743292667871710696195592039693068393635722645298326165514109641587645359040443101829218579919497178200699865597920363282463901520441330524121814751422510706019604900576524907085576084796802600987448523058601060368853311029725872186808337966919300442435102432953943765924763023664134926947225808583924166044738739189894367756284534372687608978729302030283677008080335827598064103016190093839938504952786601600682537879824686754976287615350236427911939134385415107252454434141336261623153644961520807294482528923675995514625525035685793/1267650600228229401496703205376000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 6.316147086648041e-47
+        },
+        "rational_no_worse": true,
+        "strict_improvement": true
+      }
+    ],
+    "config": {
+      "cauchy": {
+        "matrix_multiplier_degree": 0,
+        "max_t_points": 16,
+        "product_depth": 4,
+        "scalar_strategy": "constant_sos"
+      },
+      "direct_fraction": 0.5,
+      "exponents": {
+        "coarse_points": 16,
+        "digits": 12,
+        "interval": [
+          "1/4",
+          "4"
+        ],
+        "margin": "1/100",
+        "refinements": 1
+      },
+      "guided_t": true,
+      "max_fixed_seeds": 3,
+      "t_values": [
+        "21/50",
+        "1/2",
+        "3/5",
+        "7/10"
+      ]
+    },
+    "direct_options": {
+      "c_values": null,
+      "comparison_ns": [
+        5,
+        20,
+        100
+      ],
+      "continue_after_success": false,
+      "degree_step": 1,
+      "enabled_strategies": [
+        "putinar",
+        "schmudgen",
+        "handelman"
+      ],
+      "family": "polynomial",
+      "initial_degree": 1,
+      "max_attempts_per_point": 2,
+      "max_c_steps": 6,
+      "max_decisions": 20000,
+      "max_degree": 1,
+      "max_order": 4,
+      "max_parameter_points": 32,
+      "max_products": 256,
+      "max_psd_dimension": 80,
+      "per_attempt_seconds": 5,
+      "repair_max_solves": 2,
+      "repair_relative_gap": 0.05,
+      "repair_seconds": 4,
+      "strategy": "auto",
+      "symbolic_workflow": true,
+      "tail_rule": "auto",
+      "total_seconds": 45.0,
+      "verbose": false,
+      "workflow_config": "examples/cauchy_workflow.json"
+    },
+    "integer_exponent_interpretation": "Direct polynomial V is eta=V,k=1; degree is not k.",
+    "optimality": "best certified bound among searched candidates, separately for each n",
+    "rational_pool_includes_integers": true,
+    "route": "incumbent_fixed_then_joint",
+    "schema_version": 1,
+    "stages": [
+      {
+        "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+        "budget_seconds": 45.0,
+        "elapsed_seconds": 1.7746633291244507,
+        "stage": "direct_polynomial",
+        "status": "proved",
+        "stop_reason": "first_successful_degree"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+        "candidates": 24,
+        "elapsed_seconds": 0.23629222298040986,
+        "eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "seed": "direct:2",
+        "stage": "cauchy_fixed",
+        "status": "proved"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+        "candidates": 123,
+        "degree": 1,
+        "elapsed_seconds": 6.406945473048836,
+        "seed_eta": "6076352*x/7278601 + 24197499*y/116457616 + 1202249/7278601",
+        "stage": "cauchy_joint",
+        "status": "proved",
+        "t_values": [
+          "42216229/100000000",
+          "1393135557/3200000000",
+          "1308703099/3200000000",
+          "21/50",
+          "1/2",
+          "3/5",
+          "7/10"
+        ],
+        "template": "__workflow_eta_0 + __workflow_eta_1*y + __workflow_eta_2*x"
+      }
+    ]
+  },
+  "tail_rule": "round_survival",
+  "termination": "proved_almost_sure",
+  "termination_assumed": false
+}

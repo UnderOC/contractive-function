@@ -1,0 +1,54 @@
+{
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "qlearning.pp",
+    "--goal",
+    "tailbound",
+    "--out-dir",
+    "generated/certificate_repair_20261023/qlearning_auto"
+  ],
+  "execution_status": "completed",
+  "returncode": 0,
+  "elapsed_seconds": 139.29298603907228,
+  "status": "proved",
+  "selection": {
+    "A_exact": "47034092480298427695128850068691848716452701056/537301990711504173734282032148149719438587769",
+    "A_numeric": 87.53753623360879,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "491/512",
+    "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 5*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        5
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(47034092480298427695128850068691848716452701056/537301990711504173734282032148149719438587769) * exp(-(-log(491/512))*n)",
+    "expression": "(47034092480298427695128850068691848716452701056/537301990711504173734282032148149719438587769) * (491/512)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(491/512)",
+    "lambda_numeric": 0.04188049724498721,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (47034092480298427695128850068691848716452701056/537301990711504173734282032148149719438587769) * (491/512)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "degrees_attempted": [
+    1,
+    2
+  ],
+  "parameter_points": 20,
+  "stop_reason": "first_successful_degree"
+}

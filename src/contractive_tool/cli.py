@@ -32,9 +32,10 @@ def _parser():
         command.add_argument('--goal', choices=('tailbound','assertion_violation'), required=True)
         command.add_argument('--out-dir', type=Path)
         for field in ('initial_degree','max_degree','degree_step','max_order','max_attempts_per_point',
-                      'max_parameter_points','max_c_steps','max_products','max_psd_dimension','max_decisions'):
+                      'max_parameter_points','max_c_steps','max_products','max_psd_dimension','max_decisions',
+                      'repair_max_solves'):
             command.add_argument('--'+field.replace('_','-'), type=int, default=getattr(defaults,field))
-        for field in ('total_seconds','per_attempt_seconds'):
+        for field in ('total_seconds','per_attempt_seconds','repair_seconds','repair_relative_gap'):
             command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field))
         command.add_argument('--c-values', nargs='+', default=None,
                              help='explicit grid override for reproducing previous runs; default is bisection')
@@ -45,12 +46,20 @@ def _parser():
         command.add_argument('--family', choices=('polynomial','fractional_power'), default='polynomial')
         command.add_argument('--tail-rule', choices=('auto','round_survival','late_bad_exit'), default='auto',
                              help='auto tries Boolean then symbolic round kernels, then late_bad_exit with diagnostics')
+        command.add_argument('--symbolic-workflow', action=argparse.BooleanOptionalAction, default=True,
+                             help='run direct polynomial then Cauchy searches on supported symbolic rounds')
+        command.add_argument('--workflow-config', type=str,
+                             help='optional Cauchy workflow search settings JSON; no fixed eta seed input')
+        command.add_argument('--comparison-n', dest='comparison_ns', type=int, nargs='+', default=[5,20,100],
+                             help='round counts for integer/rational portfolio comparisons')
     strategies = commands.add_parser('strategies', help='query optional positivity plugins')
     strategies.add_argument('operation', choices=('list',))
     strategies.add_argument('--json', action='store_true')
     evaluate = commands.add_parser('evaluate', help='evaluate an already proved uniform bound; no new solve')
     evaluate.add_argument('artifacts', type=Path)
     evaluate.add_argument('--n', type=int, required=True)
+    verify = commands.add_parser('verify', help='independently replay a symbolic workflow without solving')
+    verify.add_argument('artifacts', type=Path)
     return parser
 
 
@@ -60,18 +69,33 @@ def main(argv=None):
         if args.command == 'strategies':
             from contractive_tool.positivity.registry import StrategyRegistry
             result = StrategyRegistry().snapshot()
+        elif args.command == 'verify':
+            from contractive_tool.analysis.symbolic_workflow import verify_workflow
+            result = verify_workflow(args.artifacts)
         elif args.command == 'evaluate':
             if not 0 <= args.n <= 10000:
                 raise AnalysisError('n must be an integer in [0,10000] for numeric evaluation')
             summary = json.loads((args.artifacts/'summary.json').read_text())
             if summary.get('status') != 'proved' or not summary.get('selection'):
                 raise AnalysisError('Artifact has no proved uniform bound')
-            bound = summary['selection']
-            value = sp.Rational(bound['A_exact']) * sp.Rational(bound['c'])**args.n
-            result = {'status':'proved','n':args.n,'upper_bound_exact':str(min(sp.Integer(1),value)),
-                      'upper_bound_numeric':float(min(sp.Integer(1),value)),
-                      'numeric_is_display_only':True,'expression':bound['expression'], 'event':bound['event'],
-                      'time_unit':bound['time_unit']}
+            if 'symbolic_workflow' in summary:
+                from contractive_tool.analysis.symbolic_workflow import compare_candidates, verify_workflow
+                checked = verify_workflow(args.artifacts)
+                if checked['status'] != 'proved':
+                    raise AnalysisError(f"Workflow verification failed: {checked.get('reason')}")
+                comparison = compare_candidates(summary['symbolic_workflow']['candidates'],args.n)
+                best = comparison['rational']
+                result = {'status':'proved','n':args.n,'upper_bound_exact':best['upper_bound_exact'],
+                          'upper_bound_numeric':best['upper_bound_numeric'],'expression':best['expression'],
+                          'numeric_is_display_only':True,'event':best['event'],'time_unit':best['time_unit'],
+                          'comparison':comparison}
+            else:
+                bound = summary['selection']
+                value = sp.Rational(bound['A_exact']) * sp.Rational(bound['c'])**args.n
+                result = {'status':'proved','n':args.n,'upper_bound_exact':str(min(sp.Integer(1),value)),
+                          'upper_bound_numeric':float(min(sp.Integer(1),value)),
+                          'numeric_is_display_only':True,'expression':bound['expression'], 'event':bound['event'],
+                          'time_unit':bound['time_unit']}
         elif args.command == 'parse':
             checked = check_program(parse_file(args.source))
             args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -81,13 +105,13 @@ def main(argv=None):
             result = {'status':'ok',**compile_to_cfg(args.source,args.out_dir or Path('generated')/args.source.stem)}
         else:
             fields = {field:getattr(args,field) for field in SearchOptions.__dataclass_fields__ if hasattr(args,field)}
-            for field in ('c_values','enabled_strategies'):
+            for field in ('c_values','enabled_strategies','comparison_ns'):
                 if fields[field] is not None:
                     fields[field] = tuple(fields[field])
             result = run_analysis(args.source,args.goal,args.out_dir,options=SearchOptions(**fields),
                                   model_only=args.command!='solve')
         print(json.dumps(result,sort_keys=True))
-        return 3 if result.get('status') in {'solver_failed','unsupported'} else 0
+        return 3 if result.get('status') in {'solver_failed','unsupported','verification_failed'} else 0
     except (AnalysisError,FrontendError,OSError,ValueError,KeyError) as error:
         print(str(error),file=sys.stderr)
         return 2
