@@ -1,0 +1,303 @@
+{
+  "schema": "stochastic-affine-certificate-verification/1",
+  "status": "passed",
+  "arithmetic": "exact rational numbers",
+  "original_synthesis_tool_run": false,
+  "proof_scope": "family universal nonnegativity certificates plus symbolic source-moment equality",
+  "annotation_execution_scope": "finite prefixes supplement the analytic invariant proofs",
+  "proof_runs": [
+    {
+      "group": "positive",
+      "exit_code": 0,
+      "output": "S1: PASS; c=241/400; prefactor=128; certified Pr(T>n)<=0.01 for n>=19\nS2: PASS; c=25/32; prefactor=10; certified Pr(T>n)<=0.01 for n>=28\nS3: PASS; c=29/64; prefactor=48; certified Pr(T>n)<=0.01 for n>=11\nVerified 26 exact polynomial identities and 28 full-domain affine interval implications; no sampling or optimizer."
+    },
+    {
+      "group": "reciprocal",
+      "exit_code": 0,
+      "output": "S4: exact certificate PASS; q=97807/98336\nS5 reachable energies: 37/50, 3589/6400, 224809/409600, 14519089/26214400\nS5: exact certificate PASS; q=14775154/14905709\n36 universal polynomial identities checked; all exact parameter checks PASS.\nThis is verification of explicit witnesses, not a run of an external SOS synthesizer."
+    }
+  ],
+  "examples": [
+    {
+      "id": "S1",
+      "file": "positive/affine_s1_rare_common_shock.pp",
+      "mode": "positive",
+      "status": "passed",
+      "symbolic_branch_count": 3,
+      "source_polynomial_identities": [
+        "first moment expression",
+        "first moment residual witness"
+      ],
+      "source_identities_scope": "all real states, exact polynomial equality",
+      "eta_degree": 2,
+      "first_moment_degree": 2,
+      "second_moment_degree": 4,
+      "source_sha256": "f1892deac683fc62b154ac0f78f12c4778dfa616f8f4adcaa2e24e81a9ad44a2",
+      "finite_prefix_checks": {
+        "file": "affine_s1_rare_common_shock.pp",
+        "depth": 4,
+        "branch_transitions_checked": 120
+      },
+      "first_moment_coefficients": [
+        {
+          "coefficient": "1/400",
+          "powers": {}
+        },
+        {
+          "coefficient": "25/64",
+          "powers": {
+            "y": 2
+          }
+        },
+        {
+          "coefficient": "3/8",
+          "powers": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "coefficient": "1/4",
+          "powers": {
+            "x": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "file": "positive/affine_s2_cross_term.pp",
+      "mode": "positive",
+      "status": "passed",
+      "symbolic_branch_count": 2,
+      "source_polynomial_identities": [
+        "first moment expression",
+        "first moment residual witness"
+      ],
+      "source_identities_scope": "all real states, exact polynomial equality",
+      "eta_degree": 2,
+      "first_moment_degree": 2,
+      "second_moment_degree": 4,
+      "source_sha256": "21481f808980a9583912649c6be4c9112faaf1ecccf3164477972af51844d164",
+      "finite_prefix_checks": {
+        "file": "affine_s2_cross_term.pp",
+        "depth": 4,
+        "branch_transitions_checked": 8
+      },
+      "first_moment_coefficients": [
+        {
+          "coefficient": "17/64",
+          "powers": {}
+        },
+        {
+          "coefficient": "65/16",
+          "powers": {
+            "y": 2
+          }
+        },
+        {
+          "coefficient": "-2",
+          "powers": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "coefficient": "1/4",
+          "powers": {
+            "x": 2
+          }
+        }
+      ],
+      "homogeneous_diagonal_k1_obstruction": {
+        "state": {
+          "x": "1",
+          "y": "0"
+        },
+        "survival_truncated_x_squared_moment": "9/8",
+        "survival_truncated_y_squared_moment": "1/128",
+        "scope": "eta=a*x^2+b*y^2 with a,b>0; k=1; the current full annotated domain"
+      }
+    },
+    {
+      "id": "S3",
+      "file": "positive/affine_s3_switched_3d.pp",
+      "mode": "positive",
+      "status": "passed",
+      "symbolic_branch_count": 4,
+      "source_polynomial_identities": [
+        "first moment expression",
+        "first moment residual witness"
+      ],
+      "source_identities_scope": "all real states, exact polynomial equality",
+      "eta_degree": 2,
+      "first_moment_degree": 2,
+      "second_moment_degree": 4,
+      "source_sha256": "12c45018b078a09db43f0c8d54ff48d26e62f5d936935a09314405158c938d83",
+      "finite_prefix_checks": {
+        "file": "affine_s3_switched_3d.pp",
+        "depth": 4,
+        "branch_transitions_checked": 148
+      },
+      "first_moment_coefficients": [
+        {
+          "coefficient": "3/64",
+          "powers": {}
+        },
+        {
+          "coefficient": "7/128",
+          "powers": {
+            "z": 2
+          }
+        },
+        {
+          "coefficient": "7/128",
+          "powers": {
+            "y": 2
+          }
+        },
+        {
+          "coefficient": "17/64",
+          "powers": {
+            "x": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "file": "reciprocal/S4_diagonal_small_noise.pp",
+      "mode": "reciprocal",
+      "status": "passed",
+      "symbolic_branch_count": 3,
+      "source_polynomial_identities": [
+        "first moment expression",
+        "first moment residual witness",
+        "second moment residual witness"
+      ],
+      "source_identities_scope": "all real states, exact polynomial equality",
+      "eta_degree": 2,
+      "first_moment_degree": 2,
+      "second_moment_degree": 4,
+      "source_sha256": "e7d3b39c55e98a657fff9a32e7b2370c240cd69a780666b26f258b230c9102c5",
+      "finite_prefix_checks": {
+        "file": "S4_diagonal_small_noise.pp",
+        "depth": 4,
+        "branch_transitions_checked": 12
+      },
+      "first_moment_coefficients": [
+        {
+          "coefficient": "255/128",
+          "powers": {}
+        },
+        {
+          "coefficient": "-1/4",
+          "powers": {
+            "y": 2
+          }
+        },
+        {
+          "coefficient": "-1/4",
+          "powers": {
+            "x": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "file": "reciprocal/S5_coupled_rare_shock.pp",
+      "mode": "reciprocal",
+      "status": "passed",
+      "symbolic_branch_count": 3,
+      "source_polynomial_identities": [
+        "first moment expression",
+        "first moment residual witness",
+        "second moment residual witness"
+      ],
+      "source_identities_scope": "all real states, exact polynomial equality",
+      "eta_degree": 2,
+      "first_moment_degree": 2,
+      "second_moment_degree": 4,
+      "source_sha256": "b34150d4a391eb9682461b796812e6dcb03b4bbed042bdf0d59d4dff79f5e9b7",
+      "finite_prefix_checks": {
+        "file": "S5_coupled_rare_shock.pp",
+        "depth": 4,
+        "branch_transitions_checked": 12
+      },
+      "first_moment_coefficients": [
+        {
+          "coefficient": "12791/6400",
+          "powers": {}
+        },
+        {
+          "coefficient": "-337/1600",
+          "powers": {
+            "y": 2
+          }
+        },
+        {
+          "coefficient": "-21/200",
+          "powers": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "coefficient": "-9/50",
+          "powers": {
+            "x": 2
+          }
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "id": "REFERENCE",
+    "file": "reference/original.pp",
+    "mode": "positive",
+    "status": "passed",
+    "symbolic_branch_count": 3,
+    "source_polynomial_identities": [
+      "first moment expression",
+      "first moment residual witness"
+    ],
+    "source_identities_scope": "all real states, exact polynomial equality",
+    "eta_degree": 2,
+    "first_moment_degree": 2,
+    "second_moment_degree": 4,
+    "source_sha256": "27d1bfbaa4f0bd631374007f7c72c04fe595dc68a49e27eaa062cbe38384aabc",
+    "finite_prefix_checks": {
+      "file": "original.pp",
+      "depth": 4,
+      "branch_transitions_checked": 48
+    },
+    "first_moment_coefficients": [
+      {
+        "coefficient": "1/200",
+        "powers": {}
+      },
+      {
+        "coefficient": "5/16",
+        "powers": {
+          "y": 2
+        }
+      },
+      {
+        "coefficient": "1/4",
+        "powers": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "coefficient": "1/4",
+        "powers": {
+          "x": 2
+        }
+      }
+    ]
+  },
+  "new_examples": 5,
+  "reference_counted_as_new_example": false
+}

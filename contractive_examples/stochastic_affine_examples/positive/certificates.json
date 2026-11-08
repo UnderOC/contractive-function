@@ -1,0 +1,167 @@
+[
+  {
+    "id": "S1",
+    "file": "affine_s1_rare_common_shock.pp",
+    "name": "二维非正规矩阵与稀有共同冲击",
+    "mode": "positive",
+    "state_variables": [
+      "x",
+      "y"
+    ],
+    "eta": "x^2+y^2",
+    "eta_expression": "x**2+y**2",
+    "a_or_b": "1/16",
+    "a": "1/16",
+    "lambda": "9/16",
+    "nu": "1/400",
+    "c": "241/400",
+    "k": "1",
+    "q_certified": "241/400",
+    "eta0": "8",
+    "prefactor": "128",
+    "initial": {
+      "x": "2",
+      "y": "2"
+    },
+    "invariant": "-2 <= x and x <= 2 and -2 <= y and y <= 2",
+    "first_moment_expression": "(x/2+3*y/8)**2+y**2/4+1/400",
+    "global_drift_residual_expression": "5/16*(x-3*y/5)**2+19*y**2/320",
+    "first_moment_residual_expression": "5/16*(x-3*y/5)**2+19*y**2/320+1/25*(x**2+y**2-1/16)",
+    "branch_support": [
+      {
+        "probability": "49/50",
+        "updates": {
+          "x": "x/2+3*y/8",
+          "y": "y/2"
+        }
+      },
+      {
+        "probability": "1/100",
+        "updates": {
+          "x": "x/2+3*y/8+1/4",
+          "y": "y/2+1/4"
+        }
+      },
+      {
+        "probability": "1/100",
+        "updates": {
+          "x": "x/2+3*y/8-1/4",
+          "y": "y/2-1/4"
+        }
+      }
+    ],
+    "source_sha256": "f1892deac683fc62b154ac0f78f12c4778dfa616f8f4adcaa2e24e81a9ad44a2"
+  },
+  {
+    "id": "S2",
+    "file": "affine_s2_cross_term.pp",
+    "name": "含交叉项的椭球证书与共同噪声",
+    "mode": "positive",
+    "state_variables": [
+      "x",
+      "y"
+    ],
+    "eta": "(x-4*y)^2+y^2",
+    "eta_expression": "(x-4*y)**2+y**2",
+    "a_or_b": "1/2",
+    "a": "1/2",
+    "lambda": "1/4",
+    "nu": "17/64",
+    "c": "25/32",
+    "k": "1",
+    "q_certified": "25/32",
+    "eta0": "5",
+    "prefactor": "10",
+    "initial": {
+      "x": "2",
+      "y": "1"
+    },
+    "invariant": "-2 <= x-4*y and x-4*y <= 2 and -1 <= y and y <= 1",
+    "first_moment_expression": "(x-4*y)**2/4+y**2/16+17/64",
+    "global_drift_residual_expression": "3*y**2/16",
+    "first_moment_residual_expression": "3*y**2/16+17/32*((x-4*y)**2+y**2-1/2)",
+    "branch_support": [
+      {
+        "probability": "1/2",
+        "updates": {
+          "x": "x/2-y+1",
+          "y": "y/4+1/8"
+        }
+      },
+      {
+        "probability": "1/2",
+        "updates": {
+          "x": "x/2-y-1",
+          "y": "y/4-1/8"
+        }
+      }
+    ],
+    "source_sha256": "21481f808980a9583912649c6be4c9112faaf1ecccf3164477972af51844d164"
+  },
+  {
+    "id": "S3",
+    "file": "affine_s3_switched_3d.pp",
+    "name": "三维随机切换与局部能量放大模式",
+    "mode": "positive",
+    "state_variables": [
+      "x",
+      "y",
+      "z"
+    ],
+    "eta": "x^2+y^2+z^2",
+    "eta_expression": "x**2+y**2+z**2",
+    "a_or_b": "1/4",
+    "a": "1/4",
+    "lambda": "17/64",
+    "nu": "3/64",
+    "c": "29/64",
+    "k": "1",
+    "q_certified": "29/64",
+    "eta0": "12",
+    "prefactor": "48",
+    "initial": {
+      "x": "2",
+      "y": "2",
+      "z": "2"
+    },
+    "invariant": "-2 <= x and x <= 2 and -2 <= y and y <= 2 and -2 <= z and z <= 2",
+    "first_moment_expression": "17*x**2/64+7*(y**2+z**2)/128+3/64",
+    "global_drift_residual_expression": "27*(y**2+z**2)/128",
+    "first_moment_residual_expression": "27*(y**2+z**2)/128+3/16*(x**2+y**2+z**2-1/4)",
+    "branch_support": [
+      {
+        "probability": "7/16",
+        "updates": {
+          "x": "x/4+1/8",
+          "y": "y/4-1/8",
+          "z": "z/4+1/8"
+        }
+      },
+      {
+        "probability": "7/16",
+        "updates": {
+          "x": "x/4-1/8",
+          "y": "y/4+1/8",
+          "z": "z/4-1/8"
+        }
+      },
+      {
+        "probability": "1/16",
+        "updates": {
+          "x": "3*x/4+1/8",
+          "y": "3*x/4-1/8",
+          "z": "3*x/4+1/8"
+        }
+      },
+      {
+        "probability": "1/16",
+        "updates": {
+          "x": "3*x/4-1/8",
+          "y": "3*x/4+1/8",
+          "z": "3*x/4-1/8"
+        }
+      }
+    ],
+    "source_sha256": "12c45018b078a09db43f0c8d54ff48d26e62f5d936935a09314405158c938d83"
+  }
+]
