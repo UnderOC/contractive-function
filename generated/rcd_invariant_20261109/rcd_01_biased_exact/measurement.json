@@ -1,0 +1,432 @@
+{
+  "name": "rcd_01_biased_exact",
+  "family": "rcd",
+  "source": "contractive_examples/rcd/rcd_01_biased_exact.pp",
+  "source_sha256": "92c62634cbec3215ea51410556e1bb2bdf15f08ae55f839211c14c2433593926",
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/rcd/rcd_01_biased_exact.pp",
+    "--goal",
+    "tailbound",
+    "--initial-degree",
+    "2",
+    "--max-degree",
+    "4",
+    "--max-c-steps",
+    "12",
+    "--total-seconds",
+    "180",
+    "--reciprocal-seconds",
+    "120",
+    "--per-attempt-seconds",
+    "10",
+    "--repair-seconds",
+    "5",
+    "--comparison-n",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000",
+    "--workflow-config",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/rcd_invariant_20261109/workflow.json",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/rcd_invariant_20261109/rcd_01_biased_exact/run"
+  ],
+  "returncode": 0,
+  "wall_seconds": 184.4992858869955,
+  "summary_status": "proved",
+  "status": "proved",
+  "diagnostic": null,
+  "stop_reason": "first_successful_degree",
+  "elapsed_seconds": 184.02862204238772,
+  "degrees_attempted": [
+    2
+  ],
+  "workflow_present": true,
+  "stages": [
+    {
+      "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 6.473769018892199,
+      "stage": "direct_polynomial",
+      "status": "proved",
+      "stop_reason": "first_successful_degree"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 0.7650977605953813,
+      "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+      "seed": "direct:0",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_001/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 0.37966838106513023,
+      "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+      "seed": "direct:2",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_002/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 0.3483436852693558,
+      "eta": "791325452749808*x**2/6526577521035 + 1506656128*x*y/5113493055 + 238386350127232*y**2/15498326827665 + 43084401895712/558455557972455",
+      "seed": "direct:3",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+      "candidates": 0,
+      "degree": 2,
+      "elapsed_seconds": 77.85005296813324,
+      "seed_eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+      "stage": "cauchy_joint",
+      "status": "no_certificate_found",
+      "t_values": [
+        "24797521/10000000",
+        "818318193/320000000",
+        "768723151/320000000",
+        "295473572433/4000000000000",
+        "295473572433/2000000000000",
+        "886420717299/4000000000000",
+        "295473572433/1000000000000",
+        "295473572433/800000000000",
+        "886420717299/2000000000000",
+        "2068315007031/4000000000000",
+        "295473572433/500000000000"
+      ],
+      "template": "__workflow_eta_0 + __workflow_eta_1*y**2 + __workflow_eta_2*x**2"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/joint_002/result.json",
+      "candidates": 0,
+      "degree": 2,
+      "elapsed_seconds": 95.75993361184373,
+      "seed_eta": "791325452749808*x**2/6526577521035 + 1506656128*x*y/5113493055 + 238386350127232*y**2/15498326827665 + 43084401895712/558455557972455",
+      "stage": "cauchy_joint",
+      "status": "no_certificate_found",
+      "t_values": [
+        "24797521/10000000",
+        "818318193/320000000",
+        "768723151/320000000",
+        "295473572433/4000000000000",
+        "295473572433/2000000000000",
+        "886420717299/4000000000000",
+        "295473572433/1000000000000",
+        "295473572433/800000000000",
+        "886420717299/2000000000000",
+        "2068315007031/4000000000000",
+        "295473572433/500000000000"
+      ],
+      "template": "__workflow_eta_0 + __workflow_eta_1*y**2 + __workflow_eta_2*x*y + __workflow_eta_3*x**2"
+    },
+    {
+      "candidates": 30,
+      "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+      "stage": "positive_jensen",
+      "status": "proved"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+      "budget_policy": "independent additional soft budget; not consumed by positive searches",
+      "budget_seconds": 120.0,
+      "candidates": 0,
+      "elapsed_seconds": 1.0186409959569573,
+      "stage": "reciprocal",
+      "status": "no_certificate_found"
+    }
+  ],
+  "candidate_counts": {
+    "direct_polynomial": 5,
+    "positive_jensen": 30
+  },
+  "comparisons": [
+    {
+      "n": 5,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+        "k": "1",
+        "prefactor_upper": "311016048/96046925",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+        "k": "1/4",
+        "prefactor_upper": "2096017283/1562500000",
+        "decay_upper": "983994835633/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+        "k": "1",
+        "prefactor_upper": "311016048/96046925",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 10,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+        "k": "1",
+        "prefactor_upper": "311016048/96046925",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+        "k": "1/4",
+        "prefactor_upper": "2096017283/1562500000",
+        "decay_upper": "983994835633/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "1866096288*x**2/1632797725 + 1866096288*y**2/1632797725 + 311016048/326559545",
+        "k": "1",
+        "prefactor_upper": "311016048/96046925",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 20,
+      "integer": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+        "k": "1",
+        "prefactor_upper": "249141989566128/8750803021285",
+        "decay_upper": "51/64",
+        "upper_bound_numeric": 0.3035310068152342
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:2:7/8",
+        "method": "positive_jensen",
+        "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+        "k": "7/8",
+        "prefactor_upper": "18732646713379/1000000000000",
+        "decay_upper": "163963213911/200000000000",
+        "upper_bound_numeric": 0.35231219781943335
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+        "k": "1",
+        "prefactor_upper": "249141989566128/8750803021285",
+        "decay_upper": "51/64",
+        "upper_bound_numeric": 0.3035310068152342
+      }
+    },
+    {
+      "n": 50,
+      "integer": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+        "k": "1",
+        "prefactor_upper": "249141989566128/8750803021285",
+        "decay_upper": "51/64",
+        "upper_bound_numeric": 0.00033412511857419636
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:2:7/8",
+        "method": "positive_jensen",
+        "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+        "k": "7/8",
+        "prefactor_upper": "18732646713379/1000000000000",
+        "decay_upper": "163963213911/200000000000",
+        "upper_bound_numeric": 0.0009086999102862357
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "254442882961152*x**2/11443357797065 + 63610720740288*y**2/11443357797065 + 100716974505456/148763651361845",
+        "k": "1",
+        "prefactor_upper": "249141989566128/8750803021285",
+        "decay_upper": "51/64",
+        "upper_bound_numeric": 0.00033412511857419636
+      }
+    },
+    {
+      "n": 100,
+      "integer": {
+        "id": "direct:3",
+        "method": "direct_polynomial",
+        "eta": "791325452749808*x**2/6526577521035 + 1506656128*x*y/5113493055 + 238386350127232*y**2/15498326827665 + 43084401895712/558455557972455",
+        "k": "1",
+        "prefactor_upper": "1672219273386772348816/12205994752043756235",
+        "decay_upper": "99/128",
+        "upper_bound_numeric": 9.533284213177025e-10
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:3:7/8",
+        "method": "positive_jensen",
+        "eta": "791325452749808*x**2/6526577521035 + 1506656128*x*y/5113493055 + 238386350127232*y**2/15498326827665 + 43084401895712/558455557972455",
+        "k": "7/8",
+        "prefactor_upper": "74067901446061/1000000000000",
+        "decay_upper": "199669660961/250000000000",
+        "upper_bound_numeric": 1.2789018722150437e-08
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:3",
+        "method": "direct_polynomial",
+        "eta": "791325452749808*x**2/6526577521035 + 1506656128*x*y/5113493055 + 238386350127232*y**2/15498326827665 + 43084401895712/558455557972455",
+        "k": "1",
+        "prefactor_upper": "1672219273386772348816/12205994752043756235",
+        "decay_upper": "99/128",
+        "upper_bound_numeric": 9.533284213177025e-10
+      }
+    },
+    {
+      "n": 200,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "1",
+        "prefactor_upper": "15814767795149908864/102308956215708645",
+        "decay_upper": "3165/4096",
+        "upper_bound_numeric": 6.193019434290802e-21
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "7/8",
+        "prefactor_upper": "41160015000571/500000000000",
+        "decay_upper": "199504205187/250000000000",
+        "upper_bound_numeric": 2.0792879539718997e-18
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "1",
+        "prefactor_upper": "15814767795149908864/102308956215708645",
+        "decay_upper": "3165/4096",
+        "upper_bound_numeric": 6.193019434290802e-21
+      }
+    },
+    {
+      "n": 500,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "1",
+        "prefactor_upper": "15814767795149908864/102308956215708645",
+        "decay_upper": "3165/4096",
+        "upper_bound_numeric": 1.5704798137768536e-54
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "7/8",
+        "prefactor_upper": "41160015000571/500000000000",
+        "decay_upper": "199504205187/250000000000",
+        "upper_bound_numeric": 8.346959645410847e-48
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "1",
+        "prefactor_upper": "15814767795149908864/102308956215708645",
+        "decay_upper": "3165/4096",
+        "upper_bound_numeric": 1.5704798137768536e-54
+      }
+    },
+    {
+      "n": 1000,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "1",
+        "prefactor_upper": "15814767795149908864/102308956215708645",
+        "decay_upper": "3165/4096",
+        "upper_bound_numeric": 1.5955688583792128e-110
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "7/8",
+        "prefactor_upper": "41160015000571/500000000000",
+        "decay_upper": "199504205187/250000000000",
+        "upper_bound_numeric": 8.463521614502648e-97
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1476133045495808*x**2/10728004245165 + 16476032*x*y/79254765 + 23135563577344*y**2/1379587694355 + 2198247571456/489688325569665",
+        "k": "1",
+        "prefactor_upper": "15814767795149908864/102308956215708645",
+        "decay_upper": "3165/4096",
+        "upper_bound_numeric": 1.5955688583792128e-110
+      }
+    }
+  ],
+  "reciprocal_search": {
+    "stop_reason": null,
+    "feedback_stop_reason": "no_verified_moment_parent",
+    "elapsed_seconds": 0.9631019369699061,
+    "attempts": 7,
+    "feedback_iterations": 0,
+    "improved_iterations": []
+  },
+  "verification_process": {
+    "returncode": 0,
+    "wall_seconds": 1.365932045970112
+  },
+  "verification": {
+    "comparisons_checked": 8,
+    "direct_certificates": 5,
+    "method": "source_replay_positive_and_reciprocal_exact_comparison",
+    "portfolio_candidates": 35,
+    "status": "proved"
+  }
+}

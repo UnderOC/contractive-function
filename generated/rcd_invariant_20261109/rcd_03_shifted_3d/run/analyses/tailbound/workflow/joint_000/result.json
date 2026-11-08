@@ -1,0 +1,1501 @@
+{
+  "attempts": [
+    {
+      "detail": "Cauchy state-model construction time budget exceeded",
+      "reason": "state_model_time_budget",
+      "status": "unknown",
+      "t": "412579849657/8000000000000"
+    }
+  ],
+  "budget_policy": "cooperative symbolic/verification checks; solver optimizer time limit",
+  "candidates": [],
+  "elapsed_seconds": 101.89419302763417,
+  "input": {
+    "basis": [
+      "2*__cauchy_r_0**2*__cauchy_r_1**2",
+      "2*__cauchy_r_0**2*__cauchy_r_1",
+      "1000000000000*__cauchy_r_0**2/707106781187",
+      "2*__cauchy_r_0*__cauchy_r_1**2",
+      "2*__cauchy_r_0*__cauchy_r_1",
+      "1000000000000*__cauchy_r_0/707106781187",
+      "1000000000000*__cauchy_r_1**2/707106781187",
+      "1000000000000*__cauchy_r_1/707106781187",
+      "1"
+    ],
+    "coefficients": [
+      "__workflow_eta_0",
+      "__workflow_eta_1",
+      "__workflow_eta_2",
+      "__workflow_eta_3",
+      "__workflow_eta_4",
+      "__workflow_eta_5",
+      "__workflow_eta_6",
+      "__workflow_eta_7",
+      "__workflow_eta_8",
+      "__workflow_eta_9"
+    ],
+    "equalities": [],
+    "eta": "__workflow_eta_0 + __workflow_eta_1*z + __workflow_eta_2*y + __workflow_eta_3*x + __workflow_eta_4*z**2 + __workflow_eta_5*y*z + __workflow_eta_6*y**2 + __workflow_eta_7*x*z + __workflow_eta_8*x*y + __workflow_eta_9*x**2",
+    "nonnegative": [],
+    "t_values": [
+      "412579849657/8000000000000",
+      "412579849657/4000000000000",
+      "1237739548971/8000000000000",
+      "412579849657/2000000000000",
+      "412579849657/1600000000000",
+      "1237739548971/4000000000000",
+      "2888058947599/8000000000000",
+      "412579849657/1000000000000"
+    ]
+  },
+  "mode": "template_eta",
+  "optimality": "bounded search; no global optimality claim",
+  "options": {
+    "exponents": {
+      "coarse_points": 16,
+      "digits": 12,
+      "interval": null,
+      "margin": "1/100",
+      "max_candidates": 129,
+      "refinements": 1,
+      "target_n": null,
+      "values": [
+        "1/4",
+        "3/8",
+        "1/2",
+        "5/8",
+        "3/4",
+        "7/8",
+        "1",
+        "9/8",
+        "5/4",
+        "11/8",
+        "3/2",
+        "13/8",
+        "7/4",
+        "15/8",
+        "2",
+        "17/8",
+        "9/4",
+        "19/8",
+        "5/2",
+        "21/8",
+        "11/4",
+        "23/8",
+        "3",
+        "25/8",
+        "13/4",
+        "27/8",
+        "7/2",
+        "29/8",
+        "15/4",
+        "31/8",
+        "4"
+      ]
+    },
+    "limits": {
+      "max_decisions": 20000,
+      "max_products": 256,
+      "max_psd_dimension": 80
+    },
+    "matrix_multiplier_degree": 1,
+    "max_t_points": 32,
+    "product_depth": 4,
+    "repair_max_solves": 2,
+    "repair_relative_gap": 0.05,
+    "repair_seconds": 5.0,
+    "scalar_order": 2,
+    "scalar_strategy": "sos",
+    "solver_seconds": 10.0,
+    "total_seconds": 101.87274298397824
+  },
+  "round": {
+    "domains": [
+      {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "evidence": {
+      "composition": "polynomial updates before expectation; fresh constant-law draws",
+      "contraction": "raw successor moment dominates killed survival moment",
+      "domain_evidence": {
+        "domains": {
+          "L_assign_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_2": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_3": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_probabilistic_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_probabilistic_2": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_refute_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_while_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "l_f": [
+            {
+              "equalities": [],
+              "generators": [],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "l_t": [
+            {
+              "equalities": [],
+              "generators": [],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ]
+        },
+        "initial": {
+          "x": "2",
+          "y": "0",
+          "z": "3/2"
+        },
+        "initial_location": "L_while_1",
+        "initial_random_symbols": [],
+        "initial_support": [
+          {
+            "equalities": [],
+            "generators": [],
+            "variables": []
+          }
+        ],
+        "initialization_steps": 3,
+        "initialization_trace": [
+          {
+            "destination": "L_assign_5",
+            "location": "L_assign_6",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_12",
+            "values": {
+              "x": "2"
+            }
+          },
+          {
+            "destination": "L_assign_4",
+            "location": "L_assign_5",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_11",
+            "values": {
+              "x": "2",
+              "y": "0"
+            }
+          },
+          {
+            "destination": "L_while_1",
+            "location": "L_assign_4",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_10",
+            "values": {
+              "x": "2",
+              "y": "0",
+              "z": "3/2"
+            }
+          }
+        ],
+        "locations": [
+          "L_assign_1",
+          "L_assign_2",
+          "L_assign_3",
+          "L_probabilistic_1",
+          "L_probabilistic_2",
+          "L_refute_1",
+          "L_while_1",
+          "l_f",
+          "l_t"
+        ],
+        "method": "exact_initialization_and_inductive_domain_certificates",
+        "proofs": [
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_6",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_12"
+          },
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_5",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_11"
+          },
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_4",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_10"
+          },
+          {
+            "kind": "initial_control_invariant",
+            "location": "L_while_1",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_3"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "3*y**2/4 + 3*y/2 + 2*z**2 - 2*z + 5/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "method": "exact_invariant_sos",
+                    "reduced_conclusion": "3*y**2/4 + 3*y/2 + 2*z**2 - 2*z + 5/4",
+                    "reduced_domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "witness": {
+                      "generator": null,
+                      "kind": "quadratic_remainder",
+                      "matrix": [
+                        [
+                          "5/4",
+                          "0",
+                          "3/4",
+                          "-1"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ],
+                        [
+                          "3/4",
+                          "0",
+                          "3/4",
+                          "0"
+                        ],
+                        [
+                          "-1",
+                          "0",
+                          "0",
+                          "2"
+                        ]
+                      ],
+                      "weight": "0"
+                    }
+                  },
+                  {
+                    "conclusion": "-3*y**2/4 - 3*y/2 - 2*z**2 + 2*z + 15/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "method": "exact_invariant_sos",
+                    "reduced_conclusion": "-3*y**2/4 - 3*y/2 - 2*z**2 + 2*z + 15/4",
+                    "reduced_domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "witness": {
+                      "generator": 1,
+                      "kind": "quadratic_remainder",
+                      "matrix": [
+                        [
+                          "1/4",
+                          "-1/2",
+                          "-1/4",
+                          "0"
+                        ],
+                        [
+                          "-1/2",
+                          "1",
+                          "1/2",
+                          "0"
+                        ],
+                        [
+                          "-1/4",
+                          "1/2",
+                          "1/4",
+                          "0"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ]
+                      ],
+                      "weight": "1"
+                    }
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_3"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_4"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "3*x**2/4 - 3*x/2 + 2*z**2 - 2*z + 5/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "method": "exact_invariant_sos",
+                    "reduced_conclusion": "3*x**2/4 - 3*x/2 + 2*z**2 - 2*z + 5/4",
+                    "reduced_domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "witness": {
+                      "generator": null,
+                      "kind": "quadratic_remainder",
+                      "matrix": [
+                        [
+                          "5/4",
+                          "-3/4",
+                          "0",
+                          "-1"
+                        ],
+                        [
+                          "-3/4",
+                          "3/4",
+                          "0",
+                          "0"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ],
+                        [
+                          "-1",
+                          "0",
+                          "0",
+                          "2"
+                        ]
+                      ],
+                      "weight": "0"
+                    }
+                  },
+                  {
+                    "conclusion": "-3*x**2/4 + 3*x/2 - 2*z**2 + 2*z + 15/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "method": "exact_invariant_sos",
+                    "reduced_conclusion": "-3*x**2/4 + 3*x/2 - 2*z**2 + 2*z + 15/4",
+                    "reduced_domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "witness": {
+                      "generator": 1,
+                      "kind": "quadratic_remainder",
+                      "matrix": [
+                        [
+                          "1/4",
+                          "1/4",
+                          "1/2",
+                          "0"
+                        ],
+                        [
+                          "1/4",
+                          "1/4",
+                          "1/2",
+                          "0"
+                        ],
+                        [
+                          "1/2",
+                          "1/2",
+                          "1",
+                          "0"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ]
+                      ],
+                      "weight": "1"
+                    }
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_4"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_6"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "method": "exact_invariant_sos",
+                    "reduced_conclusion": "x**2 + x*y - x + y**2 + y + 1",
+                    "reduced_domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "witness": {
+                      "generator": null,
+                      "kind": "quadratic_remainder",
+                      "matrix": [
+                        [
+                          "1",
+                          "-1/2",
+                          "1/2",
+                          "0"
+                        ],
+                        [
+                          "-1/2",
+                          "1",
+                          "1/2",
+                          "0"
+                        ],
+                        [
+                          "1/2",
+                          "1/2",
+                          "1",
+                          "0"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ]
+                      ],
+                      "weight": "0"
+                    }
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y + 4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "method": "exact_invariant_sos",
+                    "reduced_conclusion": "-x**2 - x*y + x - y**2 - y + 4",
+                    "reduced_domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "witness": {
+                      "generator": 1,
+                      "kind": "quadratic_remainder",
+                      "matrix": [
+                        [
+                          "1/2",
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ],
+                        [
+                          "0",
+                          "0",
+                          "0",
+                          "0"
+                        ],
+                        [
+                          "-1",
+                          "0",
+                          "0",
+                          "2"
+                        ]
+                      ],
+                      "weight": "1"
+                    }
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_6"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_2"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_2"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                        "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                        "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                        "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 32*z**2 + 32*z - 23"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                        "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                        "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 32*z**2 + 32*z - 23"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+                    "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+                    "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 32*z**2 + 32*z - 23"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_9"
+          }
+        ],
+        "status": "proved",
+        "strict_invariant_policy": "inductive_closed_overapproximation"
+      },
+      "round_evidence": {
+        "boundary": "polynomial nonnegative; survival process zero after exit",
+        "clock": {
+          "exit_step_counts": [
+            2
+          ],
+          "prefix_steps": 3,
+          "round_step_counts": [
+            3,
+            4
+          ],
+          "unit": "completed_loop_iterations"
+        },
+        "contraction": "piecewise killed expectation; closed-domain sufficient proof",
+        "coverage": "all branches of the structured CFG; conditional cases checked separately",
+        "domain": [
+          {
+            "equalities": [],
+            "generators": [
+              "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+              "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        ],
+        "entry_transition": "T_8",
+        "expectation_mode": "exact_piecewise_survival",
+        "header": "L_while_1",
+        "invariant_evidence": "domain_evidence.json",
+        "method": "symbolic_acyclic_round_composition",
+        "sampling_policy": "rounds with sampling retain raw moments; no truncated integration",
+        "status": "proved",
+        "strict_guards": "exact through pullback; closed covering proof domains; no positive margin",
+        "transitions": [
+          "T_1",
+          "T_2",
+          "T_3",
+          "T_4",
+          "T_5",
+          "T_6",
+          "T_7",
+          "T_8",
+          "T_9"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/rcd/rcd_03_shifted_3d.pp",
+      "source_sha256": "2769777a9d452576e19b9a579f2cd0f31ec1c42f597d14d8a620828886546fa4"
+    },
+    "initial": {
+      "x": "2",
+      "y": "0",
+      "z": "3/2"
+    },
+    "initial_active": true,
+    "law": {
+      "atoms": [
+        {
+          "probability": "1/4",
+          "values": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "probability": "1/4",
+          "values": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "probability": "1/4",
+          "values": [
+            "1",
+            "0"
+          ]
+        },
+        {
+          "probability": "1/4",
+          "values": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "symbols": [
+        "__cauchy_r_0",
+        "__cauchy_r_1"
+      ]
+    },
+    "update": {
+      "x": "-__cauchy_r_0*__cauchy_r_1*x - __cauchy_r_0*__cauchy_r_1*y/2 + __cauchy_r_0*__cauchy_r_1/2 + __cauchy_r_0*x + __cauchy_r_0*y/2 - __cauchy_r_0/2 + __cauchy_r_1*x + __cauchy_r_1*y/2 - __cauchy_r_1/2 - y/2 + 1/2",
+      "y": "__cauchy_r_0*__cauchy_r_1*x/2 + __cauchy_r_0*__cauchy_r_1*y + __cauchy_r_0*__cauchy_r_1/2 - __cauchy_r_1*x/2 - __cauchy_r_1*y - __cauchy_r_1/2 + y",
+      "z": "-__cauchy_r_0*z + __cauchy_r_0/2 + z"
+    },
+    "variables": [
+      "x",
+      "y",
+      "z"
+    ]
+  },
+  "schema_version": 1,
+  "selection": null,
+  "status": "no_certificate_found",
+  "stop_reason": "state_model_time_budget"
+}

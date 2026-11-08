@@ -1,0 +1,581 @@
+{
+  "c": "13/16",
+  "certificate_family": "polynomial",
+  "context": {
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 3,
+      "round_step_counts": [
+        3,
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "kernel": "symbolic",
+    "round_preexpectations": [
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0 + eta_L_while_1_1*z/2 + eta_L_while_1_1/4 - eta_L_while_1_2*x/8 + 3*eta_L_while_1_2*y/4 - eta_L_while_1_2/8 + 3*eta_L_while_1_3*x/4 - eta_L_while_1_3*y/8 + eta_L_while_1_3/8 + eta_L_while_1_4*z**2/2 + eta_L_while_1_4/8 - eta_L_while_1_5*x*z/8 + eta_L_while_1_5*y*z/4 + eta_L_while_1_5*y/4 - eta_L_while_1_5*z/8 + eta_L_while_1_6*x**2/16 + eta_L_while_1_6*x/8 + 3*eta_L_while_1_6*y**2/4 + eta_L_while_1_6/16 + eta_L_while_1_7*x*z/4 + eta_L_while_1_7*x/4 - eta_L_while_1_7*y*z/8 + eta_L_while_1_7*z/8 - eta_L_while_1_8*x**2/8 + eta_L_while_1_8*x*y/2 - eta_L_while_1_8*x/8 - eta_L_while_1_8*y**2/8 + eta_L_while_1_8*y/8 + 3*eta_L_while_1_9*x**2/4 + eta_L_while_1_9*y**2/16 - eta_L_while_1_9*y/8 + eta_L_while_1_9/16"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/2 + eta_L_while_1_1*z/2 - eta_L_while_1_2*x/8 + eta_L_while_1_2*y/4 - eta_L_while_1_2/8 + eta_L_while_1_3*x/4 - eta_L_while_1_3*y/8 + eta_L_while_1_3/8 + eta_L_while_1_4*z**2/2 - eta_L_while_1_5*x*z/8 + eta_L_while_1_5*y*z/4 - eta_L_while_1_5*z/8 + eta_L_while_1_6*x**2/16 + eta_L_while_1_6*x/8 + eta_L_while_1_6*y**2/4 + eta_L_while_1_6/16 + eta_L_while_1_7*x*z/4 - eta_L_while_1_7*y*z/8 + eta_L_while_1_7*z/8 - eta_L_while_1_8*x**2/8 - eta_L_while_1_8*x/8 - eta_L_while_1_8*y**2/8 + eta_L_while_1_8*y/8 + eta_L_while_1_9*x**2/4 + eta_L_while_1_9*y**2/16 - eta_L_while_1_9*y/8 + eta_L_while_1_9/16"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "3*eta_L_while_1_0/4 + eta_L_while_1_1*z/4 + eta_L_while_1_1/4 + 3*eta_L_while_1_2*y/4 + eta_L_while_1_3*x/2 - eta_L_while_1_3*y/8 + eta_L_while_1_3/8 + eta_L_while_1_4*z**2/4 + eta_L_while_1_4/8 + eta_L_while_1_5*y*z/4 + eta_L_while_1_5*y/4 + 3*eta_L_while_1_6*y**2/4 + eta_L_while_1_7*x/4 - eta_L_while_1_7*y*z/8 + eta_L_while_1_7*z/8 + eta_L_while_1_8*x*y/2 - eta_L_while_1_8*y**2/8 + eta_L_while_1_8*y/8 + eta_L_while_1_9*x**2/2 + eta_L_while_1_9*y**2/16 - eta_L_while_1_9*y/8 + eta_L_while_1_9/16"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*y**2 + 24*y + 32*z**2 - 32*z + 19"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/4 + eta_L_while_1_1*z/4 + eta_L_while_1_2*y/4 - eta_L_while_1_3*y/8 + eta_L_while_1_3/8 + eta_L_while_1_4*z**2/4 + eta_L_while_1_5*y*z/4 + eta_L_while_1_6*y**2/4 - eta_L_while_1_7*y*z/8 + eta_L_while_1_7*z/8 - eta_L_while_1_8*y**2/8 + eta_L_while_1_8*y/8 + eta_L_while_1_9*y**2/16 - eta_L_while_1_9*y/8 + eta_L_while_1_9/16"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "3*eta_L_while_1_0/4 + eta_L_while_1_1*z/4 + eta_L_while_1_1/4 - eta_L_while_1_2*x/8 + eta_L_while_1_2*y/2 - eta_L_while_1_2/8 + 3*eta_L_while_1_3*x/4 + eta_L_while_1_4*z**2/4 + eta_L_while_1_4/8 - eta_L_while_1_5*x*z/8 + eta_L_while_1_5*y/4 - eta_L_while_1_5*z/8 + eta_L_while_1_6*x**2/16 + eta_L_while_1_6*x/8 + eta_L_while_1_6*y**2/2 + eta_L_while_1_6/16 + eta_L_while_1_7*x*z/4 + eta_L_while_1_7*x/4 - eta_L_while_1_8*x**2/8 + eta_L_while_1_8*x*y/2 - eta_L_while_1_8*x/8 + 3*eta_L_while_1_9*x**2/4"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "12*x**2 - 24*x + 32*z**2 - 32*z + 19"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/4 + eta_L_while_1_1*z/4 - eta_L_while_1_2*x/8 - eta_L_while_1_2/8 + eta_L_while_1_3*x/4 + eta_L_while_1_4*z**2/4 - eta_L_while_1_5*x*z/8 - eta_L_while_1_5*z/8 + eta_L_while_1_6*x**2/16 + eta_L_while_1_6*x/8 + eta_L_while_1_6/16 + eta_L_while_1_7*x*z/4 - eta_L_while_1_8*x**2/8 - eta_L_while_1_8*x/8 + eta_L_while_1_9*x**2/4"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/2 + eta_L_while_1_1/4 + eta_L_while_1_2*y/2 + eta_L_while_1_3*x/2 + eta_L_while_1_4/8 + eta_L_while_1_5*y/4 + eta_L_while_1_6*y**2/2 + eta_L_while_1_7*x/4 + eta_L_while_1_8*x*y/2 + eta_L_while_1_9*x**2/2"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+            "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+            "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15"
+          ],
+          "strict_generators": [
+            "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+          ],
+          "variables": [
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "0"
+      }
+    ],
+    "rule": "round_survival",
+    "time_unit": "completed_loop_iterations"
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2",
+    "eta_L_while_1_3",
+    "eta_L_while_1_4",
+    "eta_L_while_1_5",
+    "eta_L_while_1_6",
+    "eta_L_while_1_7",
+    "eta_L_while_1_8",
+    "eta_L_while_1_9"
+  ],
+  "degree": 2,
+  "expressions": {
+    "L_while_1": "eta_L_while_1_0 + eta_L_while_1_1*z + eta_L_while_1_2*y + eta_L_while_1_3*x + eta_L_while_1_4*z**2 + eta_L_while_1_5*y*z + eta_L_while_1_6*y**2 + eta_L_while_1_7*x*z + eta_L_while_1_8*x*y + eta_L_while_1_9*x**2"
+  },
+  "goal": "tailbound",
+  "objective": "eta_L_while_1_0 + 3*eta_L_while_1_1/2 + 2*eta_L_while_1_3 + 9*eta_L_while_1_4/4 + 3*eta_L_while_1_7 + 4*eta_L_while_1_9",
+  "obligations": [
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*z + eta_L_while_1_2*y + eta_L_while_1_3*x + eta_L_while_1_4*z**2 + eta_L_while_1_5*y*z + eta_L_while_1_6*y**2 + eta_L_while_1_7*x*z + eta_L_while_1_8*x*y + eta_L_while_1_9*x**2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_nonnegative_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*z + eta_L_while_1_2*y + eta_L_while_1_3*x + eta_L_while_1_4*z**2 + eta_L_while_1_5*y*z + eta_L_while_1_6*y**2 + eta_L_while_1_7*x*z + eta_L_while_1_8*x*y + eta_L_while_1_9*x**2 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_normalization_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "normalization",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-3*eta_L_while_1_0/16 + 5*eta_L_while_1_1*z/16 - eta_L_while_1_1/4 + eta_L_while_1_2*x/8 + eta_L_while_1_2*y/16 + eta_L_while_1_2/8 + eta_L_while_1_3*x/16 + eta_L_while_1_3*y/8 - eta_L_while_1_3/8 + 5*eta_L_while_1_4*z**2/16 - eta_L_while_1_4/8 + eta_L_while_1_5*x*z/8 + 9*eta_L_while_1_5*y*z/16 - eta_L_while_1_5*y/4 + eta_L_while_1_5*z/8 - eta_L_while_1_6*x**2/16 - eta_L_while_1_6*x/8 + eta_L_while_1_6*y**2/16 - eta_L_while_1_6/16 + 9*eta_L_while_1_7*x*z/16 - eta_L_while_1_7*x/4 + eta_L_while_1_7*y*z/8 - eta_L_while_1_7*z/8 + eta_L_while_1_8*x**2/8 + 5*eta_L_while_1_8*x*y/16 + eta_L_while_1_8*x/8 + eta_L_while_1_8*y**2/8 - eta_L_while_1_8*y/8 + eta_L_while_1_9*x**2/16 - eta_L_while_1_9*y**2/16 + eta_L_while_1_9*y/8 - eta_L_while_1_9/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+          "12*x**2 - 24*x + 32*z**2 - 32*z + 19",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_0_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "5*eta_L_while_1_0/16 + 5*eta_L_while_1_1*z/16 + eta_L_while_1_2*x/8 + 9*eta_L_while_1_2*y/16 + eta_L_while_1_2/8 + 9*eta_L_while_1_3*x/16 + eta_L_while_1_3*y/8 - eta_L_while_1_3/8 + 5*eta_L_while_1_4*z**2/16 + eta_L_while_1_5*x*z/8 + 9*eta_L_while_1_5*y*z/16 + eta_L_while_1_5*z/8 - eta_L_while_1_6*x**2/16 - eta_L_while_1_6*x/8 + 9*eta_L_while_1_6*y**2/16 - eta_L_while_1_6/16 + 9*eta_L_while_1_7*x*z/16 + eta_L_while_1_7*y*z/8 - eta_L_while_1_7*z/8 + eta_L_while_1_8*x**2/8 + 13*eta_L_while_1_8*x*y/16 + eta_L_while_1_8*x/8 + eta_L_while_1_8*y**2/8 - eta_L_while_1_8*y/8 + 9*eta_L_while_1_9*x**2/16 - eta_L_while_1_9*y**2/16 + eta_L_while_1_9*y/8 - eta_L_while_1_9/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+          "12*x**2 - 24*x + 32*z**2 - 32*z + 19"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_1_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0/16 + 9*eta_L_while_1_1*z/16 - eta_L_while_1_1/4 + eta_L_while_1_2*y/16 + 5*eta_L_while_1_3*x/16 + eta_L_while_1_3*y/8 - eta_L_while_1_3/8 + 9*eta_L_while_1_4*z**2/16 - eta_L_while_1_4/8 + 9*eta_L_while_1_5*y*z/16 - eta_L_while_1_5*y/4 + eta_L_while_1_6*y**2/16 + 13*eta_L_while_1_7*x*z/16 - eta_L_while_1_7*x/4 + eta_L_while_1_7*y*z/8 - eta_L_while_1_7*z/8 + 5*eta_L_while_1_8*x*y/16 + eta_L_while_1_8*y**2/8 - eta_L_while_1_8*y/8 + 5*eta_L_while_1_9*x**2/16 - eta_L_while_1_9*y**2/16 + eta_L_while_1_9*y/8 - eta_L_while_1_9/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "12*y**2 + 24*y + 32*z**2 - 32*z + 19",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_2_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "9*eta_L_while_1_0/16 + 9*eta_L_while_1_1*z/16 + 9*eta_L_while_1_2*y/16 + 13*eta_L_while_1_3*x/16 + eta_L_while_1_3*y/8 - eta_L_while_1_3/8 + 9*eta_L_while_1_4*z**2/16 + 9*eta_L_while_1_5*y*z/16 + 9*eta_L_while_1_6*y**2/16 + 13*eta_L_while_1_7*x*z/16 + eta_L_while_1_7*y*z/8 - eta_L_while_1_7*z/8 + 13*eta_L_while_1_8*x*y/16 + eta_L_while_1_8*y**2/8 - eta_L_while_1_8*y/8 + 13*eta_L_while_1_9*x**2/16 - eta_L_while_1_9*y**2/16 + eta_L_while_1_9*y/8 - eta_L_while_1_9/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+          "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "12*y**2 + 24*y + 32*z**2 - 32*z + 19"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_3_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0/16 + 9*eta_L_while_1_1*z/16 - eta_L_while_1_1/4 + eta_L_while_1_2*x/8 + 5*eta_L_while_1_2*y/16 + eta_L_while_1_2/8 + eta_L_while_1_3*x/16 + 9*eta_L_while_1_4*z**2/16 - eta_L_while_1_4/8 + eta_L_while_1_5*x*z/8 + 13*eta_L_while_1_5*y*z/16 - eta_L_while_1_5*y/4 + eta_L_while_1_5*z/8 - eta_L_while_1_6*x**2/16 - eta_L_while_1_6*x/8 + 5*eta_L_while_1_6*y**2/16 - eta_L_while_1_6/16 + 9*eta_L_while_1_7*x*z/16 - eta_L_while_1_7*x/4 + eta_L_while_1_8*x**2/8 + 5*eta_L_while_1_8*x*y/16 + eta_L_while_1_8*x/8 + eta_L_while_1_9*x**2/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "12*x**2 - 24*x + 32*z**2 - 32*z + 19",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_4_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "9*eta_L_while_1_0/16 + 9*eta_L_while_1_1*z/16 + eta_L_while_1_2*x/8 + 13*eta_L_while_1_2*y/16 + eta_L_while_1_2/8 + 9*eta_L_while_1_3*x/16 + 9*eta_L_while_1_4*z**2/16 + eta_L_while_1_5*x*z/8 + 13*eta_L_while_1_5*y*z/16 + eta_L_while_1_5*z/8 - eta_L_while_1_6*x**2/16 - eta_L_while_1_6*x/8 + 13*eta_L_while_1_6*y**2/16 - eta_L_while_1_6/16 + 9*eta_L_while_1_7*x*z/16 + eta_L_while_1_8*x**2/8 + 13*eta_L_while_1_8*x*y/16 + eta_L_while_1_8*x/8 + 9*eta_L_while_1_9*x**2/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+          "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "12*x**2 - 24*x + 32*z**2 - 32*z + 19"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_5_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "5*eta_L_while_1_0/16 + 13*eta_L_while_1_1*z/16 - eta_L_while_1_1/4 + 5*eta_L_while_1_2*y/16 + 5*eta_L_while_1_3*x/16 + 13*eta_L_while_1_4*z**2/16 - eta_L_while_1_4/8 + 13*eta_L_while_1_5*y*z/16 - eta_L_while_1_5*y/4 + 5*eta_L_while_1_6*y**2/16 + 13*eta_L_while_1_7*x*z/16 - eta_L_while_1_7*x/4 + 5*eta_L_while_1_8*x*y/16 + 5*eta_L_while_1_9*x**2/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+          "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 15"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_6_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "13*eta_L_while_1_0/16 + 13*eta_L_while_1_1*z/16 + 13*eta_L_while_1_2*y/16 + 13*eta_L_while_1_3*x/16 + 13*eta_L_while_1_4*z**2/16 + 13*eta_L_while_1_5*y*z/16 + 13*eta_L_while_1_6*y**2/16 + 13*eta_L_while_1_7*x*z/16 + 13*eta_L_while_1_8*x*y/16 + 13*eta_L_while_1_9*x**2/16",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x**2 + x*y - x + y**2 + y + 2*z**2 - 2*z + 3/2",
+          "-x**2 - x*y + x - y**2 - y - 2*z**2 + 2*z + 7/2",
+          "-12*y**2 - 24*y - 32*z**2 + 32*z - 19",
+          "-12*x**2 + 24*x - 32*z**2 + 32*z - 19",
+          "-16*x**2 - 16*x*y + 16*x - 16*y**2 - 16*y - 15",
+          "16*x**2 + 16*x*y - 16*x + 16*y**2 + 16*y + 32*z**2 - 32*z + 23"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "id": "round_contraction_7_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    }
+  ]
+}

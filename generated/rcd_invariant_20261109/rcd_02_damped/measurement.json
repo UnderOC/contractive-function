@@ -1,0 +1,409 @@
+{
+  "name": "rcd_02_damped",
+  "family": "rcd",
+  "source": "contractive_examples/rcd/rcd_02_damped.pp",
+  "source_sha256": "59b74caa42662d0b2e5cbb0e5bd8b6d3c2ea796e7ad7fc5cb90980a4d75e5701",
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/rcd/rcd_02_damped.pp",
+    "--goal",
+    "tailbound",
+    "--initial-degree",
+    "2",
+    "--max-degree",
+    "4",
+    "--max-c-steps",
+    "12",
+    "--total-seconds",
+    "180",
+    "--reciprocal-seconds",
+    "120",
+    "--per-attempt-seconds",
+    "10",
+    "--repair-seconds",
+    "5",
+    "--comparison-n",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000",
+    "--workflow-config",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/rcd_invariant_20261109/workflow.json",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/rcd_invariant_20261109/rcd_02_damped/run"
+  ],
+  "returncode": 0,
+  "wall_seconds": 114.78135344292969,
+  "summary_status": "proved",
+  "status": "proved",
+  "diagnostic": null,
+  "stop_reason": "first_successful_degree",
+  "elapsed_seconds": 114.30175930308178,
+  "degrees_attempted": [
+    2
+  ],
+  "workflow_present": true,
+  "stages": [
+    {
+      "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 7.91305184783414,
+      "stage": "direct_polynomial",
+      "status": "proved",
+      "stop_reason": "first_successful_degree"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 0.8217571452260017,
+      "eta": "2334133914552488*x**2/85779492944873 + 227620519545832*x*y/11138986934027 + 2437192425538880*y**2/53066186859721 + 30889244185766/52508573687815",
+      "seed": "direct:0",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_001/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 0.5916293333284557,
+      "eta": "64*x**2 + 64*x*y + 64*y**2",
+      "seed": "direct:1",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_002/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 0.6694287094287574,
+      "eta": "9005013254896*x**2/93726187125 - 34161446399256*x*y/5467360915625 + 560223685649676*y**2/5467360915625 + 5104803992/1968249929625",
+      "seed": "direct:2",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+      "candidates": 0,
+      "degree": 2,
+      "elapsed_seconds": 101.93969246838242,
+      "seed_eta": "2334133914552488*x**2/85779492944873 + 227620519545832*x*y/11138986934027 + 2437192425538880*y**2/53066186859721 + 30889244185766/52508573687815",
+      "stage": "cauchy_joint",
+      "status": "no_certificate_found",
+      "t_values": [
+        "58538797/50000000",
+        "1931780301/1600000000",
+        "1814702707/1600000000",
+        "39478874301/500000000000",
+        "39478874301/250000000000",
+        "118436622903/500000000000",
+        "39478874301/125000000000",
+        "39478874301/100000000000",
+        "118436622903/250000000000",
+        "276352120107/500000000000",
+        "39478874301/62500000000"
+      ],
+      "template": "__workflow_eta_0 + __workflow_eta_1*y**2 + __workflow_eta_2*x*y + __workflow_eta_3*x**2"
+    },
+    {
+      "candidates": 30,
+      "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+      "stage": "positive_jensen",
+      "status": "proved"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+      "budget_policy": "independent additional soft budget; not consumed by positive searches",
+      "budget_seconds": 120.0,
+      "candidates": 0,
+      "elapsed_seconds": 0.8113090326078236,
+      "stage": "reciprocal",
+      "status": "no_certificate_found"
+    }
+  ],
+  "candidate_counts": {
+    "direct_polynomial": 5,
+    "positive_jensen": 30
+  },
+  "comparisons": [
+    {
+      "n": 5,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2334133914552488*x**2/85779492944873 + 227620519545832*x*y/11138986934027 + 2437192425538880*y**2/53066186859721 + 30889244185766/52508573687815",
+        "k": "1",
+        "prefactor_upper": "10343423147973893394986/90343490998708794665",
+        "decay_upper": "7/8",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "2334133914552488*x**2/85779492944873 + 227620519545832*x*y/11138986934027 + 2437192425538880*y**2/53066186859721 + 30889244185766/52508573687815",
+        "k": "1/4",
+        "prefactor_upper": "51110706231/15625000000",
+        "decay_upper": "483584105067/500000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2334133914552488*x**2/85779492944873 + 227620519545832*x*y/11138986934027 + 2437192425538880*y**2/53066186859721 + 30889244185766/52508573687815",
+        "k": "1",
+        "prefactor_upper": "10343423147973893394986/90343490998708794665",
+        "decay_upper": "7/8",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 10,
+      "integer": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "64*x**2 + 64*x*y + 64*y**2",
+        "k": "1",
+        "prefactor_upper": "192",
+        "decay_upper": "13/16",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:1:1/4",
+        "method": "positive_jensen",
+        "eta": "64*x**2 + 64*x*y + 64*y**2",
+        "k": "1/4",
+        "prefactor_upper": "3722419436409/1000000000000",
+        "decay_upper": "474707230529/500000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "64*x**2 + 64*x*y + 64*y**2",
+        "k": "1",
+        "prefactor_upper": "192",
+        "decay_upper": "13/16",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 20,
+      "integer": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "64*x**2 + 64*x*y + 64*y**2",
+        "k": "1",
+        "prefactor_upper": "192",
+        "decay_upper": "13/16",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:1:1/4",
+        "method": "positive_jensen",
+        "eta": "64*x**2 + 64*x*y + 64*y**2",
+        "k": "1/4",
+        "prefactor_upper": "3722419436409/1000000000000",
+        "decay_upper": "474707230529/500000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "64*x**2 + 64*x*y + 64*y**2",
+        "k": "1",
+        "prefactor_upper": "192",
+        "decay_upper": "13/16",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 50,
+      "integer": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "9005013254896*x**2/93726187125 - 34161446399256*x*y/5467360915625 + 560223685649676*y**2/5467360915625 + 5104803992/1968249929625",
+        "k": "1",
+        "prefactor_upper": "2380809638668/4768509375",
+        "decay_upper": "25/32",
+        "upper_bound_numeric": 0.0021769254112095197
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:2:7/8",
+        "method": "positive_jensen",
+        "eta": "9005013254896*x**2/93726187125 - 34161446399256*x*y/5467360915625 + 560223685649676*y**2/5467360915625 + 5104803992/1968249929625",
+        "k": "7/8",
+        "prefactor_upper": "229640919626297/1000000000000",
+        "decay_upper": "161146646519/200000000000",
+        "upper_bound_numeric": 0.0046839592198418085
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "9005013254896*x**2/93726187125 - 34161446399256*x*y/5467360915625 + 560223685649676*y**2/5467360915625 + 5104803992/1968249929625",
+        "k": "1",
+        "prefactor_upper": "2380809638668/4768509375",
+        "decay_upper": "25/32",
+        "upper_bound_numeric": 0.0021769254112095197
+      }
+    },
+    {
+      "n": 100,
+      "integer": {
+        "id": "direct:3",
+        "method": "direct_polynomial",
+        "eta": "2930496537124352*x**2/19758495168555 - 196324508166318464*x*y/1843779575465685 + 3351725451430496*y**2/22318300210635 + 409192981568/167616325042335",
+        "k": "1",
+        "prefactor_upper": "118851133448022688/124268928933435",
+        "decay_upper": "99/128",
+        "upper_bound_numeric": 6.6552330436785994e-09
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:3:7/8",
+        "method": "positive_jensen",
+        "eta": "2930496537124352*x**2/19758495168555 - 196324508166318464*x*y/1843779575465685 + 3351725451430496*y**2/22318300210635 + 409192981568/167616325042335",
+        "k": "7/8",
+        "prefactor_upper": "50695649215023/125000000000",
+        "decay_upper": "199669660961/250000000000",
+        "upper_bound_numeric": 7.002737696459793e-08
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:3",
+        "method": "direct_polynomial",
+        "eta": "2930496537124352*x**2/19758495168555 - 196324508166318464*x*y/1843779575465685 + 3351725451430496*y**2/22318300210635 + 409192981568/167616325042335",
+        "k": "1",
+        "prefactor_upper": "118851133448022688/124268928933435",
+        "decay_upper": "99/128",
+        "upper_bound_numeric": 6.6552330436785994e-09
+      }
+    },
+    {
+      "n": 200,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "1",
+        "prefactor_upper": "487806474436282300122764943548095185004054016/387188779934780339439381345856733728009605",
+        "decay_upper": "395/512",
+        "upper_bound_numeric": 3.6791858528473203e-20
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "7/8",
+        "prefactor_upper": "516159823185313/1000000000000",
+        "decay_upper": "796913607947/1000000000000",
+        "upper_bound_numeric": 9.88627668603637e-18
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "1",
+        "prefactor_upper": "487806474436282300122764943548095185004054016/387188779934780339439381345856733728009605",
+        "decay_upper": "395/512",
+        "upper_bound_numeric": 3.6791858528473203e-20
+      }
+    },
+    {
+      "n": 500,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "1",
+        "prefactor_upper": "487806474436282300122764943548095185004054016/387188779934780339439381345856733728009605",
+        "decay_upper": "395/512",
+        "upper_bound_numeric": 5.806201743104379e-54
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "7/8",
+        "prefactor_upper": "516159823185313/1000000000000",
+        "decay_upper": "796913607947/1000000000000",
+        "upper_bound_numeric": 2.620629386581812e-47
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "1",
+        "prefactor_upper": "487806474436282300122764943548095185004054016/387188779934780339439381345856733728009605",
+        "decay_upper": "395/512",
+        "upper_bound_numeric": 5.806201743104379e-54
+      }
+    },
+    {
+      "n": 1000,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "1",
+        "prefactor_upper": "487806474436282300122764943548095185004054016/387188779934780339439381345856733728009605",
+        "decay_upper": "395/512",
+        "upper_bound_numeric": 2.6758357215350936e-110
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "7/8",
+        "prefactor_upper": "516159823185313/1000000000000",
+        "decay_upper": "796913607947/1000000000000",
+        "upper_bound_numeric": 1.330537185059153e-96
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "493912110704929416556668757841536*x**2/2682381105832971428282923898385 - 29249494728209666247864680475008*x*y/172507516746346394386472111465 + 1502750493526430585170677899445632*y**2/8156974009050538632069167439615 + 9524509664863990563256413568/13786031868252511592426823113655",
+        "k": "1",
+        "prefactor_upper": "487806474436282300122764943548095185004054016/387188779934780339439381345856733728009605",
+        "decay_upper": "395/512",
+        "upper_bound_numeric": 2.6758357215350936e-110
+      }
+    }
+  ],
+  "reciprocal_search": {
+    "stop_reason": null,
+    "feedback_stop_reason": "no_verified_moment_parent",
+    "elapsed_seconds": 0.7324427398853004,
+    "attempts": 7,
+    "feedback_iterations": 0,
+    "improved_iterations": []
+  },
+  "verification_process": {
+    "returncode": 0,
+    "wall_seconds": 1.5161950578913093
+  },
+  "verification": {
+    "comparisons_checked": 8,
+    "direct_certificates": 5,
+    "method": "source_replay_positive_and_reciprocal_exact_comparison",
+    "portfolio_candidates": 35,
+    "status": "proved"
+  }
+}
