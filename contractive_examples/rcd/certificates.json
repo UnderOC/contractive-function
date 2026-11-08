@@ -1,0 +1,136 @@
+[
+  {
+    "id": "RCD-P1",
+    "file": "rcd_01_biased_exact.pp",
+    "mode": "positive",
+    "eta": "x*x+x*y+y*y",
+    "k": "1",
+    "a_or_b": "1/16",
+    "threshold_kind": "a",
+    "q_certified": "7/8",
+    "c": "7/8",
+    "eta0": "3",
+    "prefactor": "48",
+    "objective": "x*x + x*y + y*y",
+    "initial": {
+      "x": "1",
+      "y": "1"
+    },
+    "invariant_upper": "3",
+    "notes": "Biased coordinate choices, no union-of-lines restriction.",
+    "source_sha256": "92c62634cbec3215ea51410556e1bb2bdf15f08ae55f839211c14c2433593926",
+    "eta_expression": "x*x+x*y+y*y"
+  },
+  {
+    "id": "RCD-P2",
+    "file": "rcd_02_damped.pp",
+    "mode": "positive",
+    "eta": "x*x+x*y+y*y",
+    "k": "1",
+    "a_or_b": "1/64",
+    "threshold_kind": "a",
+    "q_certified": "13/16",
+    "c": "13/16",
+    "eta0": "3",
+    "prefactor": "192",
+    "objective": "x*x + x*y + y*y",
+    "initial": {
+      "x": "2",
+      "y": "-1"
+    },
+    "invariant_upper": "3",
+    "notes": "Half steps; global quadratic certificate.",
+    "source_sha256": "59b74caa42662d0b2e5cbb0e5bd8b6d3c2ea796e7ad7fc5cb90980a4d75e5701",
+    "eta_expression": "x*x+x*y+y*y"
+  },
+  {
+    "id": "RCD-P3",
+    "file": "rcd_03_shifted_3d.pp",
+    "mode": "positive",
+    "eta": "(x-1)*(x-1) + (x-1)*(y+1) + (y+1)*(y+1) + 2*(z-0.5)*(z-0.5)",
+    "k": "1",
+    "a_or_b": "1/16",
+    "threshold_kind": "a",
+    "q_certified": "7/8",
+    "c": "7/8",
+    "eta0": "5",
+    "prefactor": "80",
+    "objective": "(x-1)*(x-1) + (x-1)*(y+1) + (y+1)*(y+1) + 2*(z-0.5)*(z-0.5)",
+    "initial": {
+      "x": "2",
+      "y": "0",
+      "z": "3/2"
+    },
+    "invariant_upper": "5",
+    "notes": "3D shifted optimum and unequal coordinate probabilities.",
+    "source_sha256": "2769777a9d452576e19b9a579f2cd0f31ec1c42f597d14d8a620828886546fa4",
+    "eta_expression": "(x-1)*(x-1) + (x-1)*(y+1) + (y+1)*(y+1) + 2*(z-0.5)*(z-0.5)"
+  },
+  {
+    "id": "RCD-R1",
+    "file": "rcd_04_reciprocal_anisotropic.pp",
+    "mode": "reciprocal",
+    "eta": "5-((x-1)*(x-1)+4*(y+2)*(y+2))",
+    "k": "1",
+    "a_or_b": "25/8",
+    "threshold_kind": "b",
+    "c": "13/10",
+    "D": "5/2",
+    "r0": "1",
+    "eta0": "5/2",
+    "prefactor": "5/4",
+    "objective": "(x-1)*(x-1) + 4*(y+2)*(y+2)",
+    "guard_threshold": "15/8",
+    "initial": {
+      "x": "5/2",
+      "y": "-7/4"
+    },
+    "invariant_upper": "5/2",
+    "notes": "Polynomial progress complement; first and second moments include exits.",
+    "p_star": "9/10",
+    "z_star": "4",
+    "q_certified": "37/40",
+    "source_sha256": "807525583b471beda91f48e0e62165827bef5fe85717ededb436e1f31307f995",
+    "eta_expression": "5-((x-1)*(x-1)+4*(y+2)*(y+2))",
+    "additional_certificates": [
+      {
+        "k": "1/2",
+        "q_certified": "19/20",
+        "prefactor_exact": "sqrt(5)/2"
+      },
+      {
+        "k": "2",
+        "q_certified": "29/32",
+        "prefactor_exact": "25/16"
+      }
+    ]
+  },
+  {
+    "id": "RCD-R2",
+    "file": "rcd_05_reciprocal_random_step.pp",
+    "mode": "reciprocal",
+    "eta": "2-(x*x+x*y+y*y)",
+    "k": "1",
+    "a_or_b": "5/4",
+    "threshold_kind": "b",
+    "c": "181/160",
+    "D": "1409/512",
+    "r0": "1",
+    "eta0": "1",
+    "prefactor": "5/4",
+    "objective": "x*x + x*y + y*y",
+    "guard_threshold": "3/4",
+    "initial": {
+      "x": "1",
+      "y": "-1"
+    },
+    "invariant_upper": "1",
+    "notes": "Random coordinate and step length; quartic second-moment SOS witness.",
+    "p_star": "12563/12710",
+    "z_star": "1383/112",
+    "q_certified": "4561/4610",
+    "source_sha256": "c5f4536cdd0d4b92347f107a19a96ea0132c944a2dfd1a0f7c860a443dedad8f",
+    "eta_expression": "2-(x*x+x*y+y*y)",
+    "all_positive_k_feasible": true
+  }
+]

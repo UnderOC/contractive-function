@@ -86,3 +86,20 @@ def test_best_initial_bound_is_selected_instead_of_smallest_c(tmp_path):
                           options=settings(c_values=('1/2','99/100')))
     assert result['status'] == 'proved' and len(result['proved_candidates']) == 2
     assert result['selection']['c'] == '99/100'
+
+
+def test_kelly_restricted_degree_four_beats_explin_and_replays_original_source(tmp_path):
+    source = Path(__file__).resolve().parents[2]/'kelly_double_bound.pp'
+    out = tmp_path/'kelly'
+    result = run_analysis(source, 'assertion_violation', out, options=settings(
+        initial_degree=4, max_degree=4, c_values=('9999/10000',),
+        assertion_variables=('wealth',), strategy='handelman', total_seconds=90))
+    assert result['status'] == 'proved'
+    assert sp.Rational(31,100) < sp.Rational(result['selection']['A_exact']) < sp.Rational(55,100)
+    assert (out/'shared/source.pp').read_bytes() == source.read_bytes()
+    assert verify_assertion(out)['status'] == 'proved'
+    # Removing the restricted-template setting must invalidate model replay.
+    manifest = json.loads((out/'manifest.json').read_text())
+    manifest['options']['assertion_variables'] = None
+    (out/'manifest.json').write_text(json.dumps(manifest))
+    assert verify_assertion(out)['status'] == 'verification_failed'

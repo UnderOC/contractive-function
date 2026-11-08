@@ -13,8 +13,9 @@ import sympy as sp
 from contractive_tool.algebra.polynomial import arithmetic_to_symbolic
 from contractive_tool.analysis.goals import PolynomialProblem
 from contractive_tool.analysis.semantics import evaluate_predicate
-from contractive_tool.analysis.templates import PolynomialTemplateFactory
+from contractive_tool.analysis.templates import PolynomialTemplateFactory, select_variables
 from contractive_tool.errors import AnalysisError
+from contractive_tool.positivity.domains import reduce_disconnected_domain
 from contractive_tool.positivity.ir import BasicSet, Implication
 
 
@@ -137,12 +138,13 @@ Sampling and cycles within a round currently need a different kernel compiler.
     return RoundKernel(header, variables, initial, states, len(evidence.prefix))
 
 
-def make_round_problem(cfg, kernel, degree, c, max_decisions=20000):
+def make_round_problem(cfg, kernel, degree, c, max_decisions=20000, *, template_variables=None):
+    names = select_variables(cfg.symbols.program_variables, template_variables)
     if not 0 < c < 1:
         raise AnalysisError('Contraction factor must be strictly between 0 and 1')
-    if comb(len(kernel.variables)+degree,degree) > max_decisions:
+    if comb(len(names)+degree,degree) > max_decisions:
         raise AnalysisError('Template coefficient budget exceeded before basis expansion')
-    template = PolynomialTemplateFactory().instantiate(cfg, degree=degree, prefix='eta', locations=(kernel.header,))
+    template = PolynomialTemplateFactory().instantiate(cfg, degree=degree, prefix='eta', locations=(kernel.header,), variables=names)
     eta = template.expressions[kernel.header].expression
     at = {s:sp.expand(eta.subs(dict(zip(kernel.variables,s)), simultaneous=True)) for s in kernel.states}
     obligations = []
@@ -160,8 +162,13 @@ def make_round_problem(cfg, kernel, degree, c, max_decisions=20000):
             require('contraction', c*at[state]-pre)
         else:
             require('completed_nonnegative', at[state])
+    context = {}
+    if template_variables is not None:
+        obligations = [reduce_disconnected_domain(o) for o in obligations]
+        context = {'template_variables': list(names),
+                   'domain_reduction': 'drop_disconnected_constraint_components'}
     return PolynomialProblem('tailbound',degree,c,{kernel.header:eta},list(template.decisions),
                              at[kernel.initial],obligations,
-                             {'rule':'round_survival', 'kernel':'boolean', 'clock':kernel.to_data()['clock'],
+                             {**context, 'rule':'round_survival', 'kernel':'boolean', 'clock':kernel.to_data()['clock'],
                               'boundary':'polynomial nonnegative; survival process zero after exit',
                               'event':'K > n', 'time_unit':'completed_loop_iterations'})

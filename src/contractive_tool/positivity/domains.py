@@ -6,7 +6,7 @@ import sympy as sp
 from contractive_tool.algebra.polynomial import arithmetic_to_symbolic
 from contractive_tool.errors import AnalysisError
 from contractive_tool.frontend.ast import BooleanConstant, BoolBinary, BoolUnary, Compare
-from contractive_tool.positivity.ir import BasicSet
+from contractive_tool.positivity.ir import BasicSet, Implication
 
 
 def predicate_regions(expr, variables, *, negated=False, max_regions=128):
@@ -101,3 +101,26 @@ def interval_features(domain):
     return {"affine_generators": affine, "compactness": "proved" if compact else "unknown",
             "box_interior": interior, "archimedean": "unknown",
             "bounds": {str(x): [str(a), str(b)] for x, (a, b) in bounds.items()}}
+
+
+def reduce_disconnected_domain(obligation):
+    """Drop disconnected domain components, proving on a superset of the projection.
+
+    Keep every variable in the conclusion, including ones introduced by updates,
+    and the entire constraint component connected to it. Dropped constraints can
+    only strengthen the proof obligation; no source transition is removed.
+    """
+    domain = obligation.domain
+    active = obligation.conclusion.free_symbols & set(domain.variables)
+    constraints = domain.generators + domain.equalities
+    while True:
+        expanded = active | set().union(*(g.free_symbols for g in constraints
+                                         if g.free_symbols & active))
+        if expanded == active:
+            break
+        active = expanded
+    reduced = BasicSet(tuple(x for x in domain.variables if x in active),
+        tuple(g for g in domain.generators if g.free_symbols <= active),
+        tuple(g for g in domain.equalities if g.free_symbols <= active))
+    return Implication(obligation.id, reduced, obligation.conclusion,
+                       obligation.origin, obligation.tags)

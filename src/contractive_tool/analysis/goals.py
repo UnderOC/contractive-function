@@ -3,10 +3,11 @@ from dataclasses import dataclass
 from math import comb
 import sympy as sp
 
-from contractive_tool.analysis.templates import PolynomialTemplateFactory
+from contractive_tool.analysis.templates import PolynomialTemplateFactory, select_variables
 from contractive_tool.expectation import ExpectationEngine
 from contractive_tool.algebra import PolynomialService
 from contractive_tool.errors import AnalysisError
+from contractive_tool.positivity.domains import reduce_disconnected_domain
 from contractive_tool.positivity.ir import Implication
 
 
@@ -28,10 +29,11 @@ class PolynomialProblem:
                 'obligations':[o.to_data() for o in self.obligations], 'context':self.context}
 
 
-def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000):
+def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000, *, template_variables=None):
+    names = select_variables(cfg.symbols.program_variables, template_variables)
     if goal == 'assertion_violation':
         from contractive_tool.analysis.assertion import make_assertion_problem
-        return make_assertion_problem(cfg, evidence, degree, c, max_decisions=max_decisions)
+        return make_assertion_problem(cfg, evidence, degree, c, max_decisions=max_decisions, template_variables=template_variables)
     if goal not in {'tailbound','assertion_violation'}:
         raise AnalysisError('Unknown analysis goal')
     if not 0<c<1:
@@ -39,11 +41,11 @@ def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000
     if cfg.failure_terminal is None:
         raise AnalysisError('A source assert/refute is required to define the failure event')
     ordinary = sorted(set(evidence.locations)-{cfg.normal_terminal,cfg.failure_terminal})
-    count = len(ordinary)*comb(len(cfg.symbols.program_variables)+degree,degree)
+    count = len(ordinary)*comb(len(names)+degree,degree)
     if count>max_decisions:
         raise AnalysisError('Template coefficient budget exceeded before basis expansion')
     factory = PolynomialTemplateFactory()
-    template = factory.instantiate(cfg,degree=degree,prefix='v' if goal=='tailbound' else 'theta',locations=ordinary)
+    template = factory.instantiate(cfg,degree=degree,prefix='v' if goal=='tailbound' else 'theta',locations=ordinary, variables=names)
     expressions = {l:p.expression for l,p in template.expressions.items()}
     expressions[cfg.normal_terminal] = sp.Integer(0)
     expressions[cfg.failure_terminal] = sp.Integer(1)
@@ -70,4 +72,9 @@ def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000
         # Restore the original program-entry clock after taking the exact
         # expectation of the symbolically executed initialization prefix.
         objective *= c**(-len(evidence.prefix))
-    return PolynomialProblem(goal,degree,c,expressions,list(template.decisions),sp.expand(objective),obligations)
+    context = None
+    if template_variables is not None:
+        obligations = [reduce_disconnected_domain(o) for o in obligations]
+        context = {'template_variables': list(names),
+                   'domain_reduction': 'drop_disconnected_constraint_components'}
+    return PolynomialProblem(goal,degree,c,expressions,list(template.decisions),sp.expand(objective),obligations,context)

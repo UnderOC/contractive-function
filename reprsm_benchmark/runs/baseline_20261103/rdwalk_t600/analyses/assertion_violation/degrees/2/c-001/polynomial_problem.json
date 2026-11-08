@@ -1,0 +1,399 @@
+{
+  "c": "9999/10000",
+  "certificate_family": "polynomial",
+  "context": {
+    "H": "1",
+    "initialization": "expectation_after_straight_line_prefix",
+    "k": "1",
+    "positivity_margin": "1/1000000",
+    "prefix_steps": 2,
+    "raw_terminal_values": {
+      "failure": "1",
+      "normal": "1/1000000"
+    },
+    "rule": "positive_first_moment",
+    "termination_assumed": false,
+    "theta_terminal_values": {
+      "failure": "1",
+      "normal": "0"
+    }
+  },
+  "decisions": [
+    "eta_L_assert_1_0",
+    "eta_L_assert_1_1",
+    "eta_L_assert_1_2",
+    "eta_L_assert_1_3",
+    "eta_L_assert_1_4",
+    "eta_L_assert_1_5",
+    "eta_L_assign_1_0",
+    "eta_L_assign_1_1",
+    "eta_L_assign_1_2",
+    "eta_L_assign_1_3",
+    "eta_L_assign_1_4",
+    "eta_L_assign_1_5",
+    "eta_L_assign_2_0",
+    "eta_L_assign_2_1",
+    "eta_L_assign_2_2",
+    "eta_L_assign_2_3",
+    "eta_L_assign_2_4",
+    "eta_L_assign_2_5",
+    "eta_L_assign_3_0",
+    "eta_L_assign_3_1",
+    "eta_L_assign_3_2",
+    "eta_L_assign_3_3",
+    "eta_L_assign_3_4",
+    "eta_L_assign_3_5",
+    "eta_L_probabilistic_1_0",
+    "eta_L_probabilistic_1_1",
+    "eta_L_probabilistic_1_2",
+    "eta_L_probabilistic_1_3",
+    "eta_L_probabilistic_1_4",
+    "eta_L_probabilistic_1_5",
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2",
+    "eta_L_while_1_3",
+    "eta_L_while_1_4",
+    "eta_L_while_1_5"
+  ],
+  "degree": 2,
+  "expressions": {
+    "L_assert_1": "eta_L_assert_1_0 + eta_L_assert_1_1*x + eta_L_assert_1_2*t + eta_L_assert_1_3*x**2 + eta_L_assert_1_4*t*x + eta_L_assert_1_5*t**2",
+    "L_assign_1": "eta_L_assign_1_0 + eta_L_assign_1_1*x + eta_L_assign_1_2*t + eta_L_assign_1_3*x**2 + eta_L_assign_1_4*t*x + eta_L_assign_1_5*t**2",
+    "L_assign_2": "eta_L_assign_2_0 + eta_L_assign_2_1*x + eta_L_assign_2_2*t + eta_L_assign_2_3*x**2 + eta_L_assign_2_4*t*x + eta_L_assign_2_5*t**2",
+    "L_assign_3": "eta_L_assign_3_0 + eta_L_assign_3_1*x + eta_L_assign_3_2*t + eta_L_assign_3_3*x**2 + eta_L_assign_3_4*t*x + eta_L_assign_3_5*t**2",
+    "L_probabilistic_1": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*x + eta_L_probabilistic_1_2*t + eta_L_probabilistic_1_3*x**2 + eta_L_probabilistic_1_4*t*x + eta_L_probabilistic_1_5*t**2",
+    "L_while_1": "eta_L_while_1_0 + eta_L_while_1_1*x + eta_L_while_1_2*t + eta_L_while_1_3*x**2 + eta_L_while_1_4*t*x + eta_L_while_1_5*t**2",
+    "l_f": "1",
+    "l_t": "1/1000000"
+  },
+  "goal": "assertion_violation",
+  "objective": "eta_L_while_1_0",
+  "obligations": [
+    {
+      "conclusion": "eta_L_assert_1_0 + eta_L_assert_1_1*x + eta_L_assert_1_2*t + eta_L_assert_1_3*x**2 + eta_L_assert_1_4*t*x + eta_L_assert_1_5*t**2 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 99",
+          "100 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "L_assert_1_raw_positive_0",
+      "origin": {
+        "location": "L_assert_1"
+      },
+      "tags": [
+        "raw_positive"
+      ]
+    },
+    {
+      "conclusion": "eta_L_assign_1_0 + eta_L_assign_1_1*x + eta_L_assign_1_2*t + eta_L_assign_1_3*x**2 + eta_L_assign_1_4*t*x + eta_L_assign_1_5*t**2 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "100 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "L_assign_1_raw_positive_0",
+      "origin": {
+        "location": "L_assign_1"
+      },
+      "tags": [
+        "raw_positive"
+      ]
+    },
+    {
+      "conclusion": "eta_L_assign_2_0 + eta_L_assign_2_1*x + eta_L_assign_2_2*t + eta_L_assign_2_3*x**2 + eta_L_assign_2_4*t*x + eta_L_assign_2_5*t**2 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "99 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "L_assign_2_raw_positive_0",
+      "origin": {
+        "location": "L_assign_2"
+      },
+      "tags": [
+        "raw_positive"
+      ]
+    },
+    {
+      "conclusion": "eta_L_assign_3_0 + eta_L_assign_3_1*x + eta_L_assign_3_2*t + eta_L_assign_3_3*x**2 + eta_L_assign_3_4*t*x + eta_L_assign_3_5*t**2 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "99 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "L_assign_3_raw_positive_0",
+      "origin": {
+        "location": "L_assign_3"
+      },
+      "tags": [
+        "raw_positive"
+      ]
+    },
+    {
+      "conclusion": "eta_L_probabilistic_1_0 + eta_L_probabilistic_1_1*x + eta_L_probabilistic_1_2*t + eta_L_probabilistic_1_3*x**2 + eta_L_probabilistic_1_4*t*x + eta_L_probabilistic_1_5*t**2 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "99 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "L_probabilistic_1_raw_positive_0",
+      "origin": {
+        "location": "L_probabilistic_1"
+      },
+      "tags": [
+        "raw_positive"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*x + eta_L_while_1_2*t + eta_L_while_1_3*x**2 + eta_L_while_1_4*t*x + eta_L_while_1_5*t**2 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "100 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "L_while_1_raw_positive_0",
+      "origin": {
+        "location": "L_while_1"
+      },
+      "tags": [
+        "raw_positive"
+      ]
+    },
+    {
+      "conclusion": "9999*eta_L_assert_1_0/10000 + 9999*eta_L_assert_1_1*x/10000 + 9999*eta_L_assert_1_2*t/10000 + 9999*eta_L_assert_1_3*x**2/10000 + 9999*eta_L_assert_1_4*t*x/10000 + 9999*eta_L_assert_1_5*t**2/10000 - 1/1000000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 99",
+          "100 - x",
+          "t",
+          "600 - t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_1_raw_contraction_0",
+      "origin": {
+        "line": 27,
+        "location": "L_assert_1",
+        "transition": "T_1"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "9999*eta_L_assert_1_0/10000 + 9999*eta_L_assert_1_1*x/10000 + 9999*eta_L_assert_1_2*t/10000 + 9999*eta_L_assert_1_3*x**2/10000 + 9999*eta_L_assert_1_4*t*x/10000 + 9999*eta_L_assert_1_5*t**2/10000 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "x - 99",
+          "100 - x",
+          "t",
+          "t - 600"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_2_raw_contraction_0",
+      "origin": {
+        "line": 27,
+        "location": "L_assert_1",
+        "transition": "T_2"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "9999*eta_L_assign_1_0/10000 + 9999*eta_L_assign_1_1*x/10000 + 9999*eta_L_assign_1_2*t/10000 + 9999*eta_L_assign_1_3*x**2/10000 + 9999*eta_L_assign_1_4*t*x/10000 + 9999*eta_L_assign_1_5*t**2/10000 - eta_L_while_1_0 - eta_L_while_1_1*x - eta_L_while_1_2*t - eta_L_while_1_2 - eta_L_while_1_3*x**2 - eta_L_while_1_4*t*x - eta_L_while_1_4*x - eta_L_while_1_5*t**2 - 2*eta_L_while_1_5*t - eta_L_while_1_5",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "100 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_3_raw_contraction_0",
+      "origin": {
+        "line": 24,
+        "location": "L_assign_1",
+        "transition": "T_3"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_assign_1_0 - eta_L_assign_1_1*x - eta_L_assign_1_1 - eta_L_assign_1_2*t - eta_L_assign_1_3*x**2 - 2*eta_L_assign_1_3*x - eta_L_assign_1_3 - eta_L_assign_1_4*t*x - eta_L_assign_1_4*t - eta_L_assign_1_5*t**2 + 9999*eta_L_assign_2_0/10000 + 9999*eta_L_assign_2_1*x/10000 + 9999*eta_L_assign_2_2*t/10000 + 9999*eta_L_assign_2_3*x**2/10000 + 9999*eta_L_assign_2_4*t*x/10000 + 9999*eta_L_assign_2_5*t**2/10000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "99 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_4_raw_contraction_0",
+      "origin": {
+        "line": 18,
+        "location": "L_assign_2",
+        "transition": "T_4"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_assign_1_0 - eta_L_assign_1_1*x + eta_L_assign_1_1 - eta_L_assign_1_2*t - eta_L_assign_1_3*x**2 + 2*eta_L_assign_1_3*x - eta_L_assign_1_3 - eta_L_assign_1_4*t*x + eta_L_assign_1_4*t - eta_L_assign_1_5*t**2 + 9999*eta_L_assign_3_0/10000 + 9999*eta_L_assign_3_1*x/10000 + 9999*eta_L_assign_3_2*t/10000 + 9999*eta_L_assign_3_3*x**2/10000 + 9999*eta_L_assign_3_4*t*x/10000 + 9999*eta_L_assign_3_5*t**2/10000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "99 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_5_raw_contraction_0",
+      "origin": {
+        "line": 21,
+        "location": "L_assign_3",
+        "transition": "T_5"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "-3*eta_L_assign_2_0/4 - 3*eta_L_assign_2_1*x/4 - 3*eta_L_assign_2_2*t/4 - 3*eta_L_assign_2_3*x**2/4 - 3*eta_L_assign_2_4*t*x/4 - 3*eta_L_assign_2_5*t**2/4 - eta_L_assign_3_0/4 - eta_L_assign_3_1*x/4 - eta_L_assign_3_2*t/4 - eta_L_assign_3_3*x**2/4 - eta_L_assign_3_4*t*x/4 - eta_L_assign_3_5*t**2/4 + 9999*eta_L_probabilistic_1_0/10000 + 9999*eta_L_probabilistic_1_1*x/10000 + 9999*eta_L_probabilistic_1_2*t/10000 + 9999*eta_L_probabilistic_1_3*x**2/10000 + 9999*eta_L_probabilistic_1_4*t*x/10000 + 9999*eta_L_probabilistic_1_5*t**2/10000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "99 - x",
+          "t"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_6_raw_contraction_0",
+      "origin": {
+        "line": 16,
+        "location": "L_probabilistic_1",
+        "transition": "T_6"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_probabilistic_1_0 - eta_L_probabilistic_1_1*x - eta_L_probabilistic_1_2*t - eta_L_probabilistic_1_3*x**2 - eta_L_probabilistic_1_4*t*x - eta_L_probabilistic_1_5*t**2 + 9999*eta_L_while_1_0/10000 + 9999*eta_L_while_1_1*x/10000 + 9999*eta_L_while_1_2*t/10000 + 9999*eta_L_while_1_3*x**2/10000 + 9999*eta_L_while_1_4*t*x/10000 + 9999*eta_L_while_1_5*t**2/10000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "100 - x",
+          "t",
+          "99 - x"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_7_raw_contraction_0",
+      "origin": {
+        "line": 14,
+        "location": "L_while_1",
+        "transition": "T_7"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    },
+    {
+      "conclusion": "-eta_L_assert_1_0 - eta_L_assert_1_1*x - eta_L_assert_1_2*t - eta_L_assert_1_3*x**2 - eta_L_assert_1_4*t*x - eta_L_assert_1_5*t**2 + 9999*eta_L_while_1_0/10000 + 9999*eta_L_while_1_1*x/10000 + 9999*eta_L_while_1_2*t/10000 + 9999*eta_L_while_1_3*x**2/10000 + 9999*eta_L_while_1_4*t*x/10000 + 9999*eta_L_while_1_5*t**2/10000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "100 - x",
+          "t",
+          "x - 99"
+        ],
+        "variables": [
+          "t",
+          "x"
+        ]
+      },
+      "id": "T_8_raw_contraction_0",
+      "origin": {
+        "line": 14,
+        "location": "L_while_1",
+        "transition": "T_8"
+      },
+      "tags": [
+        "full_first_moment",
+        "assertion_violation"
+      ]
+    }
+  ]
+}

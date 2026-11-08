@@ -36,11 +36,17 @@ def _parser():
                       'repair_max_solves'):
             command.add_argument('--'+field.replace('_','-'), type=int, default=getattr(defaults,field))
         for field in ('total_seconds','per_attempt_seconds','repair_seconds','repair_relative_gap'):
-            command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field))
+            command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field),
+                                 help='positive search soft budget; reciprocal budget is additional'
+                                      if field=='total_seconds' else None)
         command.add_argument('--c-values', nargs='+', default=None,
                              help='explicit c grid; defaults: tail bisection, assertion near-one grid')
         command.add_argument('--assertion-margin', default=defaults.assertion_margin,
                              help='positive rational lower bound for raw assertion eta (H=1)')
+        command.add_argument('--assertion-variables', nargs='+', default=None,
+                             help='restrict assertion templates to these program variables; default: all')
+        command.add_argument('--tail-variables', nargs='+', default=None,
+                             help='restrict tailbound templates to these program variables; default: all')
         command.add_argument('--continue-after-success', action='store_true')
         command.add_argument('--strategy', choices=('auto','putinar','schmudgen','handelman'), default='auto')
         command.add_argument('--enabled-strategies', nargs='+', choices=('putinar','schmudgen','handelman'),
@@ -49,11 +55,13 @@ def _parser():
         command.add_argument('--tail-rule', choices=('auto','round_survival','late_bad_exit'), default='auto',
                              help='auto tries Boolean then symbolic round kernels, then late_bad_exit with diagnostics')
         command.add_argument('--symbolic-workflow', action=argparse.BooleanOptionalAction, default=True,
-                             help='run direct polynomial then Cauchy searches on supported symbolic rounds')
+                             help='run positive-power and independently budgeted reciprocal searches on symbolic rounds')
+        command.add_argument('--reciprocal-seconds', type=float, default=defaults.reciprocal_seconds,
+                             help='additional independent reciprocal soft budget on symbolic rounds; 0 disables')
         command.add_argument('--workflow-config', type=str,
-                             help='optional Cauchy workflow search settings JSON; no fixed eta seed input')
+                             help='optional positive/reciprocal workflow settings JSON; no fixed eta seed input')
         command.add_argument('--comparison-n', dest='comparison_ns', type=int, nargs='+', default=[5,20,100],
-                             help='round counts for integer/rational portfolio comparisons')
+                             help='round counts for positive integer/noninteger and reciprocal comparisons')
     strategies = commands.add_parser('strategies', help='query optional positivity plugins')
     strategies.add_argument('operation', choices=('list',))
     strategies.add_argument('--json', action='store_true')
@@ -97,8 +105,10 @@ def main(argv=None):
                 checked = verify_workflow(args.artifacts)
                 if checked['status'] != 'proved':
                     raise AnalysisError(f"Workflow verification failed: {checked.get('reason')}")
-                comparison = compare_candidates(summary['symbolic_workflow']['candidates'],args.n)
-                best = comparison['rational']
+                extended = summary['symbolic_workflow'].get('schema_version',1) >= 2
+                comparison = compare_candidates(summary['symbolic_workflow']['candidates'],args.n,
+                                                include_reciprocal=extended)
+                best = comparison['overall' if extended else 'rational']
                 result = {'status':'proved','n':args.n,'upper_bound_exact':best['upper_bound_exact'],
                           'upper_bound_numeric':best['upper_bound_numeric'],'expression':best['expression'],
                           'numeric_is_display_only':True,'event':best['event'],'time_unit':best['time_unit'],
@@ -119,7 +129,7 @@ def main(argv=None):
             result = {'status':'ok',**compile_to_cfg(args.source,args.out_dir or Path('generated')/args.source.stem)}
         else:
             fields = {field:getattr(args,field) for field in SearchOptions.__dataclass_fields__ if hasattr(args,field)}
-            for field in ('c_values','enabled_strategies','comparison_ns'):
+            for field in ('c_values','enabled_strategies','comparison_ns','assertion_variables','tail_variables'):
                 if fields[field] is not None:
                     fields[field] = tuple(fields[field])
             result = run_analysis(args.source,args.goal,args.out_dir,options=SearchOptions(**fields),

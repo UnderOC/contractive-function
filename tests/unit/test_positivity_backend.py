@@ -134,3 +134,15 @@ def test_zero_face_guesses_do_not_relax_exact_verification():
     assert recovered['exact_values']=={'a':'0','b':'0'}
     bad=ConicModel(['a','b'],a,[a+b+sp.Rational(1,10**8)],['a','b'])
     assert reconstruct(bad,{'a':2e-7,'b':3e-7})['status']!='proved'
+def test_reconstruction_objective_cap_tries_finer_rationals():
+    from contractive_tool.positivity.ir import ConicModel
+    from contractive_tool.backends.cvxpy.verification import reconstruct, check_conic_values
+    import sympy as sp
+    a, b = sp.symbols('a b')
+    model = ConicModel(['a','b'], a, [a+10000*b-2], ['a','b'])
+    values = {'a':0.5, 'b':0.00015}
+    # Coarse rounding satisfies every constraint but destroys the useful bound.
+    assert reconstruct(model, values)['bound_exact'] == '2'
+    result = reconstruct(model, values, objective_cap=sp.Rational(3,5))
+    assert result['status'] == 'proved' and result['bound_exact'] == '1/2'
+    assert check_conic_values(model, result['exact_values'])

@@ -29,9 +29,11 @@ def exact_template_check(problem, numerical_values):
     return {'status':'solved_unverified','reason':'No exact original-domain certificate recovered'}
 
 
-def certify_candidate(model, problem, values, *, options, deadline, bounded_reconstruction=False):
+def certify_candidate(model, problem, values, *, options, deadline, bounded_reconstruction=False,
+                      reconstruction_objective_cap=None):
     """Same recovery sequence for tail and assertion; no solver status is a proof."""
-    verified = reconstruct(model, values, deadline=deadline if bounded_reconstruction else None)
+    verified = reconstruct(model, values, deadline=deadline if bounded_reconstruction else None,
+                           objective_cap=reconstruction_objective_cap)
     audit = None
     if verified['status'] != 'proved' and options.repair_seconds > 0 and options.repair_max_solves > 0:
         from .repair import repair, RepairOptions

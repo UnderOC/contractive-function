@@ -10,6 +10,14 @@ from contractive_tool.errors import AnalysisError
 from contractive_tool.ir.cfg import ProgramCFG
 
 
+def select_variables(program_variables, selected=None):
+    available = tuple(map(str, program_variables))
+    names = tuple(available if selected is None else selected)
+    if len(set(names)) != len(names) or set(names) - set(available):
+        raise AnalysisError('Template variables must be distinct program variables')
+    return names
+
+
 def total_degree_exponents(variable_count: int, degree: int) -> tuple[tuple[int, ...], ...]:
     if degree < 0:
         raise AnalysisError("polynomial degree must be nonnegative")
@@ -64,11 +72,13 @@ class PolynomialTemplateFactory:
         degree: int,
         prefix: str,
         locations: Iterable[str] | None = None,
+        variables: Iterable[str] | None = None,
     ) -> PolynomialTemplateInstance:
         selected = tuple(locations if locations is not None else cfg.locations)
-        variables = tuple(sp.Symbol(name) for name in cfg.symbols.program_variables)
+        names = select_variables(cfg.symbols.program_variables, variables)
+        variables = tuple(sp.Symbol(name) for name in names)
         # Keep program variables and synthesis symbols disjoint, including unusual source names.
-        while any(str(x).startswith(prefix + '_') for x in variables):
+        while any(str(x).startswith(prefix + '_') for x in cfg.symbols.program_variables):
             prefix = '_' + prefix
         exponents = total_degree_exponents(len(variables), degree)
         expressions: dict[str, Polynomial] = {}

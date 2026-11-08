@@ -15,9 +15,10 @@ from contractive_tool.algebra.polynomial import arithmetic_to_symbolic
 from contractive_tool.analysis.goals import PolynomialProblem
 from contractive_tool.analysis.guard_regions import GuardRegion, guard_regions
 from contractive_tool.analysis.semantics import intersect
-from contractive_tool.analysis.templates import PolynomialTemplateFactory
+from contractive_tool.analysis.templates import PolynomialTemplateFactory, select_variables
 from contractive_tool.errors import AnalysisError
 from contractive_tool.expectation import ExpectationEngine
+from contractive_tool.positivity.domains import reduce_disconnected_domain
 from contractive_tool.positivity.ir import Implication
 
 
@@ -179,12 +180,13 @@ def prepare_symbolic_round_kernel(cfg, evidence, *, max_nodes=4096, max_cases=25
     return kernel
 
 
-def make_symbolic_round_problem(cfg, kernel, degree, c, max_decisions=20000):
+def make_symbolic_round_problem(cfg, kernel, degree, c, max_decisions=20000, *, template_variables=None):
+    names = select_variables(cfg.symbols.program_variables, template_variables)
     if not 0<c<1:
         raise AnalysisError('Contraction factor must be strictly between 0 and 1')
-    if comb(len(kernel.variables)+degree,degree)>max_decisions:
+    if comb(len(names)+degree,degree)>max_decisions:
         raise AnalysisError('Template coefficient budget exceeded before basis expansion')
-    template = PolynomialTemplateFactory().instantiate(cfg,degree=degree,prefix='eta',locations=(kernel.header,))
+    template = PolynomialTemplateFactory().instantiate(cfg,degree=degree,prefix='eta',locations=(kernel.header,), variables=names)
     eta = template.expressions[kernel.header].expression
     obligations = []
     origin = {'location':kernel.header,'kernel_evidence':'round_evidence.json'}
@@ -199,8 +201,13 @@ def make_symbolic_round_problem(cfg, kernel, degree, c, max_decisions=20000):
                 sp.expand(c*eta-pre),origin,('contraction','round_survival')))
     initialized = eta.subs(kernel.evidence.initial,simultaneous=True)
     objective = ExpectationEngine().random_expectation(initialized,kernel.evidence.initial_random_model).expression
+    context = {}
+    if template_variables is not None:
+        obligations = [reduce_disconnected_domain(o) for o in obligations]
+        context = {'template_variables': list(names),
+                   'domain_reduction': 'drop_disconnected_constraint_components'}
     return PolynomialProblem('tailbound',degree,c,{kernel.header:eta},list(template.decisions),objective,obligations,
-        {'rule':'round_survival','kernel':'symbolic','clock':kernel.to_data()['clock'],
+        {**context, 'rule':'round_survival','kernel':'symbolic','clock':kernel.to_data()['clock'],
          'event':'K > n','time_unit':'completed_loop_iterations',
          'boundary':'polynomial nonnegative; survival process zero after exit',
          'expectation_mode':kernel.expectation_mode,

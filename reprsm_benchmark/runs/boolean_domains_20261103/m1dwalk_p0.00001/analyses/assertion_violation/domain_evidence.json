@@ -1,0 +1,4202 @@
+{
+  "domains": {
+    "L_assert_1": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "100 - x",
+          "alive",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "100 - x",
+          "alive",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "L_assign_1": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "L_assign_2": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "L_assign_3": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "L_probabilistic_1": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "L_probabilistic_2": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "99 - x",
+          "alive - 1/2",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [
+          "alive"
+        ],
+        "generators": [
+          "100 - x",
+          "alive",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      },
+      {
+        "equalities": [
+          "alive - 1"
+        ],
+        "generators": [
+          "100 - x",
+          "alive",
+          "1 - alive"
+        ],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "alive",
+          "x"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "alive": "1",
+    "x": "1"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "initialization_steps": 2,
+  "initialization_trace": [
+    {
+      "destination": "L_assign_4",
+      "location": "L_assign_5",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_11",
+      "values": {
+        "x": "1"
+      }
+    },
+    {
+      "destination": "L_while_1",
+      "location": "L_assign_4",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_10",
+      "values": {
+        "alive": "1",
+        "x": "1"
+      }
+    }
+  ],
+  "locations": [
+    "L_assert_1",
+    "L_assign_1",
+    "L_assign_2",
+    "L_assign_3",
+    "L_probabilistic_1",
+    "L_probabilistic_2",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_5",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_11"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_4",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_10"
+    },
+    {
+      "kind": "initial_control_invariant",
+      "location": "L_while_1",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "0",
+            "1",
+            "1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_1"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "1/2 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_1"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "1",
+            "0",
+            "-1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_1"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "1/2 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_1"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "0",
+            "1",
+            "-1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "alive - 1/2"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "1",
+            "0",
+            "1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "alive - 1/2"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "100 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "100 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "1",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "100 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "0",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "0",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "0",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "100 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "100 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "1",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "100 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "0",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "0",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "0",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "101 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "101 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "2",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "101 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "101 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "101 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "2",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "101 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "3/4",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "3/4"
+        },
+        "reduced_conclusion": "3/4",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "-1/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "-1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1/4",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1/4"
+        },
+        "reduced_conclusion": "1/4",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "-1/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "-1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "3/4",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "3/4"
+        },
+        "reduced_conclusion": "3/4",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1/2"
+              },
+              "reduced_conclusion": "1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_6"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1/4",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1/4"
+        },
+        "reduced_conclusion": "1/4",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_6"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1/2"
+              },
+              "reduced_conclusion": "1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1/100000",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1/100000"
+        },
+        "reduced_conclusion": "1/100000",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "-1/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "-1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "99999/100000",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "99999/100000"
+        },
+        "reduced_conclusion": "99999/100000",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "-1/2",
+            "1"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "-1/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "-1/2",
+                    "1"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "-1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "-1/2",
+                  "1"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1/100000",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1/100000"
+        },
+        "reduced_conclusion": "1/100000",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1/2"
+              },
+              "reduced_conclusion": "1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_7"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "99999/100000",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "99999/100000"
+        },
+        "reduced_conclusion": "99999/100000",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "99 - x",
+            "1/2",
+            "0"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_7"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "99 - x",
+                    "1/2",
+                    "0"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1/2"
+              },
+              "reduced_conclusion": "1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "99 - x",
+                  "1/2",
+                  "0"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "99 - x",
+              "alive - 1/2",
+              "1 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "0",
+            "1",
+            "99 - x",
+            "-1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "0",
+                    "1",
+                    "99 - x",
+                    "-1/2"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "99 - x",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "-1/2",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "0",
+                    "1",
+                    "99 - x",
+                    "-1/2"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ]
+              },
+              "reduced_conclusion": "-1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "99 - x",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "99 - x",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "99 - x",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "99 - x",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "99 - x",
+              "alive - 1/2"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "1",
+            "0",
+            "99 - x",
+            "1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "99 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "99 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "1",
+                    "0",
+                    "99 - x",
+                    "1/2"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "99 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "99 - x",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1/2",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1/2"
+              },
+              "reduced_conclusion": "1/2",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "99 - x",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "99 - x",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "99 - x",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "99 - x",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "99 - x",
+              "alive - 1/2"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "0",
+            "1",
+            "x - 99"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "100 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "100 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "0",
+                    "1",
+                    "x - 99"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "100 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "x - 99"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "0",
+            "1",
+            "1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 1,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "100 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "100 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "0",
+                    "1",
+                    "1/2"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "100 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "0",
+                  "1",
+                  "1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "1/2 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "1",
+            "0",
+            "x - 99"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 2,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "100 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "100 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "1",
+                    "0",
+                    "x - 99"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "100 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive - 1",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "x - 99"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "x - 99"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 1
+        }
+      ],
+      "random_samples": [],
+      "region": 2,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "conclusion": "1",
+        "method": "exact_affine_equality_elimination",
+        "proof": {
+          "method": "constant",
+          "value": "1"
+        },
+        "reduced_conclusion": "1",
+        "reduced_domain": {
+          "equalities": [],
+          "generators": [
+            "100 - x",
+            "1",
+            "0",
+            "-1/2"
+          ],
+          "variables": [
+            "x"
+          ]
+        }
+      },
+      "region": 3,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "100 - x",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "100 - x",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "1",
+                    "0",
+                    "-1/2"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "1",
+                  "0",
+                  "0",
+                  "0"
+                ]
+              },
+              "reduced_conclusion": "100 - x",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "1 - alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "0"
+              },
+              "reduced_conclusion": "0",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "method": "constant",
+                "value": "1"
+              },
+              "reduced_conclusion": "1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            },
+            {
+              "conclusion": "-alive",
+              "method": "exact_affine_equality_elimination",
+              "proof": {
+                "conclusion": "-1",
+                "domain": {
+                  "equalities": [],
+                  "generators": [
+                    "100 - x",
+                    "1",
+                    "0",
+                    "-1/2"
+                  ],
+                  "variables": [
+                    "x"
+                  ]
+                },
+                "equality_weights": [],
+                "method": "exact_farkas_identity",
+                "nonnegative_weights": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "2"
+                ]
+              },
+              "reduced_conclusion": "-1",
+              "reduced_domain": {
+                "equalities": [],
+                "generators": [
+                  "100 - x",
+                  "1",
+                  "0",
+                  "-1/2"
+                ],
+                "variables": [
+                  "x"
+                ]
+              }
+            }
+          ],
+          "support_domain": {
+            "equalities": [
+              "alive - 1"
+            ],
+            "generators": [
+              "100 - x",
+              "alive",
+              "1 - alive",
+              "1/2 - alive"
+            ],
+            "variables": [
+              "alive",
+              "x"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 3,
+      "transition": "T_9"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

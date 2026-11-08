@@ -56,7 +56,10 @@ class SearchOptions:
     family: str = 'polynomial'
     tail_rule: str = 'auto'
     assertion_margin: str = '1/1000000'
+    assertion_variables: tuple[str, ...] | None = None
+    tail_variables: tuple[str, ...] | None = None
     symbolic_workflow: bool = True
+    reciprocal_seconds: float = 60
     workflow_config: str | None = None
     comparison_ns: tuple[int, ...] = (5, 20, 100)
 
@@ -64,6 +67,15 @@ class SearchOptions:
         degrees = DegreePolicy(self.initial_degree,self.max_degree,self.degree_step,self.continue_after_success)
         list(degrees.degrees())
         get_family(self.family)
+        for name in ('assertion_variables', 'tail_variables'):
+            selected = getattr(self, name)
+            if selected is not None and (
+                    not isinstance(selected, (tuple, list)) or
+                    any(not isinstance(x, str) for x in selected) or
+                    len(set(selected)) != len(selected)):
+                raise AnalysisError(f'{name} must be distinct variable names')
+        if not math.isfinite(self.reciprocal_seconds) or self.reciprocal_seconds < 0:
+            raise AnalysisError('Reciprocal budget must be nonnegative and finite')
         if not isinstance(self.symbolic_workflow, bool):
             raise AnalysisError('symbolic_workflow must be Boolean')
         if (not self.comparison_ns or any(type(n) is not int or not 0 <= n <= 10000
@@ -106,7 +118,8 @@ def selected_bound(candidate, problem, cfg):
             'event':f'T < infinity and T > n and terminal_location == {cfg.failure_terminal}'}
     if problem.context:
         bound.update({k:v for k,v in problem.context.items() if k!='round_preexpectations'})
-        bound['termination_consequence']='K is finite almost surely; finite round/exit paths imply program termination'
+        if problem.context.get('rule') == 'round_survival':
+            bound['termination_consequence']='K is finite almost surely; finite round/exit paths imply program termination'
         bound['probability_expression']=f"min(1, {bound['expression']})"
     return bound
 
@@ -229,10 +242,13 @@ def _run_polynomial_analysis(source, goal, out_dir=None, *, options=None, model_
             point_history_start=len(history)
             point_path=root/'degrees'/str(degree)/f'c-{ci+1:03d}'
             try:
-                problem=(make_symbolic_round_problem(cfg,kernel,degree,c,options.max_decisions)
+                problem=(make_symbolic_round_problem(cfg,kernel,degree,c,options.max_decisions,
+                            template_variables=options.tail_variables)
                          if isinstance(kernel,SymbolicRoundKernel) else
-                         make_round_problem(cfg,kernel,degree,c,options.max_decisions) if kernel else
-                         family.instantiate(cfg,evidence,degree,c,goal,options.max_decisions))
+                         make_round_problem(cfg,kernel,degree,c,options.max_decisions,
+                            template_variables=options.tail_variables) if kernel else
+                         family.instantiate(cfg,evidence,degree,c,goal,options.max_decisions,
+                            template_variables=options.tail_variables))
             except AnalysisError as error:
                 history.append({'degree':degree,'c':str(c),'status':'generation_failed','reason':str(error)})
                 feedback('unknown')

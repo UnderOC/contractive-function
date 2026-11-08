@@ -1,0 +1,78 @@
+{
+  "artifacts": {
+    "analyses/assertion_violation/degrees/1/c-001/attempts/001/conic_model.json": "6c1b5c3ea3281a8926b5b78e0b0c957337c23051cbf859bb857249aa4dd0c795",
+    "analyses/assertion_violation/degrees/1/c-001/attempts/001/encoding_plan.json": "68a0cfabdad2a235aba033b57932b4d50aafae28930b5066d1b866af5ff38ebd",
+    "analyses/assertion_violation/degrees/1/c-001/attempts/001/solver.json": "5cbf3707aa9be9a17bcb37f550b5582d5c97a5cb6c9cf05fcbb84df4fdd1f76a",
+    "analyses/assertion_violation/degrees/1/c-001/attempts/001/solver.log": "173e91b1933dd6a67e7b43280e90189b94bcd73a2a30c88c7e77ecd0673de31a",
+    "analyses/assertion_violation/degrees/1/c-001/polynomial_problem.json": "eba45ac706bdb190e3da3683ee117399c374c8d857345a624ec4aad90a06f6d3",
+    "analyses/assertion_violation/degrees/2/c-001/attempts/001/conic_model.json": "9110d590ca4e8feada62f1eb675ac208f9f1c695165529fca4f14e34dfc0bbee",
+    "analyses/assertion_violation/degrees/2/c-001/attempts/001/encoding_plan.json": "68a0cfabdad2a235aba033b57932b4d50aafae28930b5066d1b866af5ff38ebd",
+    "analyses/assertion_violation/degrees/2/c-001/attempts/001/solver.json": "e58923772ca0538c6008a88807966bee9e39fc4c0cf20fe1f5bf9853614178f4",
+    "analyses/assertion_violation/degrees/2/c-001/attempts/001/solver.log": "a2b3e6378c857acb413deb41f6954c65ba9aec44765a20f9cf36ecc8de5b123c",
+    "analyses/assertion_violation/degrees/2/c-001/polynomial_problem.json": "7a7ea34d2695fc5bfdecb1570496f9aca08168e4705b652023e0d1def0a86d39",
+    "analyses/assertion_violation/domain_evidence.json": "01f9f1af8020b3085ca96b236f79a9221f85bfbd107e55e8d12b85c8f4c39564",
+    "analyses/assertion_violation/goal.json": "7d0556550449a903ea5e1596b641fdf8d64e43d6cfb73fd3711c1046a920fd21",
+    "analyses/assertion_violation/search_history.json": "87de21c2550728b32b1b970d47d7527d68853c0b44267cd9a955a7ca13d91bee",
+    "shared/ast.json": "2621f68d8f9aeaaae4271192cd62c6f30c7e5cb3daa57a9f85f756475ca66d74",
+    "shared/cfg.dot": "57ddd1abc5b8983f15a2c68ff428cad9dba66726cddca446d80a3c6434592027",
+    "shared/cfg.json": "b8434c0cec317fb63c1ef07a95b346d64dbc296d7c2734b6899e49366a58c084",
+    "shared/cfg.txt": "7eeb33c2795aff68d0ac3762912c9f876367f82ad23ef2716c834bf4c6683d1f",
+    "shared/manifest.json": "7e26a97520d5eb2e9a4c1e96c73f2c276115ee762e6aed48a22cc43c295c3a38",
+    "shared/source.normalized.pp": "50a25d7204eed9278bd6b51414de9dec24b4bf3a99c9b125eae3c15326fb6af9",
+    "shared/source.pp": "aea8363245694c3968739d8f7733a0b0ed7a37f49d744e90173f22fd2fc80314",
+    "shared/validation.json": "ed190fa40104b32d17a5d9ffb536f396f7732e15e721ef641a9c45052a60d63d",
+    "summary.json": "6697d04c6ce8f029a0dab61778ce398a0cd967a69a190744dfbd63a457621279"
+  },
+  "backend": "cvxpy",
+  "budget_policy": "cooperative symbolic/reconstruction deadline; MOSEK optimizer time limit",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "goal": "assertion_violation",
+  "mode": "solve",
+  "options": {
+    "assertion_margin": "1/1000000",
+    "c_values": [
+      "9999/10000"
+    ],
+    "comparison_ns": [
+      5,
+      20,
+      100
+    ],
+    "continue_after_success": false,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 1,
+    "max_attempts_per_point": 1,
+    "max_c_steps": 10,
+    "max_decisions": 5000,
+    "max_degree": 2,
+    "max_order": 2,
+    "max_parameter_points": 2,
+    "max_products": 128,
+    "max_psd_dimension": 30,
+    "per_attempt_seconds": 8,
+    "repair_max_solves": 1,
+    "repair_relative_gap": 0.05,
+    "repair_seconds": 3,
+    "strategy": "auto",
+    "symbolic_workflow": true,
+    "tail_rule": "auto",
+    "total_seconds": 25,
+    "verbose": false,
+    "workflow_config": null
+  },
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/newton_p0.001.pp",
+  "source_sha256": "aea8363245694c3968739d8f7733a0b0ed7a37f49d744e90173f22fd2fc80314",
+  "tool_version": "0.4.0"
+}

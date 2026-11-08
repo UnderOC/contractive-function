@@ -23,7 +23,7 @@ def exact_psd(matrix):
     return True
 
 
-def _reconstruct(model, values, equalities, *, denominators, deadline=None):
+def _reconstruct(model, values, equalities, *, denominators, deadline=None, objective_cap=None):
     """Recover a rational point on the exact coefficient-equality affine space."""
     names = model.decisions
     if set(names) != set(values) or not all(math.isfinite(v) for v in values.values()):
@@ -75,6 +75,10 @@ def _reconstruct(model, values, equalities, *, denominators, deadline=None):
                          "negative_coefficients": negative, "equalities_exact": equality_ok})
         if not negative and not nonpsd and equality_ok:
             bound = model.objective.xreplace(substitution)
+            if objective_cap is not None and bound > objective_cap:
+                attempts[-1].update(bound_exact=str(bound), objective_cap=str(objective_cap),
+                                    rejected_reason='Reconstructed objective exceeds cap')
+                continue
             return {"status": "proved", "method": "rational_affine_reconstruction_exact_psd",
                     "bound_exact": str(bound), "bound_numeric": float(bound),
                     "exact_values": {name: str(value) for name, value in zip(names, candidate)},
@@ -83,7 +87,8 @@ def _reconstruct(model, values, equalities, *, denominators, deadline=None):
             "reason": "No exactly feasible rational reconstruction found", "attempts": attempts}
 
 
-def reconstruct(model, values, *, denominators=(1000, 1000000, 1000000000), deadline=None):
+def reconstruct(model, values, *, denominators=(1000, 1000000, 1000000000), deadline=None,
+                objective_cap=None):
     """Try numerical cone faces, then verify the recovered rational point exactly.
 
     A PSD matrix with a zero diagonal has an identically zero corresponding row.
@@ -108,12 +113,13 @@ def reconstruct(model, values, *, denominators=(1000, 1000000, 1000000000), dead
             tried_faces.add(key)
             face = _reconstruct(model, values,
                                 [sp.Symbol(name) for name in sorted(zero_names)]+model.equalities,
-                                denominators=denominators, deadline=deadline)
+                                denominators=denominators, deadline=deadline, objective_cap=objective_cap)
             if face['status']=='proved':
                 face['recovered_zero_face'] = sorted(zero_names)
                 face['zero_face_guess_threshold'] = threshold
                 return face
-    return _reconstruct(model, values, model.equalities, denominators=denominators, deadline=deadline)
+    return _reconstruct(model, values, model.equalities, denominators=denominators, deadline=deadline,
+                        objective_cap=objective_cap)
 
 
 def check_conic_values(model, values):

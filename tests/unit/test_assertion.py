@@ -57,3 +57,30 @@ def test_intermediate_assertion_has_its_own_raw_transition():
     certified = {o.origin['transition'] for o in p.obligations
                  if o.origin['location'] == refute and 'full_first_moment' in o.tags}
     assert certified == {g.id for g in cfg.outgoing(refute)}
+
+
+def test_restricted_templates_preserve_update_dependencies_and_all_transitions():
+    cfg = build_cfg(check_program(parse_text(
+        'wealth := 1; round := 0; while wealth > 0 do wealth := round; '
+        'round := round + 1 od; refute wealth < 0.5;')))
+    evidence = prepare_program(cfg)
+    p = make_assertion_problem(cfg, evidence, 2, '99/100', template_variables=('wealth',))
+    assert all(sp.Symbol('round') not in e.free_symbols for e in p.expressions.values())
+    drift = [o for o in p.obligations if 'full_first_moment' in o.tags]
+    assert {o.origin['transition'] for o in drift} == set(evidence.group_domains)
+    # Substitution of wealth := round must bring round back into the proof domain.
+    affected = [o for o in drift if sp.Symbol('round') in o.conclusion.free_symbols]
+    assert affected and all(sp.Symbol('round') in o.domain.variables for o in affected)
+    with pytest.raises(AnalysisError, match='distinct program variables'):
+        make_assertion_problem(cfg, evidence, 2, '99/100', template_variables=('missing',))
+
+
+def test_domain_reduction_keeps_coupled_constraints_and_constant_contradictions():
+    from contractive_tool.analysis.assertion import _reduce_domain
+    from contractive_tool.positivity.ir import BasicSet, Implication
+    x, y, z = sp.symbols('x y z')
+    o = Implication('test', BasicSet((x,y,z), (x-y, y, z), (sp.Integer(1),)), x, {}, ())
+    r = _reduce_domain(o)
+    assert r.domain.variables == (x,y)
+    assert r.domain.generators == (x-y,y)
+    assert r.domain.equalities == (1,)

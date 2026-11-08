@@ -4,7 +4,7 @@
 `analysis/symbolic_workflow.py`。布尔宏步继续原流程；显式 `late_bad_exit`、
 仅建模和断言分析继续各自原入口。
 
-## 三个阶段
+## 正幂搜索阶段
 
 1. **直接多项式搜索**：复用原来的次数递增、c 二分、positivity 编码、数值求解和
    有理证书验证。保留预算内全部已验证证书，默认分配总预算的 50%。旧方法搜索
@@ -28,6 +28,29 @@
 相当于 `(1,10*r)` 的基。不同基下的 B 不能直接比较，t 引导只复用相同基的证明。
 联合搜索仍是有限 t 网格和有理 k 网格上的搜索，不是同时含未知 k 的非线性求解。
 
+## 独立倒数分支与预算
+
+正幂搜索之后，自动启动倒数分母合成、矩约束、指数优化和参数反馈。
+分母系数独立求解，不使用正幂模板作为必需种子；正幂失败或耗尽预算也会启动。
+倒数不支持、未知或验证失败时记录原因，保留正幂证书。
+
+- `--total-seconds` 保持为原正幂流程的软预算。
+- 新增 `--reciprocal-seconds` 是**额外的独立软预算**，默认 60 秒，0 表示关闭。
+  例如 `--total-seconds 180 --reciprocal-seconds 120` 为两条线分别预留 180/120 秒。
+  两条线顺序执行；符号构造和精确验证可能超出 optimizer 的时间限制。
+- `workflow-config` 新增 `reciprocal` 对象，接受 `ReciprocalOptions` 的搜索设置，
+  例如 `{"reciprocal":{"degree":1,"feedback_points":24,"feedback_seconds":90}}`。
+  `total_seconds`、`limits`、`variables` 由主流程管理，不能在该对象中覆盖。
+  默认倒数次数为 1；`--tail-variables` 同时限制两边的模板变量。
+- 当前接入范围是符号轮级尾界工作流；布尔宏步、显式 `late_bad_exit`、断言分析、
+  `--no-symbolic-workflow` 和仅建模入口维持各自入口。
+
+正幂侧还将直接多项式证书 `E[V_next] <= c*V` 经 Jensen 推导为
+`V**k` 的证书（配置网格中的 `0<k<1`）。退出后取零，故可对存活势函数应用 Jensen。
+`positive_jensen` 明确记录父证书，采用精确有理幂向外包围，验证时重新推导。
+它不是 Cauchy 成功记录，也不是新的状态模板求解；裁剪后的界不会优于父证书。
+保留它用于如实展示有保证的非整数正幂结果。
+
 ## 比较规则
 
 每份证书都有精确有理数 C、R，保证 `Pr(K>n)<=min(1,C*R^n)`，K 计完整循环轮数。
@@ -36,11 +59,18 @@
 - `direct_polynomial`：第一阶段原有方法的最好结果。
 - `integer`：原方法及 Cauchy 的所有整数 k 候选。
 - `rational`：全部候选，包含整数，因而不会比整数集合更差。
-- `noninteger`：严格非整数候选，用来判断是否真的有非整数改进。
+- `noninteger`：严格非整数**正幂**候选，包括明确标记的 Jensen 派生证书。
+- `reciprocal`：倒数路线的全部指数候选，独立分类。
+- `overall`：正幂与倒数全部已验证候选的最小界。
+
+`integer`、`rational` 和 `noninteger` 始终只描述正幂；倒数的非整数指数不混入其中。
 
 区间网格额外补齐其中的正整数 k，保证整数与有理数比较使用相同状态证明。
 “最优”仅指本次搜索并通过精确验证的候选中的最优。根 `summary.json` 的 selection
-对应第一个指定 n；`evaluate --n N` 会重新比较全部候选。
+对应第一个指定 n 的 `overall`；`evaluate --n N` 会重新比较全部候选。
+比较先剔除同组中被其父证书全域支配的 Jensen 派生候选，
+再使用未裁剪的精确有理 `C*R**n` 排序并裁剪到 1。非整数组仍保留 Jensen 候选。
+大 n 的精确分数字段可能较长，采用无全局设置副作用的整数序列化，保留紧凑的 `expression`。
 
 ## 复现笔记例
 
@@ -68,7 +98,8 @@ conda run --no-capture-output -n contractive-frontend-test-20260814 \
 结果保存在 `summary.json` 以及 `analyses/tailbound/workflow/` 下：原阶段快照、
 固定/联合模型及证明、`comparisons.json` 和可读的 `comparison.md`。
 `verify` 从源文件重建义务，检查有理系数等式、PSD、分数幂包围、种子来源和比较排序，
-无需调用求解器。`evaluate` 在取出结果前也执行这一复查。
+无需调用求解器。schema_version=2 还重放倒数矩证书、分母合成配置及 Jensen 父证书；
+旧 schema_version=1 的产物继续按原分组语义验证。`evaluate` 在取出结果前也执行这一复查。
 
 ## 支持范围和回退
 

@@ -9,14 +9,15 @@ import sympy as sp
 
 from contractive_tool.algebra import PolynomialService
 from contractive_tool.analysis.goals import PolynomialProblem
-from contractive_tool.analysis.templates import PolynomialTemplateFactory
+from contractive_tool.analysis.templates import PolynomialTemplateFactory, select_variables
 from contractive_tool.errors import AnalysisError
 from contractive_tool.expectation import ExpectationEngine
 from contractive_tool.positivity.ir import Implication
+from contractive_tool.positivity.domains import reduce_disconnected_domain as _reduce_domain
 
 
 def make_assertion_problem(cfg, evidence, degree, c, *, margin='1/1000000',
-                           max_decisions=20000):
+                           max_decisions=20000, template_variables=None):
     c, delta = sp.Rational(c), sp.Rational(margin)
     if not 0 < c < 1:
         raise AnalysisError('Assertion contraction must lie strictly in (0,1)')
@@ -25,10 +26,11 @@ def make_assertion_problem(cfg, evidence, degree, c, *, margin='1/1000000',
     if cfg.failure_terminal is None:
         raise AnalysisError('Source needs assert/refute to define the failure event')
     ordinary = sorted(set(evidence.locations)-{cfg.normal_terminal, cfg.failure_terminal})
-    if len(ordinary)*comb(len(cfg.symbols.program_variables)+degree, degree) > max_decisions:
+    names = select_variables(cfg.symbols.program_variables, template_variables)
+    if len(ordinary)*comb(len(names)+degree, degree) > max_decisions:
         raise AnalysisError('Template coefficient budget exceeded before basis expansion')
     template = PolynomialTemplateFactory().instantiate(
-        cfg, degree=degree, prefix='eta', locations=ordinary)
+        cfg, degree=degree, prefix='eta', locations=ordinary, variables=names)
     expressions = {loc: poly.expression for loc, poly in template.expressions.items()}
     # H=1. With a uniform lower bound delta, these are the least admissible
     # raw terminal values and therefore suffice without terminal unknowns.
@@ -54,13 +56,18 @@ def make_assertion_problem(cfg, evidence, degree, c, *, margin='1/1000000',
     initialized = expressions[evidence.start].subs(evidence.initial, simultaneous=True)
     objective = expectation.random_expectation(
         service.normalize(initialized), evidence.initial_random_model).expression
+    context = {}
+    if template_variables is not None:
+        obligations = [_reduce_domain(o) for o in obligations]
+        context = {'template_variables': list(names),
+                   'domain_reduction': 'drop_disconnected_constraint_components'}
     return PolynomialProblem('assertion_violation', degree, c, expressions,
         list(template.decisions), sp.expand(objective), obligations,
         {'rule': 'positive_first_moment', 'H': '1', 'k': '1',
          'positivity_margin': str(delta), 'raw_terminal_values': {'normal': str(delta), 'failure': '1'},
          'theta_terminal_values': {'normal': '0', 'failure': '1'},
          'prefix_steps': len(evidence.prefix), 'termination_assumed': False,
-         'initialization': 'expectation_after_straight_line_prefix'})
+         'initialization': 'expectation_after_straight_line_prefix', **context})
 
 
 def assertion_bound(problem, verified):

@@ -1,0 +1,244 @@
+[
+  {
+    "id": "K1",
+    "file": "K1_state_dependent_stake_positive.pp",
+    "name": "财富相关下注额：负优势",
+    "mode": "positive",
+    "eta": "wealth",
+    "k": "1",
+    "a_or_b": "1/2",
+    "a": "1/2",
+    "eta0": "1",
+    "prefactor": "2",
+    "q_certified": "79/80",
+    "c": "79/80",
+    "initial": {
+      "wealth": "1"
+    },
+    "guard": "1/2 <= wealth < 2",
+    "invariant": "15/32 <= wealth <= 5/2",
+    "tail": "min(1, 2*(79/80)^n)",
+    "eta_degree": 1,
+    "max_moment_constraint_degree": 2,
+    "branches": [
+      {
+        "probability": "2/5",
+        "update": {
+          "wealth": "wealth+wealth^2/8"
+        }
+      },
+      {
+        "probability": "3/5",
+        "update": {
+          "wealth": "wealth-wealth^2/8"
+        }
+      }
+    ],
+    "proof_witnesses": [
+      "c*wealth-E[wealth']=wealth*(wealth-1/2)/40 >= 0",
+      "wealth' in [15/32,5/2] on closed guard [1/2,2]"
+    ],
+    "validation": "Exact rational polynomial proof witnesses; no external SOS synthesis run.",
+    "source_sha256": "e50868a565851eb946127bd71101d7f5ccd9da7eff4b67cc3197d7b122dd878b",
+    "eta_expression": "wealth"
+  },
+  {
+    "id": "K2",
+    "file": "K2_two_accounts_positive.pp",
+    "name": "双账户反相关收益组合",
+    "mode": "positive",
+    "eta": "x+y",
+    "k": "1",
+    "a_or_b": "1/2",
+    "a": "1/2",
+    "eta0": "2",
+    "prefactor": "4",
+    "q_certified": "19/20",
+    "c": "19/20",
+    "initial": {
+      "x": "1",
+      "y": "1"
+    },
+    "guard": "x>=0, y>=0, 1/2 <= x+y < 4",
+    "invariant": "x>=0, y>=0, 7/20 <= x+y <= 24/5",
+    "tail": "min(1, 4*(19/20)^n)",
+    "eta_degree": 1,
+    "max_moment_constraint_degree": 1,
+    "branches": [
+      {
+        "probability": "1/2",
+        "update": {
+          "x": "6*x/5",
+          "y": "7*y/10"
+        }
+      },
+      {
+        "probability": "1/2",
+        "update": {
+          "x": "7*x/10",
+          "y": "6*y/5"
+        }
+      }
+    ],
+    "proof_witnesses": [
+      "E[x'+y']=(19/20)*(x+y)",
+      "(7/10)*(x+y) <= x'+y' <= (6/5)*(x+y)",
+      "After x update: branch 1 total in [1/2,24/5], branch 2 total in [7/20,4]; each local y update implies final [7/20,24/5]."
+    ],
+    "validation": "Exact rational polynomial proof witnesses; no external SOS synthesis run.",
+    "source_sha256": "62fcf76cb0d84f00545e5fdae55bb595355d8af4fd6504edef9eae21aca35ef8",
+    "eta_expression": "x+y"
+  },
+  {
+    "id": "K3",
+    "file": "K3_optimal_fraction_reciprocal.pp",
+    "name": "Kelly 最优下注：非整数幂必要实例",
+    "mode": "reciprocal",
+    "eta": "wealth",
+    "k": "1/2",
+    "a_or_b": "4",
+    "b": "4",
+    "eta0": "1",
+    "prefactor": "2",
+    "q_certified": "19/20",
+    "q_mom": "3/sqrt(10)",
+    "q_mom_squared": "9/10",
+    "c": "34/25",
+    "D": "52/25",
+    "r0": "2/5",
+    "initial": {
+      "wealth": "1"
+    },
+    "guard": "1/4 <= wealth < 4",
+    "invariant": "1/10 <= wealth <= 32/5",
+    "tail": "min(1, 2*(19/20)^n)",
+    "tail_sharp_moment": "min(1, 2*(3/sqrt(10))^n)",
+    "eta_degree": 1,
+    "max_moment_constraint_degree": 2,
+    "branches": [
+      {
+        "probability": "4/5",
+        "update": {
+          "wealth": "8*wealth/5"
+        }
+      },
+      {
+        "probability": "1/5",
+        "update": {
+          "wealth": "2*wealth/5"
+        }
+      }
+    ],
+    "proof_witnesses": [
+      "E[R]=34/25, E[R^2]=52/25, R>=2/5",
+      "q_mom(1)=1",
+      "At wealth=1 both successors are nonterminal, so rho_-(1)=1 as well.",
+      "q_mom(1/2)^2=9/10 < (19/20)^2 < 1"
+    ],
+    "p_star": "1/5",
+    "z_star": "8/5",
+    "validation": "Exact rational polynomial proof witnesses; no external SOS synthesis run.",
+    "source_sha256": "f9b8b0f5e198dac8b87c9e71201c5e9e5469081ca5cb9d49447b1ad61bba555d",
+    "eta_expression": "wealth"
+  },
+  {
+    "id": "K4",
+    "file": "K4_periodic_contribution_reciprocal.pp",
+    "name": "带定期投入的仿射财富过程",
+    "mode": "reciprocal",
+    "eta": "wealth",
+    "k": "1",
+    "a_or_b": "4",
+    "b": "4",
+    "eta0": "1",
+    "prefactor": "4",
+    "q_certified": "144544/153265",
+    "c": "193/160",
+    "D": "137/80",
+    "r0": "29/32",
+    "initial": {
+      "wealth": "1"
+    },
+    "guard": "1 <= wealth < 4",
+    "invariant": "1 <= wealth <= 41/8",
+    "tail": "min(1, 4*(144544/153265)^n)",
+    "eta_degree": 1,
+    "max_moment_constraint_degree": 2,
+    "branches": [
+      {
+        "probability": "4/5",
+        "update": {
+          "wealth": "5*wealth/4+1/8"
+        }
+      },
+      {
+        "probability": "1/5",
+        "update": {
+          "wealth": "7*wealth/8+1/8"
+        }
+      }
+    ],
+    "proof_witnesses": [
+      "E[wealth']-c*wealth=(4-wealth)/32 >= 0",
+      "D*wealth^2-E[(wealth')^2]=(wealth-1)*(99*wealth+5)/320 >= 0",
+      "wealth'_loss-r0*wealth=(4-wealth)/32 >= 0",
+      "wealth'_win-r0*wealth=(11*wealth+4)/32 >= 0"
+    ],
+    "p_star": "2197/2965",
+    "z_star": "1057/512",
+    "q_mom": "144544/153265",
+    "validation": "Exact rational polynomial proof witnesses; no external SOS synthesis run.",
+    "source_sha256": "a0ee1bd17367b329fff11df1d82c86bb138d6c6c323ad45853e3b269feb7a3e4",
+    "eta_expression": "wealth"
+  },
+  {
+    "id": "K5",
+    "file": "K5_adaptive_fraction_reciprocal.pp",
+    "name": "财富相关下注比例：正优势",
+    "mode": "reciprocal",
+    "eta": "wealth",
+    "k": "1",
+    "a_or_b": "2",
+    "b": "2",
+    "eta0": "3/2",
+    "prefactor": "4/3",
+    "q_certified": "44/45",
+    "c": "23/20",
+    "D": "117/80",
+    "r0": "3/4",
+    "initial": {
+      "wealth": "3/2"
+    },
+    "guard": "1 <= wealth < 2",
+    "invariant": "13/16 <= wealth <= 5/2",
+    "tail": "min(1, (4/3)*(44/45)^n)",
+    "eta_degree": 1,
+    "max_moment_constraint_degree": 4,
+    "branches": [
+      {
+        "probability": "9/10",
+        "update": {
+          "wealth": "9*wealth/8+wealth^2/16"
+        }
+      },
+      {
+        "probability": "1/10",
+        "update": {
+          "wealth": "7*wealth/8-wealth^2/16"
+        }
+      }
+    ],
+    "proof_witnesses": [
+      "E[wealth']-c*wealth=wealth*(wealth-1)/20 >= 0",
+      "D*wealth^2-E[(wealth')^2]=wealth^2*(2-wealth)*(158+5*wealth)/1280 >= 0",
+      "wealth'_loss-r0*wealth=wealth*(2-wealth)/16 >= 0",
+      "wealth'_win-r0*wealth=wealth*(6+wealth)/16 >= 0"
+    ],
+    "p_star": "7/15",
+    "z_star": "3/2",
+    "q_mom": "44/45",
+    "validation": "Exact rational polynomial proof witnesses; no external SOS synthesis run.",
+    "source_sha256": "de9783afdee70768e0bbfc9164b10ae5689f96c1251a2384a21517407c60f898",
+    "eta_expression": "wealth"
+  }
+]

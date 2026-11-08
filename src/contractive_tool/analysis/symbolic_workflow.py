@@ -1,10 +1,11 @@
-"""Direct polynomial -> incumbent Cauchy -> joint Cauchy symbolic workflow.
+"""Positive-power searches plus an independently budgeted reciprocal branch.
 
 Comparisons use complete, certified C*rho**n bounds. The rational portfolio
 contains the integer portfolio; direct polynomial V is explicitly k=1, not an
 unjustified factorization V=eta**degree. No external/generated seed is loaded.
 """
 from copy import deepcopy
+from decimal import Decimal
 from dataclasses import asdict, replace
 from pathlib import Path
 import json
@@ -20,7 +21,7 @@ from contractive_tool.analysis.cauchy import (
 from contractive_tool.analysis.cauchy_expressions import parse_expression
 from contractive_tool.analysis.cauchy_verification import verify_result, check_conic_values
 from contractive_tool.analysis.random_rounds import prepare_random_round, _invariant_prover
-from contractive_tool.analysis.templates import total_degree_exponents
+from contractive_tool.analysis.templates import total_degree_exponents, select_variables
 from contractive_tool.analysis.symbolic_rounds import make_symbolic_round_problem
 from contractive_tool.positivity.base import EncodingLimits
 from contractive_tool.probability.fractional_moments import rational, power_enclosure
@@ -43,7 +44,7 @@ def _canonical(value):
 def workflow_config(options):
     data = _json(options.workflow_config) if options.workflow_config else {}
     known = {'basis', 't_values', 'exponents', 'cauchy', 'direct_fraction',
-             'max_fixed_seeds', 'guided_t', 'template'}
+             'max_fixed_seeds', 'guided_t', 'template', 'reciprocal'}
     if set(data)-known:
         raise AnalysisError(f'Unknown workflow config fields: {sorted(set(data)-known)}')
     fraction = data.get('direct_fraction', 0.5)
@@ -91,29 +92,47 @@ def _bound_value(candidate, n, *, clipped=True):
     return min(sp.Integer(1), value) if clipped else value
 
 
-def compare_candidates(candidates, n):
+def _exact_text(value):
+    # Decimal(int) avoids Python's decimal-string digit limit without changing
+    # process-wide security settings. Selection and replay still use rationals.
+    value = rational(value)
+    numerator = format(Decimal(int(value.p)), 'f')
+    return numerator if value.q == 1 else numerator+'/'+format(Decimal(int(value.q)), 'f')
+
+
+def compare_candidates(candidates, n, *, include_reciprocal=True):
     if type(n) is not int or not 0 <= n <= 10000:
         raise AnalysisError('Comparison n must be an integer in [0,10000]')
+    positive = [c for c in candidates if c['method'] != 'reciprocal']
     groups = {
-        'integer': [c for c in candidates if rational(c['k']).q == 1],
-        'rational': list(candidates),
-        'noninteger': [c for c in candidates if rational(c['k']).q != 1],
+        'integer': [c for c in positive if rational(c['k']).q == 1],
+        'rational': list(positive),
+        'noninteger': [c for c in positive if rational(c['k']).q != 1],
         'direct_polynomial': [c for c in candidates if c['method'] == 'direct_polynomial'],
         'cauchy_integer': [c for c in candidates if c['method'].startswith('cauchy') and rational(c['k']).q == 1],
     }
+    if include_reciprocal:
+        groups.update(reciprocal=[c for c in candidates if c['method']=='reciprocal'],
+                      overall=list(candidates))
     result = {'n': n}
     for name, group in groups.items():
         if not group:
             result[name] = None
             continue
-        best = min(group, key=lambda c: (_bound_value(c, n, clipped=False), c['id']))
+        # A Jensen power is globally dominated by its parent after clipping.
+        # Keep it for the noninteger comparison, but never replace a parent
+        # merely because both bounds clip to one at a small horizon.
+        identifiers = {c['id'] for c in group}
+        selectable = [c for c in group if not (c['method']=='positive_jensen'
+                      and c['reference']['seed'] in identifiers)]
+        best = min(selectable, key=lambda c: (_bound_value(c, n, clipped=False), c['id']))
         value = _bound_value(best, n)
-        result[name] = {**best, 'upper_bound_exact': str(value), 'upper_bound_numeric': float(value)}
+        result[name] = {**best, 'upper_bound_exact': _exact_text(value), 'upper_bound_numeric': float(value)}
     integer, rational_best = result['integer'], result['rational']
     if integer is not None and rational_best is not None:
-        old, new = rational(integer['upper_bound_exact']), rational(rational_best['upper_bound_exact'])
+        old, new = _bound_value(integer,n), _bound_value(rational_best,n)
         result['rational_no_worse'] = bool(new <= old)
-        result['integer_over_rational_exact'] = str(old/new) if new else ('1' if old == 0 else None)
+        result['integer_over_rational_exact'] = _exact_text(old/new) if new else ('1' if old == 0 else None)
         result['strict_improvement'] = bool(new < old)
     result['numeric_is_display_only'] = True
     return result
@@ -131,8 +150,8 @@ def comparison_markdown(workflow):
             return f"{row[name]['upper_bound_numeric']:.12g}" if row[name] else '未找到'
         def exponent(name):
             return row[name]['k'] if row[name] else '—'
-        factor = row.get('integer_over_rational_exact')
-        ratio = f'{float(rational(factor)):.8g}' if factor is not None else '—'
+        ratio = (f"{float(_bound_value(row['integer'],row['n'])/_bound_value(row['rational'],row['n'])):.8g}"
+                 if row['integer'] and row['rational'] and _bound_value(row['rational'],row['n']) else '—')
         lines.append(f"| {row['n']} | {number('direct_polynomial')} | {exponent('integer')} | "
                      f"{number('integer')} | {exponent('rational')} | {number('rational')} | {ratio} |")
     lines += ['', '每份候选的形式是 `min(1, C * rho**n)`，均对所有非负整数 n 有效。', '']
@@ -149,6 +168,13 @@ def comparison_markdown(workflow):
                       f"  - 精确收缩上界 rho = {c['decay_upper']}",
                       f"  - eta = {c['eta']}"]
         lines.append('')
+    if workflow.get('schema_version',1) >= 2:
+        lines += ['## 正幂与倒数路线', '', '| n | 正整数幂 | 正非整数幂 | 倒数幂 | 合并最优 |',
+                  '|---|---:|---:|---:|---:|']
+        for row in workflow['comparisons']:
+            values = [f"{row[key]['upper_bound_numeric']:.12g}" if row[key] else '未找到'
+                      for key in ('integer','noninteger','reciprocal','overall')]
+            lines.append('| '+str(row['n'])+' | '+' | '.join(values)+' |')
     return '\n'.join(lines)+'\n'
 
 
@@ -174,7 +200,8 @@ def verify_direct_candidate(root, bound, cfg, evidence, kernel, options):
     certificate, checked = _json(path), _json(path.with_name('verification.json'))
     if checked['status'] != 'proved' or certificate['bound'] != bound:
         raise AnalysisError('Direct certificate/bound mismatch')
-    problem = make_symbolic_round_problem(cfg, kernel, bound['degree'], rational(bound['c']), options.max_decisions)
+    problem = make_symbolic_round_problem(cfg, kernel, bound['degree'], rational(bound['c']), options.max_decisions,
+                                          template_variables=options.tail_variables)
     if _canonical(problem.to_data()) != _json(path.parent.parent.parent/'polynomial_problem.json'):
         raise AnalysisError('Direct polynomial problem differs from source replay')
     values = {sp.Symbol(n):rational(v) for n,v in checked['exact_values'].items()}
@@ -206,25 +233,32 @@ def verify_direct_candidate(root, bound, cfg, evidence, kernel, options):
     return concrete[kernel.header]
 
 
-def _template(round_, seed, degree, config, limit):
+def _template(round_, seed, degree, config, limit, template_variables=None):
+    variables = tuple(map(sp.Symbol, select_variables(round_.variables, template_variables)))
+    omitted = set(round_.variables)-set(variables)
     if 'template' in config:
         data = config['template']
         coefficients = tuple(map(sp.Symbol, data['coefficients']))
-        return EtaTemplate(parse_expression(data['expression'],round_.variables+coefficients),coefficients,
+        expression = parse_expression(data['expression'],round_.variables+coefficients)
+        if expression.free_symbols & omitted:
+            raise AnalysisError('Explicit Cauchy template uses an excluded tail variable')
+        return EtaTemplate(expression,coefficients,
             tuple(parse_expression(e,coefficients) for e in data.get('nonnegative',())),
             tuple(parse_expression(e,coefficients) for e in data.get('equalities',())))
     if seed is not None:
-        powers = set(sp.Poly(seed,*round_.variables).monoms()) | {(0,)*len(round_.variables)}
+        if seed.free_symbols & omitted:
+            raise AnalysisError('Cauchy seed uses an excluded tail variable')
+        powers = (set(sp.Poly(seed,*variables).monoms()) if variables else {()}) | {(0,)*len(variables)}
         powers = sorted(powers,key=lambda p:(sum(p),p))
     else:
-        if math.comb(len(round_.variables)+degree,degree) > limit:
+        if math.comb(len(variables)+degree,degree) > limit:
             raise AnalysisError('Joint template coefficient budget exceeded')
-        powers = total_degree_exponents(len(round_.variables),degree)
+        powers = total_degree_exponents(len(variables),degree)
     prefix = '__workflow_eta'
     while any(str(v).startswith(prefix) for v in (*round_.variables,*round_.law.symbols)):
         prefix += '_'
     coefficients = tuple(sp.Symbol(f'{prefix}_{i}') for i in range(len(powers)))
-    eta = sum(c*sp.prod(v**p for v,p in zip(round_.variables,exponents))
+    eta = sum(c*sp.prod(v**p for v,p in zip(variables,exponents))
               for c,exponents in zip(coefficients,powers))
     return EtaTemplate(eta,coefficients)
 
@@ -280,10 +314,93 @@ def _append_cauchy(portfolio, result, artifact, stage):
             {'artifact':artifact,'special_case':result['special_case']},identifier=f'{stage}:{artifact}:degenerate'))
 
 
+def _append_jensen(portfolio, exponents):
+    """Certified 0<k<1 powers of an existing killed contraction certificate.
+
+    These are conservative derived candidates, not a successful Cauchy solve.
+    They cannot improve their parent after clipping; keep them explicitly named.
+    """
+    seeds = [c for c in portfolio if c['method']=='direct_polynomial']
+    for seed in seeds:
+        for k in sorted(set(exponents.candidates())):
+            if not 0 < k < 1:
+                continue
+            C = rational(power_enclosure(rational(seed['prefactor_upper']),k,12)['upper'])
+            rho = rational(power_enclosure(rational(seed['decay_upper']),k,12)['upper'])
+            if rho >= 1:
+                continue
+            portfolio.append(_normalize('positive_jensen',seed['eta'],C,rho,k,
+                {'seed':seed['id'],'rule':'Jensen_on_killed_potential'},
+                identifier=f'positive_jensen:{seed["id"]}:{k}'))
+
+
+def reciprocal_options(options, config):
+    from contractive_tool.analysis.reciprocal import ReciprocalOptions
+    settings = dict(config.get('reciprocal', {}))
+    owned = {'limits', 'total_seconds', 'variables'}
+    if owned & settings.keys():
+        raise AnalysisError('Reciprocal budgets/variables are owned by solve options')
+    defaults = {'variables':options.tail_variables, 'total_seconds':max(.001,options.reciprocal_seconds),
+        'solver_seconds':options.per_attempt_seconds, 'repair_seconds':options.repair_seconds,
+        'repair_relative_gap':options.repair_relative_gap, 'repair_max_solves':options.repair_max_solves,
+        'limits':EncodingLimits(options.max_products,options.max_psd_dimension,options.max_decisions)}
+    try:
+        result = ReciprocalOptions(**(defaults | settings))
+    except TypeError as error:
+        raise AnalysisError(f'Invalid reciprocal settings: {error}') from error
+    result.validate()
+    return result
+
+
+def _append_reciprocal(portfolio, result, artifact):
+    if result['status'] != 'proved':
+        return
+    for index,c in enumerate(result['candidates']):
+        if c['event'] != 'K > n' or c['time_unit'] != 'completed_loop_iterations':
+            raise AnalysisError('Reciprocal event/clock mismatch')
+        portfolio.append(_normalize('reciprocal',c['eta'],c['prefactor_upper'],c['decay_upper'],c['k'],
+            {'artifact':artifact,'candidate':index},identifier=f'reciprocal:{artifact}:{index}'))
+    if result.get('special_case') == 'initially_exited':
+        portfolio.append(_normalize('reciprocal','0',0,0,1,
+            {'artifact':artifact,'special_case':'initially_exited'},identifier=f'reciprocal:{artifact}:degenerate'))
+
+
+def _run_reciprocal_branch(source, root, stages, portfolio, options, local):
+    from contractive_tool.analysis.reciprocal import search_reciprocal
+    from contractive_tool.analysis.reciprocal_verification import verify_result as verify_reciprocal
+    stage = {'stage':'reciprocal','budget_seconds':options.reciprocal_seconds,
+             'budget_policy':'independent additional soft budget; not consumed by positive searches'}
+    stages.append(stage)
+    if not options.reciprocal_seconds:
+        stage.update(status='skipped',reason='disabled')
+        return
+    started = time.monotonic()
+    try:
+        round_ = prepare_random_round(source)
+    except AnalysisError as error:
+        stage.update(status='unsupported',reason=str(error),elapsed_seconds=time.monotonic()-started)
+        return
+    path = root/'analyses/tailbound/workflow/reciprocal'
+    try:
+        result = search_reciprocal(round_,options=local)
+        _write(path/'result.json',result)
+        check = verify_reciprocal(round_,result) if result['status']=='proved' else {'status':'not_proved'}
+        _write(path/'independent_check.json',check)
+        if result['status']=='proved' and check['status']!='proved':
+            raise AnalysisError('Reciprocal independent verification failed')
+        artifact = str((path/'result.json').relative_to(root))
+        stage.update(status=result['status'],artifact=artifact,candidates=len(result['candidates']))
+        _append_reciprocal(portfolio,result,artifact)
+    except (AnalysisError,ValueError,ImportError) as error:
+        stage.update(status='unknown',reason=str(error))
+    stage['elapsed_seconds'] = time.monotonic()-started
+
+
 def run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel, polynomial_runner, *, started=None):
     started = time.monotonic() if started is None else started
     deadline = started+options.total_seconds
     config,cauchy_options = workflow_config(options)
+    reciprocal_local = reciprocal_options(options,config)
     direct_options = replace(options, total_seconds=max(0.001, options.total_seconds*config.get('direct_fraction',0.5)))
     direct = polynomial_runner(source,'tailbound',out_dir,options=direct_options,_prepared=(cfg,evidence))
     root = Path(direct['out_dir'])
@@ -368,7 +485,7 @@ def run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel, polyn
                 stages.append({**stage,'status':'skipped','reason':'time_budget'})
                 break
             try:
-                template = _template(round_,seed,degree,config,options.max_decisions)
+                template = _template(round_,seed,degree,config,options.max_decisions,options.tail_variables)
                 if str(template.expression) in seen_templates:
                     continue
                 seen_templates.add(str(template.expression))
@@ -394,17 +511,26 @@ def run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel, polyn
                 if stage not in stages:
                     stages.append(stage)
                 stage.update(status='unknown',reason=str(error))
+    before_jensen = len(portfolio)
+    _append_jensen(portfolio,cauchy_options.exponents)
+    stages.append({'stage':'positive_jensen','status':'proved' if len(portfolio)>before_jensen else 'skipped',
+        'candidates':len(portfolio)-before_jensen,
+        'rule':'derived 0<k<1 powers of verified direct potentials; no new state solve'})
+    _run_reciprocal_branch(source,root,stages,portfolio,options,reciprocal_local)
     summary = deepcopy(direct)
     summary['polynomial_selection'] = direct['selection']
     summary['symbolic_workflow'] = {
-        'schema_version':1,'route':route,'config':config,'direct_options':asdict(direct_options),
+        'schema_version':2,'route':route,'config':config,'direct_options':asdict(direct_options),
         'stages':stages,'candidates':portfolio,
+        'branch_budgets':{'positive_seconds':options.total_seconds,
+            'reciprocal_seconds':options.reciprocal_seconds,
+            'policy':'independent additive soft budgets; verification may exceed optimizer budgets'},
         'integer_exponent_interpretation':'Direct polynomial V is eta=V,k=1; degree is not k.',
         'rational_pool_includes_integers':True,
         'optimality':'best certified bound among searched candidates, separately for each n',
         'comparisons':[compare_candidates(portfolio,n) for n in options.comparison_ns]}
     if portfolio:
-        best = summary['symbolic_workflow']['comparisons'][0]['rational']
+        best = summary['symbolic_workflow']['comparisons'][0]['overall']
         summary.update(status='proved',termination='proved_almost_sure')
         legacy = next((b for b in direct['proved_candidates']
                        if b['certificate']==best['reference'].get('certificate')), {})
@@ -413,7 +539,7 @@ def run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel, polyn
             'n_domain':'nonnegative integers',
             'selection_n':options.comparison_ns[0],'selection_policy':'best at the first comparison n; evaluate reselects for each n'}
     summary['elapsed_seconds'] = time.monotonic()-started
-    summary['analysis_workflow'] = 'direct_polynomial_then_cauchy_symbolic'
+    summary['analysis_workflow'] = 'positive_and_reciprocal_symbolic'
     _write(root/'summary.json',summary)
     _write(workflow_root/'comparisons.json',summary['symbolic_workflow']['comparisons'])
     (workflow_root/'comparison.md').write_text(comparison_markdown(summary['symbolic_workflow']))
@@ -449,6 +575,9 @@ def verify_workflow(root):
         evidence = prepare_program(cfg,invariant_prover=_invariant_prover)
         kernel = prepare_symbolic_round_kernel(cfg,evidence)
         options = SearchOptions(**workflow['direct_options'])
+        options.validate()
+        if options.tail_variables != manifest['options'].get('tail_variables'):
+            raise AnalysisError('Tail variable selection differs from run options')
         direct = _json(root/'analyses/tailbound/workflow/polynomial_summary.json')
         rebuilt = []
         for index,bound in enumerate(direct['proved_candidates']):
@@ -457,6 +586,31 @@ def verify_workflow(root):
                 {'certificate':bound['certificate']},identifier=f'direct:{index}'))
         round_ = None
         for stage in workflow['stages']:
+            if stage['stage']=='positive_jensen':
+                # Replay saved exponent configuration; the original config file
+                # need not exist, and no external seeds are loaded.
+                exponent_config = workflow['config'].get('exponents',{})
+                exponents = ExponentOptions(**({'interval':('1/4','4'),'coarse_points':16,
+                    'refinements':1} | exponent_config))
+                _append_jensen(rebuilt,exponents)
+                continue
+            if stage['stage']=='reciprocal' and stage['status']=='proved':
+                from contractive_tool.analysis.reciprocal_verification import verify_result as verify_reciprocal
+                from contractive_tool.analysis.reciprocal import polynomial_template
+                if round_ is None:
+                    round_ = prepare_random_round(source)
+                result = _json(root/stage['artifact'])
+                requested = SearchOptions(**manifest['options'])
+                local = reciprocal_options(requested,workflow['config'])
+                template = polynomial_template(round_,local)
+                if (not requested.reciprocal_seconds or result['options'] != _canonical(asdict(local))
+                        or result['input'] != {'eta':str(template.expression),
+                            'coefficients':list(map(str,template.coefficients))}):
+                    raise AnalysisError('Reciprocal search settings/template differ from workflow')
+                if verify_reciprocal(round_,result)['status']!='proved':
+                    raise AnalysisError('Reciprocal artifact failed source replay')
+                _append_reciprocal(rebuilt,result,stage['artifact'])
+                continue
             if stage['stage'] not in ('cauchy_fixed','cauchy_joint') or stage['status']!='proved':
                 continue
             if round_ is None:
@@ -471,16 +625,21 @@ def verify_workflow(root):
             _append_cauchy(rebuilt,result,stage['artifact'],stage['stage'])
         if rebuilt != workflow['candidates']:
             raise AnalysisError('Portfolio differs from verified certificates')
+        allowed = set(map(sp.Symbol, select_variables(kernel.variables, options.tail_variables)))
+        if any(parse_expression(c['eta'],kernel.variables).free_symbols - allowed for c in rebuilt):
+            raise AnalysisError('Portfolio uses an excluded tail variable')
         if [row['n'] for row in workflow['comparisons']] != manifest['options']['comparison_ns']:
             raise AnalysisError('Comparison horizons differ from run options')
+        extended = workflow.get('schema_version',1) >= 2
         for row in workflow['comparisons']:
-            if compare_candidates(rebuilt,row['n']) != row:
+            if compare_candidates(rebuilt,row['n'],include_reciprocal=extended) != row:
                 raise AnalysisError('Integer/rational comparison mismatch')
-        best = workflow['comparisons'][0]['rational']
+        best = workflow['comparisons'][0]['overall' if extended else 'rational']
         if best is None or any(summary['selection'].get(key) != value for key,value in best.items()):
             raise AnalysisError('Selected bound differs from verified ranking')
         return {'status':'proved','direct_certificates':len(direct['proved_candidates']),
                 'portfolio_candidates':len(rebuilt),'comparisons_checked':len(workflow['comparisons']),
-                'method':'source_replay_both_families_exact_comparison'}
+                'method':('source_replay_positive_and_reciprocal_exact_comparison' if extended
+                          else 'source_replay_both_families_exact_comparison')}
     except (AnalysisError,KeyError,ValueError,TypeError,OSError,StopIteration) as error:
         return {'status':'verification_failed','reason':str(error)}

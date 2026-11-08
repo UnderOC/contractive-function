@@ -58,12 +58,21 @@ Tail 的证明规则、搜索策略和终止结论保持原有逻辑。
 - 默认 D=1,...,6。每个 D 的 c 网格为 `1-2**(-(i+6))`，i=0,...,max_c_steps-1；
   选择接近 1 的点是为了优化初始概率，不执行最小可行 c 的二分。
 - `--c-values` 可指定精确有理数网格；`--max-c-steps` 控制默认网格点数。
+- `--assertion-variables wealth` 可将各位置的模板限制为指定程序变量的多项式；
+  默认仍使用所有变量。原程序、初始化、转移和不变量验证均保留。
+  编码时仅删去与收缩残差无关的独立约束分量，在投影的超集上证明非负。
+  如果更新把其他变量带入残差，或域约束把它们与残差变量耦合，则这些变量仍保留在
+  认证域中。因此这是一个保守的模板/编码选择，不是假设被省略的变量没有影响。
 - 每个点最小化 A；首个产生非平凡上界（<1）的次数完成网格后停止。
   `--continue-after-success` 可继续升阶。次数、参数、编码和时间预算仍然生效。
 - 最终按已验证的违规概率上界、A、c 排序；保留候选及 (A,c) Pareto 集。
   所有“最佳”仅针对实际找到并精确验证的候选。
 - 求解器 optimal 只是数值候选。经精确有理重构、PSD 检查、修复或原域有理恒等式
   认证后才能标记 proved。数值 unknown/infeasible 不能用作概率结论。
+- Assertion 的首次有理重构还检查目标值是否超过数值候选加
+  `max(1e-4, abs(A)*repair_relative_gap)`：超过时继续更高精度重构或修复，
+  避免过早接受有效但很松的证书。此限制仅影响搜索质量，不改变证明判据；
+  公共重构器与 tailbound 的默认行为保持兼容。
 - `verify` 从归档源码重新建立语义域、证明义务和锥模型，验证精确见证、原始 eta、
   初始目标及输出公式；`evaluate` 先执行这一验证，再对候选选择最好的界。
 - `build-model`/`analyze` 输出多项式及锥模型，不调用求解器。
@@ -91,3 +100,20 @@ Kelly 的末尾已改为 `refute (wealth < 0.5);`。上界退出为正常终止�
 
 实际命令、证书结果、独立参考概率及回归记录见
 [实验报告](../generated/assertion_kelly_20261102/RESULTS.md)。
+
+## Kelly 更紧上界的配置（2026-11-03）
+
+```bash
+python -m contractive_tool solve kelly_double_bound.pp --goal assertion_violation \
+  --assertion-variables wealth --initial-degree 7 --max-degree 7 \
+  --c-values 999999/1000000 --strategy putinar --max-order 4 \
+  --max-attempts-per-point 1 --repair-relative-gap 0.001 \
+  --total-seconds 120 --out-dir generated/kelly_assertion_degree7_new
+python -m contractive_tool verify generated/kelly_assertion_degree7_new
+```
+
+本次得到最终违规概率上界 **0.375083608**（向上取整），低于此前独立合成的
+§5.2 ExpLinSyn 界约 0.602401499。仍使用 §2.2 完整一阶矩收缩、正终端原始势函数
+以及 CVXPY/MOSEK；没有改为 §2.3，也不预设相同 eta。结果不是该方法的全局最优值。
+详细比较、证书和未成功尝试见
+[优化报告](../generated/assertion_kelly_optimization_20261103/RESULTS.md)。

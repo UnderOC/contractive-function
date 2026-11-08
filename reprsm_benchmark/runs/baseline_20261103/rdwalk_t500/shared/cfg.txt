@@ -1,0 +1,45 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp
+initial: L_assign_5
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: t, x
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_assert_1 [assert] invariant=(99 <= x and x <= 100 and 0 <= t) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:27:1
+  L_while_1 [while] invariant=(x <= 100 and 0 <= t) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:14:1
+  L_assign_1 [assign] invariant=(x <= 100 and 0 <= t) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:24:3
+  L_assign_2 [assign] invariant=(x <= 99 and 0 <= t) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:18:5
+  L_assign_3 [assign] invariant=(x <= 99 and 0 <= t) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:21:5
+  L_probabilistic_1 [probabilistic] invariant=(x <= 99 and 0 <= t) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:16:3
+  L_assign_4 [assign] invariant=(x = 0) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:12:1
+  L_assign_5 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t500.pp:10:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_assert_1 guard=(t <= 500)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_assert_1 guard=(not t <= 500)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: t := t + 1
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: x := x + 1
+  T_5: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: x := x - 1
+  T_6: L_probabilistic_1 guard=(true)
+    branch 1: p=0.75 -> L_assign_2; update: identity
+    branch 2: p=1 - 0.75 -> L_assign_3; update: identity
+  T_7: L_while_1 guard=(x <= 99)
+    branch 1: p=1 -> L_probabilistic_1; update: identity
+  T_8: L_while_1 guard=(not x <= 99)
+    branch 1: p=1 -> L_assert_1; update: identity
+  T_9: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_while_1; update: t := 0
+  T_10: L_assign_5 guard=(true)
+    branch 1: p=1 -> L_assign_4; update: x := 0

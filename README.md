@@ -800,3 +800,12 @@ Kelly 下界退出的已验证概率上界为 **0.618341181**（向上取整）�
 
 本次最终回归为 **185 passed in 56.93s**，包含原有 tailbound 测试。
 此前日志中 assertion 仅建模的描述属于历史状态。
+
+## 2026-11-04：tailbound 模板变量筛选
+
+新增 `--tail-variables wealth`，可在保留原程序与证明义务的前提下限制待合成函数的变量。
+直接多项式、Boolean/symbolic 整轮及后续 Cauchy 模板均支持；默认仍使用全部程序变量。
+Kelly 在相同二次、c=0.99 下将 A 从 17/9 降至 206/135；八次搜索进一步得到
+`min(1, 3.269701794 * 0.94^n)` 的已认证尾界。
+详见[使用说明](docs/tail_variable_selection.md)和
+[实验与回归报告](generated/tail_kelly_variables_20261104/RESULTS.md)。

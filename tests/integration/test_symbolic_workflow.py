@@ -144,7 +144,7 @@ def test_unsupported_cauchy_distribution_preserves_direct_certificate(tmp_path,b
     assert result['status']=='proved'
     workflow=result['symbolic_workflow']
     assert any(s['stage']=='cauchy_prepare' and s['status']=='unsupported' for s in workflow['stages'])
-    assert all(c['method']=='direct_polynomial' for c in workflow['candidates'])
+    assert all(c['method'] in ('direct_polynomial','positive_jensen') for c in workflow['candidates'])
     assert all(r['integer']['id']==r['rational']['id'] for r in workflow['comparisons'])
     assert verify_workflow(tmp_path/'out')['status']=='proved'
 
@@ -159,5 +159,44 @@ def test_cauchy_failure_preserves_direct_portfolio(notes_workflow,tmp_path,monke
     assert result['status']=='proved'
     workflow=result['symbolic_workflow']
     assert any(s['status']=='unknown' for s in workflow['stages'])
-    assert all(c['method']=='direct_polynomial' for c in workflow['candidates'])
+    assert all(c['method'] in ('direct_polynomial','positive_jensen') for c in workflow['candidates'])
     assert verify_workflow(tmp_path/'out')['status']=='proved'
+
+
+def test_kelly_variable_selection_improves_fixed_c_and_replays(tmp_path, backend, monkeypatch):
+    config = tmp_path/'settings.json'
+    config.write_text(json.dumps({'direct_fraction':0.9, 'max_fixed_seeds':1,
+        'guided_t':False, 't_values':['1'], 'exponents':{'interval':None,'values':['1']}}))
+    out = tmp_path/'kelly'
+    result = run_analysis(PROJECT/'kelly_double_bound.pp','tailbound',out,options=SearchOptions(
+        initial_degree=2,max_degree=2,c_values=('99/100',),tail_variables=('wealth',),
+        total_seconds=45,verbose=False,workflow_config=str(config)))
+    assert result['status']=='proved'
+    direct = result['proved_candidates']
+    assert direct and min(sp.Rational(b['A_exact']) for b in direct) < sp.Rational(8,5)
+    for candidate in result['symbolic_workflow']['candidates']:
+        assert sp.Symbol('round') not in sp.sympify(candidate['eta']).free_symbols
+    from contractive_tool.backends.cvxpy import mosek_solver
+    def fail(*a,**kw): raise AssertionError('Replay must not solve')
+    monkeypatch.setattr(mosek_solver,'solve',fail)
+    assert verify_workflow(out)['status']=='proved'
+    # Even coordinated metadata edits must fail when the actual model differs.
+    result['symbolic_workflow']['direct_options']['tail_variables']=None
+    (out/'summary.json').write_text(json.dumps(result))
+    manifest=json.loads((out/'manifest.json').read_text())
+    manifest['options']['tail_variables']=None
+    (out/'manifest.json').write_text(json.dumps(manifest))
+    assert verify_workflow(out)['status']=='verification_failed'
+
+
+def test_cauchy_restricted_variable_pipeline_preserves_coupled_state(tmp_path, backend):
+    out=tmp_path/'notes'
+    result=run_analysis(PROJECT/'examples/cauchy_notes.pp','tailbound',out,options=SearchOptions(
+        max_degree=1,c_values=('1/2',),tail_variables=('x',),total_seconds=45,
+        per_attempt_seconds=5,repair_seconds=4,verbose=False,
+        workflow_config=str(PROJECT/'examples/cauchy_workflow.json')))
+    assert result['status']=='proved'
+    portfolio=result['symbolic_workflow']['candidates']
+    assert any(c['method'].startswith('cauchy') for c in portfolio)
+    assert all(sp.sympify(c['eta']).free_symbols <= {sp.Symbol('x')} for c in portfolio)
+    assert verify_workflow(out)['status']=='proved'

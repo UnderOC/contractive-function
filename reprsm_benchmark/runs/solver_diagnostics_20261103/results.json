@@ -1,0 +1,174 @@
+[
+  {
+    "id": "2dwalk_x1000_y10",
+    "family": "2DWalk",
+    "parameters": {
+      "x": 1000,
+      "y": 10
+    },
+    "figure": 7,
+    "paper_bound_direction": "upper",
+    "translation_status": "paper_parameterization",
+    "notes": [
+      "Initial values follow Table 1, not the zero placeholders in Figure 7."
+    ],
+    "source": "pp/2dwalk_x1000_y10.pp",
+    "source_sha256": "edfb9ceb56a12e28d30e97d3227cdaada7a819c24c624ef3875e45ac297e66c5",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/run_suite.py",
+      "--profile",
+      "diagnostic",
+      "--worker",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/2dwalk_x1000_y10.pp",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/runs/solver_diagnostics_20261103/2dwalk_x1000_y10"
+    ],
+    "returncode": 0,
+    "wall_seconds": 2.1185188442468643,
+    "run": "runs/solver_diagnostics_20261103/2dwalk_x1000_y10",
+    "log": "runs/solver_diagnostics_20261103/2dwalk_x1000_y10.log",
+    "status": "no_certificate_found",
+    "stop_reason": "max_degree",
+    "diagnostic": null,
+    "degrees": [
+      1
+    ],
+    "attempts": 1,
+    "bound": null,
+    "independent_check": null,
+    "classification": "no_certificate_found",
+    "attempt_statuses": {
+      "numerical_issue": 1
+    },
+    "attempt_diagnostics": []
+  },
+  {
+    "id": "newton_p0.0005",
+    "family": "Newton",
+    "parameters": {
+      "p": "0.0005"
+    },
+    "figure": 11,
+    "paper_bound_direction": "lower",
+    "translation_status": "paper_parameterization",
+    "notes": [
+      "Missing final assertion is supplied using Section 3.3 hardware-success event.",
+      "exit is encoded by a flag; all subsequent hazards/updates are skipped when alive=0.",
+      "No numerical Newton update is invented: the paper explicitly abstracts it to skip."
+    ],
+    "source": "pp/newton_p0.0005.pp",
+    "source_sha256": "5a39eb1fafe3398ad04d6a55d90c7154a6e4212fa6244517d40c0853638e4ebf",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/run_suite.py",
+      "--profile",
+      "diagnostic",
+      "--worker",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/newton_p0.0005.pp",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/runs/solver_diagnostics_20261103/newton_p0.0005"
+    ],
+    "returncode": 0,
+    "wall_seconds": 6.576911241281778,
+    "run": "runs/solver_diagnostics_20261103/newton_p0.0005",
+    "log": "runs/solver_diagnostics_20261103/newton_p0.0005.log",
+    "status": "no_certificate_found",
+    "stop_reason": "max_degree",
+    "diagnostic": null,
+    "degrees": [
+      1
+    ],
+    "attempts": 1,
+    "bound": null,
+    "independent_check": null,
+    "classification": "no_certificate_found",
+    "attempt_statuses": {
+      "numerical_issue": 1
+    },
+    "attempt_diagnostics": []
+  },
+  {
+    "id": "rdwalk_t400",
+    "family": "Rdwalk",
+    "parameters": {
+      "T_greater_than": 400
+    },
+    "figure": 2,
+    "paper_bound_direction": "upper",
+    "translation_status": "paper_parameterization",
+    "notes": [
+      "Unbounded lower x and upper t are retained; no finite horizon is imposed."
+    ],
+    "source": "pp/rdwalk_t400.pp",
+    "source_sha256": "917f58cadd5b55c2f216e42827b68dffb0e3d88a0a5017f88da04cb13d6ac257",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/run_suite.py",
+      "--profile",
+      "diagnostic",
+      "--worker",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/rdwalk_t400.pp",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/runs/solver_diagnostics_20261103/rdwalk_t400"
+    ],
+    "returncode": 0,
+    "wall_seconds": 1.9184029339812696,
+    "run": "runs/solver_diagnostics_20261103/rdwalk_t400",
+    "log": "runs/solver_diagnostics_20261103/rdwalk_t400.log",
+    "status": "no_certificate_found",
+    "stop_reason": "max_degree",
+    "diagnostic": null,
+    "degrees": [
+      1
+    ],
+    "attempts": 1,
+    "bound": null,
+    "independent_check": null,
+    "classification": "no_certificate_found",
+    "attempt_statuses": {
+      "numerical_issue": 1
+    },
+    "attempt_diagnostics": []
+  },
+  {
+    "id": "ref_p0.00001",
+    "family": "Ref",
+    "parameters": {
+      "p": "0.00001"
+    },
+    "figure": 12,
+    "paper_bound_direction": "lower",
+    "translation_status": "paper_parameterization",
+    "notes": [
+      "Three nested loops and all hazards are retained; source has 20*(16*16*3+1)=15380 elementary survival factors.",
+      "Final success event is made explicit as for Figure 3; results are upper, not lower, bounds."
+    ],
+    "source": "pp/ref_p0.00001.pp",
+    "source_sha256": "7823251e64a889075f9c0a7bfd483664db29feef2d9f3c7fc3fb16a07252ec66",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/run_suite.py",
+      "--profile",
+      "diagnostic",
+      "--worker",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/pp/ref_p0.00001.pp",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/runs/solver_diagnostics_20261103/ref_p0.00001"
+    ],
+    "returncode": 0,
+    "wall_seconds": 17.694548307918012,
+    "run": "runs/solver_diagnostics_20261103/ref_p0.00001",
+    "log": "runs/solver_diagnostics_20261103/ref_p0.00001.log",
+    "status": "no_certificate_found",
+    "stop_reason": "max_degree",
+    "diagnostic": null,
+    "degrees": [
+      1
+    ],
+    "attempts": 1,
+    "bound": null,
+    "independent_check": null,
+    "classification": "no_certificate_found",
+    "attempt_statuses": {
+      "numerical_issue": 1
+    },
+    "attempt_diagnostics": []
+  }
+]

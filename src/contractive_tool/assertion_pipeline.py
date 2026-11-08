@@ -120,7 +120,7 @@ def run_assertion_analysis(source, out_dir=None, *, options, model_only=False):
             point = root/'degrees'/str(degree)/f'c-{ci+1:03d}'
             try:
                 problem = make_assertion_problem(cfg, evidence, degree, c, margin=margin,
-                                                max_decisions=options.max_decisions)
+                    max_decisions=options.max_decisions, template_variables=options.assertion_variables)
             except AnalysisError as error:
                 history.append({'degree': degree, 'c': str(c), 'status': 'generation_failed', 'reason': str(error)})
                 continue
@@ -175,8 +175,14 @@ def run_assertion_analysis(source, out_dir=None, *, options, model_only=False):
                             write_json(attempt/'solver.json', solved)
                             row.update(status=solved['status'], raw_status=solved['raw_status'])
                             if solved.get('values') is not None:
+                                # A low-denominator feasible reconstruction can have a much
+                                # worse objective. Try finer rationals/repair before accepting it.
+                                a = float(problem.objective.xreplace(
+                                    {sp.Symbol(n): v for n, v in solved['values'].items()}))
+                                cap = sp.Rational(str(a + max(1e-4, abs(a)*options.repair_relative_gap)))
                                 verified, audit = certify_candidate(model, problem, solved['values'],
-                                    options=options, deadline=deadline, bounded_reconstruction=True)
+                                    options=options, deadline=deadline, bounded_reconstruction=True,
+                                    reconstruction_objective_cap=cap)
                                 if audit is not None:
                                     write_json(attempt/'repair.json', audit)
                                 write_json(attempt/'verification.json', verified)
@@ -255,7 +261,8 @@ def verify_assertion(artifacts):
             if verified['status'] != 'proved':
                 raise AnalysisError('Missing exact verification')
             problem = make_assertion_problem(cfg, evidence, candidate['degree'], candidate['c'],
-                margin=options.assertion_margin, max_decisions=options.max_decisions)
+                margin=options.assertion_margin, max_decisions=options.max_decisions,
+                template_variables=options.assertion_variables)
             encoding = cert['encoding']
             model, _ = build_plan(problem.obligations, problem.decisions, problem.objective,
                 registry, encoding['strategy'], encoding['order'], 2*encoding['order'], limits,
