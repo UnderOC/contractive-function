@@ -118,9 +118,13 @@ def polynomial_template(round_, options):
     return EtaTemplate(expression, coefficients)
 
 
-def successors(round_, eta):
+def successors(round_, eta, update=None):
     """Raw successors, including exits, as required by Eq. (3.7)."""
-    numerator = sp.expand(eta.subs(round_.update, simultaneous=True))
+    if update is None:
+        if round_.pieces:
+            raise AnalysisError('Piecewise rounds require regional successors')
+        update = round_.update
+    numerator = sp.expand(eta.subs(update, simultaneous=True))
     return tuple((sp.expand(numerator.subs(dict(zip(round_.law.symbols, values)), simultaneous=True)), p)
                  for values, p in round_.law.atoms if p)
 
@@ -146,10 +150,10 @@ def build_denominator_model(round_, template, options, c=None, r0=None, D=None, 
     # is represented by an empty coefficient set after initial normalization.
     if template.nonnegative or template.equalities:
         raise AnalysisError('Use an unconstrained polynomial template or a fixed eta')
-    outcomes = successors(round_, eta)
-    mean = sp.expand(sum(p*value for value, p in outcomes))
-    matrix = None if D is None else second_moment_matrix(eta, outcomes, D)
-    for i, domain in enumerate(round_.domains):
+    for i, (domain, update) in enumerate(round_.domain_updates()):
+        outcomes = successors(round_, eta, update)
+        mean = sp.expand(sum(p*value for value, p in outcomes))
+        matrix = None if D is None else second_moment_matrix(eta, outcomes, D)
         _scalar(domain, eta-rational(options.epsilon), model, f'{prefix}_positive_{i}', options)
         _scalar(domain, b-eta, model, f'{prefix}_bounded_{i}', options)
         if b_cap is not None:
@@ -192,10 +196,10 @@ def build_moment_model(round_, eta, kind, options, *, c=None):
     parameter = sp.Symbol(prefix+'_'+kind)
     model = ConicModel([str(parameter)], parameter if kind == 'D' else -parameter,
                        nonnegative=[str(parameter)])
-    outcomes = successors(round_, eta)
-    mean = sp.expand(sum(p*v for v, p in outcomes))
-    second = sp.expand(sum(p*v*v for v, p in outcomes))
-    for i, domain in enumerate(round_.domains):
+    for i, (domain, update) in enumerate(round_.domain_updates()):
+        outcomes = successors(round_, eta, update)
+        mean = sp.expand(sum(p*v for v, p in outcomes))
+        second = sp.expand(sum(p*v*v for v, p in outcomes))
         if kind == 'c':
             expressions = (mean-parameter*eta,)
         elif kind == 'D':

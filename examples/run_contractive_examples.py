@@ -34,15 +34,21 @@ def launch(command, log, timeout):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out-dir',type=Path,required=True)
+    parser.add_argument('--cases',nargs='+',help='Optional exact source stems; default: all packaged examples')
     args=parser.parse_args()
     root=args.out_dir.resolve()
     if root.exists() and any(root.iterdir()):
         parser.error('Use a new or empty output directory')
     root.mkdir(parents=True,exist_ok=True)
-    config=json.loads((PROJECT/'generated/kelly_routes_20261108/workflow.json').read_text())
+    config=json.loads((PROJECT/'examples/tailbound_comparison.json').read_text())
     write(root/'workflow.json',config)
     rows=[]
     sources=sorted((PROJECT/'contractive_examples').glob('*/*.pp'))
+    if args.cases:
+        unknown=set(args.cases)-{s.stem for s in sources}
+        if unknown:
+            parser.error(f'Unknown examples: {sorted(unknown)}')
+        sources=[s for s in sources if s.stem in args.cases]
     write(root/'protocol.json',{'sources':[str(s.relative_to(PROJECT)) for s in sources],
         'positive_seconds':180,'reciprocal_seconds':120,'feedback_seconds':90,'feedback_points':24,
         'initial_degree':2,'max_degree':4,'max_c_steps':12,'per_attempt_seconds':10,'repair_seconds':5,

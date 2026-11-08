@@ -45,10 +45,12 @@ class ConicModel:
     psd_blocks: list[dict] = field(default_factory=list)
     coverage: dict = field(default_factory=dict)
 
-    def to_data(self):
+    def to_data(self, *, check_budget=None):
         symbols = set(sp.Symbol(x) for x in self.decisions)
 
         def affine(expr):
+            if check_budget is not None:
+                check_budget()
             free = tuple(sorted(expr.free_symbols, key=str))
             if set(free) - symbols:
                 raise ValueError("Undeclared conic decision")

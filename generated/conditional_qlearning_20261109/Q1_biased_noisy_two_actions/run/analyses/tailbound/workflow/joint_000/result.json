@@ -1,0 +1,4077 @@
+{
+  "attempts": [
+    {
+      "detail": "Cauchy state-model construction time budget exceeded",
+      "reason": "state_model_time_budget",
+      "status": "unknown",
+      "t": "515569141823/8000000000000"
+    }
+  ],
+  "budget_policy": "cooperative symbolic/verification checks; solver optimizer time limit",
+  "candidates": [],
+  "elapsed_seconds": 49.18607093440369,
+  "input": {
+    "basis": [
+      "-31250000000*__cauchy_region_r**3/114819831693 + 62500000000*__cauchy_region_r**2/38273277231 - 343750000000*__cauchy_region_r/114819831693 + 62500000000/38273277231",
+      "31250000000*__cauchy_region_r**3/38273277231 - 156250000000*__cauchy_region_r**2/38273277231 + 62500000000*__cauchy_region_r/12757759077",
+      "-250000000000*__cauchy_region_r**3/176776695297 + 1000000000000*__cauchy_region_r**2/176776695297 - 250000000000*__cauchy_region_r/58925565099",
+      "250000000000*__cauchy_region_r**3/530330085891 - 250000000000*__cauchy_region_r**2/176776695297 + 500000000000*__cauchy_region_r/530330085891"
+    ],
+    "coefficients": [
+      "__workflow_eta_0",
+      "__workflow_eta_1",
+      "__workflow_eta_2",
+      "__workflow_eta_3",
+      "__workflow_eta_4"
+    ],
+    "equalities": [],
+    "eta": "__workflow_eta_0 + __workflow_eta_1*q2 + __workflow_eta_2*q1 + __workflow_eta_3*q2**2 + __workflow_eta_4*q1**2",
+    "nonnegative": [],
+    "t_values": [
+      "515569141823/8000000000000",
+      "515569141823/4000000000000",
+      "1546707425469/8000000000000",
+      "515569141823/2000000000000",
+      "515569141823/1600000000000",
+      "1546707425469/4000000000000",
+      "3608983992761/8000000000000",
+      "515569141823/1000000000000"
+    ]
+  },
+  "mode": "template_eta",
+  "optimality": "bounded search; no global optimality claim",
+  "options": {
+    "exponents": {
+      "coarse_points": 16,
+      "digits": 12,
+      "interval": null,
+      "margin": "1/100",
+      "max_candidates": 129,
+      "refinements": 1,
+      "target_n": null,
+      "values": [
+        "1/4",
+        "3/8",
+        "1/2",
+        "5/8",
+        "3/4",
+        "7/8",
+        "1",
+        "9/8",
+        "5/4",
+        "11/8",
+        "3/2",
+        "13/8",
+        "7/4",
+        "15/8",
+        "2",
+        "17/8",
+        "9/4",
+        "19/8",
+        "5/2",
+        "21/8",
+        "11/4",
+        "23/8",
+        "3",
+        "25/8",
+        "13/4",
+        "27/8",
+        "7/2",
+        "29/8",
+        "15/4",
+        "31/8",
+        "4"
+      ]
+    },
+    "limits": {
+      "max_decisions": 20000,
+      "max_products": 256,
+      "max_psd_dimension": 80
+    },
+    "matrix_multiplier_degree": 1,
+    "max_t_points": 32,
+    "product_depth": 4,
+    "repair_max_solves": 2,
+    "repair_relative_gap": 0.05,
+    "repair_seconds": 5.0,
+    "scalar_order": 2,
+    "scalar_strategy": "sos",
+    "solver_seconds": 10.0,
+    "total_seconds": 46.91447766125202
+  },
+  "round": {
+    "domains": [
+      {
+        "equalities": [],
+        "generators": [
+          "q1",
+          "5/4 - q1",
+          "q2",
+          "5/4 - q2",
+          "q1**2 - 2*q1 + 3*q2**2 - 9*q2/2 + 39/16"
+        ],
+        "variables": [
+          "q1",
+          "q2"
+        ]
+      }
+    ],
+    "evidence": {
+      "composition": "piecewise raw distributions; rational CDF coupling; exact guards before closure",
+      "contraction": "raw successor moment dominates killed survival moment",
+      "domain_evidence": {
+        "domains": {
+          "L_assign_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_2": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_3": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_4": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_5": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_6": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_7": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_assign_8": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_branch_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_probabilistic_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_probabilistic_2": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_probabilistic_3": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_probabilistic_4": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_probabilistic_5": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_probabilistic_6": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_refute_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "L_while_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "q1",
+                "5/4 - q1",
+                "q2",
+                "5/4 - q2"
+              ],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "l_f": [
+            {
+              "equalities": [],
+              "generators": [],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ],
+          "l_t": [
+            {
+              "equalities": [],
+              "generators": [],
+              "variables": [
+                "q1",
+                "q2"
+              ]
+            }
+          ]
+        },
+        "initial": {
+          "q1": "0",
+          "q2": "5/4"
+        },
+        "initial_location": "L_while_1",
+        "initial_random_symbols": [],
+        "initial_support": [
+          {
+            "equalities": [],
+            "generators": [],
+            "variables": []
+          }
+        ],
+        "initialization_steps": 2,
+        "initialization_trace": [
+          {
+            "destination": "L_assign_9",
+            "location": "L_assign_10",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_22",
+            "values": {
+              "q1": "0"
+            }
+          },
+          {
+            "destination": "L_while_1",
+            "location": "L_assign_9",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_21",
+            "values": {
+              "q1": "0",
+              "q2": "5/4"
+            }
+          }
+        ],
+        "locations": [
+          "L_assign_1",
+          "L_assign_2",
+          "L_assign_3",
+          "L_assign_4",
+          "L_assign_5",
+          "L_assign_6",
+          "L_assign_7",
+          "L_assign_8",
+          "L_branch_1",
+          "L_probabilistic_1",
+          "L_probabilistic_2",
+          "L_probabilistic_3",
+          "L_probabilistic_4",
+          "L_probabilistic_5",
+          "L_probabilistic_6",
+          "L_refute_1",
+          "L_while_1",
+          "l_f",
+          "l_t"
+        ],
+        "method": "exact_initialization_and_inductive_domain_certificates",
+        "proofs": [
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_10",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_22"
+          },
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_9",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_21"
+          },
+          {
+            "kind": "initial_control_invariant",
+            "location": "L_while_1",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_3"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "3*q1/4 + 3/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/16",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/16 - 3*q1/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_3"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_4"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "3*q1/4 + 5/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/16",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/16 - 3*q1/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_4"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_6"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q1/4 + q2/2 + 1/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/16",
+                      "1/4",
+                      "0",
+                      "1/2",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-q1/4 - q2/2 + 19/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/4",
+                      "0",
+                      "1/4",
+                      "0",
+                      "1/2"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_6"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q1/4 + q2/2 + 3/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/16",
+                      "1/4",
+                      "0",
+                      "1/2",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-q1/4 - q2/2 + 17/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/8",
+                      "0",
+                      "1/4",
+                      "0",
+                      "1/2"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_10"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1/2 + q2/4 + 3/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/16",
+                      "1/2",
+                      "0",
+                      "1/4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-q1/2 - q2/4 + 17/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/8",
+                      "0",
+                      "1/2",
+                      "0",
+                      "1/4"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_10"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_11"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1/2 + q2/4 + 5/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/16",
+                      "1/2",
+                      "0",
+                      "1/4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "-q1/2 - q2/4 + 15/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1/2",
+                      "0",
+                      "1/4"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_11"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_13"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "3*q2/4 + 1/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/16",
+                      "0",
+                      "0",
+                      "3/4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "19/16 - 3*q2/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/4",
+                      "0",
+                      "0",
+                      "0",
+                      "3/4"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_13"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_14"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "3*q2/4 + 3/16",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/16",
+                      "0",
+                      "0",
+                      "3/4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/16 - 3*q2/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "1/8",
+                      "0",
+                      "0",
+                      "0",
+                      "3/4"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_14"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_17"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2",
+                    "q1 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_17"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_18"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1 + q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1 + q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1 + q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1 + q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2",
+                    "-q1 + q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_18"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "3/4"
+            },
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/4"
+            },
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_12"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_12"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_12"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_12"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_15"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_15"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_15"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_15"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "3/4"
+            },
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/4"
+            },
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_2"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_2"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_19"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1**2 - 2*q1 + 3*q2**2 - 9*q2/2 + 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1**2 - 2*q1 + 3*q2**2 - 9*q2/2 + 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1**2 - 2*q1 + 3*q2**2 - 9*q2/2 + 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "q1**2 - 2*q1 + 3*q2**2 - 9*q2/2 + 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2",
+                    "q1**2 - 2*q1 + 3*q2**2 - 9*q2/2 + 39/16"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_19"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_20"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1**2 + 2*q1 - 3*q2**2 + 9*q2/2 - 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q1",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1**2 + 2*q1 - 3*q2**2 + 9*q2/2 - 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1**2 + 2*q1 - 3*q2**2 + 9*q2/2 - 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "5/4 - q2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "q1",
+                        "5/4 - q1",
+                        "q2",
+                        "5/4 - q2",
+                        "-q1**2 + 2*q1 - 3*q2**2 + 9*q2/2 - 39/16"
+                      ],
+                      "variables": [
+                        "q1",
+                        "q2"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "q1",
+                    "5/4 - q1",
+                    "q2",
+                    "5/4 - q2",
+                    "-q1**2 + 2*q1 - 3*q2**2 + 9*q2/2 - 39/16"
+                  ],
+                  "variables": [
+                    "q1",
+                    "q2"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_20"
+          }
+        ],
+        "status": "proved",
+        "strict_invariant_policy": "inductive_closed_overapproximation"
+      },
+      "round_evidence": {
+        "boundary": "polynomial nonnegative; survival process zero after exit",
+        "clock": {
+          "exit_step_counts": [
+            2
+          ],
+          "pcfg_relation": "T = 2 + 5*K + 2",
+          "prefix_steps": 2,
+          "round_step_counts": [
+            5
+          ],
+          "unit": "completed_loop_iterations"
+        },
+        "contraction": "piecewise killed expectation; closed-domain sufficient proof",
+        "coverage": "all branches of the structured CFG; conditional cases checked separately",
+        "domain": [
+          {
+            "equalities": [],
+            "generators": [
+              "q1",
+              "5/4 - q1",
+              "q2",
+              "5/4 - q2"
+            ],
+            "variables": [
+              "q1",
+              "q2"
+            ]
+          }
+        ],
+        "entry_transition": "T_19",
+        "expectation_mode": "exact_piecewise_survival",
+        "header": "L_while_1",
+        "invariant_evidence": "domain_evidence.json",
+        "method": "symbolic_acyclic_round_composition",
+        "sampling_policy": "rounds with sampling retain raw moments; no truncated integration",
+        "status": "proved",
+        "strict_guards": "exact through pullback; closed covering proof domains; no positive margin",
+        "transitions": [
+          "T_1",
+          "T_10",
+          "T_11",
+          "T_12",
+          "T_13",
+          "T_14",
+          "T_15",
+          "T_16",
+          "T_17",
+          "T_18",
+          "T_19",
+          "T_2",
+          "T_20",
+          "T_3",
+          "T_4",
+          "T_5",
+          "T_6",
+          "T_7",
+          "T_8",
+          "T_9"
+        ],
+        "variables": [
+          "q1",
+          "q2"
+        ]
+      },
+      "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/qlearning/Q1_biased_noisy_two_actions.pp",
+      "source_sha256": "6bb3309f665f4f7ad40a35b127ab66399a925488f695f8aa18d0ec11765ed67b"
+    },
+    "initial": {
+      "q1": "0",
+      "q2": "5/4"
+    },
+    "initial_active": true,
+    "law": {
+      "atoms": [
+        {
+          "probability": "3/8",
+          "values": [
+            "0"
+          ]
+        },
+        {
+          "probability": "3/8",
+          "values": [
+            "1"
+          ]
+        },
+        {
+          "probability": "1/8",
+          "values": [
+            "2"
+          ]
+        },
+        {
+          "probability": "1/8",
+          "values": [
+            "3"
+          ]
+        }
+      ],
+      "symbols": [
+        "__cauchy_region_r"
+      ]
+    },
+    "pieces": [
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "q1",
+            "5/4 - q1",
+            "q2",
+            "5/4 - q2",
+            "q1 - q2",
+            "16*q1**2 - 32*q1 + 48*q2**2 - 72*q2 + 39"
+          ],
+          "variables": [
+            "q1",
+            "q2"
+          ]
+        },
+        "guard": {
+          "equalities": [],
+          "generators": [
+            "q1 - q2"
+          ],
+          "strict_generators": [
+            "16*q1**2 - 32*q1 + 48*q2**2 - 72*q2 + 39"
+          ],
+          "variables": [
+            "q1",
+            "q2"
+          ]
+        },
+        "update": {
+          "q1": "-__cauchy_region_r**3*q1/12 + __cauchy_region_r**3/8 + 3*__cauchy_region_r**2*q1/8 - 19*__cauchy_region_r**2/32 - 7*__cauchy_region_r*q1/24 + 19*__cauchy_region_r/32 + 3*q1/4 + 3/16",
+          "q2": "-__cauchy_region_r**3*q1/12 + __cauchy_region_r**3*q2/6 + 3*__cauchy_region_r**2*q1/8 - 3*__cauchy_region_r**2*q2/4 + __cauchy_region_r**2/32 - 7*__cauchy_region_r*q1/24 + 7*__cauchy_region_r*q2/12 - __cauchy_region_r/32 + q2"
+        }
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "q1",
+            "5/4 - q1",
+            "q2",
+            "5/4 - q2",
+            "16*q1**2 - 32*q1 + 48*q2**2 - 72*q2 + 39",
+            "-q1 + q2"
+          ],
+          "variables": [
+            "q1",
+            "q2"
+          ]
+        },
+        "guard": {
+          "equalities": [],
+          "generators": [],
+          "strict_generators": [
+            "16*q1**2 - 32*q1 + 48*q2**2 - 72*q2 + 39",
+            "-q1 + q2"
+          ],
+          "variables": [
+            "q1",
+            "q2"
+          ]
+        },
+        "update": {
+          "q1": "-__cauchy_region_r**3*q1/6 + __cauchy_region_r**3*q2/12 + __cauchy_region_r**3/8 + 3*__cauchy_region_r**2*q1/4 - 3*__cauchy_region_r**2*q2/8 - 19*__cauchy_region_r**2/32 - 7*__cauchy_region_r*q1/12 + 7*__cauchy_region_r*q2/24 + 19*__cauchy_region_r/32 + q1/2 + q2/4 + 3/16",
+          "q2": "__cauchy_region_r**3*q2/12 - 3*__cauchy_region_r**2*q2/8 + __cauchy_region_r**2/32 + 7*__cauchy_region_r*q2/24 - __cauchy_region_r/32 + q2"
+        }
+      }
+    ],
+    "update": {},
+    "variables": [
+      "q1",
+      "q2"
+    ]
+  },
+  "schema_version": 1,
+  "selection": null,
+  "status": "no_certificate_found",
+  "stop_reason": "state_model_time_budget"
+}

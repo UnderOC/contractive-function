@@ -50,21 +50,29 @@ def matrix_gram(variables, size, degree, model, namespace, limits):
         for a, left in enumerate(basis) for b, right in enumerate(basis))))
 
 
-def lower_matrix_sos(domain, matrix, model, namespace, degree, limits, products):
+def lower_matrix_sos(domain, matrix, model, namespace, degree, limits, products, *, check_budget=None):
     matrix = sp.Matrix(matrix)
     if matrix.rows != matrix.cols or matrix != matrix.T:
         raise AnalysisError('Matrix positivity requires a symmetric square matrix')
     size = matrix.rows
+    if check_budget is not None:
+        check_budget()
     rhs = matrix_gram(domain.variables, size, degree, model, namespace+'_s0', limits)
     for i, g in enumerate(products):
+        if check_budget is not None:
+            check_budget()
         rhs += g*matrix_gram(domain.variables, size, degree, model, namespace+f'_s{i+1}', limits)
     for index, equality in enumerate(domain.equalities):
         multiplier = sp.zeros(size)
         for i in range(size):
             for j in range(i, size):
+                if check_budget is not None:
+                    check_budget()
                 multiplier[i, j] = multiplier[j, i] = free_polynomial(
                     domain.variables, 2*degree, model, f'{namespace}_h{index}_{i}_{j}', limits)
         rhs += equality*multiplier
     for i in range(size):
         for j in range(i, size):
+            if check_budget is not None:
+                check_budget()
             match_coefficients(matrix[i, j]-rhs[i, j], domain.variables, model)

@@ -88,7 +88,6 @@ def test_constant_probabilistic_branches_keep_probability_mass(tmp_path):
 @pytest.mark.parametrize('program,reason', [
     ('x := Bernoulli(0.5); while x >= 1 do x := 0 od; refute true;', 'deterministic initialization'),
     ('x := 2; while x >= 1 do x := Uniform(0,1) od; refute true;', 'finite discrete'),
-    ('x := 2; while x >= 1 do if x > 2 then x := 0 else x := 1 fi od; refute true;', 'conditional body guards'),
     ('x := 2; while x >= 1 do if prob(x) then x := 0 else x := 1 fi od; refute true;', None),
 ])
 def test_unsupported_semantics_are_rejected(tmp_path, program, reason):

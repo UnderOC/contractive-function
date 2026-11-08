@@ -3,6 +3,7 @@ import argparse
 from collections import Counter
 import json
 from pathlib import Path
+import shlex
 import sympy as sp
 
 PROJECT=Path(__file__).resolve().parents[1]
@@ -40,10 +41,13 @@ def main():
     args=parser.parse_args();root=args.root.resolve()
     rows=read(root/'results.json');reference=read(root/'reference_checks.json',[])
     refs={r['name']:r for r in reference}
+    statuses=Counter(r['status'] for r in rows)
+    method_counts=Counter()
+    for row in rows:
+        method_counts.update(row['candidate_counts'])
     lines=['# contractive_examples：自动尾界分析实测（2026-11-09）','',
-        '本报告覆盖 `contractive_examples` 下全部 15 个 `.pp`：Kelly、Q-learning、RCD 各 5 个。',
-        '**8 个得到有效尾界，2 个未找到证书，5 个在共享不变量认证处停止。** 8 个成功样例全部通过独立证书重放。',
-        '正幂成功 8 个，倒数成功 1 个（K4，且明显改善尾界）；没有 Cauchy 搜索成功的样例，非整数正幂结果均为 Jensen 派生。',
+        f'本报告覆盖本轮选择的 {len(rows)} 个 `.pp`，来源于 `contractive_examples`。',
+        f'状态统计：`{dict(statuses)}`；有效候选按方法统计：`{dict(method_counts)}`。',
         '**这里只把本次自动合成并独立重放通过的证书计为有效结果。** 样例目录附带的手工证书未用于合成，',
         '不能将“目录里已有证书”当成“本工具已经找到”。','',
         '## 测试规则','',
@@ -72,7 +76,7 @@ def main():
         f"独立重放通过：{sum(r.get('verification',{}).get('status')=='proved' for r in rows)} 个样例。",'',
         '主流程 `proved` 表示至少一条路线成功，不代表所有路线都找到证书。',
         '数值 infeasible/unknown 不是数学不可行性证明；unsupported 表示未能完成所需编译/语义证明。',
-        f"15 个求解进程累计墙钟 {sum(r['wall_seconds'] for r in rows):.2f} 秒（不含后续独立验证与诊断）；无进程崩溃或外层超时。",'',
+        f"{len(rows)} 个求解进程累计墙钟 {sum(r['wall_seconds'] for r in rows):.2f} 秒（不含后续独立验证与诊断）。",'',
         '## 有效尾界摘要','', '| 样例 | n=20 | n=100 | n=1000 |', '|---|---:|---:|---:|']
     for row in rows:
         if not row['comparisons']:continue
@@ -189,11 +193,12 @@ def main():
     (root/'diagnoses.json').write_text(json.dumps(diagnoses,indent=2,ensure_ascii=False)+'\n')
     lines += ['## 复现','', '在项目目录激活原求解环境，输出目录应为新目录：','', '```bash',
         'conda activate contractive-frontend-test-20260814',
-        'python examples/run_contractive_examples.py --out-dir generated/contractive_examples_reproduce',
+        'python examples/run_contractive_examples.py --out-dir generated/contractive_examples_reproduce --cases '+
+        ' '.join(shlex.quote(row['name']) for row in rows),
         'python examples/check_contractive_examples.py generated/contractive_examples_reproduce',
         'python examples/diagnose_contractive_examples.py generated/contractive_examples_reproduce',
         'python examples/report_contractive_examples.py generated/contractive_examples_reproduce','```','',
-        '本次是样例实验，没有修改分析器算法或样例输入。全域有效性依赖精确证书重放，有限轮概率传播仅是额外回归核对。','']
+        '样例输入哈希见逐例记录。全域有效性依赖精确证书重放，有限轮概率传播仅是额外回归核对。','']
     (root/'REPORT.md').write_text('\n'.join(lines))
     print(json.dumps({'report':str(root/'REPORT.md'),'cases':len(rows),'statuses':dict(statuses)},ensure_ascii=False))
 

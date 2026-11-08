@@ -1,0 +1,38 @@
+{
+  "bound": {
+    "A_exact": "21456321810465415166296150354764684140630964878745656/2770542743859616116351734062362309776051840960523375",
+    "A_numeric": 7.744447133334901,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "115/128",
+    "certificate": "analyses/tailbound/degrees/2/c-007/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 5*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        5
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(21456321810465415166296150354764684140630964878745656/2770542743859616116351734062362309776051840960523375) * exp(-(-log(115/128))*n)",
+    "expression": "(21456321810465415166296150354764684140630964878745656/2770542743859616116351734062362309776051840960523375) * (115/128)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(115/128)",
+    "lambda_numeric": 0.1070981355563671,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (21456321810465415166296150354764684140630964878745656/2770542743859616116351734062362309776051840960523375) * (115/128)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "237011840547316541572147568830816*q1**2/65751655789459520735138200923375 - 964585002127208192*q1*q2/617693494885264885 - 145921908616328033186573597601120155295297877*q1/23961802740384142325810649736390371575679125 + 106474791187919294946355331194442336*q2**2/8726134310508375401763314664938875 - 128540006700864122357665974820971733461226747536*q2/7752833127619212607805441896231688104291787375 + 3451014220684106077400410640622135521714/366981848979534974353973280450033596625"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

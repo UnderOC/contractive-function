@@ -269,7 +269,7 @@ def _scaled_basis(round_, eta):
 For a Bernoulli(1/100) monomial r this yields 10*r, reproducing the
 notes' physical Z basis without a program-name or parameter special case.
 """
-    _,_,monomials = round_.decompose(eta)
+    monomials = round_.resolve_basis(eta)
     basis = []
     for monomial in monomials:
         second = sum(p*monomial.subs(dict(zip(round_.law.symbols,atom)),simultaneous=True)**2
@@ -280,7 +280,7 @@ notes' physical Z basis without a program-name or parameter special case.
 
 
 def _guided_grid(round_, template, basis, norm_bounds, config, options):
-    _,_,resolved = round_.decompose(template.expression,basis)
+    resolved = round_.resolve_basis(template.expression,basis)
     base = (tuple(map(rational,config['t_values'])) if 't_values' in config
             else automatic_t_grid(round_.law.norm_atoms(resolved),options.exponents,
                                   min(8,options.max_t_points)))

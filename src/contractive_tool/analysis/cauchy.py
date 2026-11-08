@@ -178,32 +178,48 @@ def _scalar(domain, expression, model, name, options):
         'sufficient_quotient': str(reduced), 'proof_domain': projected.to_data()})
 
 
-def _common(round_, eta, numerator, model, prefix, options):
-    for i, domain in enumerate(round_.domains):
+class StateModelBudgetExceeded(AnalysisError):
+    pass
+
+
+def _check_state_budget(deadline):
+    if deadline is not None and time.monotonic() >= deadline:
+        raise StateModelBudgetExceeded('Cauchy state-model construction time budget exceeded')
+
+
+def _common(round_, eta, decompositions, model, prefix, options, deadline=None):
+    for i, (domain, numerator, _, _) in enumerate(decompositions):
+        _check_state_budget(deadline)
         _scalar(domain, eta-1, model, f'{prefix}_normalization_{i}', options)
         for j, (values, probability) in enumerate(round_.law.atoms):
+            _check_state_budget(deadline)
             if probability == 0:
                 continue
             successor = sp.expand(numerator.subs(dict(zip(round_.law.symbols, values)), simultaneous=True))
             _scalar(domain, successor, model, f'{prefix}_successor_{i}_{j}', options)
 
 
-def build_fixed_model(round_, eta, *, basis=None, options=None):
+def build_fixed_model(round_, eta, *, basis=None, options=None, deadline=None):
     options = options or CauchyOptions()
     options.validate()
     eta = _validate_eta(round_, eta)
-    numerator, q, basis = round_.decompose(eta, basis)
+    _check_state_budget(deadline)
+    decompositions = round_.decompositions(eta, basis)
+    basis = decompositions[0][3]
+    q = (tuple(v for _, _, coefficients, _ in decompositions for v in coefficients)
+         if round_.pieces else decompositions[0][2])
     prefix = _namespace(round_, ())
     B = sp.Symbol(prefix+'_B')
     model = ConicModel([str(B)], B, nonnegative=[str(B)])
-    _common(round_, eta, numerator, model, prefix, options)
-    for i, domain in enumerate(round_.domains):
-        _scalar(domain, B*eta**2-sum(v**2 for v in q), model, f'{prefix}_norm_{i}', options)
-    model.to_data()
+    _common(round_, eta, decompositions, model, prefix, options, deadline)
+    for i, (domain, _, coefficients, _) in enumerate(decompositions):
+        _check_state_budget(deadline)
+        _scalar(domain, B*eta**2-sum(v**2 for v in coefficients), model, f'{prefix}_norm_{i}', options)
+    model.to_data(check_budget=lambda: _check_state_budget(deadline))
     return model, {'eta': eta, 'q': q, 'basis': basis, 'B_symbol': B}
 
 
-def build_template_model(round_, template, t, *, basis=None, options=None):
+def build_template_model(round_, template, t, *, basis=None, options=None, deadline=None):
     options = options or CauchyOptions()
     options.validate()
     t = rational(t)
@@ -211,7 +227,11 @@ def build_template_model(round_, template, t, *, basis=None, options=None):
         raise AnalysisError('Template search requires t > 0; fixed eta handles B=0')
     coefficients = tuple(template.coefficients)
     eta = _validate_eta(round_, template.expression, coefficients)
-    numerator, q, basis = round_.decompose(eta, basis)
+    _check_state_budget(deadline)
+    decompositions = round_.decompositions(eta, basis)
+    basis = decompositions[0][3]
+    q = (tuple(v for _, _, coefficients, _ in decompositions for v in coefficients)
+         if round_.pieces else decompositions[0][2])
     prefix = _namespace(round_, coefficients)
     objective = sp.expand(eta.subs(round_.initial, simultaneous=True))
     model = ConicModel(list(map(str, coefficients)), objective)
@@ -220,19 +240,21 @@ def build_template_model(round_, template, t, *, basis=None, options=None):
         model.equalities.append(sp.expand(sp.sympify(expression)-slack))
     model.equalities.extend(map(sp.sympify, template.equalities))
     # Validate coefficient restrictions before the state SOS variables are added.
-    model.to_data()
-    _common(round_, eta, numerator, model, prefix, options)
-    matrix = sp.eye(len(q)+1)*t*eta
-    for j, value in enumerate(q, 1):
-        matrix[0, j] = matrix[j, 0] = value
-    for i, domain in enumerate(round_.domains):
+    model.to_data(check_budget=lambda: _check_state_budget(deadline))
+    _common(round_, eta, decompositions, model, prefix, options, deadline)
+    for i, (domain, _, coefficients, _) in enumerate(decompositions):
+        _check_state_budget(deadline)
+        matrix = sp.eye(len(coefficients)+1)*t*eta
+        for j, value in enumerate(coefficients, 1):
+            matrix[0, j] = matrix[j, 0] = value
         projected = _project(domain, list(matrix), model.decisions)
         products = generator_products(projected, options.product_depth, options.limits)
         lower_matrix_sos(projected, matrix, model, f'{prefix}_matrix_{i}',
-                         options.matrix_multiplier_degree, options.limits, products)
+                         options.matrix_multiplier_degree, options.limits, products,
+                         check_budget=lambda: _check_state_budget(deadline))
         model.coverage.setdefault('matrix', []).append({'domain': domain.to_data(),
             'proof_domain': projected.to_data(), 'matrix': [[str(v) for v in row] for row in matrix.tolist()]})
-    model.to_data()
+    model.to_data(check_budget=lambda: _check_state_budget(deadline))
     return model, {'eta': eta, 'q': q, 'basis': basis, 't': t}
 
 
@@ -343,7 +365,13 @@ def search_fixed_eta(round_, eta, *, basis=None, options=None, out_dir=None):
     if not round_.initial_active:
         result.update(status='proved', special_case='initially_exited', tail='Pr(K>n)=0 for n>=0')
         return _finish(result, out_dir, started)
-    model, data = build_fixed_model(round_, eta, basis=basis, options=options)
+    try:
+        model, data = build_fixed_model(round_, eta, basis=basis, options=options,
+                                       deadline=started+options.total_seconds)
+    except StateModelBudgetExceeded as error:
+        result['attempts'].append({'status': 'unknown', 'reason': 'state_model_time_budget', 'detail': str(error)})
+        result['stop_reason'] = 'state_model_time_budget'
+        return _finish(result, out_dir, started)
     attempt = _solve(model, options, started+options.total_seconds)
     attempt.update(model=model.to_data(), basis=list(map(str, data['basis'])), q=list(map(str, data['q'])))
     result['attempts'].append(attempt)
@@ -381,7 +409,7 @@ def search_template_eta(round_, template, *, t_values=None, basis=None, options=
     started = time.monotonic()
     result = _new_result(round_, 'template_eta', options)
     eta = _validate_eta(round_, template.expression, template.coefficients)
-    _, _, basis = round_.decompose(eta, basis)
+    basis = round_.resolve_basis(eta, basis)
     result['input'] = {'eta': str(eta), 'coefficients': list(map(str, template.coefficients)),
         'nonnegative': list(map(str, template.nonnegative)), 'equalities': list(map(str, template.equalities)),
         'basis': list(map(str, basis))}
@@ -398,7 +426,14 @@ def search_template_eta(round_, template, *, t_values=None, basis=None, options=
         if time.monotonic()-started >= options.total_seconds:
             result['stop_reason'] = 'time_budget'
             break
-        model, data = build_template_model(round_, template, t, basis=basis, options=options)
+        try:
+            model, data = build_template_model(round_, template, t, basis=basis, options=options,
+                                              deadline=started+options.total_seconds)
+        except StateModelBudgetExceeded as error:
+            result['attempts'].append({'t': str(t), 'status': 'unknown',
+                                      'reason': 'state_model_time_budget', 'detail': str(error)})
+            result['stop_reason'] = 'state_model_time_budget'
+            break
         attempt = _solve(model, options, started+options.total_seconds)
         attempt.update(t=str(t), model=model.to_data(), basis=list(map(str, basis)), q=list(map(str, data['q'])))
         result['attempts'].append(attempt)
