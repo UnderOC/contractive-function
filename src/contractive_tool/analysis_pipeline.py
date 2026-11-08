@@ -16,7 +16,7 @@ from contractive_tool import __version__
 from contractive_tool.analysis.degree_policy import DegreePolicy
 from contractive_tool.analysis.certificate_families import get_family
 from contractive_tool.analysis.parameter_search import ContractionBisection, FixedContractionGrid
-from contractive_tool.analysis.semantics import prepare_program
+from contractive_tool.analysis.invariant_certification import prepare_certified_program as prepare_program
 from contractive_tool.backends.cvxpy.certification import certify_candidate
 from contractive_tool.analysis.rounds import prepare_round_kernel, make_round_problem
 from contractive_tool.analysis.symbolic_rounds import (
@@ -373,11 +373,7 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
         cfg = build_cfg(check_program(parse_file(source)))
         if cfg.failure_terminal is None:
             raise AnalysisError('Source needs assert/refute')
-        try:
-            evidence = prepare_program(cfg)
-        except AnalysisError:
-            from contractive_tool.analysis.random_rounds import _invariant_prover
-            evidence = prepare_program(cfg, invariant_prover=_invariant_prover)
+        evidence = prepare_program(cfg)
         prepared = (cfg, evidence)
         try:
             prepare_round_kernel(cfg, evidence)

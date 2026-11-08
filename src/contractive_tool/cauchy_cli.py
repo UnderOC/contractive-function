@@ -61,7 +61,8 @@ def main(argv=None):
             return 0 if all(row['check']['status'] == 'proved' for row in summaries.values()) else 3
         path = args.artifact/'result.json' if args.artifact.is_dir() else args.artifact
         result = json.loads(path.read_text())
-        round_ = prepare_random_round(result['round']['evidence']['source'])
+        round_ = prepare_random_round(result['round']['evidence']['source'],
+            invariant_evidence=result['round']['evidence']['domain_evidence'])
         checked = verify_result(round_, result)
         if checked['status'] != 'proved':
             print(json.dumps(checked))

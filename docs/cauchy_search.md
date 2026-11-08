@@ -46,10 +46,13 @@ conda run --no-capture-output -n contractive-frontend-test-20260814 \
 - 后继非负性逐个检查所有正概率支持点，包含退出循环的后继。
 - 源码末尾使用 `refute true`，保留现有入口约束。事件是 `K > n`，K 计完整循环轮数。
 
-对于非线性不变量的保持，新入口通过可选的 `prepare_program(...,
-invariant_prover=...)` 使用精确的非负生成元乘积恒等式：先尝试原有 Farkas 证明，
+对于非线性不变量的保持，入口通过 `prepare_certified_program` 注入精确认证器。
+它新增二次半正定检查、已有约束加二次平方和余项，以及带精确恢复的 SOS 兜底；
+证据保存与无求解器重放详见 [不变量认证](invariant_certification.md)。原有
+非负生成元乘积规则仍保留：先尝试原有 Farkas 证明，
 再尝试坐标下界平移后的非负单项式，最后尝试有界的生成元乘积。
-原有调用者仍使用原证明器。没有增加未经证明的状态界，也没有将采样检查作为证明。
+底层 `semantics.prepare_program` 的默认调用者仍使用原证明器；尾界入口使用上述扩展。
+没有增加未经证明的状态界，也没有将采样检查作为证明。
 
 `round.decompose(eta, basis)` 通过随机单项式系数匹配精确得到
 `eta(F) = sum(q[j]*basis[j])`，并重验恒等式。basis 可省略，此时取随机单项式基。

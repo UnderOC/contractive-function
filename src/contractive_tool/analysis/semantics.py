@@ -294,6 +294,7 @@ def prepare_program(cfg, *, invariant_prover=None):
                         # Sufficient disjunctive inclusion: prove containment in one
                         # complete target region for every exact support component.
                         accepted = None
+                        last_error = 'no target invariant region'
                         for target_index, target in enumerate(targets):
                             requirements = target.generators + tuple(
                                 value for equality in target.equalities
@@ -304,7 +305,8 @@ def prepare_program(cfg, *, invariant_prover=None):
                                     checks.append(invariant_prover(
                                         support_domain, h.subs(update,simultaneous=True),
                                         f'invariant at {branch.destination}'))
-                            except AnalysisError:
+                            except AnalysisError as error:
+                                last_error = str(error)
                                 continue
                             accepted = {'support_region':support_index,
                                         'target_region':target_index,
@@ -314,7 +316,7 @@ def prepare_program(cfg, *, invariant_prover=None):
                         if accepted is None:
                             raise AnalysisError(
                                 f'Cannot certify inductive invariant across {group.id} '
-                                f'to {branch.destination} on random support region {support_index}')
+                                f'to {branch.destination} on random support region {support_index}: {last_error}')
                         accepted_cases.append(accepted)
                     proofs.append({'transition':group.id,'region':di,'branch':bi,
                                    'kind':'invariant_preservation',

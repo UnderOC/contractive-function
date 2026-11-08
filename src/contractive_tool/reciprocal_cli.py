@@ -78,7 +78,8 @@ def main(argv=None):
         if result['status'] != 'proved':
             print(json.dumps({'status': 'not_proved', 'reason': result['status']}))
             return 3
-        round_ = prepare_random_round(result['round']['evidence']['source'])
+        round_ = prepare_random_round(result['round']['evidence']['source'],
+            invariant_evidence=result['round']['evidence']['domain_evidence'])
         checked = verify_result(round_, result)
         if checked['status'] != 'proved':
             print(json.dumps(checked))

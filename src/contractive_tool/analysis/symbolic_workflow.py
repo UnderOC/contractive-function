@@ -20,7 +20,7 @@ from contractive_tool.analysis.cauchy import (
     search_fixed_eta, search_template_eta)
 from contractive_tool.analysis.cauchy_expressions import parse_expression
 from contractive_tool.analysis.cauchy_verification import verify_result, check_conic_values
-from contractive_tool.analysis.random_rounds import prepare_random_round, _invariant_prover
+from contractive_tool.analysis.random_rounds import prepare_random_round
 from contractive_tool.analysis.templates import total_degree_exponents, select_variables
 from contractive_tool.analysis.symbolic_rounds import make_symbolic_round_problem
 from contractive_tool.positivity.base import EncodingLimits
@@ -365,7 +365,7 @@ def _append_reciprocal(portfolio, result, artifact):
             {'artifact':artifact,'special_case':'initially_exited'},identifier=f'reciprocal:{artifact}:degenerate'))
 
 
-def _run_reciprocal_branch(source, root, stages, portfolio, options, local):
+def _run_reciprocal_branch(source, root, stages, portfolio, options, local, evidence):
     from contractive_tool.analysis.reciprocal import search_reciprocal
     from contractive_tool.analysis.reciprocal_verification import verify_result as verify_reciprocal
     stage = {'stage':'reciprocal','budget_seconds':options.reciprocal_seconds,
@@ -376,7 +376,7 @@ def _run_reciprocal_branch(source, root, stages, portfolio, options, local):
         return
     started = time.monotonic()
     try:
-        round_ = prepare_random_round(source)
+        round_ = prepare_random_round(source, invariant_evidence=evidence.to_data())
     except AnalysisError as error:
         stage.update(status='unsupported',reason=str(error),elapsed_seconds=time.monotonic()-started)
         return
@@ -437,7 +437,7 @@ def run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel, polyn
         stages.append({'stage':'cauchy_prepare','status':'skipped','reason':'time_budget'})
     else:
         try:
-            round_ = prepare_random_round(source)
+            round_ = prepare_random_round(source, invariant_evidence=evidence.to_data())
             basis = tuple(parse_expression(b,round_.law.symbols) for b in config['basis']) if 'basis' in config else None
         except AnalysisError as error:
             round_ = None
@@ -516,7 +516,7 @@ def run_symbolic_workflow(source, out_dir, options, cfg, evidence, kernel, polyn
     stages.append({'stage':'positive_jensen','status':'proved' if len(portfolio)>before_jensen else 'skipped',
         'candidates':len(portfolio)-before_jensen,
         'rule':'derived 0<k<1 powers of verified direct potentials; no new state solve'})
-    _run_reciprocal_branch(source,root,stages,portfolio,options,reciprocal_local)
+    _run_reciprocal_branch(source,root,stages,portfolio,options,reciprocal_local,evidence)
     summary = deepcopy(direct)
     summary['polynomial_selection'] = direct['selection']
     summary['symbolic_workflow'] = {
@@ -560,7 +560,7 @@ def verify_workflow(root):
         from contractive_tool.cfg.builder import build_cfg
         from contractive_tool.frontend.parser import parse_file
         from contractive_tool.frontend.semantic import check_program
-        from contractive_tool.analysis.semantics import prepare_program
+        from contractive_tool.analysis.invariant_certification import prepare_certified_program
         from contractive_tool.analysis.symbolic_rounds import prepare_symbolic_round_kernel
         from hashlib import sha256
         root = Path(root)
@@ -572,7 +572,7 @@ def verify_workflow(root):
             raise AnalysisError('Source hash mismatch')
         workflow = summary['symbolic_workflow']
         cfg = build_cfg(check_program(parse_file(source)))
-        evidence = prepare_program(cfg,invariant_prover=_invariant_prover)
+        evidence = prepare_certified_program(cfg, saved_evidence=_json(root/'analyses/tailbound/domain_evidence.json'))
         kernel = prepare_symbolic_round_kernel(cfg,evidence)
         options = SearchOptions(**workflow['direct_options'])
         options.validate()
@@ -598,7 +598,7 @@ def verify_workflow(root):
                 from contractive_tool.analysis.reciprocal_verification import verify_result as verify_reciprocal
                 from contractive_tool.analysis.reciprocal import polynomial_template
                 if round_ is None:
-                    round_ = prepare_random_round(source)
+                    round_ = prepare_random_round(source, invariant_evidence=evidence.to_data())
                 result = _json(root/stage['artifact'])
                 requested = SearchOptions(**manifest['options'])
                 local = reciprocal_options(requested,workflow['config'])
@@ -614,7 +614,7 @@ def verify_workflow(root):
             if stage['stage'] not in ('cauchy_fixed','cauchy_joint') or stage['status']!='proved':
                 continue
             if round_ is None:
-                round_ = prepare_random_round(source)
+                round_ = prepare_random_round(source, invariant_evidence=evidence.to_data())
             result = _json(root/stage['artifact'])
             if verify_result(round_,result)['status']!='proved':
                 raise AnalysisError('Cauchy artifact failed source replay')

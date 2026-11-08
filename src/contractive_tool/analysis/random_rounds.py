@@ -9,13 +9,14 @@ the symbolic kernel's existing support checks.
 """
 from dataclasses import dataclass
 from hashlib import sha256
-from itertools import product, combinations_with_replacement
+from itertools import product
 from pathlib import Path
 
 import sympy as sp
 
 from contractive_tool.algebra.polynomial import arithmetic_to_symbolic
-from contractive_tool.analysis.semantics import prepare_program, require_nonnegative, prove_nonnegative, intersect
+from contractive_tool.analysis.semantics import intersect
+from contractive_tool.analysis.invariant_certification import prepare_certified_program
 from contractive_tool.analysis.symbolic_rounds import prepare_symbolic_round_kernel
 from contractive_tool.analysis.guard_regions import GuardRegion, guard_regions
 from contractive_tool.cfg.builder import build_cfg
@@ -26,54 +27,6 @@ from contractive_tool.frontend.semantic import check_program
 from contractive_tool.probability.distributions import distribution_from_ast, BernoulliDistribution, FiniteDiscreteDistribution
 from contractive_tool.probability.fractional_moments import FiniteLaw, rational
 from contractive_tool.positivity.ir import BasicSet
-from contractive_tool.positivity.domains import eliminate_fixed_equalities
-
-
-def _invariant_prover(domain, expression, label):
-    try:
-        return require_nonnegative(domain, expression, label)
-    except AnalysisError:
-        reduced, h = eliminate_fixed_equalities(domain, sp.expand(expression))
-        # Positive coefficients after translating certified coordinate lower
-        # bounds give a direct exact product identity, avoiding a degenerate LP.
-        lower = {}
-        for v in reduced.variables:
-            candidates = []
-            for g in reduced.generators:
-                if g.free_symbols == {v} and sp.degree(g, v) == 1:
-                    a, b = sp.diff(g, v), g.subs(v, 0)
-                    if a.is_Rational and b.is_Rational and a > 0:
-                        candidates.append(-b/a)
-            if candidates:
-                lower[v] = max(candidates)
-        if h.free_symbols <= set(lower) and h.free_symbols:
-            variables = tuple(sorted(h.free_symbols, key=str))
-            shifted = sp.Poly(h.subs({v: v+lower[v] for v in variables}, simultaneous=True), *variables)
-            if all(c.is_Rational and c >= 0 for c in shifted.coeffs()):
-                identity = sum(c*sp.prod((v-lower[v])**p for v, p in zip(variables, powers))
-                               for powers, c in shifted.terms())
-                if sp.expand(identity-h) == 0:
-                    return {'method': 'exact_shifted_nonnegative_monomials',
-                        'conclusion': str(expression), 'reduced_conclusion': str(h),
-                        'reduced_domain': reduced.to_data(),
-                        'lower_bounds': {str(v): str(lower[v]) for v in variables},
-                        'identity': str(identity)}
-        degree = int(sp.Poly(h, *reduced.variables).total_degree()) if reduced.variables else 0
-        products = list(reduced.generators)
-        witnesses = [[i] for i in range(len(products))]
-        for size in range(2, min(degree, 4)+1):
-            for indices in combinations_with_replacement(range(len(reduced.generators)), size):
-                if len(products) >= 512:
-                    raise AnalysisError('Cauchy invariant product budget exceeded')
-                p = sp.expand(sp.prod(reduced.generators[i] for i in indices))
-                products.append(p)
-                witnesses.append(list(indices))
-        proof = prove_nonnegative(BasicSet(reduced.variables, tuple(products), reduced.equalities), h)
-        if proof is None:
-            raise AnalysisError(f'Cannot certify {label} with bounded exact generator products')
-        return {'method': 'exact_nonnegative_generator_products', 'conclusion': str(expression),
-                'reduced_conclusion': str(h), 'reduced_domain': reduced.to_data(),
-                'product_indices': witnesses, 'proof': proof}
 
 
 @dataclass
@@ -299,12 +252,12 @@ def _piecewise_updates(kernel, evidence, max_atoms, max_nodes, max_cases):
     return tuple(pieces), law
 
 
-def prepare_random_round(source, *, max_atoms=256, max_nodes=4096, max_cases=256):
+def prepare_random_round(source, *, max_atoms=256, max_nodes=4096, max_cases=256, invariant_evidence=None):
     source = Path(source).resolve()
     cfg = build_cfg(check_program(parse_file(source)))
     if cfg.failure_terminal is None:
         raise AnalysisError('Source needs assert/refute; append refute true for loop survival')
-    evidence = prepare_program(cfg, invariant_prover=_invariant_prover)
+    evidence = prepare_certified_program(cfg, saved_evidence=invariant_evidence)
     if evidence.initial_random_model.symbols:
         raise AnalysisError('Cauchy search currently requires deterministic initialization')
     kernel = prepare_symbolic_round_kernel(cfg, evidence, max_nodes=max_nodes, max_cases=max_cases)
