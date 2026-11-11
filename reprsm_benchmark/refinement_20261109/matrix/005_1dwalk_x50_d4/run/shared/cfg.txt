@@ -1,0 +1,39 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp
+initial: L_assign_3
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: x
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  L_while_1 [while] invariant=(-2 <= 1000 * x and 1000 * x <= 1001) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp:5:1
+  L_assign_1 [assign] invariant=(0 <= 1000 * x and 1000 * x <= 1000) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp:11:5
+  L_assign_2 [assign] invariant=(0 <= 1000 * x and 1000 * x <= 1000) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp:14:5
+  L_probabilistic_1 [probabilistic] invariant=(0 <= 1000 * x and 1000 * x <= 1000) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp:9:3
+  l_f [terminal] invariant=(true) @ generated
+  L_assert_1 [assert] invariant=(0 <= 1000 * x and 1000 * x <= 1001) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp:7:3
+  L_assign_3 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/1dwalk_x50.pp:3:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_1: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := -0.002 + x
+  T_2: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := 0.001 + x
+  T_3: L_probabilistic_1 guard=(true)
+    branch 1: p=0.5 -> L_assign_1; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_2; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_4: L_assert_1 guard=(1000 * x <= 1000)
+    branch 1: p=1 -> L_probabilistic_1; update: identity
+  T_5: L_assert_1 guard=(not 1000 * x <= 1000)
+    branch 1: p=1 -> l_f; update: identity
+  T_6: L_while_1 guard=(1000 * x >= 0)
+    branch 1: p=1 -> L_assert_1; update: identity
+  T_7: L_while_1 guard=(not 1000 * x >= 0)
+    branch 1: p=1 -> l_t; update: identity
+  T_8: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := 0.05

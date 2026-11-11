@@ -1,0 +1,76 @@
+{
+  "source": {
+    "label": "S7",
+    "id": "S7_memory_switched_contraction",
+    "original": "contractive_function/examples/cauchy_notes.pp",
+    "benchmark": "contractive_function/contractive_examples/stochastic_affine_examples/positive/S7_memory_switched_contraction.pp",
+    "sha256": "4cef49abb5b50f1e8fc0d9cf110222899d74243677989a454f6e254104c7576d",
+    "byte_identical": true,
+    "classification": "Stochastic affine / finite-mode switched linear system; raw joint-state update is polynomial."
+  },
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/stochastic_affine_examples/positive/S7_memory_switched_contraction.pp",
+    "--goal",
+    "tailbound",
+    "--initial-degree",
+    "1",
+    "--max-degree",
+    "1",
+    "--max-c-steps",
+    "12",
+    "--total-seconds",
+    "120",
+    "--reciprocal-seconds",
+    "30",
+    "--per-attempt-seconds",
+    "10",
+    "--repair-seconds",
+    "5",
+    "--comparison-n",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000",
+    "--workflow-config",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/examples/cauchy_workflow.json",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/S7_memory_switched_contraction/S7_memory_switched_contraction/run"
+  ],
+  "configuration": {
+    "direct_fraction": 0.5,
+    "max_fixed_seeds": 3,
+    "guided_t": true,
+    "t_values": [
+      "21/50",
+      "1/2",
+      "3/5",
+      "7/10"
+    ],
+    "exponents": {
+      "interval": [
+        "1/4",
+        "4"
+      ],
+      "coarse_points": 16,
+      "refinements": 1,
+      "margin": "1/100",
+      "digits": 12
+    },
+    "cauchy": {
+      "scalar_strategy": "constant_sos",
+      "product_depth": 4,
+      "matrix_multiplier_degree": 0,
+      "max_t_points": 16
+    }
+  },
+  "manual_witness_supplied": false,
+  "note": "Affine base template configuration retained from the branch-comparison experiment."
+}

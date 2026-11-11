@@ -1,0 +1,280 @@
+diff --git a/docs/symbolic_workflow.md b/docs/symbolic_workflow.md
+index cd62d3f..779b0b4 100644
+--- a/docs/symbolic_workflow.md
++++ b/docs/symbolic_workflow.md
+@@ -24,6 +24,14 @@
+ 已有证书，也不被解释为数学上不可行。总时间为协作检查的软预算，符号运算、验证和
+ 求解器调用不受硬抢占。各阶段产物记录预算、状态、证明和失败原因。
+ 
++`--repair-seconds` 分别限制数值证书修复和数值解返回后的精确重构。
++例如取 5 时，数值修复使用 5 秒软预算，随后重构另有最多 5 秒；两者都受
++外层搜索阶段截止时间约束，不延长正幂或倒数搜索总预算。数值阶段耗尽后不再
++启动下一次修复求解。`repair.json` 记录预算策略、重构可用时间和实际耗时。
++此策略自 2026-11-10 的 Q3 重跑启用；较早结果仍使用共享修复窗口。
++精确重构同时接收修复目标值上限；若低精度有理解超出上限，会继续尝试后续
++分母上限，而非立即放弃。所有候选仍须通过原模型的精确等式、非负和 PSD 检查。
++
+ 默认随机基由整轮多项式展开生成，并用二阶矩的认证上界归一化；笔记例会自动得到
+ 相当于 `(1,10*r)` 的基。不同基下的 B 不能直接比较，t 引导只复用相同基的证明。
+ 联合搜索仍是有限 t 网格和有理 k 网格上的搜索，不是同时含未知 k 的非线性求解。
+diff --git a/examples/run_contractive_examples.py b/examples/run_contractive_examples.py
+index 8c375df..96fff23 100644
+--- a/examples/run_contractive_examples.py
++++ b/examples/run_contractive_examples.py
+@@ -1,4 +1,4 @@
+-"""Run the 15 packaged programs under the previous Kelly workflow settings.
++"""Run packaged programs or a selected source directory under Kelly settings.
+ 
+ Runs sequentially so timings do not include contention between benchmark jobs.
+ Existing human witnesses are never loaded into synthesis. Each successful
+@@ -35,25 +35,35 @@ def main():
+     parser=argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--out-dir',type=Path,required=True)
+     parser.add_argument('--cases',nargs='+',help='Optional exact source stems; default: all packaged examples')
++    parser.add_argument('--source-root',type=Path,
++                        help='Recursively select .pp files from this directory instead of the default suite')
++    parser.add_argument('--tail-variables',nargs='+',help='Optional state variables for tail templates')
++    parser.add_argument('--workflow-config',type=Path,help='Optional workflow settings; default: Kelly comparison')
+     args=parser.parse_args()
+     root=args.out_dir.resolve()
+     if root.exists() and any(root.iterdir()):
+         parser.error('Use a new or empty output directory')
+     root.mkdir(parents=True,exist_ok=True)
+-    config=json.loads((PROJECT/'examples/tailbound_comparison.json').read_text())
++    config=json.loads((args.workflow_config or PROJECT/'examples/tailbound_comparison.json').read_text())
+     write(root/'workflow.json',config)
+     rows=[]
+-    sources=sorted((PROJECT/'contractive_examples').glob('*/*.pp'))
++    sources=(sorted(args.source_root.resolve().rglob('*.pp')) if args.source_root else
++             sorted((PROJECT/'contractive_examples').glob('*/*.pp')))
+     if args.cases:
+         unknown=set(args.cases)-{s.stem for s in sources}
+         if unknown:
+             parser.error(f'Unknown examples: {sorted(unknown)}')
+         sources=[s for s in sources if s.stem in args.cases]
++    if not sources or len({s.stem for s in sources}) != len(sources):
++        parser.error('Select at least one source with unique source stems')
+     write(root/'protocol.json',{'sources':[str(s.relative_to(PROJECT)) for s in sources],
+-        'positive_seconds':180,'reciprocal_seconds':120,'feedback_seconds':90,'feedback_points':24,
++        'source_root':str(args.source_root.resolve()) if args.source_root else None,
++        'positive_seconds':180,'reciprocal_seconds':120,
++        'feedback_seconds':config.get('reciprocal',{}).get('feedback_seconds',60),
++        'feedback_points':config.get('reciprocal',{}).get('feedback_points',12),
+         'initial_degree':2,'max_degree':4,'max_c_steps':12,'per_attempt_seconds':10,'repair_seconds':5,
+         'comparison_ns':NS,'sequential':True,'external_solve_timeout':600,'external_verify_timeout':180,
+-        'variables':'all source variables; no extra round counter in these examples',
++        'variables':args.tail_variables or 'all source variables',
+         'input_witnesses_used':False,'workflow_config':config})
+     for source in sources:
+         name=source.stem
+@@ -63,6 +73,8 @@ def main():
+             '--total-seconds','180','--reciprocal-seconds','120','--per-attempt-seconds','10',
+             '--repair-seconds','5','--comparison-n',*map(str,NS),
+             '--workflow-config',str(root/'workflow.json'),'--out-dir',str(case/'run')]
++        if args.tail_variables:
++            command += ['--tail-variables',*args.tail_variables]
+         print(json.dumps({'event':'start','case':name}),flush=True)
+         row={'name':name,'family':source.parent.name,'source':str(source.relative_to(PROJECT)),
+             'source_sha256':sha256(source.read_bytes()).hexdigest(),'command':command}
+diff --git a/src/contractive_tool/backends/cvxpy/repair.py b/src/contractive_tool/backends/cvxpy/repair.py
+index 77013f4..4f5bb83 100644
+--- a/src/contractive_tool/backends/cvxpy/repair.py
++++ b/src/contractive_tool/backends/cvxpy/repair.py
+@@ -18,6 +18,8 @@ from .verification import reconstruct, _reconstruct
+ 
+ @dataclass(frozen=True)
+ class RepairOptions:
++    # Separate soft windows for numerical repair and post-solve exact recovery.
++    # Both remain capped by the enclosing search deadline.
+     seconds: float = 20
+     relative_gap: float = 0.05
+     max_solves: int = 2
+@@ -110,8 +112,12 @@ def repair(model, values, *, options=None, deadline=None, solver_seconds=30, ver
+     """Return (verification, audit). Deadlines are cooperative between stages."""
+     options = options or RepairOptions()
+     started = time.monotonic()
+-    deadline = min(deadline if deadline is not None else math.inf, started + options.seconds)
+-    audit = {"status": "solved_unverified", "attempts": [], "max_solves": options.max_solves}
++    outer_deadline = deadline if deadline is not None else math.inf
++    deadline = min(outer_deadline, started + options.seconds)
++    audit = {"status": "solved_unverified", "attempts": [], "max_solves": options.max_solves,
++             "budget_policy": "separate_post_solve_reconstruction_v1",
++             "numerical_repair_seconds": options.seconds,
++             "post_solve_reconstruction_seconds": options.seconds}
+     failure = {"status": "solved_unverified", "reason": "Certificate repair exhausted"}
+     if set(values) != set(model.decisions) or not all(math.isfinite(v) for v in values.values()):
+         return failure, {**audit, "reason": "Missing or nonfinite decision values"}
+@@ -147,7 +153,8 @@ def repair(model, values, *, options=None, deadline=None, solver_seconds=30, ver
+                 row['status'] = 'no_face_detected'
+                 continue
+             candidate = _reconstruct(model, values, list(equations)+model.equalities,
+-                                     denominators=(1000, 1000000, 1000000000), deadline=deadline)
++                                     denominators=(1000, 1000000, 1000000000), deadline=deadline,
++                                     objective_cap=cap)
+             row['direct_reconstruction'] = candidate
+             if accept(candidate, 'kernel_reconstruction'):
+                 row['status'] = 'proved'
+@@ -167,15 +174,26 @@ def repair(model, values, *, options=None, deadline=None, solver_seconds=30, ver
+         row['status'] = solved['status']
+         if solved.get('values') is None:
+             continue
++        recovery_started = time.monotonic()
++        recovery_deadline = min(outer_deadline, recovery_started + options.seconds)
++        row['reconstruction_available_seconds'] = max(0., recovery_deadline-recovery_started)
++        if recovery_started >= recovery_deadline:
++            row['status'] = 'reconstruction_time_budget'
++            break
+         new_values = solved['values']
+         row['original_objective_numeric'] = float(model.objective.xreplace(
+             {sp.Symbol(name): value for name, value in new_values.items()}))
+         row['gram'] = gram_diagnostics(model, new_values)
+         # Keep kernel equations during reconstruction, but acceptance always
+-        # checks every original equality and cone over exact rationals.
++        # checks every original equality and cone over exact rationals. Model
++        # compilation and solving must not consume recovery's local window;
++        # the enclosing search deadline still caps both phases.
+         candidate = (_reconstruct(model, new_values, list(equations)+model.equalities,
+-                                 denominators=(1000,1000000,1000000000), deadline=deadline)
+-                     if equations else reconstruct(model, new_values, deadline=deadline))
++                                 denominators=(1000,1000000,1000000000), deadline=recovery_deadline,
++                                 objective_cap=cap)
++                     if equations else reconstruct(model, new_values, deadline=recovery_deadline,
++                                                   objective_cap=cap))
++        row['reconstruction_elapsed_seconds'] = time.monotonic()-recovery_started
+         row['verification'] = candidate
+         row['status'] = candidate['status']
+         if accept(candidate, stage+'_solve'):
+diff --git a/src/contractive_tool/cli.py b/src/contractive_tool/cli.py
+index 4ebb516..e545761 100644
+--- a/src/contractive_tool/cli.py
++++ b/src/contractive_tool/cli.py
+@@ -38,7 +38,9 @@ def _parser():
+         for field in ('total_seconds','per_attempt_seconds','repair_seconds','repair_relative_gap'):
+             command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field),
+                                  help='positive search soft budget; reciprocal budget is additional'
+-                                      if field=='total_seconds' else None)
++                                      if field=='total_seconds' else
++                                      'separate soft budgets for numerical repair and post-solve exact recovery; capped by search deadline'
++                                      if field=='repair_seconds' else None)
+         command.add_argument('--c-values', nargs='+', default=None,
+                              help='explicit c grid; defaults: tail bisection, assertion near-one grid')
+         command.add_argument('--assertion-margin', default=defaults.assertion_margin,
+diff --git a/tests/unit/test_certificate_repair.py b/tests/unit/test_certificate_repair.py
+index e8a4a43..95f4221 100644
+--- a/tests/unit/test_certificate_repair.py
++++ b/tests/unit/test_certificate_repair.py
+@@ -1,4 +1,5 @@
+ import time
++from types import SimpleNamespace
+ 
+ import pytest
+ import sympy as sp
+@@ -79,3 +80,87 @@ def test_reconstruction_deadline_reports_unknown():
+     result=reconstruct(model,values,deadline=time.monotonic()-1)
+     assert result['status']=='solved_unverified'
+     assert result['reason']=='reconstruction_time_budget'
++
++
++@pytest.mark.parametrize('outer_seconds,expected_window', [(30,5), (8,2), (6,0)])
++def test_late_solver_candidate_has_separate_recovery_window(monkeypatch, outer_seconds, expected_window):
++    # Numerical compilation/solve may cooperatively overrun the local five
++    # seconds. Recovery gets its own window, but never extends the parent.
++    started=time.monotonic()
++    clock=SimpleNamespace(now=started)
++    monkeypatch.setattr(module,'time',SimpleNamespace(monotonic=lambda:clock.now))
++    x=sp.Symbol('x')
++    model=ConicModel(['x'],x,[x-1],['x'],[])
++    monkeypatch.setattr(module,'build_margin_model',lambda *a,**kw:object())
++    calls=[]
++    def solve(*a,**kw):
++        calls.append(kw)
++        assert kw['time_limit']==5
++        clock.now+=6
++        return {'status':'optimal','values':{'x':1.0}}
++    monkeypatch.setattr(module.mosek_solver,'solve',solve)
++    recovered=[]
++    def recover(model,values,*,deadline,objective_cap):
++        recovered.append(deadline)
++        assert deadline==started+6+expected_window
++        return reconstruct(model,values,deadline=deadline,objective_cap=objective_cap)
++    monkeypatch.setattr(module,'reconstruct',recover)
++    result,audit=module.repair(model,{'x':1.0},options=module.RepairOptions(seconds=5),
++                             deadline=started+outer_seconds)
++    assert len(calls)==1
++    assert audit['budget_policy']=='separate_post_solve_reconstruction_v1'
++    row=audit['attempts'][0]
++    assert row['reconstruction_available_seconds']==expected_window
++    if expected_window:
++        check_original(model,result)
++        assert len(recovered)==1
++        assert result['repair_stage']=='margin_solve'
++    else:
++        assert not recovered
++        assert result['status']=='solved_unverified'
++        assert row['status']=='reconstruction_time_budget'
++
++
++@pytest.mark.parametrize('invalid_kind', ['indefinite', 'objective_cap'])
++def test_separate_recovery_keeps_exact_psd_and_objective_checks(monkeypatch, invalid_kind):
++    started=time.monotonic()
++    clock=SimpleNamespace(now=started)
++    monkeypatch.setattr(module,'time',SimpleNamespace(monotonic=lambda:clock.now))
++    x,y,z=sp.symbols('x y z')
++    values={'x':1.,'y':2.,'z':1.} if invalid_kind=='indefinite' else {'x':2.,'y':0.,'z':2.}
++    model=ConicModel(['x','y','z'],x,[s-values[str(s)] for s in (x,y,z)],[],
++                     [{'id':'Q','matrix':[['x','y'],['y','z']]}])
++    monkeypatch.setattr(module,'build_margin_model',lambda *a,**kw:object())
++    def solve(*a,**kw):
++        clock.now+=6
++        return {'status':'optimal','values':values}
++    monkeypatch.setattr(module.mosek_solver,'solve',solve)
++    result,audit=module.repair(model,{'x':1.,'y':0.,'z':1.},
++                             options=module.RepairOptions(seconds=5),deadline=started+30)
++    assert result['status']=='solved_unverified'
++    assert audit['solver_calls']==1
++    verification=audit['attempts'][0]['verification']
++    assert verification['status']=='solved_unverified'
++    if invalid_kind=='objective_cap':
++        assert all(a['rejected_reason']=='Reconstructed objective exceeds cap'
++                   for a in verification['attempts'])
++
++
++def test_repair_retries_precision_after_first_exact_point_exceeds_cap(monkeypatch):
++    x=sp.Symbol('x')
++    model=ConicModel(['x'],x,[],['x'],[])
++    # At denominator 1000 the feasible solver value rounds up to 1/3,
++    # exceeding the cap 0.3333. Higher precision satisfies the same cap.
++    initial={'x':0.3332}
++    numerical={'x':0.333299}
++    monkeypatch.setattr(module,'build_margin_model',lambda *a,**kw:object())
++    monkeypatch.setattr(module.mosek_solver,'solve',lambda *a,**kw:
++                        {'status':'optimal','values':numerical})
++    result,audit=module.repair(model,initial,
++                             options=module.RepairOptions(relative_gap=0,max_solves=1))
++    check_original(model,result)
++    assert sp.Rational(result['bound_exact'])<=sp.Rational(audit['objective_cap'])
++    attempts=audit['attempts'][0]['verification']['attempts']
++    assert attempts[0]['denominator']==1000
++    assert attempts[0]['rejected_reason']=='Reconstructed objective exceeds cap'
++    assert attempts[-1]['denominator']==1000000
+diff --git a/tests/unit/test_invariant_certification.py b/tests/unit/test_invariant_certification.py
+index dd27275..a61249b 100644
+--- a/tests/unit/test_invariant_certification.py
++++ b/tests/unit/test_invariant_certification.py
+@@ -58,10 +58,14 @@ def test_affine_equality_is_rebuilt_not_trusted():
+ @pytest.mark.parametrize('source', sorted((PROJECT/'contractive_examples/rcd').glob('*.pp')))
+ def test_all_rcd_prepare_and_replay_without_solver(source, monkeypatch):
+     from contractive_tool.backends.cvxpy import mosek_solver
+-    monkeypatch.setattr(mosek_solver, 'solve', lambda *a, **kw: pytest.fail('RCD should use exact quadratic proofs'))
++    monkeypatch.setattr(mosek_solver, 'solve', lambda *a, **kw: pytest.fail('RCD should use exact algebraic proofs'))
+     round_ = prepare_random_round(source)
+     saved = round_.evidence['domain_evidence']
+-    assert 'exact_invariant_sos' in str(saved)
++    # R6's equality invariant closes with exact Farkas identities; the
++    # original inequality examples require the quadratic SOS path.
++    expected = ('exact_farkas_identity' if source.stem == 'rcd_06_equality_reference'
++                else 'exact_invariant_sos')
++    assert expected in str(saved)
+     assert prepare_random_round(source, invariant_evidence=saved).to_data() == round_.to_data()
+     bad = deepcopy(saved)
+     # Removing a source transition's entire proof must also be rejected.

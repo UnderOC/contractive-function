@@ -1,0 +1,390 @@
+[
+  {
+    "name": "rcd_06_equality_reference",
+    "family": "rcd",
+    "source": "contractive_examples/rcd/rcd_06_equality_reference.pp",
+    "source_sha256": "51ef69490b9b68aab969d7dd673787f89b2ff9c75f0cef3bc4fa80b024bdec87",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/rcd/rcd_06_equality_reference.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "2",
+      "--max-degree",
+      "4",
+      "--max-c-steps",
+      "12",
+      "--total-seconds",
+      "180",
+      "--reciprocal-seconds",
+      "120",
+      "--per-attempt-seconds",
+      "10",
+      "--repair-seconds",
+      "5",
+      "--comparison-n",
+      "5",
+      "10",
+      "20",
+      "50",
+      "100",
+      "200",
+      "500",
+      "1000",
+      "--workflow-config",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/rcd_06_equality_reference/workflow.json",
+      "--out-dir",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/rcd_06_equality_reference/rcd_06_equality_reference/run"
+    ],
+    "returncode": 0,
+    "wall_seconds": 14.990256230346859,
+    "summary_status": "proved",
+    "status": "proved",
+    "diagnostic": null,
+    "stop_reason": "first_successful_degree",
+    "elapsed_seconds": 14.415830568876117,
+    "degrees_attempted": [
+      2
+    ],
+    "workflow_present": true,
+    "stages": [
+      {
+        "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+        "budget_seconds": 90.0,
+        "elapsed_seconds": 5.162858354859054,
+        "stage": "direct_polynomial",
+        "status": "proved",
+        "stop_reason": "first_successful_degree"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+        "candidates": 0,
+        "elapsed_seconds": 0.2970236148685217,
+        "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+        "seed": "direct:1",
+        "stage": "cauchy_fixed",
+        "status": "no_certificate_found"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+        "candidates": 0,
+        "degree": 2,
+        "elapsed_seconds": 6.045375977177173,
+        "seed_eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+        "stage": "cauchy_joint",
+        "status": "no_certificate_found",
+        "t_values": [
+          "39478874301/500000000000",
+          "39478874301/250000000000",
+          "118436622903/500000000000",
+          "39478874301/125000000000",
+          "39478874301/100000000000",
+          "118436622903/250000000000",
+          "276352120107/500000000000",
+          "39478874301/62500000000"
+        ],
+        "template": "__workflow_eta_0 + __workflow_eta_1*y**2 + __workflow_eta_2*x*y + __workflow_eta_3*x**2"
+      },
+      {
+        "candidates": 12,
+        "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+        "stage": "positive_jensen",
+        "status": "proved"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+        "budget_policy": "independent additional soft budget; not consumed by positive searches",
+        "budget_seconds": 120.0,
+        "candidates": 0,
+        "elapsed_seconds": 2.0223620259203017,
+        "stage": "reciprocal",
+        "status": "no_certificate_found"
+      }
+    ],
+    "candidate_counts": {
+      "direct_polynomial": 2,
+      "positive_jensen": 12
+    },
+    "comparisons": [
+      {
+        "n": 5,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 1.0
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:1/4",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1/4",
+          "prefactor_upper": "5656854249493/1000000000000",
+          "decay_upper": "44456985251/50000000000",
+          "upper_bound_numeric": 1.0
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 1.0
+        }
+      },
+      {
+        "n": 10,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 1.0
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:1/4",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1/4",
+          "prefactor_upper": "5656854249493/1000000000000",
+          "decay_upper": "44456985251/50000000000",
+          "upper_bound_numeric": 1.0
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 1.0
+        }
+      },
+      {
+        "n": 20,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 0.08470329472543003
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "7/8",
+          "prefactor_upper": "215269482304951/500000000000",
+          "decay_upper": "33140955037/50000000000",
+          "upper_bound_numeric": 0.11532215930992791
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 0.08470329472543003
+        }
+      },
+      {
+        "n": 50,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 6.37236764452981e-08
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "7/8",
+          "prefactor_upper": "215269482304951/500000000000",
+          "decay_upper": "33140955037/50000000000",
+          "upper_bound_numeric": 5.055489595055491e-07
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 6.37236764452981e-08
+        }
+      },
+      {
+        "n": 100,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 3.965534120805702e-18
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "7/8",
+          "prefactor_upper": "215269482304951/500000000000",
+          "decay_upper": "33140955037/50000000000",
+          "upper_bound_numeric": 5.936274564340911e-16
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 3.965534120805702e-18
+        }
+      },
+      {
+        "n": 200,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 1.535689537429126e-38
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "7/8",
+          "prefactor_upper": "215269482304951/500000000000",
+          "decay_upper": "33140955037/50000000000",
+          "upper_bound_numeric": 8.184939947344872e-34
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 1.535689537429126e-38
+        }
+      },
+      {
+        "n": 500,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 8.91884525180643e-100
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "7/8",
+          "prefactor_upper": "215269482304951/500000000000",
+          "decay_upper": "33140955037/50000000000",
+          "upper_bound_numeric": 2.145458163995789e-87
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 8.91884525180643e-100
+        }
+      },
+      {
+        "n": 1000,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 7.768144592350596e-202
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "7/8",
+          "prefactor_upper": "215269482304951/500000000000",
+          "decay_upper": "33140955037/50000000000",
+          "upper_bound_numeric": 1.0691229161167353e-176
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "102613213671413*x**2/125249219865 + 9052758005*x*y/50099687946 + 102613213671413*y**2/125249219865",
+          "k": "1",
+          "prefactor_upper": "1024",
+          "decay_upper": "5/8",
+          "upper_bound_numeric": 7.768144592350596e-202
+        }
+      }
+    ],
+    "reciprocal_search": {
+      "stop_reason": null,
+      "feedback_stop_reason": "no_verified_moment_parent",
+      "elapsed_seconds": 1.9710348201915622,
+      "attempts": 7,
+      "feedback_iterations": 0,
+      "improved_iterations": []
+    },
+    "verification_process": {
+      "returncode": 0,
+      "wall_seconds": 1.1655047591775656
+    },
+    "verification": {
+      "comparisons_checked": 8,
+      "direct_certificates": 2,
+      "method": "source_replay_positive_and_reciprocal_exact_comparison",
+      "portfolio_candidates": 14,
+      "status": "proved"
+    }
+  }
+]

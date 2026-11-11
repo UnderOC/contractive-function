@@ -1,0 +1,72 @@
+{
+  "artifacts": {
+    "analyses/tailbound/search_history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "shared/ast.json": "ff8bd125d18efd02d816315c098037edd99561adc0f378c5fe29bb32a00fac3a",
+    "shared/cfg.dot": "804ae18d3a4ab716a9b832da95cb9805105edd0c12116a8c093b854aa072d0c5",
+    "shared/cfg.json": "16c63634d26617555f5d70c278251417fd9dd8fed87797ae826540abd5f784a6",
+    "shared/cfg.txt": "a930bf3a80966a369c6cb27ae5e16fb8f010b6606b233d443ba7c763573302a5",
+    "shared/manifest.json": "bb809dce2ace7059b1bc25b0e4e17fd4e999825230047d09037a5c1f8821ebce",
+    "shared/source.normalized.pp": "dc584e2783ef4f59ecd3c3303f3b043d4c58d25fa9cf7d7b344c3231e2073c63",
+    "shared/validation.json": "73e1e89ad72b5b07793be75a522fb3808be371071b8a790b197cfd95a112a9cb",
+    "summary.json": "b9638b0474184e53399802b22f8b75c23605d9a9e70abd83167026f0187fc5b6"
+  },
+  "backend": "cvxpy",
+  "budget_policy": "soft checks between symbolic stages; hard solver optimizer time limit",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "goal": "tailbound",
+  "matlab_invoked": false,
+  "mode": "solve",
+  "options": {
+    "assertion_margin": "1/1000000",
+    "assertion_variables": null,
+    "c_values": null,
+    "comparison_ns": [
+      5,
+      10,
+      20,
+      50,
+      100,
+      200,
+      500,
+      1000
+    ],
+    "continue_after_success": false,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 2,
+    "max_attempts_per_point": 2,
+    "max_c_steps": 12,
+    "max_decisions": 20000,
+    "max_degree": 4,
+    "max_order": 4,
+    "max_parameter_points": 32,
+    "max_products": 256,
+    "max_psd_dimension": 80,
+    "per_attempt_seconds": 10.0,
+    "reciprocal_seconds": 120.0,
+    "repair_max_solves": 2,
+    "repair_relative_gap": 0.05,
+    "repair_seconds": 5.0,
+    "strategy": "auto",
+    "symbolic_workflow": true,
+    "tail_rule": "auto",
+    "tail_variables": null,
+    "total_seconds": 180.0,
+    "verbose": true,
+    "workflow_config": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/stochastic_affine_20261109/workflow.json"
+  },
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/stochastic_affine_examples/reciprocal/S5_coupled_rare_shock.pp",
+  "source_sha256": "b34150d4a391eb9682461b796812e6dcb03b4bbed042bdf0d59d4dff79f5e9b7",
+  "tool_version": "0.4.0"
+}

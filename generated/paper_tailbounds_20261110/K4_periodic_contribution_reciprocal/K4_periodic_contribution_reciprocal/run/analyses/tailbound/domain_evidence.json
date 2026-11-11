@@ -1,0 +1,727 @@
+{
+  "domains": {
+    "L_assign_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "wealth - 1",
+          "4 - wealth"
+        ],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ],
+    "L_assign_2": [
+      {
+        "equalities": [],
+        "generators": [
+          "wealth - 1",
+          "4 - wealth"
+        ],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ],
+    "L_probabilistic_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "wealth - 1",
+          "4 - wealth"
+        ],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ],
+    "L_refute_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "wealth - 1",
+          "41/8 - wealth"
+        ],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "wealth - 1",
+          "41/8 - wealth"
+        ],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "wealth"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "wealth": "1"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "initialization_steps": 1,
+  "initialization_trace": [
+    {
+      "destination": "L_while_1",
+      "location": "L_assign_3",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_8",
+      "values": {
+        "wealth": "1"
+      }
+    }
+  ],
+  "locations": [
+    "L_assign_1",
+    "L_assign_2",
+    "L_probabilistic_1",
+    "L_refute_1",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_3",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_8"
+    },
+    {
+      "kind": "initial_control_invariant",
+      "location": "L_while_1",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "5*wealth/4 - 7/8",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "3/8",
+                "5/4",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "5 - 5*wealth/4",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "5/4"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "4 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "7*wealth/8 - 7/8",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "7/8",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "5 - 7*wealth/8",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "3/2",
+                "0",
+                "7/8"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "4 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "4/5"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "wealth - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "4 - wealth",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "4 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/5"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "wealth - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "4 - wealth",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "4 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "41/8 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "wealth - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "41/8 - wealth",
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "4 - wealth",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "41/8 - wealth",
+                  "wealth - 1",
+                  "4 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "41/8 - wealth",
+              "wealth - 1",
+              "4 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "wealth - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "41/8 - wealth",
+                  "1 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "41/8 - wealth",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "41/8 - wealth",
+                  "1 - wealth"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "41/8 - wealth",
+              "1 - wealth"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 1,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "wealth - 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "41/8 - wealth",
+                  "wealth - 4"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "41/8 - wealth",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "wealth - 1",
+                  "41/8 - wealth",
+                  "wealth - 4"
+                ],
+                "variables": [
+                  "wealth"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "wealth - 1",
+              "41/8 - wealth",
+              "wealth - 4"
+            ],
+            "variables": [
+              "wealth"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_7"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

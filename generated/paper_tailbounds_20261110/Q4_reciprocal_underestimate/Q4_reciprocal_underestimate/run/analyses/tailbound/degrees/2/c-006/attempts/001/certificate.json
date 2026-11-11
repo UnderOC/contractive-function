@@ -1,0 +1,38 @@
+{
+  "bound": {
+    "A_exact": "16",
+    "A_numeric": 16.0,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "49/64",
+    "certificate": "analyses/tailbound/degrees/2/c-006/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 4*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(16) * exp(-(-log(49/64))*n)",
+    "expression": "(16) * (49/64)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(49/64)",
+    "lambda_numeric": 0.26706278524904525,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (16) * (49/64)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "4*q1**2 + 8*q1*q2 - 16*q1 + 4*q2**2 - 16*q2 + 16"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

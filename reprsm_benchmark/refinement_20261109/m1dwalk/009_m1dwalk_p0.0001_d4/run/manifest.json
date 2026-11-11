@@ -1,0 +1,76 @@
+{
+  "artifacts": {
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/conic_model.json": "30352f0b46b34ccc40762684f57af7642e2f0b4228f30c11b8497f4c9af2299e",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/encoding_plan.json": "8474c0586e30a247b4d6be77f3a99a01f176d584fddd784f3b731ef131f9a11b",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/solver.json": "23dc9180ba04fd8320147cb6534fd52151bda30e25e2fc6e51244ba52c63381e",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/solver.log": "eed918dd393330fd78194e83bf540b6246c57b7d439771aa39925317457ce775",
+    "analyses/assertion_violation/degrees/4/c-001/polynomial_problem.json": "4fab53d9999465c7ec51a305278cea0e55b710232704b43433ebc17de4c01a2f",
+    "analyses/assertion_violation/domain_evidence.json": "3eb8bd317af856c6ce3b90d9b8bfc18967dcce3d31f7d466a9105f62b121b0c1",
+    "analyses/assertion_violation/goal.json": "7d0556550449a903ea5e1596b641fdf8d64e43d6cfb73fd3711c1046a920fd21",
+    "analyses/assertion_violation/search_history.json": "979c828ebeff89b2d423261c33afbe6d2446c1b230589ac42e49eeeba05ae81e",
+    "shared/ast.json": "1bca73ccf0d3403a884ada83db9cafba0941c7c2001d85a9bbdacb27986e00a4",
+    "shared/cfg.dot": "74d26e691e145470e71a27d02fa890e7a67262bda5a2c0901fd31aecabf8c6d1",
+    "shared/cfg.json": "bb01a40adbce0fc1d1db66701db74a7d7061db8fb5ecde488b7db0227b6afbbc",
+    "shared/cfg.txt": "19384acd5fa5102141c73441cd3611dcd3a265e1f67f4567ee4bac4edf555436",
+    "shared/manifest.json": "ee0bda5f8f7ac47301ef902b720f7b16ea77f219681e3a2e2a80164329ec98c5",
+    "shared/source.normalized.pp": "7e5a8c38cebd97d3e87183224f5867c67ad4d2903af411081792eed8baa37a5e",
+    "shared/source.pp": "c144dbdb002cb08a160c9fe3cf5a30c69fc7d896b5f00f467ed3798f0f29716f",
+    "shared/validation.json": "60f2b0c2e571c01ff44e46e8f49c25bebcf9485117c2cd4402999645ac70215f",
+    "summary.json": "490ef71a3bfcaafd83324328ca81acf61b28576b1ffa7051f36811cd5627b469"
+  },
+  "backend": "cvxpy",
+  "budget_policy": "cooperative symbolic/reconstruction deadline; MOSEK optimizer time limit",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "goal": "assertion_violation",
+  "mode": "solve",
+  "options": {
+    "assertion_margin": "1/1000000",
+    "assertion_variables": null,
+    "c_values": [
+      "79999/80000"
+    ],
+    "comparison_ns": [
+      5,
+      20,
+      100
+    ],
+    "continue_after_success": true,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 4,
+    "max_attempts_per_point": 1,
+    "max_c_steps": 10,
+    "max_decisions": 50000,
+    "max_degree": 4,
+    "max_order": 2,
+    "max_parameter_points": 1,
+    "max_products": 512,
+    "max_psd_dimension": 100,
+    "per_attempt_seconds": 40,
+    "reciprocal_seconds": 60,
+    "repair_max_solves": 2,
+    "repair_relative_gap": 0.001,
+    "repair_seconds": 25,
+    "strategy": "putinar",
+    "symbolic_workflow": true,
+    "tail_rule": "auto",
+    "tail_variables": null,
+    "total_seconds": 120,
+    "verbose": true,
+    "workflow_config": null
+  },
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/m1dwalk_p0.0001.pp",
+  "source_sha256": "c144dbdb002cb08a160c9fe3cf5a30c69fc7d896b5f00f467ed3798f0f29716f",
+  "tool_version": "0.4.0"
+}

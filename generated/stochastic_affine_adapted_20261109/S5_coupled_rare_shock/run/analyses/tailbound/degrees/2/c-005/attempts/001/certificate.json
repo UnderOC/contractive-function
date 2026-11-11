@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "46560475718415319084633284193514084115827937756554/46560472603533841754428204333655787820423167909375",
+    "A_numeric": 1.0000000668996962,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "1/32",
+    "certificate": "analyses/tailbound/degrees/2/c-005/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(46560475718415319084633284193514084115827937756554/46560472603533841754428204333655787820423167909375) * exp(-(-log(1/32))*n)",
+    "expression": "(46560475718415319084633284193514084115827937756554/46560472603533841754428204333655787820423167909375) * (1/32)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(1/32)",
+    "lambda_numeric": 3.4657359027997265,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (46560475718415319084633284193514084115827937756554/46560472603533841754428204333655787820423167909375) * (1/32)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "238273361773760410389980264*x**2/277944117385197746965368315 - 14034965938912*x*y/242433731658105 + 45021055672*x/2904806758425 + 197560434800219298784326224*y**2/605786315975880052772296395 - 51204052859600*y/91474045289523 + 280965175558900956997456448/226485904937129744608527111"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

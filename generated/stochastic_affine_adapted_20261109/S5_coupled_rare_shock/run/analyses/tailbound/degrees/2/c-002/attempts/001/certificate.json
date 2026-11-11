@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "1517393051076828931031643337480153441152382821471773/1517393047594351952947515720717687896981710866360000",
+    "A_numeric": 1.0000000022950395,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "1/4",
+    "certificate": "analyses/tailbound/degrees/2/c-002/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(1517393051076828931031643337480153441152382821471773/1517393047594351952947515720717687896981710866360000) * exp(-(-log(1/4))*n)",
+    "expression": "(1517393051076828931031643337480153441152382821471773/1517393047594351952947515720717687896981710866360000) * (1/4)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(1/4)",
+    "lambda_numeric": 1.3862943611198906,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (1517393051076828931031643337480153441152382821471773/1517393047594351952947515720717687896981710866360000) * (1/4)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "6835950251492332881248372*x**2/7558072067077291110847353 + 2323962840191*x*y/11527025386754 - 13864635666161*x/66159613685582 + 16611181594662236151856075*y**2/44108616709313883628053776 - 80915617588166*y/124144695320475 + 20184859266191555604799933/15740333887654911903476784"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

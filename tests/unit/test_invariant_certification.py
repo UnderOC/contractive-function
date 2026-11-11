@@ -58,10 +58,14 @@ def test_affine_equality_is_rebuilt_not_trusted():
 @pytest.mark.parametrize('source', sorted((PROJECT/'contractive_examples/rcd').glob('*.pp')))
 def test_all_rcd_prepare_and_replay_without_solver(source, monkeypatch):
     from contractive_tool.backends.cvxpy import mosek_solver
-    monkeypatch.setattr(mosek_solver, 'solve', lambda *a, **kw: pytest.fail('RCD should use exact quadratic proofs'))
+    monkeypatch.setattr(mosek_solver, 'solve', lambda *a, **kw: pytest.fail('RCD should use exact algebraic proofs'))
     round_ = prepare_random_round(source)
     saved = round_.evidence['domain_evidence']
-    assert 'exact_invariant_sos' in str(saved)
+    # R6's equality invariant closes with exact Farkas identities; the
+    # original inequality examples require the quadratic SOS path.
+    expected = ('exact_farkas_identity' if source.stem == 'rcd_06_equality_reference'
+                else 'exact_invariant_sos')
+    assert expected in str(saved)
     assert prepare_random_round(source, invariant_evidence=saved).to_data() == round_.to_data()
     bad = deepcopy(saved)
     # Removing a source transition's entire proof must also be rejected.

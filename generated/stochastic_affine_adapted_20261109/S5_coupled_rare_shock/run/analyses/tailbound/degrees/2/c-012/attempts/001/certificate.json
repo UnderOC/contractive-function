@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "3017813434552897772367895738179700032750143744/2874311453600906716494151472694404831508203125",
+    "A_numeric": 1.0499256894280589,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "21/4096",
+    "certificate": "analyses/tailbound/degrees/2/c-012/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(3017813434552897772367895738179700032750143744/2874311453600906716494151472694404831508203125) * exp(-(-log(21/4096))*n)",
+    "expression": "(3017813434552897772367895738179700032750143744/2874311453600906716494151472694404831508203125) * (21/4096)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(21/4096)",
+    "lambda_numeric": 5.27324372899592,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (3017813434552897772367895738179700032750143744/2874311453600906716494151472694404831508203125) * (21/4096)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "8215127427940640720054272*x**2/340711906581763330338490829 + 22924139910299648*x*y/1764647428047805833 - 15554158780288*x/34261783982671875 + 355208333419086929426432*y**2/12730977254880623098464615 - 16283758780288*y/34261783982671875 + 1414543134027216580565057536/1374043528098286156315991241"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

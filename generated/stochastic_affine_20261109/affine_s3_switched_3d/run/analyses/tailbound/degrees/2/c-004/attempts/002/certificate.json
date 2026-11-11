@@ -1,0 +1,38 @@
+{
+  "bound": {
+    "A_exact": "505943356810834114113244306099563332672533/14790595140217317117081309693731722014255",
+    "A_numeric": 34.207099309690136,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "3/16",
+    "certificate": "analyses/tailbound/degrees/2/c-004/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 3 + 6*K + 2",
+      "prefix_steps": 3,
+      "round_step_counts": [
+        6
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(505943356810834114113244306099563332672533/14790595140217317117081309693731722014255) * exp(-(-log(3/16))*n)",
+    "expression": "(505943356810834114113244306099563332672533/14790595140217317117081309693731722014255) * (3/16)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(3/16)",
+    "lambda_numeric": 1.6739764335716716,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (505943356810834114113244306099563332672533/14790595140217317117081309693731722014255) * (3/16)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "2932487308374817*x**2/27657761069484 - 1316*x*y/309 - 355648*x*z/1797 - 2862015632729314*x/28688289084335907 + 195394824544*y**2/60281822835 + 1536*y*z/983 + 99750742792*y/2808444448407 + 7642304234960*z**2/76561754607 + 767589941432*z/28555092921069 + 19810949458057027973788/54399791321307661596867"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

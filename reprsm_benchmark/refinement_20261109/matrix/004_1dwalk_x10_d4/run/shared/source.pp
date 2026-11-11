@@ -1,0 +1,16 @@
+/* Exact coordinates: original = scale * current. */
+{true}
+x := 0.01;
+{-2 <= 1000 * x and 1000 * x <= 1001}
+while 1000 * x >= 0 do
+  {0 <= 1000 * x and 1000 * x <= 1001}
+  assert 1000 * x <= 1000;
+  {0 <= 1000 * x and 1000 * x <= 1000}
+  if prob(0.5) then
+    {0 <= 1000 * x and 1000 * x <= 1000}
+    x := -0.002 + x;
+  else
+    {0 <= 1000 * x and 1000 * x <= 1000}
+    x := 0.001 + x;
+  fi;
+od;

@@ -1,0 +1,422 @@
+{
+  "name": "K3_optimal_fraction_reciprocal",
+  "family": "kelly",
+  "source": "contractive_examples/kelly/K3_optimal_fraction_reciprocal.pp",
+  "source_sha256": "f9b8b0f5e198dac8b87c9e71201c5e9e5469081ca5cb9d49447b1ad61bba555d",
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/kelly/K3_optimal_fraction_reciprocal.pp",
+    "--goal",
+    "tailbound",
+    "--initial-degree",
+    "2",
+    "--max-degree",
+    "4",
+    "--max-c-steps",
+    "12",
+    "--total-seconds",
+    "180",
+    "--reciprocal-seconds",
+    "120",
+    "--per-attempt-seconds",
+    "10",
+    "--repair-seconds",
+    "5",
+    "--comparison-n",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000",
+    "--workflow-config",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/K3_optimal_fraction_reciprocal/workflow.json",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/K3_optimal_fraction_reciprocal/K3_optimal_fraction_reciprocal/run"
+  ],
+  "returncode": 0,
+  "wall_seconds": 194.43748999387026,
+  "summary_status": "proved",
+  "status": "proved",
+  "diagnostic": null,
+  "stop_reason": "first_successful_degree",
+  "elapsed_seconds": 193.50699948705733,
+  "degrees_attempted": [
+    2
+  ],
+  "workflow_present": true,
+  "stages": [
+    {
+      "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 3.0135561381466687,
+      "stage": "direct_polynomial",
+      "status": "proved",
+      "stop_reason": "first_successful_degree"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 2.9697099146433175,
+      "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+      "seed": "direct:0",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_001/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 2.4663886791095138,
+      "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+      "seed": "direct:1",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_002/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 2.6972843259572983,
+      "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+      "seed": "direct:4",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+      "candidates": 0,
+      "degree": 2,
+      "elapsed_seconds": 167.98367542680353,
+      "seed_eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+      "stage": "cauchy_joint",
+      "status": "no_certificate_found",
+      "t_values": [
+        "96545901/50000000",
+        "3186014733/1600000000",
+        "2992922931/1600000000",
+        "188726491/100000000",
+        "6227974203/3200000000",
+        "5850521221/3200000000",
+        "34869833/20000000",
+        "1150704489/640000000",
+        "1080964823/640000000",
+        "183276519737/2000000000000",
+        "183276519737/1000000000000",
+        "549829559211/2000000000000",
+        "183276519737/500000000000",
+        "183276519737/400000000000",
+        "549829559211/1000000000000",
+        "1282935638159/2000000000000",
+        "183276519737/250000000000"
+      ],
+      "template": "__workflow_eta_0 + __workflow_eta_1*wealth + __workflow_eta_2*wealth**2"
+    },
+    {
+      "degree": 2,
+      "reason": "time_budget",
+      "seed_eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+      "stage": "cauchy_joint",
+      "status": "skipped"
+    },
+    {
+      "candidates": 30,
+      "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+      "stage": "positive_jensen",
+      "status": "proved"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+      "budget_policy": "independent additional soft budget; not consumed by positive searches",
+      "budget_seconds": 120.0,
+      "candidates": 0,
+      "elapsed_seconds": 13.306864412967116,
+      "stage": "reciprocal",
+      "status": "no_certificate_found"
+    }
+  ],
+  "candidate_counts": {
+    "direct_polynomial": 5,
+    "positive_jensen": 30
+  },
+  "comparisons": [
+    {
+      "n": 5,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1",
+        "prefactor_upper": "6343/3233",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1/4",
+        "prefactor_upper": "147938858961/125000000000",
+        "decay_upper": "983994835633/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1",
+        "prefactor_upper": "6343/3233",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 10,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1",
+        "prefactor_upper": "6343/3233",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1/4",
+        "prefactor_upper": "147938858961/125000000000",
+        "decay_upper": "983994835633/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1",
+        "prefactor_upper": "6343/3233",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 20,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1",
+        "prefactor_upper": "6343/3233",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 0.5396529242999435
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:7/8",
+        "method": "positive_jensen",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "7/8",
+        "prefactor_upper": "901722456069/500000000000",
+        "decay_upper": "59068356071/62500000000",
+        "upper_bound_numeric": 0.5829082713809481
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "2704*wealth**2/29097 - 22850*wealth/29097 + 77233/29097",
+        "k": "1",
+        "prefactor_upper": "6343/3233",
+        "decay_upper": "15/16",
+        "upper_bound_numeric": 0.5396529242999435
+      }
+    },
+    {
+      "n": 50,
+      "integer": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+        "k": "1",
+        "prefactor_upper": "3261/1121",
+        "decay_upper": "119/128",
+        "upper_bound_numeric": 0.07596171712185644
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:1:7/8",
+        "method": "positive_jensen",
+        "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+        "k": "7/8",
+        "prefactor_upper": "2545523073197/1000000000000",
+        "decay_upper": "938198788439/1000000000000",
+        "upper_bound_numeric": 0.10483841025480041
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+        "k": "1",
+        "prefactor_upper": "3261/1121",
+        "decay_upper": "119/128",
+        "upper_bound_numeric": 0.07596171712185644
+      }
+    },
+    {
+      "n": 100,
+      "integer": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+        "k": "1",
+        "prefactor_upper": "3261/1121",
+        "decay_upper": "119/128",
+        "upper_bound_numeric": 0.001983555518779869
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:1:7/8",
+        "method": "positive_jensen",
+        "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+        "k": "7/8",
+        "prefactor_upper": "2545523073197/1000000000000",
+        "decay_upper": "938198788439/1000000000000",
+        "upper_bound_numeric": 0.00431781286152311
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "18400*wealth**2/144609 - 61340*wealth/48203 + 586289/144609",
+        "k": "1",
+        "prefactor_upper": "3261/1121",
+        "decay_upper": "119/128",
+        "upper_bound_numeric": 0.001983555518779869
+      }
+    },
+    {
+      "n": 200,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "1",
+        "prefactor_upper": "4463931/924151",
+        "decay_upper": "3795/4096",
+        "upper_bound_numeric": 1.1332898207833527e-06
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "7/8",
+        "prefactor_upper": "1983570873949/500000000000",
+        "decay_upper": "116924458219/125000000000",
+        "upper_bound_numeric": 6.27405562062447e-06
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "1",
+        "prefactor_upper": "4463931/924151",
+        "decay_upper": "3795/4096",
+        "upper_bound_numeric": 1.1332898207833527e-06
+      }
+    },
+    {
+      "n": 500,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "1",
+        "prefactor_upper": "4463931/924151",
+        "decay_upper": "3795/4096",
+        "upper_bound_numeric": 1.2879252777717906e-16
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "7/8",
+        "prefactor_upper": "1983570873949/500000000000",
+        "decay_upper": "116924458219/125000000000",
+        "upper_bound_numeric": 1.2478268714061062e-14
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "1",
+        "prefactor_upper": "4463931/924151",
+        "decay_upper": "3795/4096",
+        "upper_bound_numeric": 1.2879252777717906e-16
+      }
+    },
+    {
+      "n": 1000,
+      "integer": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "1",
+        "prefactor_upper": "4463931/924151",
+        "decay_upper": "3795/4096",
+        "upper_bound_numeric": 3.434051460468014e-33
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:4:7/8",
+        "method": "positive_jensen",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "7/8",
+        "prefactor_upper": "1983570873949/500000000000",
+        "decay_upper": "116924458219/125000000000",
+        "upper_bound_numeric": 3.924921265614393e-29
+      },
+      "cauchy_integer": null,
+      "reciprocal": null,
+      "overall": {
+        "id": "direct:4",
+        "method": "direct_polynomial",
+        "eta": "1402400*wealth**2/8317359 - 17631340*wealth/8317359 + 56404319/8317359",
+        "k": "1",
+        "prefactor_upper": "4463931/924151",
+        "decay_upper": "3795/4096",
+        "upper_bound_numeric": 3.434051460468014e-33
+      }
+    }
+  ],
+  "reciprocal_search": {
+    "stop_reason": null,
+    "feedback_stop_reason": "point_budget",
+    "elapsed_seconds": 13.226621872279793,
+    "attempts": 31,
+    "feedback_iterations": 24,
+    "improved_iterations": []
+  },
+  "verification_process": {
+    "returncode": 0,
+    "wall_seconds": 1.6170760155655444
+  },
+  "verification": {
+    "comparisons_checked": 8,
+    "direct_certificates": 5,
+    "method": "source_replay_positive_and_reciprocal_exact_comparison",
+    "portfolio_candidates": 35,
+    "status": "proved"
+  }
+}

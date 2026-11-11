@@ -1,0 +1,51 @@
+{
+  "sources": [
+    "contractive_examples/qlearning/Q5_reciprocal_noisy_progress.pp"
+  ],
+  "source_root": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples",
+  "positive_seconds": 180,
+  "reciprocal_seconds": 120,
+  "feedback_seconds": 90,
+  "feedback_points": 24,
+  "initial_degree": 2,
+  "max_degree": 4,
+  "max_c_steps": 12,
+  "per_attempt_seconds": 10,
+  "repair_seconds": 5,
+  "comparison_ns": [
+    5,
+    10,
+    20,
+    50,
+    100,
+    200,
+    500,
+    1000
+  ],
+  "sequential": true,
+  "external_solve_timeout": 600,
+  "external_verify_timeout": 180,
+  "variables": "all source variables",
+  "input_witnesses_used": false,
+  "workflow_config": {
+    "direct_fraction": 0.5,
+    "max_fixed_seeds": 3,
+    "exponents": {
+      "interval": [
+        "1/4",
+        "4"
+      ],
+      "coarse_points": 16,
+      "refinements": 1
+    },
+    "cauchy": {
+      "scalar_strategy": "sos",
+      "scalar_order": 2,
+      "matrix_multiplier_degree": 1
+    },
+    "reciprocal": {
+      "feedback_points": 24,
+      "feedback_seconds": 90
+    }
+  }
+}

@@ -1,0 +1,415 @@
+[
+  {
+    "name": "Q2_two_state_cycle",
+    "family": "qlearning",
+    "source": "contractive_examples/qlearning/Q2_two_state_cycle.pp",
+    "source_sha256": "28da468541545f57083ea2aa79f714149140ca601470100633737c0603525e79",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/qlearning/Q2_two_state_cycle.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "2",
+      "--max-degree",
+      "4",
+      "--max-c-steps",
+      "12",
+      "--total-seconds",
+      "180",
+      "--reciprocal-seconds",
+      "120",
+      "--per-attempt-seconds",
+      "10",
+      "--repair-seconds",
+      "5",
+      "--comparison-n",
+      "5",
+      "10",
+      "20",
+      "50",
+      "100",
+      "200",
+      "500",
+      "1000",
+      "--workflow-config",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/Q2_two_state_cycle/workflow.json",
+      "--out-dir",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/Q2_two_state_cycle/Q2_two_state_cycle/run"
+    ],
+    "returncode": 0,
+    "wall_seconds": 218.04070548526943,
+    "summary_status": "proved",
+    "status": "proved",
+    "diagnostic": null,
+    "stop_reason": "first_successful_degree",
+    "elapsed_seconds": 217.1637171790935,
+    "degrees_attempted": [
+      2
+    ],
+    "workflow_present": true,
+    "stages": [
+      {
+        "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+        "budget_seconds": 90.0,
+        "elapsed_seconds": 7.78992487071082,
+        "stage": "direct_polynomial",
+        "status": "proved",
+        "stop_reason": "first_successful_degree"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+        "candidates": 0,
+        "elapsed_seconds": 3.189260699786246,
+        "eta": "4544*q1**2/147 + 512*q1*q2/21 - 10880*q1/147 + 4544*q2**2/147 - 8128*q2/147 + 7576/147",
+        "seed": "direct:0",
+        "stage": "cauchy_fixed",
+        "status": "no_certificate_found"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/fixed_001/result.json",
+        "candidates": 0,
+        "elapsed_seconds": 3.0925465882755816,
+        "eta": "59905659963904*q1**2/522067520601 + 465722265856*q1*q2/4422602547 - 48756129943000192*q1/172804349318931 + 1962990013378343360*q2**2/17107630582574169 - 3764509456663700672*q2/17107630582574169 + 97296903291439811072/496121286894650901",
+        "seed": "direct:3",
+        "stage": "cauchy_fixed",
+        "status": "no_certificate_found"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/fixed_002/result.json",
+        "candidates": 0,
+        "elapsed_seconds": 2.9762944388203323,
+        "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+        "seed": "direct:4",
+        "stage": "cauchy_fixed",
+        "status": "no_certificate_found"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+        "candidates": 0,
+        "degree": 2,
+        "elapsed_seconds": 196.2677508071065,
+        "seed_eta": "4544*q1**2/147 + 512*q1*q2/21 - 10880*q1/147 + 4544*q2**2/147 - 8128*q2/147 + 7576/147",
+        "stage": "cauchy_joint",
+        "status": "no_certificate_found",
+        "t_values": [
+          "39478874301/500000000000",
+          "39478874301/250000000000",
+          "118436622903/500000000000",
+          "39478874301/125000000000",
+          "39478874301/100000000000",
+          "118436622903/250000000000",
+          "276352120107/500000000000",
+          "39478874301/62500000000"
+        ],
+        "template": "__workflow_eta_0 + __workflow_eta_1*q2 + __workflow_eta_2*q1 + __workflow_eta_3*q2**2 + __workflow_eta_4*q1*q2 + __workflow_eta_5*q1**2"
+      },
+      {
+        "degree": 2,
+        "reason": "time_budget",
+        "seed_eta": "59905659963904*q1**2/522067520601 + 465722265856*q1*q2/4422602547 - 48756129943000192*q1/172804349318931 + 1962990013378343360*q2**2/17107630582574169 - 3764509456663700672*q2/17107630582574169 + 97296903291439811072/496121286894650901",
+        "stage": "cauchy_joint",
+        "status": "skipped"
+      },
+      {
+        "candidates": 30,
+        "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+        "stage": "positive_jensen",
+        "status": "proved"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+        "budget_policy": "independent additional soft budget; not consumed by positive searches",
+        "budget_seconds": 120.0,
+        "candidates": 0,
+        "elapsed_seconds": 1.6828158772550523,
+        "stage": "reciprocal",
+        "status": "no_certificate_found"
+      }
+    ],
+    "candidate_counts": {
+      "direct_polynomial": 5,
+      "positive_jensen": 30
+    },
+    "comparisons": [
+      {
+        "n": 5,
+        "integer": {
+          "id": "direct:0",
+          "method": "direct_polynomial",
+          "eta": "4544*q1**2/147 + 512*q1*q2/21 - 10880*q1/147 + 4544*q2**2/147 - 8128*q2/147 + 7576/147",
+          "k": "1",
+          "prefactor_upper": "5608/147",
+          "decay_upper": "7/8",
+          "upper_bound_numeric": 1.0
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:0:1/4",
+          "method": "positive_jensen",
+          "eta": "4544*q1**2/147 + 512*q1*q2/21 - 10880*q1/147 + 4544*q2**2/147 - 8128*q2/147 + 7576/147",
+          "k": "1/4",
+          "prefactor_upper": "1242632396591/500000000000",
+          "decay_upper": "483584105067/500000000000",
+          "upper_bound_numeric": 1.0
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:0",
+          "method": "direct_polynomial",
+          "eta": "4544*q1**2/147 + 512*q1*q2/21 - 10880*q1/147 + 4544*q2**2/147 - 8128*q2/147 + 7576/147",
+          "k": "1",
+          "prefactor_upper": "5608/147",
+          "decay_upper": "7/8",
+          "upper_bound_numeric": 1.0
+        }
+      },
+      {
+        "n": 10,
+        "integer": {
+          "id": "direct:3",
+          "method": "direct_polynomial",
+          "eta": "59905659963904*q1**2/522067520601 + 465722265856*q1*q2/4422602547 - 48756129943000192*q1/172804349318931 + 1962990013378343360*q2**2/17107630582574169 - 3764509456663700672*q2/17107630582574169 + 97296903291439811072/496121286894650901",
+          "k": "1",
+          "prefactor_upper": "1577197560962960/12697291912437",
+          "decay_upper": "99/128",
+          "upper_bound_numeric": 1.0
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:3:1/4",
+          "method": "positive_jensen",
+          "eta": "59905659963904*q1**2/522067520601 + 465722265856*q1*q2/4422602547 - 48756129943000192*q1/172804349318931 + 1962990013378343360*q2**2/17107630582574169 - 3764509456663700672*q2/17107630582574169 + 97296903291439811072/496121286894650901",
+          "k": "1/4",
+          "prefactor_upper": "3338441328731/1000000000000",
+          "decay_upper": "187558306131/200000000000",
+          "upper_bound_numeric": 1.0
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:3",
+          "method": "direct_polynomial",
+          "eta": "59905659963904*q1**2/522067520601 + 465722265856*q1*q2/4422602547 - 48756129943000192*q1/172804349318931 + 1962990013378343360*q2**2/17107630582574169 - 3764509456663700672*q2/17107630582574169 + 97296903291439811072/496121286894650901",
+          "k": "1",
+          "prefactor_upper": "1577197560962960/12697291912437",
+          "decay_upper": "99/128",
+          "upper_bound_numeric": 1.0
+        }
+      },
+      {
+        "n": 20,
+        "integer": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 0.7131486975942651
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:4:7/8",
+          "method": "positive_jensen",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "7/8",
+          "prefactor_upper": "17428007333639/250000000000",
+          "decay_upper": "796913607947/1000000000000",
+          "upper_bound_numeric": 0.7439308721518452
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 0.7131486975942651
+        }
+      },
+      {
+        "n": 50,
+        "integer": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 0.0002971625886442203
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:4:7/8",
+          "method": "positive_jensen",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "7/8",
+          "prefactor_upper": "17428007333639/250000000000",
+          "decay_upper": "796913607947/1000000000000",
+          "upper_bound_numeric": 0.0008201057678363735
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 0.0002971625886442203
+        }
+      },
+      {
+        "n": 100,
+        "integer": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 6.907976722144552e-10
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:4:7/8",
+          "method": "positive_jensen",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "7/8",
+          "prefactor_upper": "17428007333639/250000000000",
+          "decay_upper": "796913607947/1000000000000",
+          "upper_bound_numeric": 9.647882537040068e-09
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 6.907976722144552e-10
+        }
+      },
+      {
+        "n": 200,
+        "integer": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 3.733054501252929e-21
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:4:7/8",
+          "method": "positive_jensen",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "7/8",
+          "prefactor_upper": "17428007333639/250000000000",
+          "decay_upper": "796913607947/1000000000000",
+          "upper_bound_numeric": 1.3352306386292854e-18
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 3.733054501252929e-21
+        }
+      },
+      {
+        "n": 500,
+        "integer": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 5.891213007221213e-55
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:4:7/8",
+          "method": "positive_jensen",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "7/8",
+          "prefactor_upper": "17428007333639/250000000000",
+          "decay_upper": "796913607947/1000000000000",
+          "upper_bound_numeric": 3.539395831798423e-48
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 5.891213007221213e-55
+        }
+      },
+      {
+        "n": 1000,
+        "integer": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 2.715013860242871e-111
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:4:7/8",
+          "method": "positive_jensen",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "7/8",
+          "prefactor_upper": "17428007333639/250000000000",
+          "decay_upper": "796913607947/1000000000000",
+          "upper_bound_numeric": 1.7970102109683242e-97
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:4",
+          "method": "direct_polynomial",
+          "eta": "6701382960896*q1**2/56564890725 + 372362548224*q1*q2/3412576825 - 421642134327296*q1/1446445062825 + 473820643767864832*q2**2/3999420598711125 - 910216517597204992*q2/3999420598711125 + 3512078663789426624/17330822594414875",
+          "k": "1",
+          "prefactor_upper": "2240063272137792/17523581996375",
+          "decay_upper": "395/512",
+          "upper_bound_numeric": 2.715013860242871e-111
+        }
+      }
+    ],
+    "reciprocal_search": {
+      "stop_reason": null,
+      "feedback_stop_reason": "no_verified_moment_parent",
+      "elapsed_seconds": 1.6365576819516718,
+      "attempts": 7,
+      "feedback_iterations": 0,
+      "improved_iterations": []
+    },
+    "verification_process": {
+      "returncode": 0,
+      "wall_seconds": 2.668951030354947
+    },
+    "verification": {
+      "comparisons_checked": 8,
+      "direct_certificates": 5,
+      "method": "source_replay_positive_and_reciprocal_exact_comparison",
+      "portfolio_candidates": 35,
+      "status": "proved"
+    }
+  }
+]

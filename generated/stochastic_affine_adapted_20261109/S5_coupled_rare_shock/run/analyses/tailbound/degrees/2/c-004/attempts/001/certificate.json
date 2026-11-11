@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "117070698582411548569302079435056169817333736227099/117070698444061470209788393574217646425907171143750",
+    "A_numeric": 1.0000000011817651,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "1/16",
+    "certificate": "analyses/tailbound/degrees/2/c-004/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(117070698582411548569302079435056169817333736227099/117070698444061470209788393574217646425907171143750) * exp(-(-log(1/16))*n)",
+    "expression": "(117070698582411548569302079435056169817333736227099/117070698444061470209788393574217646425907171143750) * (1/16)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(1/16)",
+    "lambda_numeric": 2.772588722239781,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (117070698582411548569302079435056169817333736227099/117070698444061470209788393574217646425907171143750) * (1/16)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "119129084196661063614664706*x**2/130290808820417679188692275 - 858583986722624*x*y/31554432086761025 - 1387281226868*x/105324128932685 + 334271281046799580350810968*y**2/976025788830571573114695675 - 298303378470226*y/506866419116915 + 535765400808597438876999464/427518830851425430709299305"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

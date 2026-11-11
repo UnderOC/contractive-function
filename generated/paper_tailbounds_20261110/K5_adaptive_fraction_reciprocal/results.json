@@ -1,0 +1,395 @@
+[
+  {
+    "name": "K5_adaptive_fraction_reciprocal",
+    "family": "kelly",
+    "source": "contractive_examples/kelly/K5_adaptive_fraction_reciprocal.pp",
+    "source_sha256": "de9783afdee70768e0bbfc9164b10ae5689f96c1251a2384a21517407c60f898",
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "solve",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/kelly/K5_adaptive_fraction_reciprocal.pp",
+      "--goal",
+      "tailbound",
+      "--initial-degree",
+      "2",
+      "--max-degree",
+      "4",
+      "--max-c-steps",
+      "12",
+      "--total-seconds",
+      "180",
+      "--reciprocal-seconds",
+      "120",
+      "--per-attempt-seconds",
+      "10",
+      "--repair-seconds",
+      "5",
+      "--comparison-n",
+      "5",
+      "10",
+      "20",
+      "50",
+      "100",
+      "200",
+      "500",
+      "1000",
+      "--workflow-config",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/K5_adaptive_fraction_reciprocal/workflow.json",
+      "--out-dir",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/K5_adaptive_fraction_reciprocal/K5_adaptive_fraction_reciprocal/run"
+    ],
+    "returncode": 0,
+    "wall_seconds": 114.11965117510408,
+    "summary_status": "proved",
+    "status": "proved",
+    "diagnostic": null,
+    "stop_reason": "first_successful_degree",
+    "elapsed_seconds": 113.01149481581524,
+    "degrees_attempted": [
+      2
+    ],
+    "workflow_present": true,
+    "stages": [
+      {
+        "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+        "budget_seconds": 90.0,
+        "elapsed_seconds": 43.025073572061956,
+        "stage": "direct_polynomial",
+        "status": "proved",
+        "stop_reason": "first_successful_degree"
+      },
+      {
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "reason": "Relaxation order is too small for conclusion",
+        "seed": "direct:1",
+        "stage": "cauchy_fixed",
+        "status": "unknown"
+      },
+      {
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "reason": "Relaxation order is too small for conclusion",
+        "seed": "direct:2",
+        "stage": "cauchy_fixed",
+        "status": "unknown"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+        "candidates": 0,
+        "degree": 2,
+        "elapsed_seconds": 64.41098997881636,
+        "seed_eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "stage": "cauchy_joint",
+        "status": "no_certificate_found",
+        "t_values": [
+          "801488640589/8000000000000",
+          "801488640589/4000000000000",
+          "2404465921767/8000000000000",
+          "801488640589/2000000000000",
+          "801488640589/1600000000000",
+          "2404465921767/4000000000000",
+          "5610420484123/8000000000000",
+          "801488640589/1000000000000"
+        ],
+        "template": "__workflow_eta_0 + __workflow_eta_1*wealth + __workflow_eta_2*wealth**2"
+      },
+      {
+        "candidates": 18,
+        "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+        "stage": "positive_jensen",
+        "status": "proved"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+        "budget_policy": "independent additional soft budget; not consumed by positive searches",
+        "budget_seconds": 120.0,
+        "candidates": 0,
+        "elapsed_seconds": 2.5725461817346513,
+        "stage": "reciprocal",
+        "status": "no_certificate_found"
+      }
+    ],
+    "candidate_counts": {
+      "direct_polynomial": 3,
+      "positive_jensen": 18
+    },
+    "comparisons": [
+      {
+        "n": 5,
+        "integer": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "k": "1",
+          "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+          "decay_upper": "21/32",
+          "upper_bound_numeric": 0.39869719752007426
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:1:7/8",
+          "method": "positive_jensen",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "k": "7/8",
+          "prefactor_upper": "1412064484861/500000000000",
+          "decay_upper": "13834569439/20000000000",
+          "upper_bound_numeric": 0.44726280702587135
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:1",
+          "method": "direct_polynomial",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "k": "1",
+          "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+          "decay_upper": "21/32",
+          "upper_bound_numeric": 0.39869719752007426
+        }
+      },
+      {
+        "n": 10,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 0.03624075051521964
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 0.054865271810339164
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 0.03624075051521964
+        }
+      },
+      {
+        "n": 20,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 0.0002815808470925974
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 0.0007823529459130095
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 0.0002815808470925974
+        }
+      },
+      {
+        "n": 50,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 1.3207508398420747e-10
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 2.268392922418723e-09
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 1.3207508398420747e-10
+        }
+      },
+      {
+        "n": 100,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 3.739818591058843e-21
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 1.3373473429569448e-18
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 3.739818591058843e-21
+        }
+      },
+      {
+        "n": 200,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 2.9985397994943936e-42
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 4.648320773232342e-37
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 2.9985397994943936e-42
+        }
+      },
+      {
+        "n": 500,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 1.5455663784024355e-105
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 1.9518736626234372e-92
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 1.5455663784024355e-105
+        }
+      },
+      {
+        "n": 1000,
+        "integer": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 5.121345418421263e-211
+        },
+        "noninteger": {
+          "id": "positive_jensen:direct:2:7/8",
+          "method": "positive_jensen",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "7/8",
+          "prefactor_upper": "1923810772713/500000000000",
+          "decay_upper": "653748218969/1000000000000",
+          "upper_bound_numeric": 9.901729548666456e-185
+        },
+        "cauchy_integer": null,
+        "reciprocal": null,
+        "overall": {
+          "id": "direct:2",
+          "method": "direct_polynomial",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "k": "1",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "decay_upper": "315/512",
+          "upper_bound_numeric": 5.121345418421263e-211
+        }
+      }
+    ],
+    "reciprocal_search": {
+      "stop_reason": null,
+      "feedback_stop_reason": "no_verified_moment_parent",
+      "elapsed_seconds": 2.5159287909045815,
+      "attempts": 7,
+      "feedback_iterations": 0,
+      "improved_iterations": []
+    },
+    "verification_process": {
+      "returncode": 0,
+      "wall_seconds": 3.01967965811491
+    },
+    "verification": {
+      "comparisons_checked": 8,
+      "direct_certificates": 3,
+      "method": "source_replay_positive_and_reciprocal_exact_comparison",
+      "portfolio_candidates": 21,
+      "status": "proved"
+    }
+  }
+]

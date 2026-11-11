@@ -1,0 +1,42 @@
+{
+  "bound": {
+    "A_exact": "140378/31963",
+    "A_numeric": 4.3918906235334605,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "251/256",
+    "certificate": "analyses/tailbound/degrees/2/c-008/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 2 + 4*K + 2",
+      "prefix_steps": 2,
+      "round_step_counts": [
+        4
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(140378/31963) * exp(-(-log(251/256))*n)",
+    "expression": "(140378/31963) * (251/256)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(251/256)",
+    "lambda_numeric": 0.01972450534777859,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (140378/31963) * (251/256)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "wealth"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "45720*wealth**2/31963 - 245575*wealth/31963 + 340233/31963"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

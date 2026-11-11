@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "619/196",
+    "A_numeric": 3.1581632653061225,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "17/64",
+    "certificate": "analyses/tailbound/degrees/2/c-006/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(619/196) * exp(-(-log(17/64))*n)",
+    "expression": "(619/196) * (17/64)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(17/64)",
+    "lambda_numeric": 1.3256697393034558,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (619/196) * (17/64)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "188*x**2/49 + 188*y**2/49 + 2/49"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "68166809540101027308737726445122989552026058995161773/68166805653229968000101342015344690795006266038709375",
+    "A_numeric": 1.0000000570199972,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "1/8",
+    "certificate": "analyses/tailbound/degrees/2/c-003/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(68166809540101027308737726445122989552026058995161773/68166805653229968000101342015344690795006266038709375) * exp(-(-log(1/8))*n)",
+    "expression": "(68166809540101027308737726445122989552026058995161773/68166805653229968000101342015344690795006266038709375) * (1/8)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(1/8)",
+    "lambda_numeric": 2.0794415416798357,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (68166809540101027308737726445122989552026058995161773/68166805653229968000101342015344690795006266038709375) * (1/8)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "2494451456915416371087032*x**2/2752481880987082553054655 + 24327903921428*x*y/296967541350961 - 816758174030416*x/7654503703117089 + 1073203807555579821848264*y**2/2914310798527690901966445 - 3584035837411040*y/5643856008415443 + 1906036672449240579984271352/1495950128480655102956627745"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

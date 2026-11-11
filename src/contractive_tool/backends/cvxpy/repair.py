@@ -18,6 +18,8 @@ from .verification import reconstruct, _reconstruct
 
 @dataclass(frozen=True)
 class RepairOptions:
+    # Separate soft windows for numerical repair and post-solve exact recovery.
+    # Both remain capped by the enclosing search deadline.
     seconds: float = 20
     relative_gap: float = 0.05
     max_solves: int = 2
@@ -110,8 +112,12 @@ def repair(model, values, *, options=None, deadline=None, solver_seconds=30, ver
     """Return (verification, audit). Deadlines are cooperative between stages."""
     options = options or RepairOptions()
     started = time.monotonic()
-    deadline = min(deadline if deadline is not None else math.inf, started + options.seconds)
-    audit = {"status": "solved_unverified", "attempts": [], "max_solves": options.max_solves}
+    outer_deadline = deadline if deadline is not None else math.inf
+    deadline = min(outer_deadline, started + options.seconds)
+    audit = {"status": "solved_unverified", "attempts": [], "max_solves": options.max_solves,
+             "budget_policy": "separate_post_solve_reconstruction_v1",
+             "numerical_repair_seconds": options.seconds,
+             "post_solve_reconstruction_seconds": options.seconds}
     failure = {"status": "solved_unverified", "reason": "Certificate repair exhausted"}
     if set(values) != set(model.decisions) or not all(math.isfinite(v) for v in values.values()):
         return failure, {**audit, "reason": "Missing or nonfinite decision values"}
@@ -147,7 +153,8 @@ def repair(model, values, *, options=None, deadline=None, solver_seconds=30, ver
                 row['status'] = 'no_face_detected'
                 continue
             candidate = _reconstruct(model, values, list(equations)+model.equalities,
-                                     denominators=(1000, 1000000, 1000000000), deadline=deadline)
+                                     denominators=(1000, 1000000, 1000000000), deadline=deadline,
+                                     objective_cap=cap)
             row['direct_reconstruction'] = candidate
             if accept(candidate, 'kernel_reconstruction'):
                 row['status'] = 'proved'
@@ -167,15 +174,26 @@ def repair(model, values, *, options=None, deadline=None, solver_seconds=30, ver
         row['status'] = solved['status']
         if solved.get('values') is None:
             continue
+        recovery_started = time.monotonic()
+        recovery_deadline = min(outer_deadline, recovery_started + options.seconds)
+        row['reconstruction_available_seconds'] = max(0., recovery_deadline-recovery_started)
+        if recovery_started >= recovery_deadline:
+            row['status'] = 'reconstruction_time_budget'
+            break
         new_values = solved['values']
         row['original_objective_numeric'] = float(model.objective.xreplace(
             {sp.Symbol(name): value for name, value in new_values.items()}))
         row['gram'] = gram_diagnostics(model, new_values)
         # Keep kernel equations during reconstruction, but acceptance always
-        # checks every original equality and cone over exact rationals.
+        # checks every original equality and cone over exact rationals. Model
+        # compilation and solving must not consume recovery's local window;
+        # the enclosing search deadline still caps both phases.
         candidate = (_reconstruct(model, new_values, list(equations)+model.equalities,
-                                 denominators=(1000,1000000,1000000000), deadline=deadline)
-                     if equations else reconstruct(model, new_values, deadline=deadline))
+                                 denominators=(1000,1000000,1000000000), deadline=recovery_deadline,
+                                 objective_cap=cap)
+                     if equations else reconstruct(model, new_values, deadline=recovery_deadline,
+                                                   objective_cap=cap))
+        row['reconstruction_elapsed_seconds'] = time.monotonic()-recovery_started
         row['verification'] = candidate
         row['status'] = candidate['status']
         if accept(candidate, stage+'_solve'):

@@ -1,0 +1,578 @@
+{
+  "c": "1/32",
+  "certificate_family": "polynomial",
+  "context": {
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "kernel": "symbolic",
+    "round_preexpectations": [
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0 + 3*eta_L_while_1_1*x/50 + 91*eta_L_while_1_1*y/200 + 21*eta_L_while_1_2*x/50 + 3*eta_L_while_1_2*y/50 + 9*eta_L_while_1_3*x**2/2500 + 273*eta_L_while_1_3*x*y/5000 + 8281*eta_L_while_1_3*y**2/40000 + 9*eta_L_while_1_3/10000 + 63*eta_L_while_1_4*x**2/2500 + 1947*eta_L_while_1_4*x*y/10000 + 273*eta_L_while_1_4*y**2/10000 + 27*eta_L_while_1_4/40000 + 441*eta_L_while_1_5*x**2/2500 + 63*eta_L_while_1_5*x*y/1250 + 9*eta_L_while_1_5*y**2/2500 + 81*eta_L_while_1_5/160000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 337*y**2 + 800",
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 337*y**2 + 800"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/100 + 3*eta_L_while_1_1*x/5000 + 91*eta_L_while_1_1*y/20000 + 21*eta_L_while_1_2*x/5000 + 3*eta_L_while_1_2*y/5000 + 9*eta_L_while_1_3*x**2/250000 + 273*eta_L_while_1_3*x*y/500000 + 8281*eta_L_while_1_3*y**2/4000000 + 9*eta_L_while_1_3/10000 + 63*eta_L_while_1_4*x**2/250000 + 1947*eta_L_while_1_4*x*y/1000000 + 273*eta_L_while_1_4*y**2/1000000 + 27*eta_L_while_1_4/40000 + 441*eta_L_while_1_5*x**2/250000 + 63*eta_L_while_1_5*x*y/125000 + 9*eta_L_while_1_5*y**2/250000 + 81*eta_L_while_1_5/160000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "199*eta_L_while_1_0/200 + 597*eta_L_while_1_1*x/10000 + 18109*eta_L_while_1_1*y/40000 + 3*eta_L_while_1_1/2000 + 4179*eta_L_while_1_2*x/10000 + 597*eta_L_while_1_2*y/10000 + 9*eta_L_while_1_2/8000 + 1791*eta_L_while_1_3*x**2/500000 + 54327*eta_L_while_1_3*x*y/1000000 + 9*eta_L_while_1_3*x/50000 + 1647919*eta_L_while_1_3*y**2/8000000 + 273*eta_L_while_1_3*y/200000 + 9*eta_L_while_1_3/20000 + 12537*eta_L_while_1_4*x**2/500000 + 387453*eta_L_while_1_4*x*y/2000000 + 279*eta_L_while_1_4*x/400000 + 54327*eta_L_while_1_4*y**2/2000000 + 963*eta_L_while_1_4*y/1600000 + 27*eta_L_while_1_4/80000 + 87759*eta_L_while_1_5*x**2/500000 + 12537*eta_L_while_1_5*x*y/250000 + 189*eta_L_while_1_5*x/200000 + 1791*eta_L_while_1_5*y**2/500000 + 27*eta_L_while_1_5*y/200000 + 81*eta_L_while_1_5/320000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+            "-288*x**2 - 168*x*y - 337*y**2 + 800",
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+            "-288*x**2 - 168*x*y - 337*y**2 + 800"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/200 + 3*eta_L_while_1_1*x/10000 + 91*eta_L_while_1_1*y/40000 + 3*eta_L_while_1_1/2000 + 21*eta_L_while_1_2*x/10000 + 3*eta_L_while_1_2*y/10000 + 9*eta_L_while_1_2/8000 + 9*eta_L_while_1_3*x**2/500000 + 273*eta_L_while_1_3*x*y/1000000 + 9*eta_L_while_1_3*x/50000 + 8281*eta_L_while_1_3*y**2/8000000 + 273*eta_L_while_1_3*y/200000 + 9*eta_L_while_1_3/20000 + 63*eta_L_while_1_4*x**2/500000 + 1947*eta_L_while_1_4*x*y/2000000 + 279*eta_L_while_1_4*x/400000 + 273*eta_L_while_1_4*y**2/2000000 + 963*eta_L_while_1_4*y/1600000 + 27*eta_L_while_1_4/80000 + 441*eta_L_while_1_5*x**2/500000 + 63*eta_L_while_1_5*x*y/250000 + 189*eta_L_while_1_5*x/200000 + 9*eta_L_while_1_5*y**2/500000 + 27*eta_L_while_1_5*y/200000 + 81*eta_L_while_1_5/320000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "199*eta_L_while_1_0/200 + 597*eta_L_while_1_1*x/10000 + 18109*eta_L_while_1_1*y/40000 - 3*eta_L_while_1_1/2000 + 4179*eta_L_while_1_2*x/10000 + 597*eta_L_while_1_2*y/10000 - 9*eta_L_while_1_2/8000 + 1791*eta_L_while_1_3*x**2/500000 + 54327*eta_L_while_1_3*x*y/1000000 - 9*eta_L_while_1_3*x/50000 + 1647919*eta_L_while_1_3*y**2/8000000 - 273*eta_L_while_1_3*y/200000 + 9*eta_L_while_1_3/20000 + 12537*eta_L_while_1_4*x**2/500000 + 387453*eta_L_while_1_4*x*y/2000000 - 279*eta_L_while_1_4*x/400000 + 54327*eta_L_while_1_4*y**2/2000000 - 963*eta_L_while_1_4*y/1600000 + 27*eta_L_while_1_4/80000 + 87759*eta_L_while_1_5*x**2/500000 + 12537*eta_L_while_1_5*x*y/250000 - 189*eta_L_while_1_5*x/200000 + 1791*eta_L_while_1_5*y**2/500000 - 27*eta_L_while_1_5*y/200000 + 81*eta_L_while_1_5/320000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "-288*x**2 - 168*x*y - 337*y**2 + 800",
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "-288*x**2 - 168*x*y - 337*y**2 + 800"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "eta_L_while_1_0/200 + 3*eta_L_while_1_1*x/10000 + 91*eta_L_while_1_1*y/40000 - 3*eta_L_while_1_1/2000 + 21*eta_L_while_1_2*x/10000 + 3*eta_L_while_1_2*y/10000 - 9*eta_L_while_1_2/8000 + 9*eta_L_while_1_3*x**2/500000 + 273*eta_L_while_1_3*x*y/1000000 - 9*eta_L_while_1_3*x/50000 + 8281*eta_L_while_1_3*y**2/8000000 - 273*eta_L_while_1_3*y/200000 + 9*eta_L_while_1_3/20000 + 63*eta_L_while_1_4*x**2/500000 + 1947*eta_L_while_1_4*x*y/2000000 - 279*eta_L_while_1_4*x/400000 + 273*eta_L_while_1_4*y**2/2000000 - 963*eta_L_while_1_4*y/1600000 + 27*eta_L_while_1_4/80000 + 441*eta_L_while_1_5*x**2/500000 + 63*eta_L_while_1_5*x*y/250000 - 189*eta_L_while_1_5*x/200000 + 9*eta_L_while_1_5*y**2/500000 - 27*eta_L_while_1_5*y/200000 + 81*eta_L_while_1_5/320000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1",
+            "288*x**2 + 168*x*y + 337*y**2 - 800"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "99*eta_L_while_1_0/100 + 297*eta_L_while_1_1*x/5000 + 9009*eta_L_while_1_1*y/20000 + 2079*eta_L_while_1_2*x/5000 + 297*eta_L_while_1_2*y/5000 + 891*eta_L_while_1_3*x**2/250000 + 27027*eta_L_while_1_3*x*y/500000 + 819819*eta_L_while_1_3*y**2/4000000 + 6237*eta_L_while_1_4*x**2/250000 + 192753*eta_L_while_1_4*x*y/1000000 + 27027*eta_L_while_1_4*y**2/1000000 + 43659*eta_L_while_1_5*x**2/250000 + 6237*eta_L_while_1_5*x*y/125000 + 891*eta_L_while_1_5*y**2/250000"
+      },
+      {
+        "domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+            "-288*x**2 - 168*x*y - 337*y**2 + 800",
+            "2*x**2 + 2*y**2 - 1"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "exact_domain": {
+          "equalities": [],
+          "generators": [
+            "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+            "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+            "-288*x**2 - 168*x*y - 337*y**2 + 800"
+          ],
+          "strict_generators": [
+            "2*x**2 + 2*y**2 - 1"
+          ],
+          "variables": [
+            "nx",
+            "x",
+            "y",
+            "z"
+          ]
+        },
+        "expression": "0"
+      }
+    ],
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "time_unit": "completed_loop_iterations"
+  },
+  "decisions": [
+    "eta_L_while_1_0",
+    "eta_L_while_1_1",
+    "eta_L_while_1_2",
+    "eta_L_while_1_3",
+    "eta_L_while_1_4",
+    "eta_L_while_1_5"
+  ],
+  "degree": 2,
+  "expressions": {
+    "L_while_1": "eta_L_while_1_0 + eta_L_while_1_1*y + eta_L_while_1_2*x + eta_L_while_1_3*y**2 + eta_L_while_1_4*x*y + eta_L_while_1_5*x**2"
+  },
+  "goal": "tailbound",
+  "objective": "eta_L_while_1_0 + 43*eta_L_while_1_1/50 + eta_L_while_1_2/50 + 1849*eta_L_while_1_3/2500 + 43*eta_L_while_1_4/2500 + eta_L_while_1_5/2500",
+  "obligations": [
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*y + eta_L_while_1_2*x + eta_L_while_1_3*y**2 + eta_L_while_1_4*x*y + eta_L_while_1_5*x**2",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_nonnegative_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "nonnegative",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0 + eta_L_while_1_1*y + eta_L_while_1_2*x + eta_L_while_1_3*y**2 + eta_L_while_1_4*x*y + eta_L_while_1_5*x**2 - 1",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "x**2 + y**2 - 1/2"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_normalization_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "normalization",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-31*eta_L_while_1_0/32 - 3*eta_L_while_1_1*x/50 - 339*eta_L_while_1_1*y/800 - 311*eta_L_while_1_2*x/800 - 3*eta_L_while_1_2*y/50 - 9*eta_L_while_1_3*x**2/2500 - 273*eta_L_while_1_3*x*y/5000 - 7031*eta_L_while_1_3*y**2/40000 - 9*eta_L_while_1_3/10000 - 63*eta_L_while_1_4*x**2/2500 - 3269*eta_L_while_1_4*x*y/20000 - 273*eta_L_while_1_4*y**2/10000 - 27*eta_L_while_1_4/40000 - 2903*eta_L_while_1_5*x**2/20000 - 63*eta_L_while_1_5*x*y/1250 - 9*eta_L_while_1_5*y**2/2500 - 81*eta_L_while_1_5/160000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+          "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575",
+          "288*x**2 + 168*x*y + 337*y**2 - 800"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_0_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "17*eta_L_while_1_0/800 - 3*eta_L_while_1_1*x/5000 + 267*eta_L_while_1_1*y/10000 + 541*eta_L_while_1_2*x/20000 - 3*eta_L_while_1_2*y/5000 - 9*eta_L_while_1_3*x**2/250000 - 273*eta_L_while_1_3*x*y/500000 + 116719*eta_L_while_1_3*y**2/4000000 - 9*eta_L_while_1_3/10000 - 63*eta_L_while_1_4*x**2/250000 + 29303*eta_L_while_1_4*x*y/1000000 - 273*eta_L_while_1_4*y**2/1000000 - 27*eta_L_while_1_4/40000 + 14743*eta_L_while_1_5*x**2/500000 - 63*eta_L_while_1_5*x*y/125000 - 9*eta_L_while_1_5*y**2/250000 - 81*eta_L_while_1_5/160000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y - 337*y**2 + 800",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+          "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_1_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-771*eta_L_while_1_0/800 - 597*eta_L_while_1_1*x/10000 - 16859*eta_L_while_1_1*y/40000 - 3*eta_L_while_1_1/2000 - 7733*eta_L_while_1_2*x/20000 - 597*eta_L_while_1_2*y/10000 - 9*eta_L_while_1_2/8000 - 1791*eta_L_while_1_3*x**2/500000 - 54327*eta_L_while_1_3*x*y/1000000 - 9*eta_L_while_1_3*x/50000 - 1397919*eta_L_while_1_3*y**2/8000000 - 273*eta_L_while_1_3*y/200000 - 9*eta_L_while_1_3/20000 - 12537*eta_L_while_1_4*x**2/500000 - 324953*eta_L_while_1_4*x*y/2000000 - 279*eta_L_while_1_4*x/400000 - 54327*eta_L_while_1_4*y**2/2000000 - 963*eta_L_while_1_4*y/1600000 - 27*eta_L_while_1_4/80000 - 36067*eta_L_while_1_5*x**2/250000 - 12537*eta_L_while_1_5*x*y/250000 - 189*eta_L_while_1_5*x/200000 - 1791*eta_L_while_1_5*y**2/500000 - 27*eta_L_while_1_5*y/200000 - 81*eta_L_while_1_5/320000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575",
+          "288*x**2 + 168*x*y + 337*y**2 - 800"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_2_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "21*eta_L_while_1_0/800 - 3*eta_L_while_1_1*x/10000 + 1159*eta_L_while_1_1*y/40000 - 3*eta_L_while_1_1/2000 + 583*eta_L_while_1_2*x/20000 - 3*eta_L_while_1_2*y/10000 - 9*eta_L_while_1_2/8000 - 9*eta_L_while_1_3*x**2/500000 - 273*eta_L_while_1_3*x*y/1000000 - 9*eta_L_while_1_3*x/50000 + 241719*eta_L_while_1_3*y**2/8000000 - 273*eta_L_while_1_3*y/200000 - 9*eta_L_while_1_3/20000 - 63*eta_L_while_1_4*x**2/500000 + 60553*eta_L_while_1_4*x*y/2000000 - 279*eta_L_while_1_4*x/400000 - 273*eta_L_while_1_4*y**2/2000000 - 963*eta_L_while_1_4*y/1600000 - 27*eta_L_while_1_4/80000 + 949*eta_L_while_1_5*x**2/31250 - 63*eta_L_while_1_5*x*y/250000 - 189*eta_L_while_1_5*x/200000 - 9*eta_L_while_1_5*y**2/500000 - 27*eta_L_while_1_5*y/200000 - 81*eta_L_while_1_5/320000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+          "-288*x**2 - 168*x*y - 337*y**2 + 800",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y + 360*x + 337*y**2 + 480*y - 575"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_3_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-771*eta_L_while_1_0/800 - 597*eta_L_while_1_1*x/10000 - 16859*eta_L_while_1_1*y/40000 + 3*eta_L_while_1_1/2000 - 7733*eta_L_while_1_2*x/20000 - 597*eta_L_while_1_2*y/10000 + 9*eta_L_while_1_2/8000 - 1791*eta_L_while_1_3*x**2/500000 - 54327*eta_L_while_1_3*x*y/1000000 + 9*eta_L_while_1_3*x/50000 - 1397919*eta_L_while_1_3*y**2/8000000 + 273*eta_L_while_1_3*y/200000 - 9*eta_L_while_1_3/20000 - 12537*eta_L_while_1_4*x**2/500000 - 324953*eta_L_while_1_4*x*y/2000000 + 279*eta_L_while_1_4*x/400000 - 54327*eta_L_while_1_4*y**2/2000000 + 963*eta_L_while_1_4*y/1600000 - 27*eta_L_while_1_4/80000 - 36067*eta_L_while_1_5*x**2/250000 - 12537*eta_L_while_1_5*x*y/250000 + 189*eta_L_while_1_5*x/200000 - 1791*eta_L_while_1_5*y**2/500000 + 27*eta_L_while_1_5*y/200000 - 81*eta_L_while_1_5/320000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575",
+          "288*x**2 + 168*x*y + 337*y**2 - 800"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_4_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "21*eta_L_while_1_0/800 - 3*eta_L_while_1_1*x/10000 + 1159*eta_L_while_1_1*y/40000 + 3*eta_L_while_1_1/2000 + 583*eta_L_while_1_2*x/20000 - 3*eta_L_while_1_2*y/10000 + 9*eta_L_while_1_2/8000 - 9*eta_L_while_1_3*x**2/500000 - 273*eta_L_while_1_3*x*y/1000000 + 9*eta_L_while_1_3*x/50000 + 241719*eta_L_while_1_3*y**2/8000000 + 273*eta_L_while_1_3*y/200000 - 9*eta_L_while_1_3/20000 - 63*eta_L_while_1_4*x**2/500000 + 60553*eta_L_while_1_4*x*y/2000000 + 279*eta_L_while_1_4*x/400000 - 273*eta_L_while_1_4*y**2/2000000 + 963*eta_L_while_1_4*y/1600000 - 27*eta_L_while_1_4/80000 + 949*eta_L_while_1_5*x**2/31250 - 63*eta_L_while_1_5*x*y/250000 + 189*eta_L_while_1_5*x/200000 - 9*eta_L_while_1_5*y**2/500000 + 27*eta_L_while_1_5*y/200000 - 81*eta_L_while_1_5/320000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+          "-288*x**2 - 168*x*y - 337*y**2 + 800",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y - 360*x + 337*y**2 - 480*y - 575"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_5_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "-767*eta_L_while_1_0/800 - 297*eta_L_while_1_1*x/5000 - 262*eta_L_while_1_1*y/625 - 7691*eta_L_while_1_2*x/20000 - 297*eta_L_while_1_2*y/5000 - 891*eta_L_while_1_3*x**2/250000 - 27027*eta_L_while_1_3*x*y/500000 - 694819*eta_L_while_1_3*y**2/4000000 - 6237*eta_L_while_1_4*x**2/250000 - 161503*eta_L_while_1_4*x*y/1000000 - 27027*eta_L_while_1_4*y**2/1000000 - 71693*eta_L_while_1_5*x**2/500000 - 6237*eta_L_while_1_5*x*y/125000 - 891*eta_L_while_1_5*y**2/250000",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+          "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+          "2*x**2 + 2*y**2 - 1",
+          "288*x**2 + 168*x*y + 337*y**2 - 800"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_6_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    },
+    {
+      "conclusion": "eta_L_while_1_0/32 + eta_L_while_1_1*y/32 + eta_L_while_1_2*x/32 + eta_L_while_1_3*y**2/32 + eta_L_while_1_4*x*y/32 + eta_L_while_1_5*x**2/32",
+      "domain": {
+        "equalities": [],
+        "generators": [
+          "-x**2 - y**2 + 1",
+          "-288*x**2 - 168*x*y - 360*x - 337*y**2 - 480*y + 575",
+          "-288*x**2 - 168*x*y + 360*x - 337*y**2 + 480*y + 575",
+          "-288*x**2 - 168*x*y - 337*y**2 + 800",
+          "2*x**2 + 2*y**2 - 1"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ]
+      },
+      "id": "round_contraction_7_0",
+      "origin": {
+        "kernel_evidence": "round_evidence.json",
+        "location": "L_while_1"
+      },
+      "tags": [
+        "contraction",
+        "round_survival"
+      ]
+    }
+  ]
+}

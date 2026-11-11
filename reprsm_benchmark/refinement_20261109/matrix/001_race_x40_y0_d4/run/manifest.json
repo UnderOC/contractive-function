@@ -1,0 +1,78 @@
+{
+  "artifacts": {
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/conic_model.json": "b0835b216ee784969788234631c0548748bd1eebfcb759d584dad8778adeca45",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/encoding_plan.json": "4888619fd27b825dd5a6c70947e465dbf6bc3db0dbb68718007b8643bdb75c5f",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/repair.json": "e551b0074eda80be60f78939865c4158512b69ed43b279ae08ae3f96f1f53921",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/solver.json": "ab00d7aa3ce73b53b0bfdddd88bcab6a91532627066346a2ba0bfb9ccc7b114f",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/solver.log": "268cb213e39b7ac62684a7ea847c40b069a440d252adb47d040d12ecf73db539",
+    "analyses/assertion_violation/degrees/4/c-001/attempts/001/verification.json": "c72b752f4a735242cd22a7ef6952f2e12cb8d15587066a216937e08743217f97",
+    "analyses/assertion_violation/degrees/4/c-001/polynomial_problem.json": "cfc634a152db241241938e7aedc55f42149899f43cfde17edacb2de201982ce0",
+    "analyses/assertion_violation/domain_evidence.json": "c53b1305e9deb018f49a5eb5b19194b288b5598971403f6cbc4f95dd13fbf9ab",
+    "analyses/assertion_violation/goal.json": "7d0556550449a903ea5e1596b641fdf8d64e43d6cfb73fd3711c1046a920fd21",
+    "analyses/assertion_violation/search_history.json": "1af6f63cba2e4bc8217e70099ae49b6f6369026afe82c4b08ce73c023a8ed843",
+    "shared/ast.json": "38d541f99cfbeb2df3850aece49346f6a4d772ab6499eb131c81f5e12c5d2aed",
+    "shared/cfg.dot": "9182bdbe7d948f28495e3a0a98b033bb70d1f84287ab82bf385d44291857ed01",
+    "shared/cfg.json": "4109bd72a7199f37b22bfa8dca91ce3ece51c336dbb572056b54da51ad37f299",
+    "shared/cfg.txt": "26f6155a5778296c6788649fe0775f017cb4d09de4fb2a6453711d6f351bb4ff",
+    "shared/manifest.json": "14b5ba96909c570ec3509ba1a2f8cb3986540196380931292e29ad20ad17bbd3",
+    "shared/source.normalized.pp": "daa371a366b9e29fc9189ca1028eb5e749cd8637d067bf859e50d4243c2e633b",
+    "shared/source.pp": "1c274bdb6cdee9b01b915d8a58cffc898bc6e3b8b2fb76ed5c035fd9e3bb4fc6",
+    "shared/validation.json": "f290936e30ca70d107137e51a70f5c5b8d05cccc0280fda7a70d3912850ce378",
+    "summary.json": "df0a8eb75dac50a3bbfe7a4c08c07043c91cb2cfe13c284d17b4b77e21e7e803"
+  },
+  "backend": "cvxpy",
+  "budget_policy": "cooperative symbolic/reconstruction deadline; MOSEK optimizer time limit",
+  "dependencies": {
+    "cvxpy": "1.9.3",
+    "mosek": "11.2.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "goal": "assertion_violation",
+  "mode": "solve",
+  "options": {
+    "assertion_margin": "1/1000000",
+    "assertion_variables": null,
+    "c_values": [
+      "9999/10000"
+    ],
+    "comparison_ns": [
+      5,
+      20,
+      100
+    ],
+    "continue_after_success": true,
+    "degree_step": 1,
+    "enabled_strategies": [
+      "putinar",
+      "schmudgen",
+      "handelman"
+    ],
+    "family": "polynomial",
+    "initial_degree": 4,
+    "max_attempts_per_point": 1,
+    "max_c_steps": 10,
+    "max_decisions": 50000,
+    "max_degree": 4,
+    "max_order": 2,
+    "max_parameter_points": 1,
+    "max_products": 512,
+    "max_psd_dimension": 100,
+    "per_attempt_seconds": 40,
+    "reciprocal_seconds": 60,
+    "repair_max_solves": 2,
+    "repair_relative_gap": 0.01,
+    "repair_seconds": 25,
+    "strategy": "auto",
+    "symbolic_workflow": true,
+    "tail_rule": "auto",
+    "tail_variables": null,
+    "total_seconds": 180,
+    "verbose": true,
+    "workflow_config": null
+  },
+  "solver": "MOSEK",
+  "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x40_y0.pp",
+  "source_sha256": "1c274bdb6cdee9b01b915d8a58cffc898bc6e3b8b2fb76ed5c035fd9e3bb4fc6",
+  "tool_version": "0.4.0"
+}

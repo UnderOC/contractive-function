@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "9980543727009940546835422476851575244965745252135390695237/9980543706835141226560569366723603161649520200192003933750",
+    "A_numeric": 1.0000000020214128,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "1/2",
+    "certificate": "analyses/tailbound/degrees/2/c-001/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(9980543727009940546835422476851575244965745252135390695237/9980543706835141226560569366723603161649520200192003933750) * exp(-(-log(1/2))*n)",
+    "expression": "(9980543727009940546835422476851575244965745252135390695237/9980543706835141226560569366723603161649520200192003933750) * (1/2)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(1/2)",
+    "lambda_numeric": 0.6931471805599453,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (9980543727009940546835422476851575244965745252135390695237/9980543706835141226560569366723603161649520200192003933750) * (1/2)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "353096844704005254865542326*x**2/443782787808729798370414041 + 279364629208944*x*y/746067133874387 - 244958262736564*x/692259294782893 + 41442407795698283373932840*y**2/92398218852645427616458099 - 521929478604088*y/670047366421507 + 9299516239595607724242174/6947791693915338273609919"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

@@ -1,0 +1,160 @@
+[
+  {
+    "id": "S4",
+    "file": "S4_diagonal_small_noise.pp",
+    "name": "二维对角稳定系统与小幅扰动",
+    "mode": "reciprocal",
+    "state_variables": [
+      "x",
+      "y"
+    ],
+    "auxiliary_variables": [
+      "z",
+      "nx"
+    ],
+    "eta": "2-x^2-y^2",
+    "eta_expression": "2-x**2-y**2",
+    "degree": 2,
+    "f_expression": "x**2+y**2",
+    "epsilon": "1/4",
+    "C": "2",
+    "M": "1",
+    "guard": "x*x+y*y > 0.25",
+    "invariant": "x*x+y*y <= 1",
+    "a_or_b": "7/4",
+    "b": "7/4",
+    "k": "1",
+    "c": "247/224",
+    "D": "49/16",
+    "r0": "1",
+    "p_star": "92655/93184",
+    "z_star": "439/23",
+    "q_certified": "97807/98336",
+    "q_mom": "97807/98336",
+    "eta0": "19/16",
+    "prefactor": "28/19",
+    "initial_factor": "28/19",
+    "initial": {
+      "x": "3/4",
+      "y": "1/2"
+    },
+    "definitions": {
+      "f": "x**2+y**2",
+      "eta": "2-f",
+      "B": "2-f/4"
+    },
+    "first_moment_expression": "255/128-f/4",
+    "second_moment_expression": "B**2-B/64+1/2048+x**2/128",
+    "first_moment_residual_expression": "191*(f-1/4)/224",
+    "second_moment_residual_expression": "3*(1-f)**2+1347*(1-f)/256+y**2/128+39/2048",
+    "branch_support": [
+      {
+        "probability": "7/8",
+        "noise": "0",
+        "updates": {
+          "x": "x/2+(0)/4",
+          "y": "y/2"
+        }
+      },
+      {
+        "probability": "1/16",
+        "noise": "1",
+        "updates": {
+          "x": "x/2+(1)/4",
+          "y": "y/2"
+        }
+      },
+      {
+        "probability": "1/16",
+        "noise": "-1",
+        "updates": {
+          "x": "x/2+(-1)/4",
+          "y": "y/2"
+        }
+      }
+    ],
+    "source_sha256": "e7d3b39c55e98a657fff9a32e7b2370c240cd69a780666b26f258b230c9102c5",
+    "validation": "Exact rational witnesses; no external SOS synthesis engine was run."
+  },
+  {
+    "id": "S5",
+    "file": "S5_coupled_rare_shock.pp",
+    "name": "二维耦合稳定系统与稀有共同冲击",
+    "mode": "reciprocal",
+    "state_variables": [
+      "x",
+      "y"
+    ],
+    "auxiliary_variables": [
+      "z",
+      "nx"
+    ],
+    "eta": "2-x^2-y^2",
+    "eta_expression": "2-x**2-y**2",
+    "degree": 2,
+    "f_expression": "x**2+y**2",
+    "epsilon": "1/2",
+    "C": "2",
+    "M": "1",
+    "guard": "x*x+y*y > 0.5",
+    "invariant": "x*x+y*y <= 1",
+    "a_or_b": "3/2",
+    "b": "3/2",
+    "k": "1",
+    "c": "3997/3200",
+    "D": "14161/4096",
+    "r0": "39/40",
+    "p_star": "19426491/20195620",
+    "z_star": "1146593/140320",
+    "q_certified": "14775154/14905709",
+    "q_mom": "14775154/14905709",
+    "eta0": "63/50",
+    "prefactor": "25/21",
+    "initial_factor": "25/21",
+    "initial": {
+      "x": "1/50",
+      "y": "43/50"
+    },
+    "definitions": {
+      "f": "x**2+y**2",
+      "eta": "2-f",
+      "u": "3*x/5+4*y/5",
+      "v": "-4*x/5+3*y/5",
+      "g": "u**2/4+9*v**2/64",
+      "B0": "2-g",
+      "B": "2-9*f/64"
+    },
+    "first_moment_expression": "2-g-9/6400",
+    "second_moment_expression": "B0**2+9*(-2*B0+9/64+u**2)/6400",
+    "first_moment_residual_expression": "3197*(f-1/2)/3200+7*v**2/64",
+    "second_moment_residual_expression": "55*(1-f)**2/16+163679*(1-f)/25600+1617*u**2/4096+175*u**2*(1-f)/4096+49*u**2*v**2/4096+1359/409600+351*v**2/204800",
+    "branch_support": [
+      {
+        "probability": "99/100",
+        "noise": "0",
+        "updates": {
+          "x": "21*x/50+3*y/50+9*(0)/40",
+          "y": "3*x/50+91*y/200+3*(0)/10"
+        }
+      },
+      {
+        "probability": "1/200",
+        "noise": "1",
+        "updates": {
+          "x": "21*x/50+3*y/50+9*(1)/40",
+          "y": "3*x/50+91*y/200+3*(1)/10"
+        }
+      },
+      {
+        "probability": "1/200",
+        "noise": "-1",
+        "updates": {
+          "x": "21*x/50+3*y/50+9*(-1)/40",
+          "y": "3*x/50+91*y/200+3*(-1)/10"
+        }
+      }
+    ],
+    "source_sha256": "b34150d4a391eb9682461b796812e6dcb03b4bbed042bdf0d59d4dff79f5e9b7",
+    "validation": "Exact rational witnesses; no external SOS synthesis engine was run."
+  }
+]

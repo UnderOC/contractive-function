@@ -1,0 +1,5237 @@
+{
+  "attempts": [
+    {
+      "detail": "Cauchy state-model construction time budget exceeded",
+      "reason": "state_model_time_budget",
+      "status": "unknown"
+    }
+  ],
+  "budget_policy": "cooperative symbolic/verification checks; solver optimizer time limit",
+  "candidates": [],
+  "elapsed_seconds": 1.564055847004056,
+  "input": {
+    "basis": [
+      "4*__cauchy_r_0**2*__cauchy_r_1**2",
+      "1000000000000*__cauchy_r_0**2*__cauchy_r_1*__cauchy_r_2/176776695297",
+      "4*__cauchy_r_0**2*__cauchy_r_1",
+      "4*__cauchy_r_0**2*__cauchy_r_2**2",
+      "4*__cauchy_r_0**2*__cauchy_r_2",
+      "500000000000*__cauchy_r_0**2/176776695297",
+      "4*__cauchy_r_0*__cauchy_r_1**2",
+      "1000000000000*__cauchy_r_0*__cauchy_r_1*__cauchy_r_2/176776695297",
+      "4*__cauchy_r_0*__cauchy_r_1",
+      "4*__cauchy_r_0*__cauchy_r_2",
+      "500000000000*__cauchy_r_0/176776695297",
+      "1000000000000*__cauchy_r_1**2/707106781187",
+      "1000000000000*__cauchy_r_1/707106781187",
+      "1"
+    ],
+    "eta": "1191598659525778679723390883978973184*x**2/249776255049534398988137299712265 - 75821056*x*y/14263605 - 261019651072*x*z/27481125 - 3340673426797201802737880450553127168*x/5420422866461753906685841053407243556375 + 34969968875264349877370368*y**2/7798391576719593212130075 - 5014016*y*z/11065625 - 1701358399205830940374*y/18224359204771126430994844125 + 4805963340263620325552065792*z**2/1011215461391027225286345 + 52739450900935692365909504*z/85618010361699047269693988325 + 627051376619846614889151533494576985712207628879798330924/1445296861338717528075578047846256117423673270844026337466056125"
+  },
+  "mode": "fixed_eta",
+  "optimality": "bounded search; no global optimality claim",
+  "options": {
+    "exponents": {
+      "coarse_points": 16,
+      "digits": 12,
+      "interval": null,
+      "margin": "1/100",
+      "max_candidates": 129,
+      "refinements": 1,
+      "target_n": null,
+      "values": [
+        "1/4",
+        "3/8",
+        "1/2",
+        "5/8",
+        "3/4",
+        "7/8",
+        "1",
+        "9/8",
+        "5/4",
+        "11/8",
+        "3/2",
+        "13/8",
+        "7/4",
+        "15/8",
+        "2",
+        "17/8",
+        "9/4",
+        "19/8",
+        "5/2",
+        "21/8",
+        "11/4",
+        "23/8",
+        "3",
+        "25/8",
+        "13/4",
+        "27/8",
+        "7/2",
+        "29/8",
+        "15/4",
+        "31/8",
+        "4"
+      ]
+    },
+    "limits": {
+      "max_decisions": 20000,
+      "max_products": 256,
+      "max_psd_dimension": 80
+    },
+    "matrix_multiplier_degree": 1,
+    "max_t_points": 32,
+    "product_depth": 4,
+    "repair_max_solves": 2,
+    "repair_relative_gap": 0.05,
+    "repair_seconds": 5.0,
+    "scalar_order": 2,
+    "scalar_strategy": "sos",
+    "solver_seconds": 10.0,
+    "total_seconds": 0.8133855033665895
+  },
+  "round": {
+    "domains": [
+      {
+        "equalities": [],
+        "generators": [
+          "x + 2",
+          "2 - x",
+          "y + 2",
+          "2 - y",
+          "z + 2",
+          "2 - z",
+          "x**2 + y**2 + z**2 - 1/4"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "evidence": {
+      "composition": "polynomial updates before expectation; fresh constant-law draws",
+      "contraction": "raw successor moment dominates killed survival moment",
+      "domain_evidence": {
+        "domains": {
+          "L_assign_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_10": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_11": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_12": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_2": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_3": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_4": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_5": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_6": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_7": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_8": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_assign_9": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_probabilistic_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_probabilistic_2": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_probabilistic_3": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_refute_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "L_while_1": [
+            {
+              "equalities": [],
+              "generators": [
+                "x + 2",
+                "2 - x",
+                "y + 2",
+                "2 - y",
+                "z + 2",
+                "2 - z"
+              ],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "l_f": [
+            {
+              "equalities": [],
+              "generators": [],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ],
+          "l_t": [
+            {
+              "equalities": [],
+              "generators": [],
+              "variables": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          ]
+        },
+        "initial": {
+          "x": "2",
+          "y": "2",
+          "z": "2"
+        },
+        "initial_location": "L_while_1",
+        "initial_random_symbols": [],
+        "initial_support": [
+          {
+            "equalities": [],
+            "generators": [],
+            "variables": []
+          }
+        ],
+        "initialization_steps": 3,
+        "initialization_trace": [
+          {
+            "destination": "L_assign_14",
+            "location": "L_assign_15",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_22",
+            "values": {
+              "x": "2"
+            }
+          },
+          {
+            "destination": "L_assign_13",
+            "location": "L_assign_14",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_21",
+            "values": {
+              "x": "2",
+              "y": "2"
+            }
+          },
+          {
+            "destination": "L_while_1",
+            "location": "L_assign_13",
+            "samples": [],
+            "support_regions": 1,
+            "transition": "T_20",
+            "values": {
+              "x": "2",
+              "y": "2",
+              "z": "2"
+            }
+          }
+        ],
+        "locations": [
+          "L_assign_1",
+          "L_assign_10",
+          "L_assign_11",
+          "L_assign_12",
+          "L_assign_2",
+          "L_assign_3",
+          "L_assign_4",
+          "L_assign_5",
+          "L_assign_6",
+          "L_assign_7",
+          "L_assign_8",
+          "L_assign_9",
+          "L_probabilistic_1",
+          "L_probabilistic_2",
+          "L_probabilistic_3",
+          "L_refute_1",
+          "L_while_1",
+          "l_f",
+          "l_t"
+        ],
+        "method": "exact_initialization_and_inductive_domain_certificates",
+        "proofs": [
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_15",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_22"
+          },
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_14",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_21"
+          },
+          {
+            "kind": "initialization_invariant",
+            "location": "L_assign_13",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "kind": "initialization_guard",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ],
+            "transition": "T_20"
+          },
+          {
+            "kind": "initial_control_invariant",
+            "location": "L_while_1",
+            "proofs": [
+              {
+                "method": "exact_evaluation"
+              }
+            ]
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_3"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x/4 + 17/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "13/8",
+                      "1/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/8 - x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "11/8",
+                      "0",
+                      "1/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_3"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_13"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "3*x/4 + 15/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/8",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/8 - 3*x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_13"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_14"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "3*x/4 + 15/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/8",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/8 - 3*x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_14"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_15"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "3*x/4 + 17/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/8",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/8 - 3*x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_15"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_4"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z/4 + 17/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "13/8",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1/4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/8 - z/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "11/8",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1/4"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_4"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y/4 + 15/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "11/8",
+                      "0",
+                      "0",
+                      "1/4",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/8 - y/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "13/8",
+                      "0",
+                      "0",
+                      "0",
+                      "1/4",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_5"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_6"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x/4 + 15/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "11/8",
+                      "1/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/8 - x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "13/8",
+                      "0",
+                      "1/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_6"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z/4 + 15/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "11/8",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1/4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/8 - z/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "13/8",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1/4"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_7"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y/4 + 17/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "13/8",
+                      "0",
+                      "0",
+                      "1/4",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/8 - y/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "11/8",
+                      "0",
+                      "0",
+                      "0",
+                      "1/4",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_8"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_10"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "3*x/4 + 17/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/8",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/8 - 3*x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_10"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_11"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "3*x/4 + 17/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/8",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "15/8 - 3*x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_11"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_12"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "3*x/4 + 15/8",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "3/8",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "17/8 - 3*x/4",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "5/8",
+                      "0",
+                      "3/4",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_12"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_9"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/2"
+            },
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_16"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "7/8"
+            },
+            "region": 0,
+            "transition": "T_17"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_17"
+          },
+          {
+            "branch": 1,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1/8"
+            },
+            "region": 0,
+            "transition": "T_17"
+          },
+          {
+            "branch": 1,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_17"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_2"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_2"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_18"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "x**2 + y**2 + z**2 - 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "x**2 + y**2 + z**2 - 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "x**2 + y**2 + z**2 - 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "x**2 + y**2 + z**2 - 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "x**2 + y**2 + z**2 - 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "x**2 + y**2 + z**2 - 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z",
+                    "x**2 + y**2 + z**2 - 1/4"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_18"
+          },
+          {
+            "branch": 0,
+            "kind": "probability",
+            "proof": {
+              "method": "constant",
+              "value": "1"
+            },
+            "region": 0,
+            "transition": "T_19"
+          },
+          {
+            "branch": 0,
+            "kind": "invariant_preservation",
+            "proofs": [
+              {
+                "proofs": [
+                  {
+                    "conclusion": "x + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "-x**2 - y**2 - z**2 + 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - x",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "-x**2 - y**2 - z**2 + 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "y + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "-x**2 - y**2 - z**2 + 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - y",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "-x**2 - y**2 - z**2 + 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "z + 2",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "-x**2 - y**2 - z**2 + 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "conclusion": "2 - z",
+                    "domain": {
+                      "equalities": [],
+                      "generators": [
+                        "x + 2",
+                        "2 - x",
+                        "y + 2",
+                        "2 - y",
+                        "z + 2",
+                        "2 - z",
+                        "-x**2 - y**2 - z**2 + 1/4"
+                      ],
+                      "variables": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "equality_weights": [],
+                    "method": "exact_farkas_identity",
+                    "nonnegative_weights": [
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ]
+                  }
+                ],
+                "support_domain": {
+                  "equalities": [],
+                  "generators": [
+                    "x + 2",
+                    "2 - x",
+                    "y + 2",
+                    "2 - y",
+                    "z + 2",
+                    "2 - z",
+                    "-x**2 - y**2 - z**2 + 1/4"
+                  ],
+                  "variables": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "support_region": 0,
+                "target_region": 0
+              }
+            ],
+            "random_samples": [],
+            "region": 0,
+            "transition": "T_19"
+          }
+        ],
+        "status": "proved",
+        "strict_invariant_policy": "inductive_closed_overapproximation"
+      },
+      "round_evidence": {
+        "boundary": "polynomial nonnegative; survival process zero after exit",
+        "clock": {
+          "exit_step_counts": [
+            2
+          ],
+          "pcfg_relation": "T = 3 + 6*K + 2",
+          "prefix_steps": 3,
+          "round_step_counts": [
+            6
+          ],
+          "unit": "completed_loop_iterations"
+        },
+        "contraction": "piecewise killed expectation; closed-domain sufficient proof",
+        "coverage": "all branches of the structured CFG; conditional cases checked separately",
+        "domain": [
+          {
+            "equalities": [],
+            "generators": [
+              "x + 2",
+              "2 - x",
+              "y + 2",
+              "2 - y",
+              "z + 2",
+              "2 - z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        ],
+        "entry_transition": "T_18",
+        "expectation_mode": "exact_piecewise_survival",
+        "header": "L_while_1",
+        "invariant_evidence": "domain_evidence.json",
+        "method": "symbolic_acyclic_round_composition",
+        "sampling_policy": "rounds with sampling retain raw moments; no truncated integration",
+        "status": "proved",
+        "strict_guards": "exact through pullback; closed covering proof domains; no positive margin",
+        "transitions": [
+          "T_1",
+          "T_10",
+          "T_11",
+          "T_12",
+          "T_13",
+          "T_14",
+          "T_15",
+          "T_16",
+          "T_17",
+          "T_18",
+          "T_19",
+          "T_2",
+          "T_3",
+          "T_4",
+          "T_5",
+          "T_6",
+          "T_7",
+          "T_8",
+          "T_9"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "source": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/stochastic_affine_examples/positive/affine_s3_switched_3d.pp",
+      "source_sha256": "12c45018b078a09db43f0c8d54ff48d26e62f5d936935a09314405158c938d83"
+    },
+    "initial": {
+      "x": "2",
+      "y": "2",
+      "z": "2"
+    },
+    "initial_active": true,
+    "law": {
+      "atoms": [
+        {
+          "probability": "7/32",
+          "values": [
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "probability": "7/32",
+          "values": [
+            "0",
+            "0",
+            "1"
+          ]
+        },
+        {
+          "probability": "7/32",
+          "values": [
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "probability": "7/32",
+          "values": [
+            "0",
+            "1",
+            "1"
+          ]
+        },
+        {
+          "probability": "1/32",
+          "values": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "probability": "1/32",
+          "values": [
+            "1",
+            "0",
+            "1"
+          ]
+        },
+        {
+          "probability": "1/32",
+          "values": [
+            "1",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "probability": "1/32",
+          "values": [
+            "1",
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "symbols": [
+        "__cauchy_r_0",
+        "__cauchy_r_1",
+        "__cauchy_r_2"
+      ]
+    },
+    "update": {
+      "x": "__cauchy_r_0*__cauchy_r_1/4 - __cauchy_r_0*__cauchy_r_2/4 + __cauchy_r_0*x/2 - __cauchy_r_1/4 + x/4 + 1/8",
+      "y": "-__cauchy_r_0*__cauchy_r_1/4 + __cauchy_r_0*__cauchy_r_2/4 + 3*__cauchy_r_0*x/4 - __cauchy_r_0*y/4 + __cauchy_r_1/4 + y/4 - 1/8",
+      "z": "__cauchy_r_0*__cauchy_r_1/4 - __cauchy_r_0*__cauchy_r_2/4 + 3*__cauchy_r_0*x/4 - __cauchy_r_0*z/4 - __cauchy_r_1/4 + z/4 + 1/8"
+    },
+    "variables": [
+      "x",
+      "y",
+      "z"
+    ]
+  },
+  "schema_version": 1,
+  "selection": null,
+  "status": "no_certificate_found",
+  "stop_reason": "state_model_time_budget"
+}

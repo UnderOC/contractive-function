@@ -38,7 +38,9 @@ def _parser():
         for field in ('total_seconds','per_attempt_seconds','repair_seconds','repair_relative_gap'):
             command.add_argument('--'+field.replace('_','-'), type=float, default=getattr(defaults,field),
                                  help='positive search soft budget; reciprocal budget is additional'
-                                      if field=='total_seconds' else None)
+                                      if field=='total_seconds' else
+                                      'separate soft budgets for numerical repair and post-solve exact recovery; capped by search deadline'
+                                      if field=='repair_seconds' else None)
         command.add_argument('--c-values', nargs='+', default=None,
                              help='explicit c grid; defaults: tail bisection, assertion near-one grid')
         command.add_argument('--assertion-margin', default=defaults.assertion_margin,

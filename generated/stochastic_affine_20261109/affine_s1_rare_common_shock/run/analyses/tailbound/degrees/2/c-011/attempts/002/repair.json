@@ -1,0 +1,674 @@
+{
+  "attempts": [
+    {
+      "gram": [
+        {
+          "eigenvalues": [
+            0.007156993431965355,
+            16.007157079246948,
+            55.205988406017234
+          ],
+          "id": "o0_s0"
+        },
+        {
+          "eigenvalues": [
+            0.007156993232254706,
+            0.007157035321492987,
+            39.20598835907474
+          ],
+          "id": "o1_s0"
+        },
+        {
+          "eigenvalues": [
+            0.007156993242304604,
+            0.0071569933118226185,
+            10.101264141866366
+          ],
+          "id": "o2_s0"
+        },
+        {
+          "eigenvalues": [
+            0.008981025177788328,
+            0.19697263564695844,
+            10.234476541422975
+          ],
+          "id": "o3_s0"
+        },
+        {
+          "eigenvalues": [
+            0.008734586873827822,
+            0.1913793902912413,
+            10.233107143816369
+          ],
+          "id": "o4_s0"
+        },
+        {
+          "eigenvalues": [
+            1.6442266633986138,
+            2.053477591014437,
+            10.317842938041572
+          ],
+          "id": "o5_s0"
+        },
+        {
+          "eigenvalues": [
+            0.07046180698403673,
+            0.7928072506921084,
+            16.676138476985972
+          ],
+          "id": "o6_s0"
+        },
+        {
+          "eigenvalues": [
+            0.09475882126830103,
+            2.1002509887388516,
+            18.168752857268544
+          ],
+          "id": "o7_s0"
+        },
+        {
+          "eigenvalues": [
+            0.0822643841983575,
+            2.027712005625441,
+            18.085228545211287
+          ],
+          "id": "o8_s0"
+        },
+        {
+          "eigenvalues": [
+            0.706224963990736,
+            1.9561181439367503,
+            23.783555427347764
+          ],
+          "id": "o9_s0"
+        }
+      ],
+      "original_objective_numeric": 242.51675827307648,
+      "solver": {
+        "elapsed_seconds": 0.22171324724331498,
+        "log": "===============================================================================\n                                     CVXPY                                     \n                                     v1.9.3                                    \n===============================================================================\nINFO: Your problem has 140 variables, 316 constraints, and 0 parameters.\nINFO: It is compliant with the following grammars: DCP, DQCP\nINFO: DCP verification time: 0.0020 seconds.\nINFO: Expression tree has 8 nodes.\nINFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)\nINFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.\nINFO: Your problem is compiled with the CPP canonicalization backend.\n-------------------------------------------------------------------------------\n                                  Compilation                                  \n-------------------------------------------------------------------------------\nINFO: Compiling problem (target solver=MOSEK).\nINFO: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK\nINFO: Applying reduction FlipObjective\nINFO: Applying reduction Dcp2Cone\nINFO: Applying reduction CvxAttr2Constr\nINFO: Applying reduction ExactCone2Cone\nINFO: Applying reduction EliminateZeroSized\nINFO: Applying reduction ConeMatrixStuffing\nINFO: Applying reduction MOSEK\nINFO: Finished problem compilation (took 2.086e-01 seconds).\n-------------------------------------------------------------------------------\n                                Numerical solver                               \n-------------------------------------------------------------------------------\nINFO: Invoking solver MOSEK  to obtain a solution.\n\n\nINFO: Problem\nINFO:   Name                   :                 \nINFO:   Objective sense        : maximize        \nINFO:   Type                   : CONIC (conic optimization problem)\nINFO:   Constraints            : 140             \nINFO:   Affine conic cons.     : 0               \nINFO:   Disjunctive cons.      : 0               \nINFO:   Cones                  : 0               \nINFO:   Scalar variables       : 136             \nINFO:   Matrix variables       : 20 (scalarized: 120)\nINFO:   Integer variables      : 0               \nINFO: \nINFO: Optimizer started.\nINFO: Presolve started.\nINFO: Linear dependency checker started.\nINFO: Linear dependency checker terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 47\nINFO: Eliminator terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 4\nINFO: Eliminator terminated.\nINFO: Eliminator - tries                  : 2                 time                   : 0.00            \nINFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            \nINFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               \nINFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               \nINFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               \nINFO: Presolve terminated. Time: 0.00    \nINFO: Optimizer  - threads                : 1               \nINFO: Optimizer  - solved problem         : the primal      \nINFO: Optimizer  - Constraints            : 89              \nINFO: Optimizer  - Cones                  : 1               \nINFO: Optimizer  - Scalar variables       : 86                conic                  : 14              \nINFO: Optimizer  - Semi-definite variables: 20                scalarized             : 120             \nINFO: Factor     - setup time             : 0.00            \nINFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            \nINFO: Factor     - nonzeros before factor : 1264              after factor           : 1309            \nINFO: Factor     - dense dim.             : 0                 flops                  : 3.46e+04        \nINFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  \nINFO: 0   2.9e+01  2.4e+02  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  \nINFO: 1   9.4e+00  7.9e+01  5.3e-01  -8.86e-01  2.467339914e+00   7.359562733e-01   3.3e-01  0.00  \nINFO: 2   3.3e+00  2.8e+01  2.5e-01  -7.25e-01  3.810643199e+00   -2.194136141e-01  1.2e-01  0.00  \nINFO: 3   9.3e-01  7.8e+00  7.4e-02  -3.60e-01  4.774467335e+00   -1.017752648e-01  3.2e-02  0.00  \nINFO: 4   3.5e-01  2.9e+00  5.3e-03  1.07e+00   6.576044365e-02   -2.503154947e-02  1.2e-02  0.00  \nINFO: 5   8.5e-02  7.1e-01  6.8e-04  1.27e+00   2.421112163e-02   -7.576030930e-03  2.9e-03  0.00  \nINFO: 6   2.2e-02  1.9e-01  9.1e-05  1.29e+00   5.773160675e-03   -3.244566501e-03  7.7e-04  0.00  \nINFO: 7   4.3e-03  3.6e-02  7.1e-06  1.23e+00   -2.016846626e-04  -1.718860596e-03  1.5e-04  0.00  \nINFO: 8   5.0e-04  4.2e-03  2.5e-07  1.41e+00   -1.412264722e-03  -1.544641095e-03  1.7e-05  0.00  \nINFO: 9   1.9e-04  1.6e-03  5.8e-08  1.06e+00   -2.986895589e-03  -3.041361657e-03  6.4e-06  0.00  \nINFO: 10  7.7e-05  6.4e-04  1.7e-08  9.47e-01   -6.049412342e-03  -6.076971380e-03  2.6e-06  0.00  \nINFO: 11  1.6e-05  1.3e-04  1.7e-09  9.89e-01   -6.952497618e-03  -6.959087640e-03  5.5e-07  0.00  \nINFO: 12  3.0e-06  2.5e-05  1.4e-10  9.99e-01   -7.116983790e-03  -7.118288621e-03  1.0e-07  0.00  \nINFO: 13  5.6e-07  4.7e-06  1.1e-11  1.00e+00   -7.149679002e-03  -7.149927614e-03  1.9e-08  0.00  \nINFO: 14  1.3e-07  1.1e-06  1.1e-12  9.94e-01   -7.155608401e-03  -7.155655393e-03  4.1e-09  0.00  \nINFO: 15  2.5e-08  2.1e-07  9.9e-14  1.00e+00   -7.156718726e-03  -7.156728460e-03  8.0e-10  0.00  \nINFO: 16  7.6e-09  6.4e-08  1.7e-14  1.00e+00   -7.156904217e-03  -7.156907314e-03  2.5e-10  0.00  \nINFO: 17  7.3e-10  3.7e-10  7.7e-18  1.00e+00   -7.156992971e-03  -7.156992990e-03  1.4e-12  0.00  \nINFO: 18  5.6e-10  2.9e-07  3.0e-18  1.00e+00   -7.156993215e-03  -7.156993225e-03  7.6e-13  0.00  \nINFO: Optimizer terminated. Time: 0.00    \nINFO: \nINFO: \nINFO: Interior-point solution summary\nINFO:   Problem status  : PRIMAL_AND_DUAL_FEASIBLE\nINFO:   Solution status : OPTIMAL\nINFO:   Primal.  obj: -7.1569932145e-03   nrm: 8e+00    Viol.  con: 2e-09    var: 7e-11    barvar: 0e+00  \nINFO:   Dual.    obj: -7.1569932248e-03   nrm: 5e+01    Viol.  con: 0e+00    var: 8e-10    barvar: 4e-14  \n-------------------------------------------------------------------------------\n                                    Summary                                    \n-------------------------------------------------------------------------------\nINFO: Problem status: optimal\nINFO: Optimal value: 7.157e-03\nINFO: Compilation took 2.086e-01 seconds\nINFO: Solver (including time spent in interface) took 5.288e-03 seconds\n",
+        "mosek_params": {
+          "MSK_DPAR_INTPNT_CO_TOL_DFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_PFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_REL_GAP": 1e-09,
+          "MSK_DPAR_OPTIMIZER_MAX_TIME": 4.921887185890228,
+          "MSK_IPAR_NUM_THREADS": 1
+        },
+        "objective": 0.0071569932248013906,
+        "objective_kind": "psd_margin",
+        "raw_status": "optimal",
+        "solver": "MOSEK",
+        "stats": {
+          "num_iters": 18,
+          "solve_time": 0.0041679153218865395
+        },
+        "status": "solved_unverified",
+        "values": {
+          "eta_L_while_1_0": 0.007156993681382395,
+          "eta_L_while_1_1": -8.02058622542116e-07,
+          "eta_L_while_1_2": 1.3228055936301085e-07,
+          "eta_L_while_1_3": 54.47778351305942,
+          "eta_L_while_1_4": -10.585744830526338,
+          "eta_L_while_1_5": 16.73536197220472,
+          "o0_s0_q_0_0": 0.007156993431968354,
+          "o0_s0_q_0_1": -4.0102930914589165e-07,
+          "o0_s0_q_0_2": 6.614027975052921e-08,
+          "o0_s0_q_1_1": 54.47778351305944,
+          "o0_s0_q_1_2": -5.29287241526318,
+          "o0_s0_q_2_2": 16.735361972204743,
+          "o0_s1_sos": 3.117668461305295e-11,
+          "o0_s2_sos": 3.117682266062981e-11,
+          "o0_s3_sos": 3.1174631589025005e-11,
+          "o0_s4_sos": 3.117888192168614e-11,
+          "o1_s0_q_0_0": 0.007156996249280613,
+          "o1_s0_q_0_1": -4.010301352649355e-07,
+          "o1_s0_q_0_2": 6.613420961741341e-08,
+          "o1_s0_q_1_1": 38.47778346611696,
+          "o1_s0_q_1_2": -5.292872415263186,
+          "o1_s0_q_2_2": 0.7353619252622718,
+          "o1_s1_sos": 5.2614065635320393e-11,
+          "o1_s2_sos": 4.0473937451291326e-11,
+          "o1_s3_sos": 4.5781195693885285e-11,
+          "o1_s4_sos": 4.413320793886233e-11,
+          "o1_s5_sos": 1.0000000029339031,
+          "o2_s0_q_0_0": 0.007156993254932871,
+          "o2_s0_q_0_1": 1.121926843988093e-08,
+          "o2_s0_q_0_2": -6.0919940994065184e-09,
+          "o2_s0_q_1_1": 7.784984870597467,
+          "o2_s0_q_1_2": -4.2444812978364475,
+          "o2_s0_q_2_2": 2.323436264568093,
+          "o2_s1_sos": 1.0067776277231663e-11,
+          "o2_s2_sos": 7.510290180581665e-12,
+          "o2_s3_sos": 9.387081784206248e-12,
+          "o2_s4_sos": 8.002575365218598e-12,
+          "o2_s5_sos": 1.8523823130212918e-11,
+          "o2_s6_sos": 0.021791561703212843,
+          "o2_s7_sos": 1.6071916898692134e-11,
+          "o2_s8_sos": 1.5557237381040098e-12,
+          "o3_s0_q_0_0": 0.030928128899760734,
+          "o3_s0_q_0_1": -0.08559637022402809,
+          "o3_s0_q_0_2": -0.0221614981514694,
+          "o3_s0_q_1_1": 8.002077448440595,
+          "o3_s0_q_1_2": -4.179584898595992,
+          "o3_s0_q_2_2": 2.407424624907369,
+          "o3_s1_sos": 0.0010600472825180575,
+          "o3_s2_sos": 0.0011694114679139187,
+          "o3_s3_sos": 1.3010426069826053e-18,
+          "o3_s4_sos": 0.0009199051729370023,
+          "o3_s5_sos": 0.0008963153295297024,
+          "o3_s6_sos": 0.0012614425205369204,
+          "o3_s7_sos": 0.01869924483307576,
+          "o3_s8_sos": 9.281750223354513e-05,
+          "o4_s0_q_0_0": 0.030345666961877103,
+          "o4_s0_q_0_1": 0.08443789279315234,
+          "o4_s0_q_0_2": 0.02121759945782372,
+          "o4_s0_q_1_1": 7.997588973468189,
+          "o4_s0_q_1_2": -4.182718672751189,
+          "o4_s0_q_2_2": 2.405286480551369,
+          "o4_s1_sos": 0.0009242436212815236,
+          "o4_s2_sos": 0.0008063772234855287,
+          "o4_s3_sos": 0.000876434470941473,
+          "o4_s4_sos": 0.0009282628208541496,
+          "o4_s5_sos": 0.0007921113280714376,
+          "o4_s6_sos": 0.0011339286965204177,
+          "o4_s7_sos": 0.018869439213885352,
+          "o4_s8_sos": 7.956696623221126e-05,
+          "o5_s0_q_0_0": 1.6563422307206903,
+          "o5_s0_q_0_1": -0.14544947411894474,
+          "o5_s0_q_0_2": 0.08308418082672653,
+          "o5_s0_q_1_1": 10.139630103791117,
+          "o5_s0_q_1_2": -1.191624226273901,
+          "o5_s0_q_2_2": 2.219574857942814,
+          "o5_s1_sos": 0.7947028357399208,
+          "o5_s2_sos": 0.760185225688792,
+          "o5_s3_sos": 0.6420994331349412,
+          "o5_s4_sos": -1.088210620250765e-15,
+          "o5_s5_sos": 0.42562472780536925,
+          "o5_s6_sos": 0.413081853909685,
+          "o5_s7_sos": 0.263101457402509,
+          "o5_s8_sos": 0.6091178245823035,
+          "o6_s0_q_0_0": 0.0704654251831114,
+          "o6_s0_q_0_1": 0.007492354236061683,
+          "o6_s0_q_0_2": -0.00138745016129788,
+          "o6_s0_q_1_1": 16.35220893586236,
+          "o6_s0_q_1_2": -2.24501571782103,
+          "o6_s0_q_2_2": 1.1167331736166555,
+          "o6_s1_sos": 0.019407235044198112,
+          "o6_s2_sos": 0.01946450787156237,
+          "o6_s3_sos": -0.0,
+          "o6_s4_sos": 0.019941425553327397,
+          "o6_s5_sos": 0.009443666396303927,
+          "o6_s6_sos": 0.3501038866825631,
+          "o6_s7_sos": 0.006493764481548065,
+          "o6_s8_sos": 0.00631675035540666,
+          "o7_s0_q_0_0": 0.26895333250179687,
+          "o7_s0_q_0_1": -0.8115783266739623,
+          "o7_s0_q_0_2": -0.44211586987357837,
+          "o7_s0_q_1_1": 18.00396684364732,
+          "o7_s0_q_1_2": -1.4540601548856729,
+          "o7_s0_q_2_2": 2.090842491126578,
+          "o7_s1_sos": 0.02617163640170936,
+          "o7_s2_sos": 0.030921180022124545,
+          "o7_s3_sos": -5.551115123125783e-17,
+          "o7_s4_sos": 0.02691706513793274,
+          "o7_s5_sos": 0.016046060970686553,
+          "o7_s6_sos": 0.049380640087219825,
+          "o7_s7_sos": 0.3562376996693193,
+          "o7_s8_sos": 0.0043928044755878765,
+          "o8_s0_q_0_0": 0.24793315340071975,
+          "o8_s0_q_0_1": 0.790308423412214,
+          "o8_s0_q_0_2": 0.42195764439047095,
+          "o8_s0_q_1_1": 17.913873172701372,
+          "o8_s0_q_1_2": -1.4975932065554642,
+          "o8_s0_q_2_2": 2.033398608932974,
+          "o8_s1_sos": 0.025697931151934306,
+          "o8_s2_sos": 0.021338397959204114,
+          "o8_s3_sos": 0.023496042458684308,
+          "o8_s4_sos": 0.025276315717519066,
+          "o8_s5_sos": 0.013905315396818725,
+          "o8_s6_sos": 0.04736505545707982,
+          "o8_s7_sos": 0.3562001880006036,
+          "o8_s8_sos": 0.0038642285773959895,
+          "o9_s0_q_0_0": 0.706225348179168,
+          "o9_s0_q_0_1": -0.0005282839017464964,
+          "o9_s0_q_0_2": -0.0007922391455404485,
+          "o9_s0_q_1_1": 22.967080837913937,
+          "o9_s0_q_1_2": 4.141849469297727,
+          "o9_s0_q_2_2": 2.772592349182126,
+          "o9_s1_sos": 0.20952226255866568,
+          "o9_s2_sos": 0.20908813476405144,
+          "o9_s3_sos": 0.20882290964006067,
+          "o9_s4_sos": 0.20977987861755001,
+          "o9_s5_sos": 0.06334087615047404,
+          "o9_s6_sos": 0.23121735179958858,
+          "o9_s7_sos": 0.231289252092562,
+          "o9_s8_sos": 0.7810568173093106
+        }
+      },
+      "stage": "margin",
+      "status": "proved",
+      "verification": {
+        "attempts": [
+          {
+            "denominator": 1000,
+            "equalities_exact": true,
+            "negative_coefficient_count": 0,
+            "negative_coefficients": [],
+            "nonpsd_blocks": [],
+            "nonpsd_count": 0
+          }
+        ],
+        "bound_exact": "1016184126831051275989504/4190339995200730462875",
+        "bound_numeric": 242.50636654660593,
+        "coverage": {
+          "round_contraction_0_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_1_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_2_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_3_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_4_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_5_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_6_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_7_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_nonnegative_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "nonnegative",
+              "round_survival"
+            ]
+          },
+          "round_normalization_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "normalization",
+              "round_survival"
+            ]
+          }
+        },
+        "exact_values": {
+          "eta_L_while_1_0": "56793300212130304/7992951910214267535",
+          "eta_L_while_1_1": "-646967296/280890173375",
+          "eta_L_while_1_2": "-12265984/12040384125",
+          "eta_L_while_1_3": "5036115201049088/92444081553789",
+          "eta_L_while_1_4": "-16098605056/1520737001",
+          "eta_L_while_1_5": "145750432520960/8709260804727",
+          "o0_s0_q_0_0": "56793300212130304/7992951910214267535",
+          "o0_s0_q_0_1": "-323483648/280890173375",
+          "o0_s0_q_0_2": "-6132992/12040384125",
+          "o0_s0_q_1_1": "5036115201049088/92444081553789",
+          "o0_s0_q_1_2": "-8049302528/1520737001",
+          "o0_s0_q_2_2": "145750432520960/8709260804727",
+          "o0_s1_sos": "0",
+          "o0_s2_sos": "0",
+          "o0_s3_sos": "0",
+          "o0_s4_sos": "0",
+          "o1_s0_q_0_0": "56793300212130304/7992951910214267535",
+          "o1_s0_q_0_1": "-323483648/280890173375",
+          "o1_s0_q_0_2": "-6132992/12040384125",
+          "o1_s0_q_1_1": "3557009896188464/92444081553789",
+          "o1_s0_q_1_2": "-8049302528/1520737001",
+          "o1_s0_q_2_2": "6402259645328/8709260804727",
+          "o1_s1_sos": "0",
+          "o1_s2_sos": "0",
+          "o1_s3_sos": "0",
+          "o1_s4_sos": "0",
+          "o1_s5_sos": "1",
+          "o2_s0_q_0_0": "4958346174577396527731347/689672974586105504254929900",
+          "o2_s0_q_0_1": "6381348731/21628543349875",
+          "o2_s0_q_0_2": "886409/19264614600",
+          "o2_s0_q_1_1": "671288792908769767/86228317594077092",
+          "o2_s0_q_1_2": "-1454000686167311/342564258319262",
+          "o2_s0_q_2_2": "3183645115317061/1370257033277048",
+          "o2_s1_sos": "0",
+          "o2_s2_sos": "0",
+          "o2_s3_sos": "0",
+          "o2_s4_sos": "0",
+          "o2_s5_sos": "0",
+          "o2_s6_sos": "9/413",
+          "o2_s7_sos": "0",
+          "o2_s8_sos": "0",
+          "o3_s0_q_0_0": "1440501189153368035576121642406659/45583034443004168019739394358543750",
+          "o3_s0_q_0_1": "-10388345722817091195281/121614811488087118950000",
+          "o3_s0_q_0_2": "-124283925608951770231/5597224187677924725000",
+          "o3_s0_q_1_1": "590474212140200102757439/73745073285920718874920",
+          "o3_s0_q_1_2": "-459305620068737027/109954417659678375",
+          "o3_s0_q_2_2": "219318371428498074361/90984890299956471000",
+          "o3_s1_sos": "1/943",
+          "o3_s2_sos": "1/855",
+          "o3_s3_sos": "0",
+          "o3_s4_sos": "1/1000",
+          "o3_s5_sos": "1/1000",
+          "o3_s6_sos": "1/793",
+          "o3_s7_sos": "17/909",
+          "o3_s8_sos": "0",
+          "o4_s0_q_0_0": "13181877462872830399117561/431032054649188607184262500",
+          "o4_s0_q_0_1": "2629762786508048209961/30403702872021779737500",
+          "o4_s0_q_0_2": "17839958997774579/798348907099975000",
+          "o4_s0_q_1_1": "390631705804653160199/48799381770614137320",
+          "o4_s0_q_1_2": "-80378911588721777/19232950943772125",
+          "o4_s0_q_2_2": "145092324091455281/60207498606591000",
+          "o4_s1_sos": "1/1000",
+          "o4_s2_sos": "1/1000",
+          "o4_s3_sos": "1/1000",
+          "o4_s4_sos": "1/1000",
+          "o4_s5_sos": "1/1000",
+          "o4_s6_sos": "1/882",
+          "o4_s7_sos": "1/53",
+          "o4_s8_sos": "0",
+          "o5_s0_q_0_0": "7722078531645901743546156012145922/4662050457381273057531403658309625",
+          "o5_s0_q_0_1": "-534855561466839629117/3684610218999159450000",
+          "o5_s0_q_0_2": "661632974754023271589/7958970905294102925000",
+          "o5_s0_q_1_1": "1616849560909919464650317/159457795962428568774246",
+          "o5_s0_q_1_2": "-9611181808904862701/8065791585604420150",
+          "o5_s0_q_2_2": "8034565811434265557061/3619927263619263763320",
+          "o5_s1_sos": "120/151",
+          "o5_s2_sos": "653/859",
+          "o5_s3_sos": "601/936",
+          "o5_s4_sos": "0",
+          "o5_s5_sos": "392/921",
+          "o5_s6_sos": "240/581",
+          "o5_s7_sos": "246/935",
+          "o5_s8_sos": "441/724",
+          "o6_s0_q_0_0": "5636948659316616626689135096631550371/80016584120566249865225238592976605500",
+          "o6_s0_q_0_1": "50679129033099871/7212037780015818750",
+          "o6_s0_q_0_2": "-890772910527197/557871933817275000",
+          "o6_s0_q_1_1": "11352685312495770577108739/694265318780400859213260",
+          "o6_s0_q_1_2": "-64907858505905125153/28911407321718494650",
+          "o6_s0_q_2_2": "61597098112883447543299/55162965169838887792200",
+          "o6_s1_sos": "19/979",
+          "o6_s2_sos": "8/411",
+          "o6_s3_sos": "0",
+          "o6_s4_sos": "7/351",
+          "o6_s5_sos": "9/953",
+          "o6_s6_sos": "167/477",
+          "o6_s7_sos": "1/154",
+          "o6_s8_sos": "3/475",
+          "o7_s0_q_0_0": "2026061044569288318730161504930522715389499/7533281623206995550923510417137206863512500",
+          "o7_s0_q_0_1": "-15815089786402260874040878547279/19475175340438860428646449371875",
+          "o7_s0_q_0_2": "-171473927733368564242662509/387654255668416554850725000",
+          "o7_s0_q_1_1": "24026789957133798029308249253/1334528850311875536002532540",
+          "o7_s0_q_1_2": "-3880559432872389940297/2668760934407844919650",
+          "o7_s0_q_2_2": "6334323793547622418090229/3029577412739785552786680",
+          "o7_s1_sos": "24/917",
+          "o7_s2_sos": "29/938",
+          "o7_s3_sos": "0",
+          "o7_s4_sos": "20/743",
+          "o7_s5_sos": "16/997",
+          "o7_s6_sos": "4/81",
+          "o7_s7_sos": "337/946",
+          "o7_s8_sos": "3/683",
+          "o8_s0_q_0_0": "21448666332633370883861124496715572179118580753/86523499651374545981951436125033823274950537500",
+          "o8_s0_q_0_1": "90995810205792462400552718023121/115208426059974815492074104762500",
+          "o8_s0_q_0_2": "11454088074097933551148253653/27158751044991988309081425000",
+          "o8_s0_q_1_1": "54015270004050487235656299807/3015319907304132424320645160",
+          "o8_s0_q_1_2": "-8453286023807586814967/5644146709229685519275",
+          "o8_s0_q_2_2": "6958920962666369242402263/3422610564476881298888360",
+          "o8_s1_sos": "23/895",
+          "o8_s2_sos": "15/703",
+          "o8_s3_sos": "16/681",
+          "o8_s4_sos": "16/633",
+          "o8_s5_sos": "12/863",
+          "o8_s6_sos": "44/929",
+          "o8_s7_sos": "135/379",
+          "o8_s8_sos": "3/776",
+          "o9_s0_q_0_0": "363/514",
+          "o9_s0_q_0_1": "-1/1000",
+          "o9_s0_q_0_2": "-1/1000",
+          "o9_s0_q_1_1": "20234/881",
+          "o9_s0_q_1_2": "4117/994",
+          "o9_s0_q_2_2": "1841/664",
+          "o9_s1_sos": "22/105",
+          "o9_s2_sos": "23/110",
+          "o9_s3_sos": "71/340",
+          "o9_s4_sos": "133/634",
+          "o9_s5_sos": "33/521",
+          "o9_s6_sos": "197/852",
+          "o9_s7_sos": "34/147",
+          "o9_s8_sos": "503/644"
+        },
+        "method": "rational_affine_reconstruction_exact_psd",
+        "recovered_zero_face": [
+          "o0_s1_sos",
+          "o0_s2_sos",
+          "o0_s3_sos",
+          "o0_s4_sos",
+          "o1_s1_sos",
+          "o1_s2_sos",
+          "o1_s3_sos",
+          "o1_s4_sos",
+          "o2_s1_sos",
+          "o2_s2_sos",
+          "o2_s3_sos",
+          "o2_s4_sos",
+          "o2_s5_sos",
+          "o2_s7_sos",
+          "o2_s8_sos",
+          "o3_s3_sos",
+          "o5_s4_sos",
+          "o6_s3_sos",
+          "o7_s3_sos"
+        ],
+        "repair_objective_cap": "24251675829668937/100000000000000",
+        "repair_stage": "margin_solve",
+        "status": "proved",
+        "zero_face_guess_threshold": 1e-08
+      }
+    }
+  ],
+  "elapsed_seconds": 0.3652283772826195,
+  "initial_gram": [
+    {
+      "eigenvalues": [
+        -1.4806146109512225e-11,
+        16.005962029874603,
+        53.88156839589742
+      ],
+      "id": "o0_s0"
+    },
+    {
+      "eigenvalues": [
+        -1.793068299987734e-11,
+        0.0022592960722572788,
+        37.87783971066456
+      ],
+      "id": "o1_s0"
+    },
+    {
+      "eigenvalues": [
+        -5.65128089761051e-11,
+        3.1285281142623876e-11,
+        10.286244952993197
+      ],
+      "id": "o2_s0"
+    },
+    {
+      "eigenvalues": [
+        0.0013244153198816394,
+        0.17673932772418796,
+        10.408424313283867
+      ],
+      "id": "o3_s0"
+    },
+    {
+      "eigenvalues": [
+        0.0011839698588784428,
+        0.16836308379572704,
+        10.407483390309068
+      ],
+      "id": "o4_s0"
+    },
+    {
+      "eigenvalues": [
+        39.04757503811107,
+        49.22134105481011,
+        339.42911162614826
+      ],
+      "id": "o5_s0"
+    },
+    {
+      "eigenvalues": [
+        0.03864038962590897,
+        0.6107824675236173,
+        15.97836052893267
+      ],
+      "id": "o6_s0"
+    },
+    {
+      "eigenvalues": [
+        0.04765334965470363,
+        4.772132012159516,
+        20.613081094763736
+      ],
+      "id": "o7_s0"
+    },
+    {
+      "eigenvalues": [
+        0.042108516713571284,
+        4.693601870447848,
+        20.474763957261167
+      ],
+      "id": "o8_s0"
+    },
+    {
+      "eigenvalues": [
+        18.922473003837755,
+        63.67811355632525,
+        823.5502885984988
+      ],
+      "id": "o9_s0"
+    }
+  ],
+  "initial_verification": {
+    "attempts": [
+      {
+        "denominator": 1000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o0_s0",
+          "o1_s0"
+        ],
+        "nonpsd_count": 2
+      },
+      {
+        "denominator": 1000000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o0_s0",
+          "o1_s0",
+          "o2_s0"
+        ],
+        "nonpsd_count": 3
+      },
+      {
+        "denominator": 1000000000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o0_s0",
+          "o1_s0",
+          "o2_s0"
+        ],
+        "nonpsd_count": 3
+      }
+    ],
+    "method": "rational_affine_reconstruction_exact_psd",
+    "reason": "No exactly feasible rational reconstruction found",
+    "status": "solved_unverified"
+  },
+  "max_solves": 2,
+  "objective_cap": "24251675829668937/100000000000000",
+  "solver_calls": 1,
+  "status": "proved"
+}

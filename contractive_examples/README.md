@@ -1,5 +1,18 @@
 # Contractive tail-bound examples：Kelly、RCD、Q-learning
 
+## 当前自动实验 benchmark（2026-11-11）
+
+当前目录包含 **25 个 `.pp` 样例**：Kelly、RCD、Q-learning 各 6 个，随机仿射/切换系统 7 个。统一编号及文件路径见 [benchmark_index.json](benchmark_index.json)。下文的“15 个新增例子”和证书总表描述最初附带人工证书的子集，不是当前自动实验的总数。论文 Table 1 暂不显示 Q6，展示其余 24 例。
+
+- **K6**：[kelly/K6_two_sided_exit.pp](kelly/K6_two_sided_exit.pp)，原 `kelly_double_bound.pp`，仅改文件名。
+- **S6**：[stochastic_affine_examples/reference/S6_shared_noise_reference.pp](stochastic_affine_examples/reference/S6_shared_noise_reference.pp)，原 `reference/original.pp`，仅改文件名。
+- **Q6**：[qlearning/Q6_two_action_noisy_reference.pp](qlearning/Q6_two_action_noisy_reference.pp)，与项目根目录 `qlearning.pp` 逐字节相同。
+- **R6**：[rcd/rcd_06_equality_reference.pp](rcd/rcd_06_equality_reference.pp)，与项目根目录 `RCD_example.pp` 逐字节相同。
+- **S7**：[stochastic_affine_examples/positive/S7_memory_switched_contraction.pp](stochastic_affine_examples/positive/S7_memory_switched_contraction.pp)，与 `examples/cauchy_notes.pp` 逐字节相同，后者保留用于已有测试。S7 是带一轮记忆的随机切换线性系统；原数值变量编码含乘积项。其 Contractive 实验保留一次基函数与 Cauchy 搜索配置，详见论文实验记录。
+
+当前论文对比 Contractive、pRSM、ExpLinSyn 在 n=10、50、100 下的尾界；自动合成、独立验证和失败状态保存在 `../generated/paper_tailbounds_20261110/` 及各比较工具目录。完整汇总见项目的 `paper/contractive-function/experiments/tailbounds_20261110/`。原文件和历史实验目录保留；旧运行 ID 通过汇总脚本映射到 K6/S6，不代表额外样例。
+
+
 本包新增 **15 个例子，每类 5 个**，其中 **8 个正幂模式、7 个倒数模式**。每个例子都有独立的 `.pp` 输入、显式证书、完整参数和证明。统一采用用户提供的《Tail Bounds via Contractive Potentials and Markov's Inequality》中的定义及矩证书；各例子的推导见家族目录的 README。
 
 全部证书已经用精确有理数代数检查。另有独立的 `.pp` 解释器核对实际源程序的分支概率、顺序赋值、位置注解和证书矩条件。原始解析器和 SOS/SDP 合成器没有随附件提供，因此这里交付的是**存在且已验证的低次证书**，不是该原始工具的自动合成实验结果。

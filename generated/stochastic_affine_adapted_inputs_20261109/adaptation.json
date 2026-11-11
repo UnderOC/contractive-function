@@ -1,0 +1,18 @@
+[
+  {
+    "source": "contractive_examples/stochastic_affine_examples/reciprocal/S4_diagonal_small_noise.pp",
+    "source_sha256": "e7d3b39c55e98a657fff9a32e7b2370c240cd69a780666b26f258b230c9102c5",
+    "adapted": "generated/stochastic_affine_adapted_inputs_20261109/S4_diagonal_small_noise.pp",
+    "adapted_sha256": "f8998f6febc5c40dd0231e58d29f6d282c683f6b3b536dcf9d55f31e0fe984dc",
+    "change": "Only insert z := 0; nx := 0; before the loop invariant.",
+    "reason": "Both temporaries are overwritten on every iteration before use; guard, dynamics, probabilities, and x/y initial values are unchanged."
+  },
+  {
+    "source": "contractive_examples/stochastic_affine_examples/reciprocal/S5_coupled_rare_shock.pp",
+    "source_sha256": "b34150d4a391eb9682461b796812e6dcb03b4bbed042bdf0d59d4dff79f5e9b7",
+    "adapted": "generated/stochastic_affine_adapted_inputs_20261109/S5_coupled_rare_shock.pp",
+    "adapted_sha256": "8b227a1a2234f1b30959bbc724c541cdb82b120616476cf1367e0a2563cf09f7",
+    "change": "Only insert z := 0; nx := 0; before the loop invariant.",
+    "reason": "Both temporaries are overwritten on every iteration before use; guard, dynamics, probabilities, and x/y initial values are unchanged."
+  }
+]

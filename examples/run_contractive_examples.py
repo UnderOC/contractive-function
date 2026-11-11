@@ -1,4 +1,4 @@
-"""Run the 15 packaged programs under the previous Kelly workflow settings.
+"""Run packaged programs or a selected source directory under Kelly settings.
 
 Runs sequentially so timings do not include contention between benchmark jobs.
 Existing human witnesses are never loaded into synthesis. Each successful
@@ -35,25 +35,35 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out-dir',type=Path,required=True)
     parser.add_argument('--cases',nargs='+',help='Optional exact source stems; default: all packaged examples')
+    parser.add_argument('--source-root',type=Path,
+                        help='Recursively select .pp files from this directory instead of the default suite')
+    parser.add_argument('--tail-variables',nargs='+',help='Optional state variables for tail templates')
+    parser.add_argument('--workflow-config',type=Path,help='Optional workflow settings; default: Kelly comparison')
     args=parser.parse_args()
     root=args.out_dir.resolve()
     if root.exists() and any(root.iterdir()):
         parser.error('Use a new or empty output directory')
     root.mkdir(parents=True,exist_ok=True)
-    config=json.loads((PROJECT/'examples/tailbound_comparison.json').read_text())
+    config=json.loads((args.workflow_config or PROJECT/'examples/tailbound_comparison.json').read_text())
     write(root/'workflow.json',config)
     rows=[]
-    sources=sorted((PROJECT/'contractive_examples').glob('*/*.pp'))
+    sources=(sorted(args.source_root.resolve().rglob('*.pp')) if args.source_root else
+             sorted((PROJECT/'contractive_examples').glob('*/*.pp')))
     if args.cases:
         unknown=set(args.cases)-{s.stem for s in sources}
         if unknown:
             parser.error(f'Unknown examples: {sorted(unknown)}')
         sources=[s for s in sources if s.stem in args.cases]
+    if not sources or len({s.stem for s in sources}) != len(sources):
+        parser.error('Select at least one source with unique source stems')
     write(root/'protocol.json',{'sources':[str(s.relative_to(PROJECT)) for s in sources],
-        'positive_seconds':180,'reciprocal_seconds':120,'feedback_seconds':90,'feedback_points':24,
+        'source_root':str(args.source_root.resolve()) if args.source_root else None,
+        'positive_seconds':180,'reciprocal_seconds':120,
+        'feedback_seconds':config.get('reciprocal',{}).get('feedback_seconds',60),
+        'feedback_points':config.get('reciprocal',{}).get('feedback_points',12),
         'initial_degree':2,'max_degree':4,'max_c_steps':12,'per_attempt_seconds':10,'repair_seconds':5,
         'comparison_ns':NS,'sequential':True,'external_solve_timeout':600,'external_verify_timeout':180,
-        'variables':'all source variables; no extra round counter in these examples',
+        'variables':args.tail_variables or 'all source variables',
         'input_witnesses_used':False,'workflow_config':config})
     for source in sources:
         name=source.stem
@@ -63,6 +73,8 @@ def main():
             '--total-seconds','180','--reciprocal-seconds','120','--per-attempt-seconds','10',
             '--repair-seconds','5','--comparison-n',*map(str,NS),
             '--workflow-config',str(root/'workflow.json'),'--out-dir',str(case/'run')]
+        if args.tail_variables:
+            command += ['--tail-variables',*args.tail_variables]
         print(json.dumps({'event':'start','case':name}),flush=True)
         row={'name':name,'family':source.parent.name,'source':str(source.relative_to(PROJECT)),
             'source_sha256':sha256(source.read_bytes()).hexdigest(),'command':command}

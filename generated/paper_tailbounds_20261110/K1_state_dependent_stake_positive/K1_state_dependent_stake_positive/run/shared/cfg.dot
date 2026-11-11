@@ -1,0 +1,25 @@
+digraph pcfg {
+  rankdir=LR;
+  node [shape=box, fontname="monospace"];
+  "l_t" [shape=doublecircle, label="l_t\\nterminal\\nI: true"];
+  "l_f" [shape=doublecircle, label="l_f\\nterminal\\nI: true"];
+  "L_refute_1" [shape=box, label="L_refute_1\\nrefute\\nI: 0.46875 <= wealth and wealth <= 2.5"];
+  "L_while_1" [shape=box, label="L_while_1\\nwhile\\nI: 0.46875 <= wealth and wealth <= 2.5"];
+  "L_assign_1" [shape=box, label="L_assign_1\\nassign\\nI: 0.5 <= wealth and wealth <= 2"];
+  "L_assign_2" [shape=box, label="L_assign_2\\nassign\\nI: 0.5 <= wealth and wealth <= 2"];
+  "L_probabilistic_1" [shape=box, label="L_probabilistic_1\\nprobabilistic\\nI: 0.5 <= wealth and wealth <= 2"];
+  "L_assign_3" [shape=box, label="L_assign_3\\nassign\\nI: true"];
+  start [shape=point, label=""];
+  start -> "L_assign_3";
+  "l_t" -> "l_t" [label="T_absorb_normal.1\\ng: true\\np: 1\\nid"];
+  "l_f" -> "l_f" [label="T_absorb_failure.1\\ng: true\\np: 1\\nid"];
+  "L_refute_1" -> "l_t" [label="T_1.1\\ng: false\\np: 1\\nid"];
+  "L_refute_1" -> "l_f" [label="T_2.1\\ng: true\\np: 1\\nid"];
+  "L_assign_1" -> "L_while_1" [label="T_3.1\\ng: true\\np: 1\\nwealth:=wealth + 0.125 * wealth * wealth"];
+  "L_assign_2" -> "L_while_1" [label="T_4.1\\ng: true\\np: 1\\nwealth:=wealth - 0.125 * wealth * wealth"];
+  "L_probabilistic_1" -> "L_assign_1" [label="T_5.1\\ng: true\\np: 0.4\\nid"];
+  "L_probabilistic_1" -> "L_assign_2" [label="T_5.2\\ng: true\\np: 1 - 0.4\\nid"];
+  "L_while_1" -> "L_probabilistic_1" [label="T_6.1\\ng: wealth >= 0.5 and wealth < 2\\np: 1\\nid"];
+  "L_while_1" -> "L_refute_1" [label="T_7.1\\ng: not (wealth >= 0.5 and wealth < 2)\\np: 1\\nid"];
+  "L_assign_3" -> "L_while_1" [label="T_8.1\\ng: true\\np: 1\\nwealth:=1"];
+}

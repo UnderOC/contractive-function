@@ -1,0 +1,493 @@
+{
+  "name": "kelly_double_bound",
+  "family": "kelly",
+  "source": "contractive_examples/kelly/K6_two_sided_exit.pp",
+  "source_sha256": "25f4f0a7c67d672ebaa8d98b2bc5a2383cfa8a82c431a1b77b88accd84785d48",
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/kelly/kelly_double_bound.pp",
+    "--goal",
+    "tailbound",
+    "--initial-degree",
+    "2",
+    "--max-degree",
+    "4",
+    "--max-c-steps",
+    "12",
+    "--total-seconds",
+    "180",
+    "--reciprocal-seconds",
+    "120",
+    "--per-attempt-seconds",
+    "10",
+    "--repair-seconds",
+    "5",
+    "--comparison-n",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000",
+    "--workflow-config",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/kelly_double_bound/workflow.json",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/kelly_double_bound/kelly_double_bound/run",
+    "--tail-variables",
+    "wealth"
+  ],
+  "returncode": 0,
+  "wall_seconds": 200.31919570174068,
+  "summary_status": "proved",
+  "status": "proved",
+  "diagnostic": null,
+  "stop_reason": "first_successful_degree",
+  "elapsed_seconds": 199.65006178617477,
+  "degrees_attempted": [
+    2
+  ],
+  "workflow_present": true,
+  "stages": [
+    {
+      "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+      "budget_seconds": 90.0,
+      "elapsed_seconds": 3.3576751071959734,
+      "stage": "direct_polynomial",
+      "status": "proved",
+      "stop_reason": "first_successful_degree"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 2.450944566167891,
+      "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+      "seed": "direct:0",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_001/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 3.564501853659749,
+      "eta": "45720*wealth**2/31963 - 245575*wealth/31963 + 340233/31963",
+      "seed": "direct:1",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_002/result.json",
+      "candidates": 0,
+      "elapsed_seconds": 2.3758272887207568,
+      "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+      "seed": "direct:2",
+      "stage": "cauchy_fixed",
+      "status": "no_certificate_found"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+      "candidates": 0,
+      "degree": 2,
+      "elapsed_seconds": 168.22663358598948,
+      "seed_eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+      "stage": "cauchy_joint",
+      "status": "no_certificate_found",
+      "t_values": [
+        "23371409/25000000",
+        "771256497/800000000",
+        "724513679/800000000",
+        "92932389/100000000",
+        "3066768837/3200000000",
+        "2880904059/3200000000",
+        "50545703/50000000",
+        "1668008199/1600000000",
+        "1566916793/1600000000",
+        "81973175707/1000000000000",
+        "81973175707/500000000000",
+        "245919527121/1000000000000",
+        "81973175707/250000000000",
+        "81973175707/200000000000",
+        "245919527121/500000000000",
+        "573812229949/1000000000000",
+        "81973175707/125000000000"
+      ],
+      "template": "__workflow_eta_0 + __workflow_eta_1*wealth + __workflow_eta_2*wealth**2"
+    },
+    {
+      "degree": 2,
+      "reason": "time_budget",
+      "seed_eta": "45720*wealth**2/31963 - 245575*wealth/31963 + 340233/31963",
+      "stage": "cauchy_joint",
+      "status": "skipped"
+    },
+    {
+      "candidates": 18,
+      "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+      "stage": "positive_jensen",
+      "status": "proved"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+      "budget_policy": "independent additional soft budget; not consumed by positive searches",
+      "budget_seconds": 120.0,
+      "candidates": 61,
+      "elapsed_seconds": 17.89309711707756,
+      "stage": "reciprocal",
+      "status": "proved"
+    }
+  ],
+  "candidate_counts": {
+    "direct_polynomial": 3,
+    "positive_jensen": 18,
+    "reciprocal": 61
+  },
+  "comparisons": [
+    {
+      "n": 5,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1",
+        "prefactor_upper": "9514/3987",
+        "decay_upper": "63/64",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1/4",
+        "prefactor_upper": "1242880080989/1000000000000",
+        "decay_upper": "996070650933/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:6",
+        "method": "reciprocal",
+        "eta": "50*wealth/57 + 7/57",
+        "k": "1/256",
+        "prefactor_upper": "62653943567/62500000000",
+        "decay_upper": "366644012775390347/366656000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "overall": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:6",
+        "method": "reciprocal",
+        "eta": "50*wealth/57 + 7/57",
+        "k": "1/256",
+        "prefactor_upper": "62653943567/62500000000",
+        "decay_upper": "366644012775390347/366656000000000000",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 10,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1",
+        "prefactor_upper": "9514/3987",
+        "decay_upper": "63/64",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1/4",
+        "prefactor_upper": "1242880080989/1000000000000",
+        "decay_upper": "996070650933/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:53",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "1/256",
+        "prefactor_upper": "250677702447/250000000000",
+        "decay_upper": "2047353236539078861899960711/2047513441160000000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "overall": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:53",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "1/256",
+        "prefactor_upper": "250677702447/250000000000",
+        "decay_upper": "2047353236539078861899960711/2047513441160000000000000000",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 20,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1",
+        "prefactor_upper": "9514/3987",
+        "decay_upper": "63/64",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1/4",
+        "prefactor_upper": "1242880080989/1000000000000",
+        "decay_upper": "996070650933/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:53",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "1/256",
+        "prefactor_upper": "250677702447/250000000000",
+        "decay_upper": "2047353236539078861899960711/2047513441160000000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "overall": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:53",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "1/256",
+        "prefactor_upper": "250677702447/250000000000",
+        "decay_upper": "2047353236539078861899960711/2047513441160000000000000000",
+        "upper_bound_numeric": 1.0
+      }
+    },
+    {
+      "n": 50,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1",
+        "prefactor_upper": "9514/3987",
+        "decay_upper": "63/64",
+        "upper_bound_numeric": 1.0
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:1/4",
+        "method": "positive_jensen",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1/4",
+        "prefactor_upper": "1242880080989/1000000000000",
+        "decay_upper": "996070650933/1000000000000",
+        "upper_bound_numeric": 1.0
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:47",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "1/8",
+        "prefactor_upper": "218098308151/200000000000",
+        "decay_upper": "20430054177291460973837398973/20475134411600000000000000000",
+        "upper_bound_numeric": 0.9766976563109642
+      },
+      "overall": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:47",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "1/8",
+        "prefactor_upper": "218098308151/200000000000",
+        "decay_upper": "20430054177291460973837398973/20475134411600000000000000000",
+        "upper_bound_numeric": 0.9766976563109642
+      }
+    },
+    {
+      "n": 100,
+      "integer": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1",
+        "prefactor_upper": "9514/3987",
+        "decay_upper": "63/64",
+        "upper_bound_numeric": 0.4940540438840381
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:0:7/8",
+        "method": "positive_jensen",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "7/8",
+        "prefactor_upper": "267554531253/125000000000",
+        "decay_upper": "986314694673/1000000000000",
+        "upper_bound_numeric": 0.5395760333229721
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:56",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "21/64",
+        "prefactor_upper": "1255331827737/1000000000000",
+        "decay_upper": "5015774413476967895289789/5038172837500000000000000",
+        "upper_bound_numeric": 0.8039923089011128
+      },
+      "overall": {
+        "id": "direct:0",
+        "method": "direct_polynomial",
+        "eta": "712*wealth**2/1329 - 11935*wealth/3987 + 19313/3987",
+        "k": "1",
+        "prefactor_upper": "9514/3987",
+        "decay_upper": "63/64",
+        "upper_bound_numeric": 0.4940540438840381
+      }
+    },
+    {
+      "n": 200,
+      "integer": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "45720*wealth**2/31963 - 245575*wealth/31963 + 340233/31963",
+        "k": "1",
+        "prefactor_upper": "140378/31963",
+        "decay_upper": "251/256",
+        "upper_bound_numeric": 0.08499683408658483
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:1:7/8",
+        "method": "positive_jensen",
+        "eta": "45720*wealth**2/31963 - 245575*wealth/31963 + 340233/31963",
+        "k": "7/8",
+        "prefactor_upper": "14600914831/4000000000",
+        "decay_upper": "39315565609/40000000000",
+        "upper_bound_numeric": 0.11567177661977184
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:58",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "61/128",
+        "prefactor_upper": "347836402853/250000000000",
+        "decay_upper": "4074402690618176907219875821/4095026882320000000000000000",
+        "upper_bound_numeric": 0.5068431693311635
+      },
+      "overall": {
+        "id": "direct:1",
+        "method": "direct_polynomial",
+        "eta": "45720*wealth**2/31963 - 245575*wealth/31963 + 340233/31963",
+        "k": "1",
+        "prefactor_upper": "140378/31963",
+        "decay_upper": "251/256",
+        "upper_bound_numeric": 0.08499683408658483
+      }
+    },
+    {
+      "n": 500,
+      "integer": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+        "k": "1",
+        "prefactor_upper": "732638/128489",
+        "decay_upper": "1003/1024",
+        "upper_bound_numeric": 0.0001805143291868201
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:2:7/8",
+        "method": "positive_jensen",
+        "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+        "k": "7/8",
+        "prefactor_upper": "573364193813/125000000000",
+        "decay_upper": "982032485289/1000000000000",
+        "upper_bound_numeric": 0.0005302097646156165
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:58",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "61/128",
+        "prefactor_upper": "347836402853/250000000000",
+        "decay_upper": "4074402690618176907219875821/4095026882320000000000000000",
+        "upper_bound_numeric": 0.11143752580120744
+      },
+      "overall": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+        "k": "1",
+        "prefactor_upper": "732638/128489",
+        "decay_upper": "1003/1024",
+        "upper_bound_numeric": 0.0001805143291868201
+      }
+    },
+    {
+      "n": 1000,
+      "integer": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+        "k": "1",
+        "prefactor_upper": "732638/128489",
+        "decay_upper": "1003/1024",
+        "upper_bound_numeric": 5.71478468385981e-09
+      },
+      "noninteger": {
+        "id": "positive_jensen:direct:2:7/8",
+        "method": "positive_jensen",
+        "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+        "k": "7/8",
+        "prefactor_upper": "573364193813/125000000000",
+        "decay_upper": "982032485289/1000000000000",
+        "upper_bound_numeric": 6.128792082049559e-08
+      },
+      "cauchy_integer": null,
+      "reciprocal": {
+        "id": "reciprocal:analyses/tailbound/workflow/reciprocal/result.json:60",
+        "method": "reciprocal",
+        "eta": "79962*wealth/79981 + 19/79981",
+        "k": "31/64",
+        "prefactor_upper": "1398899182303/1000000000000",
+        "decay_upper": "509297038863170948844049221/511878360290000000000000000",
+        "upper_bound_numeric": 0.008915946329112715
+      },
+      "overall": {
+        "id": "direct:2",
+        "method": "direct_polynomial",
+        "eta": "260232*wealth**2/128489 - 1384845*wealth/128489 + 1857251/128489",
+        "k": "1",
+        "prefactor_upper": "732638/128489",
+        "decay_upper": "1003/1024",
+        "upper_bound_numeric": 5.71478468385981e-09
+      }
+    }
+  ],
+  "reciprocal_search": {
+    "stop_reason": null,
+    "feedback_stop_reason": "point_budget",
+    "elapsed_seconds": 16.29190778825432,
+    "attempts": 31,
+    "feedback_iterations": 24,
+    "improved_iterations": [
+      0,
+      15,
+      21
+    ]
+  },
+  "verification_process": {
+    "returncode": 0,
+    "wall_seconds": 3.919681082945317
+  },
+  "verification": {
+    "comparisons_checked": 8,
+    "direct_certificates": 3,
+    "method": "source_replay_positive_and_reciprocal_exact_comparison",
+    "portfolio_candidates": 82,
+    "status": "proved"
+  }
+}

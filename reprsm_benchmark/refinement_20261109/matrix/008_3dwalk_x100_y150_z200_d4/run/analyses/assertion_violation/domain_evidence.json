@@ -1,0 +1,2044 @@
+{
+  "domains": {
+    "L_assert_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_assign_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x + 1",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_assign_2": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_assign_3": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_assign_4": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x - 1/10",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_assign_5": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_assign_6": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_probabilistic_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_probabilistic_2": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_probabilistic_3": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x",
+          "1000*y",
+          "1000*z"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "L_while_1": [
+      {
+        "equalities": [],
+        "generators": [
+          "1000*x + 1",
+          "1000*y + 1",
+          "1000*z + 1"
+        ],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "l_f": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "l_t": [
+      {
+        "equalities": [],
+        "generators": [],
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ]
+  },
+  "initial": {
+    "x": "1/10",
+    "y": "3/20",
+    "z": "1/5"
+  },
+  "initial_location": "L_while_1",
+  "initial_random_symbols": [],
+  "initial_support": [
+    {
+      "equalities": [],
+      "generators": [],
+      "variables": []
+    }
+  ],
+  "initialization_steps": 3,
+  "initialization_trace": [
+    {
+      "destination": "L_assign_8",
+      "location": "L_assign_9",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_16",
+      "values": {
+        "x": "1/10"
+      }
+    },
+    {
+      "destination": "L_assign_7",
+      "location": "L_assign_8",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_15",
+      "values": {
+        "x": "1/10",
+        "y": "3/20"
+      }
+    },
+    {
+      "destination": "L_while_1",
+      "location": "L_assign_7",
+      "samples": [],
+      "support_regions": 1,
+      "transition": "T_14",
+      "values": {
+        "x": "1/10",
+        "y": "3/20",
+        "z": "1/5"
+      }
+    }
+  ],
+  "locations": [
+    "L_assert_1",
+    "L_assign_1",
+    "L_assign_2",
+    "L_assign_3",
+    "L_assign_4",
+    "L_assign_5",
+    "L_assign_6",
+    "L_probabilistic_1",
+    "L_probabilistic_2",
+    "L_probabilistic_3",
+    "L_while_1",
+    "l_f",
+    "l_t"
+  ],
+  "method": "exact_initialization_and_inductive_domain_certificates",
+  "proofs": [
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_9",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_16"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_8",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_15"
+    },
+    {
+      "kind": "initialization_invariant",
+      "location": "L_assign_7",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "kind": "initialization_guard",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ],
+      "transition": "T_14"
+    },
+    {
+      "kind": "initial_control_invariant",
+      "location": "L_while_1",
+      "proofs": [
+        {
+          "method": "exact_evaluation"
+        }
+      ]
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_10"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z",
+                  "-1000*x - 1000*y - 1000*z + 1000"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z",
+                  "-1000*x - 1000*y - 1000*z + 1000"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z",
+                  "-1000*x - 1000*y - 1000*z + 1000"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z",
+              "-1000*x - 1000*y - 1000*z + 1000"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_10"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_11"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z",
+              "1000*x + 1000*y + 1000*z - 1000"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_11"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_1"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x + 1",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x + 1",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x + 1",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x + 1",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_1"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_2"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_3"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x - 1/10",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "11/10",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y + 11/10",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x - 1/10",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "11/10",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x - 1/10",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x - 1/10",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_5"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_6"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y + 1",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "1",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z + 11/10",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "11/10",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_7"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_4"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/2"
+      },
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_8"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "9/10"
+      },
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 1,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1/10"
+      },
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 1,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_9"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_12"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [
+            {
+              "conclusion": "1000*x",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x + 1",
+                  "1000*y + 1",
+                  "1000*z + 1",
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*y",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x + 1",
+                  "1000*y + 1",
+                  "1000*z + 1",
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "1",
+                "0"
+              ]
+            },
+            {
+              "conclusion": "1000*z",
+              "domain": {
+                "equalities": [],
+                "generators": [
+                  "1000*x + 1",
+                  "1000*y + 1",
+                  "1000*z + 1",
+                  "1000*x",
+                  "1000*y",
+                  "1000*z"
+                ],
+                "variables": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "equality_weights": [],
+              "method": "exact_farkas_identity",
+              "nonnegative_weights": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x + 1",
+              "1000*y + 1",
+              "1000*z + 1",
+              "1000*x",
+              "1000*y",
+              "1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_12"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 0,
+      "transition": "T_13"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x + 1",
+              "1000*y + 1",
+              "1000*z + 1",
+              "-1000*x"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 0,
+      "transition": "T_13"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 1,
+      "transition": "T_13"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x + 1",
+              "1000*y + 1",
+              "1000*z + 1",
+              "-1000*y"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 1,
+      "transition": "T_13"
+    },
+    {
+      "branch": 0,
+      "kind": "probability",
+      "proof": {
+        "method": "constant",
+        "value": "1"
+      },
+      "region": 2,
+      "transition": "T_13"
+    },
+    {
+      "branch": 0,
+      "kind": "invariant_preservation",
+      "proofs": [
+        {
+          "proofs": [],
+          "support_domain": {
+            "equalities": [],
+            "generators": [
+              "1000*x + 1",
+              "1000*y + 1",
+              "1000*z + 1",
+              "-1000*z"
+            ],
+            "variables": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "support_region": 0,
+          "target_region": 0
+        }
+      ],
+      "random_samples": [],
+      "region": 2,
+      "transition": "T_13"
+    }
+  ],
+  "status": "proved",
+  "strict_invariant_policy": "inductive_closed_overapproximation"
+}

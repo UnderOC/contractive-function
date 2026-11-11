@@ -1,0 +1,27 @@
+digraph pcfg {
+  rankdir=LR;
+  node [shape=box, fontname="monospace"];
+  "l_t" [shape=doublecircle, label="l_t\\nterminal\\nI: true"];
+  "l_f" [shape=doublecircle, label="l_f\\nterminal\\nI: true"];
+  "L_refute_1" [shape=box, label="L_refute_1\\nrefute\\nI: (x + 0.5 * y) * (y + 0.5 * x) = 0"];
+  "L_while_1" [shape=box, label="L_while_1\\nwhile\\nI: (x + 0.5 * y) * (y + 0.5 * x) = 0"];
+  "L_assign_1" [shape=box, label="L_assign_1\\nassign\\nI: (x + 0.5 * y) * (y + 0.5 * x) = 0"];
+  "L_assign_2" [shape=box, label="L_assign_2\\nassign\\nI: (x + 0.5 * y) * (y + 0.5 * x) = 0"];
+  "L_probabilistic_1" [shape=box, label="L_probabilistic_1\\nprobabilistic\\nI: (x + 0.5 * y) * (y + 0.5 * x) = 0"];
+  "L_assign_3" [shape=box, label="L_assign_3\\nassign\\nI: true"];
+  "L_assign_4" [shape=box, label="L_assign_4\\nassign\\nI: true"];
+  start [shape=point, label=""];
+  start -> "L_assign_4";
+  "l_t" -> "l_t" [label="T_absorb_normal.1\\ng: true\\np: 1\\nid"];
+  "l_f" -> "l_f" [label="T_absorb_failure.1\\ng: true\\np: 1\\nid"];
+  "L_refute_1" -> "l_t" [label="T_1.1\\ng: false\\np: 1\\nid"];
+  "L_refute_1" -> "l_f" [label="T_2.1\\ng: true\\np: 1\\nid"];
+  "L_assign_1" -> "L_while_1" [label="T_3.1\\ng: true\\np: 1\\nx:=-0.5 * y"];
+  "L_assign_2" -> "L_while_1" [label="T_4.1\\ng: true\\np: 1\\ny:=-0.5 * x"];
+  "L_probabilistic_1" -> "L_assign_1" [label="T_5.1\\ng: true\\np: 0.5\\nid"];
+  "L_probabilistic_1" -> "L_assign_2" [label="T_5.2\\ng: true\\np: 1 - 0.5\\nid"];
+  "L_while_1" -> "L_probabilistic_1" [label="T_6.1\\ng: 4096 * (x * x + x * y + y * y) > 3\\np: 1\\nid"];
+  "L_while_1" -> "L_refute_1" [label="T_7.1\\ng: not 4096 * (x * x + x * y + y * y) > 3\\np: 1\\nid"];
+  "L_assign_3" -> "L_while_1" [label="T_8.1\\ng: true\\np: 1\\ny:=1"];
+  "L_assign_4" -> "L_assign_3" [label="T_9.1\\ng: true\\np: 1\\nx:=-0.5"];
+}

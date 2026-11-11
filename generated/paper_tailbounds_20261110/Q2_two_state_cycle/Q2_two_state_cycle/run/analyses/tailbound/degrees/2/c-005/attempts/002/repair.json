@@ -1,0 +1,436 @@
+{
+  "attempts": [
+    {
+      "gram": [
+        {
+          "eigenvalues": [
+            0.015532356197491392,
+            60.97850871685379,
+            333.5658968318612
+          ],
+          "id": "o0_s0"
+        },
+        {
+          "eigenvalues": [
+            0.003945606456836311,
+            0.0039623122370200225,
+            204.74224591421554
+          ],
+          "id": "o1_s0"
+        },
+        {
+          "eigenvalues": [
+            0.003945536566496729,
+            0.0039496585511876355,
+            0.033574458908823775
+          ],
+          "id": "o2_s0"
+        },
+        {
+          "eigenvalues": [
+            0.02058805461410449,
+            1.664435314942912,
+            158.53781620441822
+          ],
+          "id": "o3_s0"
+        },
+        {
+          "eigenvalues": [
+            0.020885798055374237,
+            2.287249360155959,
+            113.39364724661897
+          ],
+          "id": "o4_s0"
+        },
+        {
+          "eigenvalues": [
+            0.08616083169896974,
+            5.458757472266858,
+            178.8777473057005
+          ],
+          "id": "o5_s0"
+        }
+      ],
+      "original_objective_numeric": 116.89351549208979,
+      "solver": {
+        "elapsed_seconds": 0.1102826981805265,
+        "log": "===============================================================================\n                                     CVXPY                                     \n                                     v1.9.3                                    \n===============================================================================\nINFO: Your problem has 80 variables, 184 constraints, and 0 parameters.\nINFO: It is compliant with the following grammars: DCP, DQCP\nINFO: DCP verification time: 0.0012 seconds.\nINFO: Expression tree has 8 nodes.\nINFO: (If you need to solve this problem multiple times, but with different data, consider using parameters.)\nINFO: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.\nINFO: Your problem is compiled with the CPP canonicalization backend.\n-------------------------------------------------------------------------------\n                                  Compilation                                  \n-------------------------------------------------------------------------------\nINFO: Compiling problem (target solver=MOSEK).\nINFO: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ExactCone2Cone -> EliminateZeroSized -> ConeMatrixStuffing -> MOSEK\nINFO: Applying reduction FlipObjective\nINFO: Applying reduction Dcp2Cone\nINFO: Applying reduction CvxAttr2Constr\nINFO: Applying reduction ExactCone2Cone\nINFO: Applying reduction EliminateZeroSized\nINFO: Applying reduction ConeMatrixStuffing\nINFO: Applying reduction MOSEK\nINFO: Finished problem compilation (took 9.892e-02 seconds).\n-------------------------------------------------------------------------------\n                                Numerical solver                               \n-------------------------------------------------------------------------------\nINFO: Invoking solver MOSEK  to obtain a solution.\n\n\nINFO: Problem\nINFO:   Name                   :                 \nINFO:   Objective sense        : maximize        \nINFO:   Type                   : CONIC (conic optimization problem)\nINFO:   Constraints            : 80              \nINFO:   Affine conic cons.     : 0               \nINFO:   Disjunctive cons.      : 0               \nINFO:   Cones                  : 0               \nINFO:   Scalar variables       : 76              \nINFO:   Matrix variables       : 12 (scalarized: 72)\nINFO:   Integer variables      : 0               \nINFO: \nINFO: Optimizer started.\nINFO: Presolve started.\nINFO: Linear dependency checker started.\nINFO: Linear dependency checker terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 21\nINFO: Eliminator terminated.\nINFO: Eliminator started.\nINFO: Freed constraints in eliminator : 0\nINFO: Eliminator terminated.\nINFO: Eliminator - tries                  : 2                 time                   : 0.00            \nINFO: Lin. dep.  - tries                  : 1                 time                   : 0.00            \nINFO: Lin. dep.  - primal attempts        : 1                 successes              : 1               \nINFO: Lin. dep.  - dual attempts          : 0                 successes              : 0               \nINFO: Lin. dep.  - primal deps.           : 0                 dual deps.             : 0               \nINFO: Presolve terminated. Time: 0.00    \nINFO: Optimizer  - threads                : 1               \nINFO: Optimizer  - solved problem         : the primal      \nINFO: Optimizer  - Constraints            : 47              \nINFO: Optimizer  - Cones                  : 1               \nINFO: Optimizer  - Scalar variables       : 44                conic                  : 4               \nINFO: Optimizer  - Semi-definite variables: 12                scalarized             : 72              \nINFO: Factor     - setup time             : 0.00            \nINFO: Factor     - dense det. time        : 0.00              GP order time          : 0.00            \nINFO: Factor     - nonzeros before factor : 408               after factor           : 452             \nINFO: Factor     - dense dim.             : 0                 flops                  : 9.21e+03        \nINFO: ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  \nINFO: 0   1.7e+01  1.2e+02  1.0e+00  0.00e+00   -0.000000000e+00  -0.000000000e+00  1.0e+00  0.00  \nINFO: 1   5.5e+00  3.8e+01  5.1e-01  -8.76e-01  2.358674281e+00   7.401385762e-01   3.2e-01  0.00  \nINFO: 2   1.9e+00  1.3e+01  2.3e-01  -6.52e-01  4.072215962e+00   1.290363921e-01   1.1e-01  0.00  \nINFO: 3   2.9e-01  2.0e+00  4.6e-02  -4.21e-01  7.064907628e+00   6.080727128e-02   1.7e-02  0.00  \nINFO: 4   8.3e-02  5.7e-01  1.0e-02  2.61e-01   4.316183584e+00   4.271254527e-02   4.9e-03  0.00  \nINFO: 5   3.1e-02  2.1e-01  1.8e-03  6.56e-01   9.724787919e-01   1.656204029e-02   1.8e-03  0.00  \nINFO: 6   5.8e-03  4.0e-02  1.2e-04  1.01e+00   1.231953450e-01   1.875053897e-03   3.4e-04  0.00  \nINFO: 7   2.5e-03  1.7e-02  5.1e-05  6.15e-01   1.160145365e-01   1.656412153e-03   1.5e-04  0.00  \nINFO: 8   1.0e-03  6.9e-03  1.1e-05  5.99e-01   3.358655053e-02   3.101155157e-04   5.9e-05  0.00  \nINFO: 9   1.5e-04  1.0e-03  5.3e-07  1.04e+00   2.945266898e-03   -4.216796507e-04  8.7e-06  0.00  \nINFO: 10  3.3e-06  2.3e-05  1.6e-09  1.09e+00   -5.279233144e-04  -5.879593855e-04  1.9e-07  0.00  \nINFO: 11  1.4e-06  9.5e-06  5.0e-10  9.79e-01   -2.195435910e-03  -2.231800390e-03  8.1e-08  0.00  \nINFO: 12  2.8e-07  1.9e-06  5.2e-11  9.71e-01   -3.742367762e-03  -3.751648998e-03  1.6e-08  0.00  \nINFO: 13  6.2e-08  4.2e-07  5.8e-12  9.97e-01   -3.898761438e-03  -3.901193948e-03  3.6e-09  0.00  \nINFO: 14  9.6e-09  6.6e-08  3.6e-13  9.99e-01   -3.938874388e-03  -3.939258792e-03  5.6e-10  0.00  \nINFO: 15  3.4e-10  2.3e-09  2.4e-15  1.00e+00   -3.945481957e-03  -3.945496148e-03  2.0e-11  0.00  \nINFO: 16  3.3e-10  2.3e-09  2.3e-15  1.00e+00   -3.945489809e-03  -3.945503565e-03  1.9e-11  0.00  \nINFO: 17  3.3e-10  2.3e-09  2.3e-15  1.00e+00   -3.945489809e-03  -3.945503565e-03  1.9e-11  0.00  \nINFO: 18  3.3e-10  2.3e-09  2.3e-15  1.00e+00   -3.945489809e-03  -3.945503565e-03  1.9e-11  0.00  \nINFO: Optimizer terminated. Time: 0.00    \nINFO: \nINFO: \nINFO: Interior-point solution summary\nINFO:   Problem status  : PRIMAL_AND_DUAL_FEASIBLE\nINFO:   Solution status : OPTIMAL\nINFO:   Primal.  obj: -3.9454898089e-03   nrm: 1e+00    Viol.  con: 2e-08    var: 6e-08    barvar: 0e+00  \nINFO:   Dual.    obj: -3.9455035655e-03   nrm: 3e+02    Viol.  con: 0e+00    var: 7e-08    barvar: 2e-08  \n-------------------------------------------------------------------------------\n                                    Summary                                    \n-------------------------------------------------------------------------------\nINFO: Problem status: optimal\nINFO: Optimal value: 3.946e-03\nINFO: Compilation took 9.892e-02 seconds\nINFO: Solver (including time spent in interface) took 5.718e-03 seconds\n",
+        "mosek_params": {
+          "MSK_DPAR_INTPNT_CO_TOL_DFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_PFEAS": 1e-09,
+          "MSK_DPAR_INTPNT_CO_TOL_REL_GAP": 1e-09,
+          "MSK_DPAR_OPTIMIZER_MAX_TIME": 4.959852464031428,
+          "MSK_IPAR_NUM_THREADS": 1
+        },
+        "objective": 0.003945503565493451,
+        "objective_kind": "psd_margin",
+        "raw_status": "optimal",
+        "solver": "MOSEK",
+        "stats": {
+          "num_iters": 19,
+          "solve_time": 0.004770616069436073
+        },
+        "status": "solved_unverified",
+        "values": {
+          "eta_L_while_1_0": 181.47192694679774,
+          "eta_L_while_1_1": -203.14958849122976,
+          "eta_L_while_1_2": -261.0825455117835,
+          "eta_L_while_1_3": 106.73154279206075,
+          "eta_L_while_1_4": 96.35286929617183,
+          "eta_L_while_1_5": 106.42255181681487,
+          "o0_s0_q_0_0": 181.40584329603095,
+          "o0_s0_q_0_1": -101.5848605319969,
+          "o0_s0_q_0_2": -130.5339401506266,
+          "o0_s0_q_1_1": 106.73154279206075,
+          "o0_s0_q_1_2": 48.176434648085916,
+          "o0_s0_q_2_2": 106.42255181682074,
+          "o0_s1_sos": 0.014501871998106708,
+          "o0_s2_sos": 0.014583541264210596,
+          "o0_s3_sos": 0.035021257413461626,
+          "o0_s4_sos": 0.007444342324715449,
+          "o1_s0_q_0_0": 108.38886580971823,
+          "o1_s0_q_0_1": -72.37659269072996,
+          "o1_s0_q_0_2": -72.14486939296616,
+          "o1_s0_q_1_1": 48.335139499201496,
+          "o1_s0_q_1_2": 48.176434648052826,
+          "o1_s0_q_2_2": 48.02614852398971,
+          "o1_s1_sos": 2.0592261762431008e-07,
+          "o1_s2_sos": 1.7306172850339863e-07,
+          "o1_s3_sos": 3.8526417256434797e-07,
+          "o1_s4_sos": 1.0110442150660885e-07,
+          "o1_s5_sos": 0.9124438014503932,
+          "o2_s0_q_0_0": 0.008058631328843468,
+          "o2_s0_q_0_1": 0.0072257020721994405,
+          "o2_s0_q_0_2": -0.007258468435950392,
+          "o2_s0_q_1_1": 0.016653321859193267,
+          "o2_s0_q_1_2": -0.012757818746033172,
+          "o2_s0_q_2_2": 0.016757700838471397,
+          "o2_s1_sos": 4.2214754358838036e-08,
+          "o2_s2_sos": 5.691936960650068e-08,
+          "o2_s3_sos": 9.390364130723583e-08,
+          "o2_s4_sos": 2.0625167041194373e-08,
+          "o2_s5_sos": 1.3593344850432176e-07,
+          "o2_s6_sos": 0.06229460249474805,
+          "o2_s7_sos": 0.01445749318449674,
+          "o3_s0_q_0_0": 86.81312790311088,
+          "o3_s0_q_0_1": -21.984979160558716,
+          "o3_s0_q_0_2": -75.75908080976764,
+          "o3_s0_q_1_1": 6.91339302816428,
+          "o3_s0_q_1_2": 18.511889361624426,
+          "o3_s0_q_2_2": 66.4963186427001,
+          "o3_s1_sos": 0.021905017149805417,
+          "o3_s2_sos": 0.020340067806355555,
+          "o3_s3_sos": 0.043645604050247755,
+          "o3_s4_sos": 0.010781996965201244,
+          "o3_s5_sos": 0.015324525198936234,
+          "o3_s6_sos": 0.05124206537794945,
+          "o3_s7_sos": 0.27651412910588835,
+          "o4_s0_q_0_0": 42.074673750477515,
+          "o4_s0_q_0_1": -51.897084267535334,
+          "o4_s0_q_0_2": -16.073284416959297,
+          "o4_s0_q_1_1": 66.78420392308459,
+          "o4_s0_q_1_2": 18.477041387787274,
+          "o4_s0_q_2_2": 6.842904731268176,
+          "o4_s1_sos": 0.019448782792249375,
+          "o4_s2_sos": 0.02237101613958048,
+          "o4_s3_sos": 0.042929033182531384,
+          "o4_s4_sos": 0.01083608043161969,
+          "o4_s5_sos": 0.059684805555870746,
+          "o4_s6_sos": 0.04909902058472593,
+          "o4_s7_sos": 0.07066721320203939,
+          "o5_s0_q_0_0": 95.03044225762682,
+          "o5_s0_q_0_1": -62.33562016529708,
+          "o5_s0_q_0_2": -63.655343991736565,
+          "o5_s0_q_1_1": 45.47312087311116,
+          "o5_s0_q_1_2": 39.52285400638251,
+          "o5_s0_q_2_2": 43.91910247892834,
+          "o5_s1_sos": 0.0957697107349702,
+          "o5_s2_sos": 0.09690129499575306,
+          "o5_s3_sos": 0.20761687908191107,
+          "o5_s4_sos": 0.05306224960274218,
+          "o5_s5_sos": 0.521738963036424,
+          "o5_s6_sos": 0.10519206393656777,
+          "o5_s7_sos": 0.7572426926217282
+        }
+      },
+      "stage": "margin",
+      "status": "proved",
+      "verification": {
+        "attempts": [
+          {
+            "denominator": 1000,
+            "equalities_exact": true,
+            "negative_coefficient_count": 0,
+            "negative_coefficients": [],
+            "nonpsd_blocks": [],
+            "nonpsd_count": 0
+          }
+        ],
+        "bound_exact": "1059535410220986536/9064119331018125",
+        "bound_numeric": 116.89336509451873,
+        "coverage": {
+          "round_contraction_0_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_1_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_2_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_contraction_3_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "contraction",
+              "round_survival"
+            ]
+          },
+          "round_nonnegative_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "nonnegative",
+              "round_survival"
+            ]
+          },
+          "round_normalization_0": {
+            "origin": {
+              "kernel_evidence": "round_evidence.json",
+              "location": "L_while_1"
+            },
+            "strategy": "putinar",
+            "tags": [
+              "normalization",
+              "round_survival"
+            ]
+          }
+        },
+        "exact_values": {
+          "eta_L_while_1_0": "6388146738534664/35201858383125",
+          "eta_L_while_1_1": "-22562438882120912/111063227611875",
+          "eta_L_while_1_2": "-20380992712534336/78063425956875",
+          "eta_L_while_1_3": "84137531936/788310625",
+          "eta_L_while_1_4": "26360704/273585",
+          "eta_L_while_1_5": "722570876192/6789643125",
+          "o0_s0_q_0_0": "82351541316428927819/453963165708780000",
+          "o0_s0_q_0_1": "-2337045924289715736127/23005859093979011250",
+          "o0_s0_q_0_2": "-62932971825224381693/482119718709660000",
+          "o0_s0_q_1_1": "84137531936/788310625",
+          "o0_s0_q_1_2": "13180352/273585",
+          "o0_s0_q_2_2": "722570876192/6789643125",
+          "o0_s1_sos": "14/965",
+          "o0_s2_sos": "7/480",
+          "o0_s3_sos": "9/257",
+          "o0_s4_sos": "3/403",
+          "o1_s0_q_0_0": "118280224309148959/1091257609876875",
+          "o1_s0_q_0_1": "-249189715508754136/3442960055968125",
+          "o1_s0_q_0_2": "-1222117975584455456/16939763432641875",
+          "o1_s0_q_1_1": "266721683552/5518174375",
+          "o1_s0_q_1_2": "13180352/273585",
+          "o1_s0_q_2_2": "70759522453664/1473352558125",
+          "o1_s1_sos": "0",
+          "o1_s2_sos": "0",
+          "o1_s3_sos": "0",
+          "o1_s4_sos": "0",
+          "o1_s5_sos": "198/217",
+          "o2_s0_q_0_0": "7109930400006961426/884011390724086813125",
+          "o2_s0_q_0_1": "105200266582848597773321/14551613279221334798982500",
+          "o2_s0_q_0_2": "-2026410846814653709968/279838716908102592288125",
+          "o2_s0_q_1_1": "3777341839001/227106772888125",
+          "o2_s0_q_1_2": "-2895764590516/227106772888125",
+          "o2_s0_q_2_2": "3800942987156/227106772888125",
+          "o2_s1_sos": "0",
+          "o2_s2_sos": "0",
+          "o2_s3_sos": "0",
+          "o2_s4_sos": "0",
+          "o2_s5_sos": "0",
+          "o2_s6_sos": "19/305",
+          "o2_s7_sos": "6/415",
+          "o3_s0_q_0_0": "840113799376400956549913/9677262043516931065125",
+          "o3_s0_q_0_1": "-108093340986147065797932447583/4916692081957627868706810000",
+          "o3_s0_q_0_2": "-105850309719529145395147/1397195476602574957000",
+          "o3_s0_q_1_1": "34957696352773567/5056545979485000",
+          "o3_s0_q_1_2": "3535781869603/191000452500",
+          "o3_s0_q_2_2": "208586773008587/3136815123750",
+          "o3_s1_sos": "20/913",
+          "o3_s2_sos": "6/295",
+          "o3_s3_sos": "34/779",
+          "o3_s4_sos": "4/371",
+          "o3_s5_sos": "4/261",
+          "o3_s6_sos": "33/644",
+          "o3_s7_sos": "73/264",
+          "o4_s0_q_0_0": "537151000213241544804319/12766623822271359324375",
+          "o4_s0_q_0_1": "-54600656339225581530769/1052095735626545610000",
+          "o4_s0_q_0_2": "-820857448062435487436560928053/51069732873266644392190335000",
+          "o4_s0_q_1_1": "9521455468900893/142570706395000",
+          "o4_s0_q_1_2": "28024328658011/1516709642500",
+          "o4_s0_q_2_2": "65120906590979267/9516594651866250",
+          "o4_s1_sos": "12/617",
+          "o4_s2_sos": "10/447",
+          "o4_s3_sos": "17/396",
+          "o4_s4_sos": "7/646",
+          "o4_s5_sos": "53/888",
+          "o4_s6_sos": "30/611",
+          "o4_s7_sos": "53/750",
+          "o5_s0_q_0_0": "62435/657",
+          "o5_s0_q_0_1": "-9101/146",
+          "o5_s0_q_0_2": "-50606/795",
+          "o5_s0_q_1_1": "4229/93",
+          "o5_s0_q_1_2": "35452/897",
+          "o5_s0_q_2_2": "19544/445",
+          "o5_s1_sos": "43/449",
+          "o5_s2_sos": "25/258",
+          "o5_s3_sos": "169/814",
+          "o5_s4_sos": "13/245",
+          "o5_s5_sos": "12/23",
+          "o5_s6_sos": "77/732",
+          "o5_s7_sos": "549/725"
+        },
+        "method": "rational_affine_reconstruction_exact_psd",
+        "recovered_zero_face": [
+          "o1_s1_sos",
+          "o1_s2_sos",
+          "o1_s3_sos",
+          "o1_s4_sos",
+          "o2_s1_sos",
+          "o2_s2_sos",
+          "o2_s3_sos",
+          "o2_s4_sos",
+          "o2_s5_sos"
+        ],
+        "repair_objective_cap": "5844676807568071/50000000000000",
+        "repair_stage": "margin_solve",
+        "status": "proved",
+        "zero_face_guess_threshold": 1e-06
+      }
+    }
+  ],
+  "elapsed_seconds": 0.17885312996804714,
+  "initial_gram": [
+    {
+      "eigenvalues": [
+        0.011745987635052007,
+        58.028374180740606,
+        317.9481740674321
+      ],
+      "id": "o0_s0"
+    },
+    {
+      "eigenvalues": [
+        -9.875596934896673e-10,
+        1.2923321192894027e-07,
+        195.2809129062349
+      ],
+      "id": "o1_s0"
+    },
+    {
+      "eigenvalues": [
+        -1.1095348419394586e-09,
+        3.929483731387671e-09,
+        2.2647875283546655e-07
+      ],
+      "id": "o2_s0"
+    },
+    {
+      "eigenvalues": [
+        0.012926896036846047,
+        1.0461657999816607,
+        151.6243254241582
+      ],
+      "id": "o3_s0"
+    },
+    {
+      "eigenvalues": [
+        0.012733752159655486,
+        1.4069877740719894,
+        107.9907683204099
+      ],
+      "id": "o4_s0"
+    },
+    {
+      "eigenvalues": [
+        0.047181094506627184,
+        5.490512028290889,
+        176.19705248548354
+      ],
+      "id": "o5_s0"
+    }
+  ],
+  "initial_verification": {
+    "attempts": [
+      {
+        "denominator": 1000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o1_s0",
+          "o2_s0"
+        ],
+        "nonpsd_count": 2
+      },
+      {
+        "denominator": 1000000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 0,
+        "negative_coefficients": [],
+        "nonpsd_blocks": [
+          "o1_s0",
+          "o2_s0"
+        ],
+        "nonpsd_count": 2
+      },
+      {
+        "denominator": 1000000000,
+        "equalities_exact": true,
+        "negative_coefficient_count": 1,
+        "negative_coefficients": [
+          "o1_s1_sos"
+        ],
+        "nonpsd_blocks": [
+          "o1_s0",
+          "o2_s0"
+        ],
+        "nonpsd_count": 2
+      }
+    ],
+    "method": "rational_affine_reconstruction_exact_psd",
+    "reason": "No exactly feasible rational reconstruction found",
+    "status": "solved_unverified"
+  },
+  "max_solves": 2,
+  "objective_cap": "5844676807568071/50000000000000",
+  "solver_calls": 1,
+  "status": "proved"
+}

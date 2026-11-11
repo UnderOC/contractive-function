@@ -1,0 +1,45 @@
+source: /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp
+initial: L_assign_5
+normal_terminal: l_t
+failure_terminal: l_f
+program_variables: x, y
+declared_random_variables: -
+
+locations:
+  l_t [terminal] invariant=(true) @ generated
+  l_f [terminal] invariant=(true) @ generated
+  L_assert_1 [assert] invariant=(45 <= 100 * x and 100 * x <= 100 and 0 <= 100 * y and 100 * y <= 101) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:20:1
+  L_while_1 [while] invariant=(45 <= 100 * x and 100 * x <= 100 and 0 <= 100 * y and 100 * y <= 101) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:7:1
+  L_assign_1 [assign] invariant=(46 <= 100 * x and 100 * x <= 100 and 0 <= 100 * y and 100 * y <= 99) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:13:5
+  L_assign_2 [assign] invariant=(45 <= 100 * x and 100 * x <= 99 and 0 <= 100 * y and 100 * y <= 99) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:11:5
+  L_assign_3 [assign] invariant=(45 <= 100 * x and 100 * x <= 99 and 0 <= 100 * y and 100 * y <= 99) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:16:5
+  L_probabilistic_1 [probabilistic] invariant=(45 <= 100 * x and 100 * x <= 99 and 0 <= 100 * y and 100 * y <= 99) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:9:3
+  L_assign_4 [assign] invariant=(100 * x = 45) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:5:1
+  L_assign_5 [assign] invariant=(true) @ /ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/reprsm_benchmark/refinement_20261109/scaled_inputs/race_x45_y0.pp:3:1
+
+transition groups:
+  T_absorb_normal: l_t guard=(true)
+    branch 1: p=1 -> l_t; update: identity
+  T_absorb_failure: l_f guard=(true)
+    branch 1: p=1 -> l_f; update: identity
+  T_1: L_assert_1 guard=(100 * x >= 100)
+    branch 1: p=1 -> l_t; update: identity
+  T_2: L_assert_1 guard=(not 100 * x >= 100)
+    branch 1: p=1 -> l_f; update: identity
+  T_3: L_assign_1 guard=(true)
+    branch 1: p=1 -> L_while_1; update: y := 0.02 + y
+  T_4: L_assign_2 guard=(true)
+    branch 1: p=1 -> L_assign_1; update: x := 0.01 + x
+  T_5: L_assign_3 guard=(true)
+    branch 1: p=1 -> L_while_1; update: x := 0.01 + x
+  T_6: L_probabilistic_1 guard=(true)
+    branch 1: p=0.5 -> L_assign_2; update: identity
+    branch 2: p=1 - 0.5 -> L_assign_3; update: identity
+  T_7: L_while_1 guard=(100 * x <= 99 and 100 * y <= 99)
+    branch 1: p=1 -> L_probabilistic_1; update: identity
+  T_8: L_while_1 guard=(not (100 * x <= 99 and 100 * y <= 99))
+    branch 1: p=1 -> L_assert_1; update: identity
+  T_9: L_assign_4 guard=(true)
+    branch 1: p=1 -> L_while_1; update: y := 0
+  T_10: L_assign_5 guard=(true)
+    branch 1: p=1 -> L_assign_4; update: x := 0.45

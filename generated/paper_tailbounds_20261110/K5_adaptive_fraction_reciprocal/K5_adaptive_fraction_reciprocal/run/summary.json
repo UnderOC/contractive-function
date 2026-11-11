@@ -1,0 +1,1642 @@
+{
+  "analysis_workflow": "positive_and_reciprocal_symbolic",
+  "attempt_count": 23,
+  "boolean_round_diagnostic": "Boolean round compilation requires deterministic Boolean initialization",
+  "certificate_family": "polynomial",
+  "contraction_searches": [
+    {
+      "best_verified_c": "315/512",
+      "degree": 2,
+      "interval": [
+        "21/64",
+        "315/512"
+      ],
+      "lower_endpoint_is_nonexistence_proof": false,
+      "max_steps": 12,
+      "method": "bisection",
+      "steps": [
+        {
+          "c": "1/2",
+          "interval_after": [
+            "0",
+            "1"
+          ],
+          "interval_before": [
+            "0",
+            "1"
+          ],
+          "iteration": 1,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "3/4",
+          "interval_after": [
+            "0",
+            "3/4"
+          ],
+          "interval_before": [
+            "0",
+            "1"
+          ],
+          "iteration": 2,
+          "proposal": "unknown_upper_probe",
+          "status": "proved"
+        },
+        {
+          "c": "3/8",
+          "interval_after": [
+            "0",
+            "3/4"
+          ],
+          "interval_before": [
+            "0",
+            "3/4"
+          ],
+          "iteration": 3,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "9/16",
+          "interval_after": [
+            "0",
+            "3/4"
+          ],
+          "interval_before": [
+            "0",
+            "3/4"
+          ],
+          "iteration": 4,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        },
+        {
+          "c": "21/32",
+          "interval_after": [
+            "0",
+            "21/32"
+          ],
+          "interval_before": [
+            "0",
+            "3/4"
+          ],
+          "iteration": 5,
+          "proposal": "unknown_upper_probe",
+          "status": "proved"
+        },
+        {
+          "c": "21/64",
+          "interval_after": [
+            "21/64",
+            "21/32"
+          ],
+          "interval_before": [
+            "0",
+            "21/32"
+          ],
+          "iteration": 6,
+          "proposal": "interval_bisection",
+          "status": "infeasible"
+        },
+        {
+          "c": "63/128",
+          "interval_after": [
+            "21/64",
+            "21/32"
+          ],
+          "interval_before": [
+            "21/64",
+            "21/32"
+          ],
+          "iteration": 7,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "147/256",
+          "interval_after": [
+            "21/64",
+            "21/32"
+          ],
+          "interval_before": [
+            "21/64",
+            "21/32"
+          ],
+          "iteration": 8,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        },
+        {
+          "c": "315/512",
+          "interval_after": [
+            "21/64",
+            "315/512"
+          ],
+          "interval_before": [
+            "21/64",
+            "21/32"
+          ],
+          "iteration": 9,
+          "proposal": "unknown_upper_probe",
+          "status": "proved"
+        },
+        {
+          "c": "483/1024",
+          "interval_after": [
+            "21/64",
+            "315/512"
+          ],
+          "interval_before": [
+            "21/64",
+            "315/512"
+          ],
+          "iteration": 10,
+          "proposal": "interval_bisection",
+          "status": "unknown"
+        },
+        {
+          "c": "1113/2048",
+          "interval_after": [
+            "21/64",
+            "315/512"
+          ],
+          "interval_before": [
+            "21/64",
+            "315/512"
+          ],
+          "iteration": 11,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        },
+        {
+          "c": "2373/4096",
+          "interval_after": [
+            "21/64",
+            "315/512"
+          ],
+          "interval_before": [
+            "21/64",
+            "315/512"
+          ],
+          "iteration": 12,
+          "proposal": "unknown_upper_probe",
+          "status": "unknown"
+        }
+      ],
+      "stop_reason": "max_c_steps",
+      "unknown_policy": "preserve_interval_probe_upper_skip_tested",
+      "upper_endpoint_verified": true
+    }
+  ],
+  "degrees_attempted": [
+    2
+  ],
+  "elapsed_seconds": 113.01149481581524,
+  "expectation_mode": "exact_piecewise_survival",
+  "goal": "tailbound",
+  "out_dir": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/K5_adaptive_fraction_reciprocal/K5_adaptive_fraction_reciprocal/run",
+  "parameter_points": 12,
+  "pareto_candidates": [
+    {
+      "A_exact": "267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000",
+      "A_numeric": 2.019520557965502,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "3/4",
+      "certificate": "analyses/tailbound/degrees/2/c-002/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 1 + 3*K + 2",
+        "prefix_steps": 1,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000) * exp(-(-log(3/4))*n)",
+      "expression": "(267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000) * (3/4)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(3/4)",
+      "lambda_numeric": 0.2876820724517809,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000) * (3/4)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+      "A_numeric": 3.2756432817841428,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "21/32",
+      "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 1 + 3*K + 2",
+        "prefix_steps": 1,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * exp(-(-log(21/32))*n)",
+      "expression": "(13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * (21/32)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(21/32)",
+      "lambda_numeric": 0.42121346507630353,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * (21/32)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+      "A_numeric": 4.6643513273986486,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "315/512",
+      "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 1 + 3*K + 2",
+        "prefix_steps": 1,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * exp(-(-log(315/512))*n)",
+      "expression": "(6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * (315/512)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(315/512)",
+      "lambda_numeric": 0.4857519862138747,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * (315/512)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "polynomial_selection": {
+    "A_exact": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+    "A_numeric": 4.6643513273986486,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "315/512",
+    "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 1 + 3*K + 2",
+      "prefix_steps": 1,
+      "round_step_counts": [
+        3
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * exp(-(-log(315/512))*n)",
+    "expression": "(6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * (315/512)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(315/512)",
+    "lambda_numeric": 0.4857519862138747,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * (315/512)**n)",
+    "rule": "round_survival",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "proved_candidates": [
+    {
+      "A_exact": "267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000",
+      "A_numeric": 2.019520557965502,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "3/4",
+      "certificate": "analyses/tailbound/degrees/2/c-002/attempts/001/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 1 + 3*K + 2",
+        "prefix_steps": 1,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000) * exp(-(-log(3/4))*n)",
+      "expression": "(267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000) * (3/4)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(3/4)",
+      "lambda_numeric": 0.2876820724517809,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000) * (3/4)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+      "A_numeric": 3.2756432817841428,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "21/32",
+      "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 1 + 3*K + 2",
+        "prefix_steps": 1,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * exp(-(-log(21/32))*n)",
+      "expression": "(13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * (21/32)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(21/32)",
+      "lambda_numeric": 0.42121346507630353,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * (21/32)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    },
+    {
+      "A_exact": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+      "A_numeric": 4.6643513273986486,
+      "boundary": "polynomial nonnegative; survival process zero after exit",
+      "c": "315/512",
+      "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json",
+      "clock": {
+        "exit_step_counts": [
+          2
+        ],
+        "pcfg_relation": "T = 1 + 3*K + 2",
+        "prefix_steps": 1,
+        "round_step_counts": [
+          3
+        ],
+        "unit": "completed_loop_iterations"
+      },
+      "degree": 2,
+      "event": "K > n",
+      "expectation_mode": "exact_piecewise_survival",
+      "exponential_expression": "(6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * exp(-(-log(315/512))*n)",
+      "expression": "(6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * (315/512)**n",
+      "kernel": "symbolic",
+      "lambda_expression": "-log(315/512)",
+      "lambda_numeric": 0.4857519862138747,
+      "n_domain": "nonnegative integers",
+      "probability_expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225) * (315/512)**n)",
+      "rule": "round_survival",
+      "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+      "time_unit": "completed_loop_iterations"
+    }
+  ],
+  "selection": {
+    "A_exact": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+    "A_numeric": 3.2756432817841428,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "21/32",
+    "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "pcfg_relation": "T = 1 + 3*K + 2",
+      "prefix_steps": 1,
+      "round_step_counts": [
+        3
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "decay_upper": "21/32",
+    "degree": 2,
+    "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * exp(-(-log(21/32))*n)",
+    "expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832)*(21/32)**n)",
+    "id": "direct:1",
+    "k": "1",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(21/32)",
+    "lambda_numeric": 0.42121346507630353,
+    "method": "direct_polynomial",
+    "n_domain": "nonnegative integers",
+    "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+    "probability_expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832) * (21/32)**n)",
+    "reference": {
+      "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json"
+    },
+    "rule": "round_survival",
+    "selection_n": 5,
+    "selection_policy": "best at the first comparison n; evaluate reselects for each n",
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations",
+    "upper_bound_exact": "387794541472292264985214517868196414751587098456183/972654294749004245719258367799201825762145879457792",
+    "upper_bound_numeric": 0.39869719752007426
+  },
+  "status": "proved",
+  "stop_reason": "first_successful_degree",
+  "symbolic_workflow": {
+    "branch_budgets": {
+      "policy": "independent additive soft budgets; verification may exceed optimizer budgets",
+      "positive_seconds": 180.0,
+      "reciprocal_seconds": 120.0
+    },
+    "candidates": [
+      {
+        "decay_upper": "3/4",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000)*(3/4)**n)",
+        "id": "direct:0",
+        "k": "1",
+        "method": "direct_polynomial",
+        "prefactor_upper": "267304933375208135141415012827329153265582792287/132360590398988308302493951981034689335533430000",
+        "reference": {
+          "certificate": "analyses/tailbound/degrees/2/c-002/attempts/001/certificate.json"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "21/32",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832)*(21/32)**n)",
+        "id": "direct:1",
+        "k": "1",
+        "method": "direct_polynomial",
+        "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+        "reference": {
+          "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "315/512",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+        "id": "direct:2",
+        "k": "1",
+        "method": "direct_polynomial",
+        "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+        "reference": {
+          "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "930604859103/1000000000000",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (119209830267/100000000000)*(930604859103/1000000000000)**n)",
+        "id": "positive_jensen:direct:0:1/4",
+        "k": "1/4",
+        "method": "positive_jensen",
+        "prefactor_upper": "119209830267/100000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:0"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "448867310257/500000000000",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (13015717217/10000000000)*(448867310257/500000000000)**n)",
+        "id": "positive_jensen:direct:0:3/8",
+        "k": "3/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "13015717217/10000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:0"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "173205080757/200000000000",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (1421098363227/1000000000000)*(173205080757/200000000000)**n)",
+        "id": "positive_jensen:direct:0:1/2",
+        "k": "1/2",
+        "method": "positive_jensen",
+        "prefactor_upper": "1421098363227/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:0"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "417718100017/500000000000",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (1551601440241/1000000000000)*(417718100017/500000000000)**n)",
+        "id": "positive_jensen:direct:0:5/8",
+        "k": "5/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "1551601440241/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:0"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "201481862217/250000000000",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (1694088946729/1000000000000)*(201481862217/250000000000)**n)",
+        "id": "positive_jensen:direct:0:3/4",
+        "k": "3/4",
+        "method": "positive_jensen",
+        "prefactor_upper": "1694088946729/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:0"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "388730493611/500000000000",
+        "eta": "696549983373497381635275653239319047*wealth**2/261210106822707776204538680980867500 - 633649667378615345343686891*wealth/55766794185572085238882545 + 134505612753136441171/10296414341525834676",
+        "event": "K > n",
+        "expression": "min(1, (184966144333/100000000000)*(388730493611/500000000000)**n)",
+        "id": "positive_jensen:direct:0:7/8",
+        "k": "7/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "184966144333/100000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:0"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "11250642949/12500000000",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (1345315513309/1000000000000)*(11250642949/12500000000)**n)",
+        "id": "positive_jensen:direct:1:1/4",
+        "k": "1/4",
+        "method": "positive_jensen",
+        "prefactor_upper": "1345315513309/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:1"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "853888163889/1000000000000",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (780200509661/500000000000)*(853888163889/1000000000000)**n)",
+        "id": "positive_jensen:direct:1:3/8",
+        "k": "3/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "780200509661/500000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:1"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "810092587301/1000000000000",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (36197476607/20000000000)*(810092587301/1000000000000)**n)",
+        "id": "positive_jensen:direct:1:1/2",
+        "k": "1/2",
+        "method": "positive_jensen",
+        "prefactor_upper": "36197476607/20000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:1"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "768543268023/1000000000000",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (2099231698277/1000000000000)*(768543268023/1000000000000)**n)",
+        "id": "positive_jensen:direct:1:5/8",
+        "k": "5/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "2099231698277/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:1"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "729124996429/1000000000000",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (1217425670551/500000000000)*(729124996429/1000000000000)**n)",
+        "id": "positive_jensen:direct:1:3/4",
+        "k": "3/4",
+        "method": "positive_jensen",
+        "prefactor_upper": "1217425670551/500000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:1"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "13834569439/20000000000",
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "event": "K > n",
+        "expression": "min(1, (1412064484861/500000000000)*(13834569439/20000000000)**n)",
+        "id": "positive_jensen:direct:1:7/8",
+        "k": "7/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "1412064484861/500000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:1"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "885645964749/1000000000000",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (293919100167/200000000000)*(885645964749/1000000000000)**n)",
+        "id": "positive_jensen:direct:2:1/4",
+        "k": "1/4",
+        "method": "positive_jensen",
+        "prefactor_upper": "293919100167/200000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:2"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "208367619897/250000000000",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (1781544687837/1000000000000)*(208367619897/250000000000)**n)",
+        "id": "positive_jensen:direct:2:3/8",
+        "k": "3/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "1781544687837/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:2"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "196092193719/250000000000",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (86388437443/40000000000)*(196092193719/250000000000)**n)",
+        "id": "positive_jensen:direct:2:1/2",
+        "k": "1/2",
+        "method": "positive_jensen",
+        "prefactor_upper": "86388437443/40000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:2"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "92269970873/125000000000",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (2618150057781/1000000000000)*(92269970873/125000000000)**n)",
+        "id": "positive_jensen:direct:2:5/8",
+        "k": "5/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "2618150057781/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:2"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "86834130043/125000000000",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (3173901474759/1000000000000)*(86834130043/125000000000)**n)",
+        "id": "positive_jensen:direct:2:3/4",
+        "k": "3/4",
+        "method": "positive_jensen",
+        "prefactor_upper": "3173901474759/1000000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:2"
+        },
+        "time_unit": "completed_loop_iterations"
+      },
+      {
+        "decay_upper": "653748218969/1000000000000",
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "event": "K > n",
+        "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+        "id": "positive_jensen:direct:2:7/8",
+        "k": "7/8",
+        "method": "positive_jensen",
+        "prefactor_upper": "1923810772713/500000000000",
+        "reference": {
+          "rule": "Jensen_on_killed_potential",
+          "seed": "direct:2"
+        },
+        "time_unit": "completed_loop_iterations"
+      }
+    ],
+    "comparisons": [
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "21/32",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "event": "K > n",
+          "expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832)*(21/32)**n)",
+          "id": "direct:1",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "387794541472292264985214517868196414751587098456183/972654294749004245719258367799201825762145879457792",
+          "upper_bound_numeric": 0.39869719752007426
+        },
+        "integer": {
+          "decay_upper": "21/32",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "event": "K > n",
+          "expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832)*(21/32)**n)",
+          "id": "direct:1",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "387794541472292264985214517868196414751587098456183/972654294749004245719258367799201825762145879457792",
+          "upper_bound_numeric": 0.39869719752007426
+        },
+        "integer_over_rational_exact": "1",
+        "n": 5,
+        "noninteger": {
+          "decay_upper": "13834569439/20000000000",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "event": "K > n",
+          "expression": "min(1, (1412064484861/500000000000)*(13834569439/20000000000)**n)",
+          "id": "positive_jensen:direct:1:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1412064484861/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:1"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "715620491241394138585618535180386231771139638784799855001498339/1600000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.44726280702587135
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "21/32",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "event": "K > n",
+          "expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832)*(21/32)**n)",
+          "id": "direct:1",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "387794541472292264985214517868196414751587098456183/972654294749004245719258367799201825762145879457792",
+          "upper_bound_numeric": 0.39869719752007426
+        },
+        "rational": {
+          "decay_upper": "21/32",
+          "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+          "event": "K > n",
+          "expression": "min(1, (13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832)*(21/32)**n)",
+          "id": "direct:1",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "13957979392876660727250999455357463727876294801/4261141458991277936718791129186232935995919832",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-005/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "387794541472292264985214517868196414751587098456183/972654294749004245719258367799201825762145879457792",
+          "upper_bound_numeric": 0.39869719752007426
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "4850724570693284706361689113884608225927883600182301332421875/133847243827254005786603679783235585075944617885280589890715648",
+          "upper_bound_numeric": 0.03624075051521964
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "4850724570693284706361689113884608225927883600182301332421875/133847243827254005786603679783235585075944617885280589890715648",
+          "upper_bound_numeric": 0.03624075051521964
+        },
+        "integer_over_rational_exact": "1",
+        "n": 10,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "27432635905169582098155080983592610231209229543558421103119859006480686835379531126818453872513673630489151051073677336701424313113/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.054865271810339164
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "4850724570693284706361689113884608225927883600182301332421875/133847243827254005786603679783235585075944617885280589890715648",
+          "upper_bound_numeric": 0.03624075051521964
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "4850724570693284706361689113884608225927883600182301332421875/133847243827254005786603679783235585075944617885280589890715648",
+          "upper_bound_numeric": 0.03624075051521964
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "46656499680186635889057227050891492824126079247216933564159112550837318187713623046875/165694862281750696424286241108099263404822273282913920476776895956003765090079503812657152",
+          "upper_bound_numeric": 0.0002815808470925974
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "46656499680186635889057227050891492824126079247216933564159112550837318187713623046875/165694862281750696424286241108099263404822273282913920476776895956003765090079503812657152",
+          "upper_bound_numeric": 0.0002815808470925974
+        },
+        "integer_over_rational_exact": "1",
+        "n": 20,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "391176472956504742825314367327461999604262557441516035378018647005522868814531701482415352048245011628368560928208404979770583029900929339992894821344603414973708629749735708896900993451343700250347754285470367657240186966061893393414775837466173513/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 0.0007823529459130095
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "46656499680186635889057227050891492824126079247216933564159112550837318187713623046875/165694862281750696424286241108099263404822273282913920476776895956003765090079503812657152",
+          "upper_bound_numeric": 0.0002815808470925974
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "46656499680186635889057227050891492824126079247216933564159112550837318187713623046875/165694862281750696424286241108099263404822273282913920476776895956003765090079503812657152",
+          "upper_bound_numeric": 0.0002815808470925974
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "41517267972883062291302034801209974712485190101795848633650279857160075110886002257210019961756798287916055978171429889638478311297831169213168323040008544921875/314345951715218129454867471293419299860764034414051772101808748405058623468538338294332736081484568096619591092008304029620000665223829789486104393341882014190390841704448",
+          "upper_bound_numeric": 1.3207508398420747e-10
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "41517267972883062291302034801209974712485190101795848633650279857160075110886002257210019961756798287916055978171429889638478311297831169213168323040008544921875/314345951715218129454867471293419299860764034414051772101808748405058623468538338294332736081484568096619591092008304029620000665223829789486104393341882014190390841704448",
+          "upper_bound_numeric": 1.3207508398420747e-10
+        },
+        "integer_over_rational_exact": "1",
+        "n": 50,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "1134196461209361522101812826044980233710311798979658746183602504893380611425217630628670655199461927685115130010982461827417088461549004764617015963545783413573777457383567006658155482441275450546270095202394736555605176218880721431442770322157145163340845493105705943166160981418723715074198501528361608446963314917491351268568008476256564170849087424736109261887132381781030320182662251781490006364925569040357431362740585826658931162465469237827557100710565362151588239897640455868149768627570035332788910916320457802564796882320318986072034232508014209980038892635670362421662900535651088854721674713/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 2.268392922418723e-09
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "41517267972883062291302034801209974712485190101795848633650279857160075110886002257210019961756798287916055978171429889638478311297831169213168323040008544921875/314345951715218129454867471293419299860764034414051772101808748405058623468538338294332736081484568096619591092008304029620000665223829789486104393341882014190390841704448",
+          "upper_bound_numeric": 1.3207508398420747e-10
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "41517267972883062291302034801209974712485190101795848633650279857160075110886002257210019961756798287916055978171429889638478311297831169213168323040008544921875/314345951715218129454867471293419299860764034414051772101808748405058623468538338294332736081484568096619591092008304029620000665223829789486104393341882014190390841704448",
+          "upper_bound_numeric": 1.3207508398420747e-10
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "3417877213164994980514385569626975691011097956499253018872790201868412105885571587967163928820468664274397506403683116382136272586978191964459337284629152732142921313441920256344892960170066866693208893960488731255955693119915546260413731231224236661869753106657299213111400604248046875/913915242128710343751784802136674860981496819975298621812748121307611028940334774512494578379363557188543214043780956730620056937988920322375959819618249527139566824970697109030939295713413082381936729895394525616260217525751534613774921242287444351413456616957087752028063345498232171166724275360132759552",
+          "upper_bound_numeric": 3.739818591058843e-21
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "3417877213164994980514385569626975691011097956499253018872790201868412105885571587967163928820468664274397506403683116382136272586978191964459337284629152732142921313441920256344892960170066866693208893960488731255955693119915546260413731231224236661869753106657299213111400604248046875/913915242128710343751784802136674860981496819975298621812748121307611028940334774512494578379363557188543214043780956730620056937988920322375959819618249527139566824970697109030939295713413082381936729895394525616260217525751534613774921242287444351413456616957087752028063345498232171166724275360132759552",
+          "upper_bound_numeric": 3.739818591058843e-21
+        },
+        "integer_over_rational_exact": "1",
+        "n": 100,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "668673671478472409839786569554705899180833900138328535721457553773691702968863974810176793907533441360738257687207437124154186326134071933183324817396441820383487296271001684013681539402491615622213754576585702241015701529114351516487028314413747668081280929521116164777210064340643633801853081680865947360931790012141791258980524067629166717241212879208753985314962945365642814340123431649496190717308727019199489332295793403383625274951591018297445496533574049146923695235832787717164569935874463099099583984425679101336810967439023193014364859727075839739890869518589892845265362468526252700866424557658433850351610400720431419887485995532245134408512762776923802154413949427097342274018071415026955866115290154612952775589407415540859702124619244395324895441293503257717153959660956694335381547543210145470546081507707821284105239205513298115017339047261012233057885890706670993231009723546241567709329766248154048638622602186145553441441835247452189129407994390506167399931590660083417323246068268672995146897554645981861234918954178603564464717696015175245955967459240725172934533394925343587727720574974624731559567732911716199360460291342251126801529969307483143214811174951651940576713/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 1.3373473429569448e-18
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "3417877213164994980514385569626975691011097956499253018872790201868412105885571587967163928820468664274397506403683116382136272586978191964459337284629152732142921313441920256344892960170066866693208893960488731255955693119915546260413731231224236661869753106657299213111400604248046875/913915242128710343751784802136674860981496819975298621812748121307611028940334774512494578379363557188543214043780956730620056937988920322375959819618249527139566824970697109030939295713413082381936729895394525616260217525751534613774921242287444351413456616957087752028063345498232171166724275360132759552",
+          "upper_bound_numeric": 3.739818591058843e-21
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "3417877213164994980514385569626975691011097956499253018872790201868412105885571587967163928820468664274397506403683116382136272586978191964459337284629152732142921313441920256344892960170066866693208893960488731255955693119915546260413731231224236661869753106657299213111400604248046875/913915242128710343751784802136674860981496819975298621812748121307611028940334774512494578379363557188543214043780956730620056937988920322375959819618249527139566824970697109030939295713413082381936729895394525616260217525751534613774921242287444351413456616957087752028063345498232171166724275360132759552",
+          "upper_bound_numeric": 3.739818591058843e-21
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "23163908227639060525371523600199884909484591776951317355961929184589222037206083779398959894900771227873771069068044540862838742252341398443878225722082015600243020274288614872437627607419699956383642847226861301048962981320317262564547830057558910779318146734275822470325652124988373985400279180279966132007434877771193154294660167078114781715170039982017812858607614448240271590588281071850911300292333629478722833061456778963559679996019094170088546034743381572411686215281774363588790157926326773729641672616708092391490936279296875/7725062789410000146491962955985742252485908618205538818313652503690790999093237991413858385047259020111810467245142948203486797720962034786210737563092103314139851535667034529717385991906002044533931567851241847173319613676658246045950842112001836667745321782654979886235832618573382207642342237526532965926444491715111716968167571960993938382823330969644513296022755130646325218400149268367724021450604344859013824931352827737014584375746495160727426090621579669041466796566569819628823426344581460996634458099971353359085183476045413726979575297026930662290964086919425687552",
+          "upper_bound_numeric": 2.9985397994943936e-42
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "23163908227639060525371523600199884909484591776951317355961929184589222037206083779398959894900771227873771069068044540862838742252341398443878225722082015600243020274288614872437627607419699956383642847226861301048962981320317262564547830057558910779318146734275822470325652124988373985400279180279966132007434877771193154294660167078114781715170039982017812858607614448240271590588281071850911300292333629478722833061456778963559679996019094170088546034743381572411686215281774363588790157926326773729641672616708092391490936279296875/7725062789410000146491962955985742252485908618205538818313652503690790999093237991413858385047259020111810467245142948203486797720962034786210737563092103314139851535667034529717385991906002044533931567851241847173319613676658246045950842112001836667745321782654979886235832618573382207642342237526532965926444491715111716968167571960993938382823330969644513296022755130646325218400149268367724021450604344859013824931352827737014584375746495160727426090621579669041466796566569819628823426344581460996634458099971353359085183476045413726979575297026930662290964086919425687552",
+          "upper_bound_numeric": 2.9985397994943936e-42
+        },
+        "integer_over_rational_exact": "1",
+        "n": 200,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "232416038661617085062655049926866557190670620985653406833683570813771041788555688083300650550613001842565546561642137668602518625777091600719066555298137684848113080424751486402957962443501901021913673255726042994899763624232432267790902534541807423974252813507404586709880787804954337386351990926265005369497824802450005599634213799935703914097033368980144875068344727361306777290123849740530640965731835809709185010872136263017686455406286037800880215218051386937057951244445310391784487305370822358211789227105377622591661501640370669022844431367261700814879179143109012036447396719495014034340921049478853138883810492343608040750399946155699816610022176264820144372925598082088726341272856276337865366882156201043822379426917457277060766121126591009522972752155961069432780304332543272457090791994455351236838503305912043254268358520650574507978502889575718797158822429289522291165243109641226778026809504687603474788018707088806987062390241211535237161214151521666774986296034962689719715398637482868087622231394889523484671253236874531183376436428010563533910058679314182064817781947858503337000959252667777811106042146623601561261596324269156331706041473126820071644512801227727268088706824437263187186360769455264937139201954030868079297610953601861576048330993328540758668873980110191434064870233933676636200632071918857920002089891978284945462193696494661512549081355867265990805610465084814756151625744379765176658991357485471819118205203460336792493936038577317008867919479259284673489449664113552922684402041892061428923520610689797417224419316184007226803132798237283060851618538231043155060486123277887706663153052839423331856193187863898834767018064919456017652482211852647688572836562785755180681752183093560065422555970261474248572233669497578463421376623254018830135002208621391545647713476353559478858853396629778643582178722744062345746642510037425025320533324094266531537776514876820927221646299295314302407687672295223825693838868641745372333319920399063721927642770726159229197709976394034092956178839215182285440192052314264977166519114742543840259200941305581037813971048365543981783333169538380649258128466906682924000849561556134743487736428339700811968532377755573332921940388804246724873499100592375378318015575269303490079400786987757683609509620626809579775961615457598511326336949779894163529717861261757081238541839002644267647336973302380713/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 4.648320773232342e-37
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "23163908227639060525371523600199884909484591776951317355961929184589222037206083779398959894900771227873771069068044540862838742252341398443878225722082015600243020274288614872437627607419699956383642847226861301048962981320317262564547830057558910779318146734275822470325652124988373985400279180279966132007434877771193154294660167078114781715170039982017812858607614448240271590588281071850911300292333629478722833061456778963559679996019094170088546034743381572411686215281774363588790157926326773729641672616708092391490936279296875/7725062789410000146491962955985742252485908618205538818313652503690790999093237991413858385047259020111810467245142948203486797720962034786210737563092103314139851535667034529717385991906002044533931567851241847173319613676658246045950842112001836667745321782654979886235832618573382207642342237526532965926444491715111716968167571960993938382823330969644513296022755130646325218400149268367724021450604344859013824931352827737014584375746495160727426090621579669041466796566569819628823426344581460996634458099971353359085183476045413726979575297026930662290964086919425687552",
+          "upper_bound_numeric": 2.9985397994943936e-42
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "23163908227639060525371523600199884909484591776951317355961929184589222037206083779398959894900771227873771069068044540862838742252341398443878225722082015600243020274288614872437627607419699956383642847226861301048962981320317262564547830057558910779318146734275822470325652124988373985400279180279966132007434877771193154294660167078114781715170039982017812858607614448240271590588281071850911300292333629478722833061456778963559679996019094170088546034743381572411686215281774363588790157926326773729641672616708092391490936279296875/7725062789410000146491962955985742252485908618205538818313652503690790999093237991413858385047259020111810467245142948203486797720962034786210737563092103314139851535667034529717385991906002044533931567851241847173319613676658246045950842112001836667745321782654979886235832618573382207642342237526532965926444491715111716968167571960993938382823330969644513296022755130646325218400149268367724021450604344859013824931352827737014584375746495160727426090621579669041466796566569819628823426344581460996634458099971353359085183476045413726979575297026930662290964086919425687552",
+          "upper_bound_numeric": 2.9985397994943936e-42
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "7210709054450028994732605773228136139933998548386224001358102661638728417896036478312822956077803120606696839243482376415920152461530586714700223049145882828744497606409934214820287567660348788184942310210360742410432498431507187324758076012587473764085489650383675918688724674134355284017608188149743166737627384367646847353677557387598823255989319741438573000169854874805404665255646742598297759829664302899261160522544586165380653493049394264619656326689380443040652739972459568037410188266410894979342108129079914495964026409991110308179194851149704036900393158982359599309919591497311697805812056759486711398632909104332235318155974115452763428054833730280632159125956269935157623678723854301652165783563541392180189628487936470470010775192400070837594922367179100232342648537194128543644793253276430288579379772773989783000184773048634414927311048564417895786047204840153251655896486977400979845888836108717293106868557825822386537983430744316896454826785607954709434517052723869755172526403407262464546580409273790729614691705929562302498331496503750271880844166192078542917588166316942511362121754844638281947642352166833415458831816324233223514066976840937635232430337341022074965092178611333400124634096023545467968109842377180584353617287529658597122761420905590057373046875/4665415316489564799153260012618374869420433875496302974967051523712555083790882887913847805497937157505757383494863948632241932538403219521244351322450930878403265522007278934695333018128570429479975316261375885009971746010682038760199277650060191629638055919436730355439430938597989491150691020064652493462367389099039313769321226546307035674578128457164544162590655027112137387052654749527724915417964924869656517427525389769440982743834622733295891760621217045848002364639049012054022027197672119883131966996851429200878041750035834319832362587058356762206931964139740021578760725333674350545513269069714699598532725553525005481457977003575822648407181084616052439698465931440605988204578401333262656173472174802564199661226863414409608050963010636397515983862431990547491626271312936379869469507078354664311651591983963628832829483415146620248920645192473038784594751351855598418252017669499363362641371375788472253724839474442856119127855446182528724118912004287387459312461557856105243947955774643990377840200633941182532611807851758274052839187510581661774349916262069560696414705663620271982698416998010252403742991151986158499992091379189313716005582625823559473183969575886657160097207176340481119690665340238419966860975580202140708529073366265694641104022400937825449053540332703778663083450434668243800578237528038271274425771986757854594964119285623769537070530096648056471552",
+          "upper_bound_numeric": 1.5455663784024355e-105
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "7210709054450028994732605773228136139933998548386224001358102661638728417896036478312822956077803120606696839243482376415920152461530586714700223049145882828744497606409934214820287567660348788184942310210360742410432498431507187324758076012587473764085489650383675918688724674134355284017608188149743166737627384367646847353677557387598823255989319741438573000169854874805404665255646742598297759829664302899261160522544586165380653493049394264619656326689380443040652739972459568037410188266410894979342108129079914495964026409991110308179194851149704036900393158982359599309919591497311697805812056759486711398632909104332235318155974115452763428054833730280632159125956269935157623678723854301652165783563541392180189628487936470470010775192400070837594922367179100232342648537194128543644793253276430288579379772773989783000184773048634414927311048564417895786047204840153251655896486977400979845888836108717293106868557825822386537983430744316896454826785607954709434517052723869755172526403407262464546580409273790729614691705929562302498331496503750271880844166192078542917588166316942511362121754844638281947642352166833415458831816324233223514066976840937635232430337341022074965092178611333400124634096023545467968109842377180584353617287529658597122761420905590057373046875/4665415316489564799153260012618374869420433875496302974967051523712555083790882887913847805497937157505757383494863948632241932538403219521244351322450930878403265522007278934695333018128570429479975316261375885009971746010682038760199277650060191629638055919436730355439430938597989491150691020064652493462367389099039313769321226546307035674578128457164544162590655027112137387052654749527724915417964924869656517427525389769440982743834622733295891760621217045848002364639049012054022027197672119883131966996851429200878041750035834319832362587058356762206931964139740021578760725333674350545513269069714699598532725553525005481457977003575822648407181084616052439698465931440605988204578401333262656173472174802564199661226863414409608050963010636397515983862431990547491626271312936379869469507078354664311651591983963628832829483415146620248920645192473038784594751351855598418252017669499363362641371375788472253724839474442856119127855446182528724118912004287387459312461557856105243947955774643990377840200633941182532611807851758274052839187510581661774349916262069560696414705663620271982698416998010252403742991151986158499992091379189313716005582625823559473183969575886657160097207176340481119690665340238419966860975580202140708529073366265694641104022400937825449053540332703778663083450434668243800578237528038271274425771986757854594964119285623769537070530096648056471552",
+          "upper_bound_numeric": 1.5455663784024355e-105
+        },
+        "integer_over_rational_exact": "1",
+        "n": 500,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "9759368313117186633304909306191686038111419731376055638950691945818258121870143362377646306502029658771035902332299715108755429359506376492329670353033497038648675756311786851538479109016986424671797134109977976711636744865632200275080946676901459061794634507680054131650356584827346797645446359405214732643325814287262427273485215374331448338559918876796946777758388856947852402314539797691232816920428057020303786685824959527163345830147101469141447851822566525142795481799803365043321303290641593967195488218114784957234396761721125979685626569489668895599220673941097451379648729407247248951171984616929374161246011650872836064740459386445841252110326835843551244662357201405450122188240246729290294430770418221678897426709589297711820300633681297420331239321170114307175926851467860185947764773759327334063228514670080363457462722790785318522858034379264598743449098295903097420041759075678430681829583661964468128756063096103612073138565988999542432406432280980691712558283892817121166688837909817688564206299760688772713580462170164884398234145199006230469860509766947675147765308718405488442620563828764610044539834066505459892416124233982900261276768480601672673303557235440959390850044169827605444594802320047137946927727493151462029983302506764956876931713178160841730691784799051165443728479783485806084445107496421232091002404603916558407854666189413599558949025115737496401054235627000746879622031764846288783602813406896657547248666511002588560947528221075187401418518203911177563436426477676565195591908083292599620017765410910988338656671686397042514005732045423721250447093937139313075784790004008643235917649380629713944185377107677684449187819758009909398736216774264148058626434885645335147278900428844215529738122710938009679926013373102609140178072802712957173571027289090066298488349841344274608369645478908160569061515991878212174780026117180812393913233383069840119645058798111543315299929993880099434941679426922504717608660778496668631581980102876059420889715330927703471051237097160217130457040474861804141904639414928456218235998848265800084038105705706316132635091487833980026603454013784593531296369417841060650406154625838661367512150247320095326640293262342259049474557352413869681182207150550487563450838001777402004605677030503093427767178568779862207060477042579688406811437501717518732526211017166108797080236702354941633672323748479537493111384364628084430257765372997316261870280388879615774263123683973979535758038031725401825325432972836951197274952701155704214849363899313242440614228451724387763533675800072214733146993635747583785898006265247897859517876076381447793663997343582442126269787205710901413154577786550585488875961652797890901312367557554444110137584099691595971911742727524486335439769058707119661089346692584635733268432062499880784935329687801891046843441222782608817684703359358815809315462494689486980656716574227566648996447617929316861521411768533285243697162617573127085937024270939177725118940593137129654119677522727768490261174077145949451772632877372310188878515114165143726865416872018765443829090917723805875573233208043406685188154590215647774275432463480490090800292482992579887282294651895345337705795502424458815194720318198390119442051916326027550609581679750237070153676216270377508571962113173485387168568257103804059743290588705818815751873391043025430338011832282359264765681826752278129423529248039477679629139262435850402278729826622281689650662411863784048088527748595140730696080910295769764502169507619595027971227998077377750720142122845748119905070912431091823861925464812184118378916474982094132559384820378695933093360618366661619147488490513398940056339753540358393514937692670515898525527983005816867481821577233377487779282939447449709516053533027020589949859705612521672123301389365158815943825667979362209326108572078065619927319488488429517710290244679847766990650493565186939230441988180105101875799392596959567539631846245569929401065731969394396137787962200233430529562688496403284219214673658439879912351139872268521464208078118809295829181510694346710308972202770074770010562954640701224179936803226365669920092001722433849817691307973400703517603261486491550706955027976918321856595471886162479631138101141513978481078722029241080867686313403405960323626450588425814554128935304535820954171901019438274741098016253087022225909729238191870981415283097750560458798065499565121037608282511902441142625335889800811149434222787288833502732725046638556001363213025101866112845829752467368517378424383208450975070627333331625240968544345169415663302944911971981239763899725845142737348717987164131382784063209934809590170645697424155981362538075452520321571508415639583037717094755696404408028796000147480238557776325888468218706887093267917309304110055235006905759023202781879159130358665591810922438399836682027501725984769238486147065165193320455702930971312864034468248607759738110622054848461349968299173030077727038043291927511123206228180198778057652238034294140208644862329370126532510510719671081781950611262107883722456490451100310781653549352083546760213761173080530663869067610407816954022507643723839510770693421671747945654208105046488316671322163909816464401684132539325193155402427536180744979410475278536771135971691832595928191380518931155554221156836851477667676329457371349794039304374053520071034335339439542144713138973133104281111559588523821261742503007674078281392912303306751833093271266823673755977836972979543065258459890517256104921587827376774243264583501149783811187344122675030083705508985240939292105646364291417962493228207905676955297540069769644358854760677209171340875829973723069468039555847093179826690389017124735122829328848517948464288034590043739596769293462017958013506389399306342717620004708706203064135102661342278030946122646213883818418474763886077219198749613958735079658993067465268019318879294546310989088731197182605628414814336351116767677118020192037083118789056779792713/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 1.9518736626234372e-92
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "7210709054450028994732605773228136139933998548386224001358102661638728417896036478312822956077803120606696839243482376415920152461530586714700223049145882828744497606409934214820287567660348788184942310210360742410432498431507187324758076012587473764085489650383675918688724674134355284017608188149743166737627384367646847353677557387598823255989319741438573000169854874805404665255646742598297759829664302899261160522544586165380653493049394264619656326689380443040652739972459568037410188266410894979342108129079914495964026409991110308179194851149704036900393158982359599309919591497311697805812056759486711398632909104332235318155974115452763428054833730280632159125956269935157623678723854301652165783563541392180189628487936470470010775192400070837594922367179100232342648537194128543644793253276430288579379772773989783000184773048634414927311048564417895786047204840153251655896486977400979845888836108717293106868557825822386537983430744316896454826785607954709434517052723869755172526403407262464546580409273790729614691705929562302498331496503750271880844166192078542917588166316942511362121754844638281947642352166833415458831816324233223514066976840937635232430337341022074965092178611333400124634096023545467968109842377180584353617287529658597122761420905590057373046875/4665415316489564799153260012618374869420433875496302974967051523712555083790882887913847805497937157505757383494863948632241932538403219521244351322450930878403265522007278934695333018128570429479975316261375885009971746010682038760199277650060191629638055919436730355439430938597989491150691020064652493462367389099039313769321226546307035674578128457164544162590655027112137387052654749527724915417964924869656517427525389769440982743834622733295891760621217045848002364639049012054022027197672119883131966996851429200878041750035834319832362587058356762206931964139740021578760725333674350545513269069714699598532725553525005481457977003575822648407181084616052439698465931440605988204578401333262656173472174802564199661226863414409608050963010636397515983862431990547491626271312936379869469507078354664311651591983963628832829483415146620248920645192473038784594751351855598418252017669499363362641371375788472253724839474442856119127855446182528724118912004287387459312461557856105243947955774643990377840200633941182532611807851758274052839187510581661774349916262069560696414705663620271982698416998010252403742991151986158499992091379189313716005582625823559473183969575886657160097207176340481119690665340238419966860975580202140708529073366265694641104022400937825449053540332703778663083450434668243800578237528038271274425771986757854594964119285623769537070530096648056471552",
+          "upper_bound_numeric": 1.5455663784024355e-105
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "7210709054450028994732605773228136139933998548386224001358102661638728417896036478312822956077803120606696839243482376415920152461530586714700223049145882828744497606409934214820287567660348788184942310210360742410432498431507187324758076012587473764085489650383675918688724674134355284017608188149743166737627384367646847353677557387598823255989319741438573000169854874805404665255646742598297759829664302899261160522544586165380653493049394264619656326689380443040652739972459568037410188266410894979342108129079914495964026409991110308179194851149704036900393158982359599309919591497311697805812056759486711398632909104332235318155974115452763428054833730280632159125956269935157623678723854301652165783563541392180189628487936470470010775192400070837594922367179100232342648537194128543644793253276430288579379772773989783000184773048634414927311048564417895786047204840153251655896486977400979845888836108717293106868557825822386537983430744316896454826785607954709434517052723869755172526403407262464546580409273790729614691705929562302498331496503750271880844166192078542917588166316942511362121754844638281947642352166833415458831816324233223514066976840937635232430337341022074965092178611333400124634096023545467968109842377180584353617287529658597122761420905590057373046875/4665415316489564799153260012618374869420433875496302974967051523712555083790882887913847805497937157505757383494863948632241932538403219521244351322450930878403265522007278934695333018128570429479975316261375885009971746010682038760199277650060191629638055919436730355439430938597989491150691020064652493462367389099039313769321226546307035674578128457164544162590655027112137387052654749527724915417964924869656517427525389769440982743834622733295891760621217045848002364639049012054022027197672119883131966996851429200878041750035834319832362587058356762206931964139740021578760725333674350545513269069714699598532725553525005481457977003575822648407181084616052439698465931440605988204578401333262656173472174802564199661226863414409608050963010636397515983862431990547491626271312936379869469507078354664311651591983963628832829483415146620248920645192473038784594751351855598418252017669499363362641371375788472253724839474442856119127855446182528724118912004287387459312461557856105243947955774643990377840200633941182532611807851758274052839187510581661774349916262069560696414705663620271982698416998010252403742991151986158499992091379189313716005582625823559473183969575886657160097207176340481119690665340238419966860975580202140708529073366265694641104022400937825449053540332703778663083450434668243800578237528038271274425771986757854594964119285623769537070530096648056471552",
+          "upper_bound_numeric": 1.5455663784024355e-105
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      },
+      {
+        "cauchy_integer": null,
+        "direct_polynomial": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "103099098382383659687597950973121324566979039126065771549441897866177461659892670828407458868694601119273976070356967464614698691107614581873356755145892308118690791223919580180398308086557415330160613414909729951951151718113345698745416768750478298092436754475430779373042756988919690714785398588023175002891008413699294520519937848961619642326850222972616231776560125346078372077943486445322338848170643895185655014282084698983873259492578503419902489843749783143236339024601301012419887364791596178627109943567298801898531798878267533026196826583242779332276508721728882418297259770450268845027136044828390385132338758417866026280597795959332011402911754007937824425246726732369620753874534595274758133818282965094347102899388096143541946331697733159016298566354547905633448737813947499985511931464129773547712314155970132259032822589032551506979071460741305428417904253383861580230607980850702410115641598813621172214948027443729878557348082619728487704835497944177700531044710069274227087502756487800122957098219628271758762792674228549209229235195471984715410579039678404573744128951982519128586103158682811692584469841930695397078049507958238191454350655386735924555686541122430393703841166965885817927960286072845996559314887390015561369533323556944061458487169974266765495629029281119835919546078882782512509788069381973938616882400733498406927149453095831405675564090313467035552122104073331955526693780392097702591372791750616448061659481965926174756648078599080567975959303493604960141117860357482523551277709700777397702742306373744730688675098578087341792347454538388175616006271752782051947205889151401944955712996125051332135206317624398887343397132455298286739924293611287622114156598524325077431927935903983551129985378414320582094967176083101288394907958811023132188360593956165050976727290163443251538477800383021186167155549291473379889464701865992122470667266127303207847158958459044511459804700558446695325742637115856461087952602353792194445206716076274781445833090707148652578791341500284922513451602817198223396801532423646631916852903426318804145240139259760036467077632871484436843639757527333767636208060207914012482365251549117567261340810842002358567767895132958287060776239716157759851675348311038228581666282632171821477704454187630019340415751334444366131085173368087147206195309983846618872258278223782874808939736050477143297288686811653151195217972514755781127068694809173234052422004371842007736666529710833212588288449851996143409499332936201152202809467987865144067427536356262862682342529296875/201312526219263718366501807877592900122841098102981102395227446580866494356774304369001979240335973800672883930729298649435076195608853998409223101248279767337298903657063888830105088373425444131187525434348290451304914114358599153339273892973988869948879153579188705478049866288796265379552963384568251785813651485795778919977879811369911018824488702243597022362681351577115606726213138249694621751483769941589068993355018193193636354305022300888227111373212328258553911591606741908249280262674057602062562113253793063514345104790854476195453885237847861600463842692655179796393920620770599762510449661248708423919937515097728592924780095460061107179368307724473230082702698704501415510067336095677160656712443758379685972065297200610871385918038090638699265427344192053902559180552292873415116597494167134553822649635714707052900833454102529820118893698991019641147182906889709881285735902219656151017580538930518682355830676427144647024825015634731329342068877757820830166148933317459799641204269808389782787430382993345203846712244649846245433634616369716420237787181838877299808409455847301677334468524924538881931973286240394999894602016546878299954049336248681302519196762216295777508704490781436578519986896436074656201496690071346739926692095133755752132646994015810169003632970277534260996460905737581710699456767262183319189584698068899910649409279254503992608676049302878305836404709880069792924377832773515538732747183256060008362706829998083295293291676040402588066573309931709041428701845837285530573263132079367898441338720514697932596741731557503454596993814886314092727803268602365725115093036593155346058210864274129517693518124167689388214088485259109890579607336776008102720914057359096651651462687017705643858283582289291099481967183377322151952180727333111888201900792173254876676417184023036343992451116172621685566475869386171494965368236205837461368626481259588138420749456431373226119754447656576696763617812735401958850480931594526708577925409488851116426698756836336492971382284930253429801741646319994792160126906064183090833641244809035694624855751204021776006323825053920249743272717819588084035664166371604247542610316024042509224330118092952043580235396804742634378849642089012202110320289898188220393023745848471815810747954740072953127091705256082224875657554449541179213977623008363723283486574294738223221701161969909971663346364307970578144529348028497817760699909498798101331078146747214933386202249748231213834529165871301545860188995508597714077957116137940239835935391856396611424503174830488668806060738081229857819788621118478719478963853190663143165988027816369037085651117601614692149164633008478132739056815225913839064650175739152860724689301693333957597239856514771973392883863465486978281111552",
+          "upper_bound_numeric": 5.121345418421263e-211
+        },
+        "integer": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "103099098382383659687597950973121324566979039126065771549441897866177461659892670828407458868694601119273976070356967464614698691107614581873356755145892308118690791223919580180398308086557415330160613414909729951951151718113345698745416768750478298092436754475430779373042756988919690714785398588023175002891008413699294520519937848961619642326850222972616231776560125346078372077943486445322338848170643895185655014282084698983873259492578503419902489843749783143236339024601301012419887364791596178627109943567298801898531798878267533026196826583242779332276508721728882418297259770450268845027136044828390385132338758417866026280597795959332011402911754007937824425246726732369620753874534595274758133818282965094347102899388096143541946331697733159016298566354547905633448737813947499985511931464129773547712314155970132259032822589032551506979071460741305428417904253383861580230607980850702410115641598813621172214948027443729878557348082619728487704835497944177700531044710069274227087502756487800122957098219628271758762792674228549209229235195471984715410579039678404573744128951982519128586103158682811692584469841930695397078049507958238191454350655386735924555686541122430393703841166965885817927960286072845996559314887390015561369533323556944061458487169974266765495629029281119835919546078882782512509788069381973938616882400733498406927149453095831405675564090313467035552122104073331955526693780392097702591372791750616448061659481965926174756648078599080567975959303493604960141117860357482523551277709700777397702742306373744730688675098578087341792347454538388175616006271752782051947205889151401944955712996125051332135206317624398887343397132455298286739924293611287622114156598524325077431927935903983551129985378414320582094967176083101288394907958811023132188360593956165050976727290163443251538477800383021186167155549291473379889464701865992122470667266127303207847158958459044511459804700558446695325742637115856461087952602353792194445206716076274781445833090707148652578791341500284922513451602817198223396801532423646631916852903426318804145240139259760036467077632871484436843639757527333767636208060207914012482365251549117567261340810842002358567767895132958287060776239716157759851675348311038228581666282632171821477704454187630019340415751334444366131085173368087147206195309983846618872258278223782874808939736050477143297288686811653151195217972514755781127068694809173234052422004371842007736666529710833212588288449851996143409499332936201152202809467987865144067427536356262862682342529296875/201312526219263718366501807877592900122841098102981102395227446580866494356774304369001979240335973800672883930729298649435076195608853998409223101248279767337298903657063888830105088373425444131187525434348290451304914114358599153339273892973988869948879153579188705478049866288796265379552963384568251785813651485795778919977879811369911018824488702243597022362681351577115606726213138249694621751483769941589068993355018193193636354305022300888227111373212328258553911591606741908249280262674057602062562113253793063514345104790854476195453885237847861600463842692655179796393920620770599762510449661248708423919937515097728592924780095460061107179368307724473230082702698704501415510067336095677160656712443758379685972065297200610871385918038090638699265427344192053902559180552292873415116597494167134553822649635714707052900833454102529820118893698991019641147182906889709881285735902219656151017580538930518682355830676427144647024825015634731329342068877757820830166148933317459799641204269808389782787430382993345203846712244649846245433634616369716420237787181838877299808409455847301677334468524924538881931973286240394999894602016546878299954049336248681302519196762216295777508704490781436578519986896436074656201496690071346739926692095133755752132646994015810169003632970277534260996460905737581710699456767262183319189584698068899910649409279254503992608676049302878305836404709880069792924377832773515538732747183256060008362706829998083295293291676040402588066573309931709041428701845837285530573263132079367898441338720514697932596741731557503454596993814886314092727803268602365725115093036593155346058210864274129517693518124167689388214088485259109890579607336776008102720914057359096651651462687017705643858283582289291099481967183377322151952180727333111888201900792173254876676417184023036343992451116172621685566475869386171494965368236205837461368626481259588138420749456431373226119754447656576696763617812735401958850480931594526708577925409488851116426698756836336492971382284930253429801741646319994792160126906064183090833641244809035694624855751204021776006323825053920249743272717819588084035664166371604247542610316024042509224330118092952043580235396804742634378849642089012202110320289898188220393023745848471815810747954740072953127091705256082224875657554449541179213977623008363723283486574294738223221701161969909971663346364307970578144529348028497817760699909498798101331078146747214933386202249748231213834529165871301545860188995508597714077957116137940239835935391856396611424503174830488668806060738081229857819788621118478719478963853190663143165988027816369037085651117601614692149164633008478132739056815225913839064650175739152860724689301693333957597239856514771973392883863465486978281111552",
+          "upper_bound_numeric": 5.121345418421263e-211
+        },
+        "integer_over_rational_exact": "1",
+        "n": 1000,
+        "noninteger": {
+          "decay_upper": "653748218969/1000000000000",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (1923810772713/500000000000)*(653748218969/1000000000000)**n)",
+          "id": "positive_jensen:direct:2:7/8",
+          "k": "7/8",
+          "method": "positive_jensen",
+          "prefactor_upper": "1923810772713/500000000000",
+          "reference": {
+            "rule": "Jensen_on_killed_potential",
+            "seed": "direct:2"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "49508647743332281933799246025117062662901361311652587642476037427678583504028913019085063608306101878511480661837087888898459379306463843411532933250082161129746011031069314407788478350677140372778755325585277823089049326928580318371558793159944239842122893284038119585501727841261735881547768509199627453830731738256983008074381234889634996741119995486793371958509430630602465042130373067185116987432039752166918722828825104779822512982358694634667234239287005504529418064703006455037257852978778530703100785570199945237837626579078275957267505173095499793150390675931237926720774665839404373397918126950826366479525527632117613456799120786068531482496537384208925413460472615055891663109832673797901001444220396458512324407700169163116741928415798354820553650412044760582952116567396082828604925865925176997189823359045806644987991458416039847722036702442633253847040009846491166759356427614795483191674686531090538831066560223993611820366313401589343870306541211019718176192925621521958758184208430924321041512195485527315581455238787799959732005979813281825945336209149624685382768100896216356804356767192366958921730572597485741150273574689526565173318545256577327207215484561655540435013742063018679554969325225719157852592485934224030280790017916948027124956885871432990943691716688972654359119067277117088636021877956428147324156939415688018506919521020628523721838005485690678838624354798779123797372519852221782569892272851300934230960097803770361549993969953764581602679831954103933466554753445193094202620278739556847327187244005288613445541895606269959790966549626603640247202409274447456423765547945928989216768471264117122534883881258409860751940625735157804407598774552442494345070842494615704197286102997257931470997829577753262923900620321473587303771387175902354440130380917334303340498714152889023000198000726869566826102880499623853302512038197382184195531712940895136001512323700763929634691243923865663495825545680026906549108706082338016511535662466192806533600320003060416263324504527625405031258941744133646014919455110747905943196961722597844575390565729311034042443263863017174013802291140289902514455232551061822736729124202746351185548734694905636084464905688007376182016370698578302778055610217209824550890173416504302916697613740558530632644723182880190154775424780491722238671421238965476720845288750469833553637581796713434430837314064753770015280767732321251587250631073954808693026032624788438069679136611355171387814742695521150891135597056672581802975576250377945626427289291774396419236120832717637359387494489446320135730305058647812748599297088856608853073850416522556761597965910733967735050413703826011600742579798169782945038333945803911099127094693327712935237421305328179167792557003374202153386484327320967782282748119854196313908959846756294512810066628536958998525083519909642439586248614478579684090912467967111366474277139021347156764981047900566596405580527339481126000756254737428460440942614011362186520105420448657857440026018323831807941781761643167290949590692043792713203349750609539319213798617629068892515240095783056199597701245628356410093888188628624553513916928079711527970636321019889059927708162019064717880427088365515770192917894345437350399533707033451890464245371552881498153669253638017636651627288800270349841028823989073620283657554013360054707979595955831023174058096750357778814182045148926519392190405256774319231653726691146287175631448634559393540629971106459334871881823958693159636178681092976271688998429836878092119842267608615377945855063868310209814603217467176289864810798172160519071802130927953187624814119135599482194840161389443442894905179578173891764805344786856354286249708822815469315646111085404527258652719891835803936732519029161213089475827567922452990600787656859423346444760932779229003515005261295456310962777420461199226571418870658671563371577270307451286972916792238100431742585353837806746436844394832133848570829098399282642923374795766960061687417971416493873848946713799859887055069193321183594695055190220076520356787628135538233670888157826835502889655727483092892181974516278086637735966276151813354343133598005760372554866889406688867388171120457902841689297265523426460142689101374750924944486284345561707707188589915885009823548927594111801173801759796496622321246696044121410509141264022058160554533948164496120668740021996264612831241793115429861136152004316243219418672271165928830270330131657012127518036339078072443517267646480481265463837521818878591578998494887101933397335477436978744430223601703203992790614359802324572911260068681992183672889458137105740368588170753786399494302089468544698173019959908095604209143892984577441706978140128645939560469606742871479039051637475264281229533593914297106534041089510833775968836124765670303227323300282573059234726577446263883718047750166917014154445347771578947953096632843024689694297335487762226659717116127444760626135247077835549707885998700065489480090749707173576469081624682036659116533069854828746620576880189872052285116172712570716238604573312450635149052191750974476000774491083946414735485299807430001591550529180215772509338178140098088412195720683950356360331153864651306607682425058442769575329324682841451880013657665257325586627440915991712921770892308127909197352277173669117350910166699441907500983026416938165681495552612363352402145196351725663440912148434337489099567787854983782457941455014523838476510383005088477262606612104013347257767086971660847823317105918747429030131717447408045997437129461591218634483556878889378896313159223017772934496393339345071574386056774032242571367511963646933304767026565738355599013425327513230081832250130654879949386470375579175795670584505283571595435682572318204232889881451952559563379760692376481240374480196678175511711398964863656767869994703129182832391940713368633385596350370009028074332733080501128196815300399115113046588046713270087570306874671990037761564911331590514053140223107363891077354801777634318705672229105469286336707925509958749005304831192447193327200959050295263877812364546950954789063844769570873366952136757342476132773785088213637935379289192059675151037123477366107006478521756347884954567063666976442779654434779737165716941890784985009109538545336033393769807127268590071368386704230751911263832056035781379289815687244312516782140534448958515032754989530921609400615699027142937856253102133807564408372291050079264175393224420029115233582673255432378746151651595222851618941455705583200183528541403050471627477034136114855733312700561697590405647974102197196061345600082099495256712632488656727902030832782318101082492000634469070001144987690661505615413305858128616134633612838953440737494861095060631988604252048060867560054659883977167677853849802145439288058865393925776598088520940257229168659304574149373359814706484671115717819358120929121562364556155742146440446055988184751037816347866977309683602131434216307195374990799389303595878934262608376060528739480014996953490677212696601800157719916510439643416739551728984773876200531206558391635479593797620754722652520826941238698325940564216977169874652918754015180851243661931904022395664555922275878807557559987665262011230362622543244351912681932053824236979812197061620439907581620782938800984451080577636528533223205358170640560313148171766250202198846789429742686313395511151108353815945662169997462180198482639361417158977075065700202222493827394647468659637951160643344860370380464819320763768296635474673487391546351484497511085884219160911863485312450566418641793798932392815592145609790946814797405141792971963989118516703866188921904344277450153205304584319002775668232272377190213041430023104443838520602603710560538231474432106466373449641669771271921389417362317110020979880275592865335798806502648562868969517889359626479865251006476406105581213375562774682928250753568986614695810313918064283593845617539038747632630405440102290545822615792723236264681697235275010282134202279512195363310757601515402275393369977288739820437699567298065748680256593282545664745683873670733783182768084769931988768093432197331653369063661154805609794090332305316465199747449218728544722730630202396990752254135363879740031260569986576391242614930662095194516363746627231682219456085256392289152848091365415243890125893089098263354805428737709065245035371456671762910036120103710114376046662045238064357564997234779360939457663485204393706531057158101801682649743199773347544278260906833103728623328692438360929955584459412018822945986836308411442188122140004616860217548805900414359430271974055595400077313513359519258168971838451780371829543347487173597375896735070849069344828856286867294320604746313597290591039941444671580225226292228335478210112439474866165301138793876581950457632543214998733845023341638454740845504075120207730406447931436137026203391581636990879334928189912826086235655641729104180231888436494597782453304326071698781437980317405377970131434012245716283961789086685471991669692244917739878291952400152478964941381221343771376887661171591536883363988746821332135731568667699201807323423704188906808310944559233589611347551393245802471314865925291557315051179113185355046717960589091176385392603423848107735343127474484249221614676832509438786173557113095100569686560162315724345576229929746207470592860229468004291834242079446010481685333856685383606179928761763827806870374261566255904811437046415846202497683336849222694616998924231536487333325302064490077861819591995571406245322295975164255439814096269282457430954147429391799817395164289318805098967653416989935053514981911721646784080455853781631700671493627686616200837359925187616683966964329496388326739407987419700167982994250558900533971777725294052568417497016184428972742610127972253334349819438794228011691261823954241298129847316623133360373267406863051087258307759511397086650218096153640571261308231661046966699332644185071624661705741616099289373298413095225350740807665761792834169619531735656234059805060718079633536012148700541601480652074718680252114795238601547760623041688962159867567261380222896952919913685424027350514708375080740032750800839364705920907800682028208745309164470955441028043093679335554697786446308911091459588264733380138520614060185516098130973421932822522603179170865170816287208819852547873450175080665089151704942528986832459139659771488678642750370413781708741140307968480067207764048979301362281893490724284580667608625714133567063457360403232787120767822222207347984161833472144809183841012889289712513712644839143419752306803156652995432118655349821851836825769102917560305738621624273466916165376056717580548517281085353643859685583852927841487787604966168139440389920233365301516221440180447300997087455151548552873598777866769687885860442379828445787711849615503459663652592448324849890108419041442508554283373586051392625649823071938140792456150386660161285859568958585036906609034850411718038799028361561243884790595010827285323108977469890120116017908255951762537277486494405462169866806409272635649795683393447112093141482743511332491512401000701884212434010912295898087104116434708920318163925805894598244774249229877895229153838181777544009987066480479185240302812404771603250651126711664893742924207124718161499650331643930549304514592274329502943525705735960548076757445143413351651782710921341656910455152459782268846856214036959969605862349315600167373482351121456860291709024068839210517581440413730668284729022399208369800651624502479780874359584289372113077904022669006085668978559772945925144892820953810651554685151748973014125106334916816814261163925653908647176004592931060841062063015362630561733916154792890600124650556383704030870155091932740416819119679067068227908944386433019105053483545417436363128636158217795751678133840104845426833803383105827587731548452215156926792168930414884068822461326106889598898738668908064838865726437445760264717491620548812713/500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "upper_bound_numeric": 9.901729548666456e-185
+        },
+        "numeric_is_display_only": true,
+        "overall": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "103099098382383659687597950973121324566979039126065771549441897866177461659892670828407458868694601119273976070356967464614698691107614581873356755145892308118690791223919580180398308086557415330160613414909729951951151718113345698745416768750478298092436754475430779373042756988919690714785398588023175002891008413699294520519937848961619642326850222972616231776560125346078372077943486445322338848170643895185655014282084698983873259492578503419902489843749783143236339024601301012419887364791596178627109943567298801898531798878267533026196826583242779332276508721728882418297259770450268845027136044828390385132338758417866026280597795959332011402911754007937824425246726732369620753874534595274758133818282965094347102899388096143541946331697733159016298566354547905633448737813947499985511931464129773547712314155970132259032822589032551506979071460741305428417904253383861580230607980850702410115641598813621172214948027443729878557348082619728487704835497944177700531044710069274227087502756487800122957098219628271758762792674228549209229235195471984715410579039678404573744128951982519128586103158682811692584469841930695397078049507958238191454350655386735924555686541122430393703841166965885817927960286072845996559314887390015561369533323556944061458487169974266765495629029281119835919546078882782512509788069381973938616882400733498406927149453095831405675564090313467035552122104073331955526693780392097702591372791750616448061659481965926174756648078599080567975959303493604960141117860357482523551277709700777397702742306373744730688675098578087341792347454538388175616006271752782051947205889151401944955712996125051332135206317624398887343397132455298286739924293611287622114156598524325077431927935903983551129985378414320582094967176083101288394907958811023132188360593956165050976727290163443251538477800383021186167155549291473379889464701865992122470667266127303207847158958459044511459804700558446695325742637115856461087952602353792194445206716076274781445833090707148652578791341500284922513451602817198223396801532423646631916852903426318804145240139259760036467077632871484436843639757527333767636208060207914012482365251549117567261340810842002358567767895132958287060776239716157759851675348311038228581666282632171821477704454187630019340415751334444366131085173368087147206195309983846618872258278223782874808939736050477143297288686811653151195217972514755781127068694809173234052422004371842007736666529710833212588288449851996143409499332936201152202809467987865144067427536356262862682342529296875/201312526219263718366501807877592900122841098102981102395227446580866494356774304369001979240335973800672883930729298649435076195608853998409223101248279767337298903657063888830105088373425444131187525434348290451304914114358599153339273892973988869948879153579188705478049866288796265379552963384568251785813651485795778919977879811369911018824488702243597022362681351577115606726213138249694621751483769941589068993355018193193636354305022300888227111373212328258553911591606741908249280262674057602062562113253793063514345104790854476195453885237847861600463842692655179796393920620770599762510449661248708423919937515097728592924780095460061107179368307724473230082702698704501415510067336095677160656712443758379685972065297200610871385918038090638699265427344192053902559180552292873415116597494167134553822649635714707052900833454102529820118893698991019641147182906889709881285735902219656151017580538930518682355830676427144647024825015634731329342068877757820830166148933317459799641204269808389782787430382993345203846712244649846245433634616369716420237787181838877299808409455847301677334468524924538881931973286240394999894602016546878299954049336248681302519196762216295777508704490781436578519986896436074656201496690071346739926692095133755752132646994015810169003632970277534260996460905737581710699456767262183319189584698068899910649409279254503992608676049302878305836404709880069792924377832773515538732747183256060008362706829998083295293291676040402588066573309931709041428701845837285530573263132079367898441338720514697932596741731557503454596993814886314092727803268602365725115093036593155346058210864274129517693518124167689388214088485259109890579607336776008102720914057359096651651462687017705643858283582289291099481967183377322151952180727333111888201900792173254876676417184023036343992451116172621685566475869386171494965368236205837461368626481259588138420749456431373226119754447656576696763617812735401958850480931594526708577925409488851116426698756836336492971382284930253429801741646319994792160126906064183090833641244809035694624855751204021776006323825053920249743272717819588084035664166371604247542610316024042509224330118092952043580235396804742634378849642089012202110320289898188220393023745848471815810747954740072953127091705256082224875657554449541179213977623008363723283486574294738223221701161969909971663346364307970578144529348028497817760699909498798101331078146747214933386202249748231213834529165871301545860188995508597714077957116137940239835935391856396611424503174830488668806060738081229857819788621118478719478963853190663143165988027816369037085651117601614692149164633008478132739056815225913839064650175739152860724689301693333957597239856514771973392883863465486978281111552",
+          "upper_bound_numeric": 5.121345418421263e-211
+        },
+        "rational": {
+          "decay_upper": "315/512",
+          "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+          "event": "K > n",
+          "expression": "min(1, (6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225)*(315/512)**n)",
+          "id": "direct:2",
+          "k": "1",
+          "method": "direct_polynomial",
+          "prefactor_upper": "6405192035467608911064928994765737690507648/1373222466721828900829151562744264857282225",
+          "reference": {
+            "certificate": "analyses/tailbound/degrees/2/c-009/attempts/002/certificate.json"
+          },
+          "time_unit": "completed_loop_iterations",
+          "upper_bound_exact": "103099098382383659687597950973121324566979039126065771549441897866177461659892670828407458868694601119273976070356967464614698691107614581873356755145892308118690791223919580180398308086557415330160613414909729951951151718113345698745416768750478298092436754475430779373042756988919690714785398588023175002891008413699294520519937848961619642326850222972616231776560125346078372077943486445322338848170643895185655014282084698983873259492578503419902489843749783143236339024601301012419887364791596178627109943567298801898531798878267533026196826583242779332276508721728882418297259770450268845027136044828390385132338758417866026280597795959332011402911754007937824425246726732369620753874534595274758133818282965094347102899388096143541946331697733159016298566354547905633448737813947499985511931464129773547712314155970132259032822589032551506979071460741305428417904253383861580230607980850702410115641598813621172214948027443729878557348082619728487704835497944177700531044710069274227087502756487800122957098219628271758762792674228549209229235195471984715410579039678404573744128951982519128586103158682811692584469841930695397078049507958238191454350655386735924555686541122430393703841166965885817927960286072845996559314887390015561369533323556944061458487169974266765495629029281119835919546078882782512509788069381973938616882400733498406927149453095831405675564090313467035552122104073331955526693780392097702591372791750616448061659481965926174756648078599080567975959303493604960141117860357482523551277709700777397702742306373744730688675098578087341792347454538388175616006271752782051947205889151401944955712996125051332135206317624398887343397132455298286739924293611287622114156598524325077431927935903983551129985378414320582094967176083101288394907958811023132188360593956165050976727290163443251538477800383021186167155549291473379889464701865992122470667266127303207847158958459044511459804700558446695325742637115856461087952602353792194445206716076274781445833090707148652578791341500284922513451602817198223396801532423646631916852903426318804145240139259760036467077632871484436843639757527333767636208060207914012482365251549117567261340810842002358567767895132958287060776239716157759851675348311038228581666282632171821477704454187630019340415751334444366131085173368087147206195309983846618872258278223782874808939736050477143297288686811653151195217972514755781127068694809173234052422004371842007736666529710833212588288449851996143409499332936201152202809467987865144067427536356262862682342529296875/201312526219263718366501807877592900122841098102981102395227446580866494356774304369001979240335973800672883930729298649435076195608853998409223101248279767337298903657063888830105088373425444131187525434348290451304914114358599153339273892973988869948879153579188705478049866288796265379552963384568251785813651485795778919977879811369911018824488702243597022362681351577115606726213138249694621751483769941589068993355018193193636354305022300888227111373212328258553911591606741908249280262674057602062562113253793063514345104790854476195453885237847861600463842692655179796393920620770599762510449661248708423919937515097728592924780095460061107179368307724473230082702698704501415510067336095677160656712443758379685972065297200610871385918038090638699265427344192053902559180552292873415116597494167134553822649635714707052900833454102529820118893698991019641147182906889709881285735902219656151017580538930518682355830676427144647024825015634731329342068877757820830166148933317459799641204269808389782787430382993345203846712244649846245433634616369716420237787181838877299808409455847301677334468524924538881931973286240394999894602016546878299954049336248681302519196762216295777508704490781436578519986896436074656201496690071346739926692095133755752132646994015810169003632970277534260996460905737581710699456767262183319189584698068899910649409279254503992608676049302878305836404709880069792924377832773515538732747183256060008362706829998083295293291676040402588066573309931709041428701845837285530573263132079367898441338720514697932596741731557503454596993814886314092727803268602365725115093036593155346058210864274129517693518124167689388214088485259109890579607336776008102720914057359096651651462687017705643858283582289291099481967183377322151952180727333111888201900792173254876676417184023036343992451116172621685566475869386171494965368236205837461368626481259588138420749456431373226119754447656576696763617812735401958850480931594526708577925409488851116426698756836336492971382284930253429801741646319994792160126906064183090833641244809035694624855751204021776006323825053920249743272717819588084035664166371604247542610316024042509224330118092952043580235396804742634378849642089012202110320289898188220393023745848471815810747954740072953127091705256082224875657554449541179213977623008363723283486574294738223221701161969909971663346364307970578144529348028497817760699909498798101331078146747214933386202249748231213834529165871301545860188995508597714077957116137940239835935391856396611424503174830488668806060738081229857819788621118478719478963853190663143165988027816369037085651117601614692149164633008478132739056815225913839064650175739152860724689301693333957597239856514771973392883863465486978281111552",
+          "upper_bound_numeric": 5.121345418421263e-211
+        },
+        "rational_no_worse": true,
+        "reciprocal": null,
+        "strict_improvement": false
+      }
+    ],
+    "config": {
+      "cauchy": {
+        "matrix_multiplier_degree": 1,
+        "scalar_order": 2,
+        "scalar_strategy": "sos"
+      },
+      "direct_fraction": 0.5,
+      "exponents": {
+        "coarse_points": 16,
+        "interval": [
+          "1/4",
+          "4"
+        ],
+        "refinements": 1
+      },
+      "max_fixed_seeds": 3,
+      "reciprocal": {
+        "feedback_points": 24,
+        "feedback_seconds": 90
+      }
+    },
+    "direct_options": {
+      "assertion_margin": "1/1000000",
+      "assertion_variables": null,
+      "c_values": null,
+      "comparison_ns": [
+        5,
+        10,
+        20,
+        50,
+        100,
+        200,
+        500,
+        1000
+      ],
+      "continue_after_success": false,
+      "degree_step": 1,
+      "enabled_strategies": [
+        "putinar",
+        "schmudgen",
+        "handelman"
+      ],
+      "family": "polynomial",
+      "initial_degree": 2,
+      "max_attempts_per_point": 2,
+      "max_c_steps": 12,
+      "max_decisions": 20000,
+      "max_degree": 4,
+      "max_order": 4,
+      "max_parameter_points": 32,
+      "max_products": 256,
+      "max_psd_dimension": 80,
+      "per_attempt_seconds": 10.0,
+      "reciprocal_seconds": 120.0,
+      "repair_max_solves": 2,
+      "repair_relative_gap": 0.05,
+      "repair_seconds": 5.0,
+      "strategy": "auto",
+      "symbolic_workflow": true,
+      "tail_rule": "auto",
+      "tail_variables": null,
+      "total_seconds": 90.0,
+      "verbose": true,
+      "workflow_config": "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/K5_adaptive_fraction_reciprocal/workflow.json"
+    },
+    "integer_exponent_interpretation": "Direct polynomial V is eta=V,k=1; degree is not k.",
+    "optimality": "best certified bound among searched candidates, separately for each n",
+    "rational_pool_includes_integers": true,
+    "route": "incumbent_fixed_then_joint",
+    "schema_version": 2,
+    "stages": [
+      {
+        "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+        "budget_seconds": 90.0,
+        "elapsed_seconds": 43.025073572061956,
+        "stage": "direct_polynomial",
+        "status": "proved",
+        "stop_reason": "first_successful_degree"
+      },
+      {
+        "eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "reason": "Relaxation order is too small for conclusion",
+        "seed": "direct:1",
+        "stage": "cauchy_fixed",
+        "status": "unknown"
+      },
+      {
+        "eta": "1105143020601776289738779489878564864*wealth**2/72749634068967552232219374563616975 - 5879689092833216079156579714936064*wealth/97218357065694881402804506397925 + 124391116116539624192/2032424716275845325",
+        "reason": "Relaxation order is too small for conclusion",
+        "seed": "direct:2",
+        "stage": "cauchy_fixed",
+        "status": "unknown"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+        "candidates": 0,
+        "degree": 2,
+        "elapsed_seconds": 64.41098997881636,
+        "seed_eta": "948986293289993533519152319914653*wealth**2/116445520317281555933945536030830 - 139261469396923367075864416766144*wealth/4212094975860997943292306637815 + 56044226375672530528/1622944806498594285",
+        "stage": "cauchy_joint",
+        "status": "no_certificate_found",
+        "t_values": [
+          "801488640589/8000000000000",
+          "801488640589/4000000000000",
+          "2404465921767/8000000000000",
+          "801488640589/2000000000000",
+          "801488640589/1600000000000",
+          "2404465921767/4000000000000",
+          "5610420484123/8000000000000",
+          "801488640589/1000000000000"
+        ],
+        "template": "__workflow_eta_0 + __workflow_eta_1*wealth + __workflow_eta_2*wealth**2"
+      },
+      {
+        "candidates": 18,
+        "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+        "stage": "positive_jensen",
+        "status": "proved"
+      },
+      {
+        "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+        "budget_policy": "independent additional soft budget; not consumed by positive searches",
+        "budget_seconds": 120.0,
+        "candidates": 0,
+        "elapsed_seconds": 2.5725461817346513,
+        "stage": "reciprocal",
+        "status": "no_certificate_found"
+      }
+    ]
+  },
+  "tail_rule": "round_survival",
+  "termination": "proved_almost_sure",
+  "termination_assumed": false
+}

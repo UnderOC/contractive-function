@@ -1,0 +1,43 @@
+{
+  "bound": {
+    "A_exact": "157/58",
+    "A_numeric": 2.706896551724138,
+    "boundary": "polynomial nonnegative; survival process zero after exit",
+    "c": "5/16",
+    "certificate": "analyses/tailbound/degrees/2/c-004/attempts/001/certificate.json",
+    "clock": {
+      "exit_step_counts": [
+        2
+      ],
+      "prefix_steps": 4,
+      "round_step_counts": [
+        6,
+        7
+      ],
+      "unit": "completed_loop_iterations"
+    },
+    "degree": 2,
+    "domain_reduction": "drop_disconnected_constraint_components",
+    "event": "K > n",
+    "expectation_mode": "exact_piecewise_survival",
+    "exponential_expression": "(157/58) * exp(-(-log(5/16))*n)",
+    "expression": "(157/58) * (5/16)**n",
+    "kernel": "symbolic",
+    "lambda_expression": "-log(5/16)",
+    "lambda_numeric": 1.1631508098056809,
+    "n_domain": "nonnegative integers",
+    "probability_expression": "min(1, (157/58) * (5/16)**n)",
+    "rule": "round_survival",
+    "template_variables": [
+      "x",
+      "y"
+    ],
+    "termination_consequence": "K is finite almost surely; finite round/exit paths imply program termination",
+    "time_unit": "completed_loop_iterations"
+  },
+  "integer_power_factorization_required": false,
+  "polynomials": {
+    "L_while_1": "88*x**2/29 + 88*y**2/29 + 7/29"
+  },
+  "verification_method": "rational_affine_reconstruction_exact_psd"
+}

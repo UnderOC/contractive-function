@@ -1,0 +1,119 @@
+{
+  "name": "S7_memory_switched_contraction",
+  "family": "stochastic_affine",
+  "source": "contractive_examples/stochastic_affine_examples/positive/S7_memory_switched_contraction.pp",
+  "source_sha256": "4cef49abb5b50f1e8fc0d9cf110222899d74243677989a454f6e254104c7576d",
+  "status": "proved",
+  "command": [
+    "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+    "-m",
+    "contractive_tool",
+    "solve",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/contractive_examples/stochastic_affine_examples/positive/S7_memory_switched_contraction.pp",
+    "--goal",
+    "tailbound",
+    "--initial-degree",
+    "1",
+    "--max-degree",
+    "1",
+    "--max-c-steps",
+    "12",
+    "--total-seconds",
+    "120",
+    "--reciprocal-seconds",
+    "30",
+    "--per-attempt-seconds",
+    "10",
+    "--repair-seconds",
+    "5",
+    "--comparison-n",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000",
+    "--workflow-config",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/examples/cauchy_workflow.json",
+    "--out-dir",
+    "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/S7_memory_switched_contraction/S7_memory_switched_contraction/run"
+  ],
+  "returncode": 0,
+  "wall_seconds": 21.261290890164673,
+  "verification_process": {
+    "command": [
+      "/home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python",
+      "-m",
+      "contractive_tool",
+      "verify",
+      "/ssd/ssd_backup/home/sunzhouyue/Probablistic_project/contractive_function/generated/paper_tailbounds_20261110/S7_memory_switched_contraction/S7_memory_switched_contraction/run"
+    ],
+    "returncode": 0,
+    "wall_seconds": 5.328023226000369
+  },
+  "verification": {
+    "comparisons_checked": 8,
+    "direct_certificates": 5,
+    "method": "source_replay_positive_and_reciprocal_exact_comparison",
+    "portfolio_candidates": 182,
+    "status": "proved"
+  },
+  "degrees_attempted": [
+    1
+  ],
+  "stages": [
+    {
+      "artifact": "analyses/tailbound/workflow/polynomial_summary.json",
+      "budget_seconds": 60.0,
+      "elapsed_seconds": 5.678940310142934,
+      "stage": "direct_polynomial",
+      "status": "proved",
+      "stop_reason": "first_successful_degree"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/fixed_000/result.json",
+      "candidates": 24,
+      "elapsed_seconds": 0.26986534520983696,
+      "eta": "471875*x/553952 + 3775*y/17311 + 82077/553952",
+      "seed": "direct:4",
+      "stage": "cauchy_fixed",
+      "status": "proved"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/joint_000/result.json",
+      "candidates": 123,
+      "degree": 1,
+      "elapsed_seconds": 9.59641398396343,
+      "seed_eta": "471875*x/553952 + 3775*y/17311 + 82077/553952",
+      "stage": "cauchy_joint",
+      "status": "proved",
+      "t_values": [
+        "41231057/100000000",
+        "1360624881/3200000000",
+        "1278162767/3200000000",
+        "21/50",
+        "1/2",
+        "3/5",
+        "7/10"
+      ],
+      "template": "__workflow_eta_0 + __workflow_eta_1*y + __workflow_eta_2*x"
+    },
+    {
+      "candidates": 30,
+      "rule": "derived 0<k<1 powers of verified direct potentials; no new state solve",
+      "stage": "positive_jensen",
+      "status": "proved"
+    },
+    {
+      "artifact": "analyses/tailbound/workflow/reciprocal/result.json",
+      "budget_policy": "independent additional soft budget; not consumed by positive searches",
+      "budget_seconds": 30.0,
+      "candidates": 0,
+      "elapsed_seconds": 1.0021379347890615,
+      "stage": "reciprocal",
+      "status": "no_certificate_found"
+    }
+  ]
+}

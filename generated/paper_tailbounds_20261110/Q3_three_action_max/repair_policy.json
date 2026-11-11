@@ -1,0 +1,35 @@
+{
+  "budget_policy": "separate_post_solve_reconstruction_v1",
+  "numerical_repair_seconds": 5,
+  "post_solve_reconstruction_seconds": 5,
+  "objective_cap_forwarded_to_reconstruction": true,
+  "enclosing_deadline_preserved": true,
+  "cli_budget_values_unchanged": true,
+  "historical_run": "contractive_function/generated/conditional_qlearning_20261109/Q3_three_action_max",
+  "budget_only_rerun": "contractive_function/generated/q3_diagnosis_20261110/budget_only_rerun",
+  "input_witnesses_used": false,
+  "reused_numerical_candidates": false,
+  "code_sha256": {
+    "src/contractive_tool/backends/cvxpy/repair.py": "2e48616f0b7bc99ed7cce0c662c8f6cf397e860ee4c67a72ad91dca465fb42f9",
+    "src/contractive_tool/cli.py": "9378d3e4e62076258bee1936fbdfd0fde9b4486719cb856af717e447c32c0d08",
+    "tests/unit/test_certificate_repair.py": "a807261179cb54252b4acdea744e0a6134dec0b6c4e4ef6e6eca8227368e0d6b",
+    "docs/symbolic_workflow.md": "f31a33c6007860300130c8155dd1cbb8b6e2ffb801edd16450bb17e823a9ac71",
+    "examples/run_contractive_examples.py": "ab387579b0d16705a9514fb23cec670fd66f60229435ad8be5389bbcde7a42ff",
+    "tests/unit/test_invariant_certification.py": "abc1757bd88bf8356fcf8eef93d2e9ba64ba7917df508b6e78f9b312b7d36623"
+  },
+  "focused_tests": {
+    "command": "python -m pytest tests/unit/test_certificate_repair.py -q",
+    "passed": 13
+  },
+  "regression": {
+    "suite_total": 302,
+    "initial_passed": 298,
+    "initial_failed": 4,
+    "resolved_cli_path_failures": 3,
+    "resolved_existing_R6_proof_method_expectation": 1,
+    "affected_test_files_recheck_passed": 21,
+    "all_suite_cases_passed_after_recheck": true,
+    "initial_log": "contractive_function/generated/q3_diagnosis_20261110/repair_fix_pytest.log",
+    "recheck_log": "contractive_function/generated/q3_diagnosis_20261110/repair_fix_recheck_pytest.log"
+  }
+}

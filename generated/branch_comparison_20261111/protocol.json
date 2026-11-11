@@ -1,0 +1,12 @@
+{
+  "source": "contractive_function/examples/cauchy_notes.pp",
+  "source_sha256": "4cef49abb5b50f1e8fc0d9cf110222899d74243677989a454f6e254104c7576d",
+  "command": "PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/sunzhouyue/.conda/envs/contractive-frontend-test-20260814/bin/python -m contractive_tool solve examples/cauchy_notes.pp --goal tailbound --initial-degree 1 --max-degree 1 --max-c-steps 12 --total-seconds 120 --reciprocal-seconds 30 --per-attempt-seconds 10 --repair-seconds 5 --comparison-n 5 10 20 50 100 200 --workflow-config examples/cauchy_workflow.json --out-dir generated/branch_comparison_20261111/cauchy_notes",
+  "cwd": "contractive_function",
+  "manual_witness_supplied": false,
+  "historical_candidate_loaded_into_synthesis": false,
+  "K4_action": "Reused existing complete benchmark workflow and reran public source verification",
+  "plot_selection": "exact rational minimum per branch at each integer n=0..100",
+  "source_hashes_and_replays_checked": true,
+  "plot_script_sha256": "301e065afa3f50110d2a7031cbcdeec19e56baa92996d20044ea23008781e3e5"
+}
