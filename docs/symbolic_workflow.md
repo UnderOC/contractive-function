@@ -2,7 +2,7 @@
 
 默认 `solve --goal tailbound` 在布尔宏步编译不适用、符号轮级编译成功时，进入
 `analysis/symbolic_workflow.py`。布尔宏步继续原流程；显式 `late_bad_exit`、
-仅建模和断言分析继续各自原入口。
+仅建模继续各自原入口；assertion violation 分析保存在 develop 分支。
 
 ## 正幂搜索阶段
 
@@ -50,7 +50,7 @@
   例如 `{"reciprocal":{"degree":1,"feedback_points":24,"feedback_seconds":90}}`。
   `total_seconds`、`limits`、`variables` 由主流程管理，不能在该对象中覆盖。
   默认倒数次数为 1；`--tail-variables` 同时限制两边的模板变量。
-- 当前接入范围是符号轮级尾界工作流；布尔宏步、显式 `late_bad_exit`、断言分析、
+- 当前接入范围是符号轮级尾界工作流；布尔宏步、显式 `late_bad_exit`、
   `--no-symbolic-workflow` 和仅建模入口维持各自入口。
 
 正幂侧还将直接多项式证书 `E[V_next] <= c*V` 经 Jensen 推导为
@@ -118,5 +118,5 @@ conda run --no-capture-output -n contractive-frontend-test-20260814 \
 因此“进入完整调度”不等于所有旧方法支持的输入都能成功执行 Cauchy。
 
 当前样例仍通过 `refute true` 满足既有终端接口，没有新增纯循环特殊分派。
-实测结果及回归记录见
-[TEST_RESULTS.md](../generated/symbolic_workflow_20261031/TEST_RESULTS.md)。
+当前论文结果与复核命令见
+[论文实验索引](../experiments/paper_tailbounds/README.md)。

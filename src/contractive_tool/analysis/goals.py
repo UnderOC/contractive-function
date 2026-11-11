@@ -31,11 +31,8 @@ class PolynomialProblem:
 
 def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000, *, template_variables=None):
     names = select_variables(cfg.symbols.program_variables, template_variables)
-    if goal == 'assertion_violation':
-        from contractive_tool.analysis.assertion import make_assertion_problem
-        return make_assertion_problem(cfg, evidence, degree, c, max_decisions=max_decisions, template_variables=template_variables)
-    if goal not in {'tailbound','assertion_violation'}:
-        raise AnalysisError('Unknown analysis goal')
+    if goal != 'tailbound':
+        raise AnalysisError('Only tailbound analysis is supported on main; use develop for assertion analysis')
     if not 0<c<1:
         raise AnalysisError('Contraction factor must be strictly between 0 and 1')
     if cfg.failure_terminal is None:
@@ -45,7 +42,7 @@ def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000
     if count>max_decisions:
         raise AnalysisError('Template coefficient budget exceeded before basis expansion')
     factory = PolynomialTemplateFactory()
-    template = factory.instantiate(cfg,degree=degree,prefix='v' if goal=='tailbound' else 'theta',locations=ordinary, variables=names)
+    template = factory.instantiate(cfg,degree=degree,prefix='v',locations=ordinary, variables=names)
     expressions = {l:p.expression for l,p in template.expressions.items()}
     expressions[cfg.normal_terminal] = sp.Integer(0)
     expressions[cfg.failure_terminal] = sp.Integer(1)
@@ -64,7 +61,7 @@ def make_problem(cfg, evidence, degree, c, goal='tailbound', max_decisions=20000
         for index,domain in enumerate(evidence.group_domains[group.id]):
             obligations.append(Implication(f'{group.id}_{index}',domain,h,
                 {'location':group.source,'transition':group.id,'line':group.origin.start_line if group.origin else None},
-                ('contraction','late_bad_exit' if goal=='tailbound' else 'prefixed_point')))
+                ('contraction','late_bad_exit')))
     initialized = expressions[evidence.start].subs(evidence.initial,simultaneous=True)
     objective = expectation.random_expectation(
         service.normalize(initialized), evidence.initial_random_model).expression

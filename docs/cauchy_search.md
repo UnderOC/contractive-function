@@ -188,4 +188,4 @@ Pr(K > n) <= min(1, C*R**n), n = 0,1,2,...
 - 默认符号轮级流程自动调度 Cauchy；若源码超出上述随机展开支持范围，则保留
   直接多项式阶段的结果，并在阶段记录中说明未执行 Cauchy 的原因。
 
-测试及实测结果见 `generated/cauchy_search_20261031_verified/TEST_RESULTS.md`。
+论文 S7 的结果及复核命令见 [实验索引](../experiments/paper_tailbounds/README.md)。历史开发记录保存在 develop。

@@ -48,7 +48,7 @@ def main():
     write(root/'workflow.json',config)
     rows=[]
     sources=(sorted(args.source_root.resolve().rglob('*.pp')) if args.source_root else
-             sorted((PROJECT/'contractive_examples').glob('*/*.pp')))
+             sorted((PROJECT/'contractive_examples').rglob('*.pp')))
     if args.cases:
         unknown=set(args.cases)-{s.stem for s in sources}
         if unknown:

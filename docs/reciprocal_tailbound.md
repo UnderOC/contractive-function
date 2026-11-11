@@ -213,10 +213,10 @@ conda run -n contractive-frontend-test-20260814 \
 ```
 
 批量脚本运行原始输入，不修改样例；每例 30 秒分析软预算和 90 秒外部超时保护。
-实测结果见 [2026-11-07 报告](../generated/reciprocal_20261107/RESULTS.md)。
+实测结果见 [论文实验索引](../experiments/paper_tailbounds/README.md)。
 
 三阶段实测与同环境基线对比见
-[2026-11-08 报告](../generated/reciprocal_feedback_20261108/RESULTS.md)。复现对比：
+[论文实验索引](../experiments/paper_tailbounds/README.md)。复现对比：
 
 ```bash
 conda run -n contractive-frontend-test-20260814 \

@@ -21,7 +21,7 @@ CASES = (
     ('RCD', 'RCD_example.pp', []),
     ('cauchy_notes', 'examples/cauchy_notes.pp', []),
     ('qlearning', 'qlearning.pp', []),
-    ('coupon2', 'tailbound_benchmark_pack/pp/01_coupon2.pp', []),
+    ('coupon2', 'tests/fixtures/01_coupon2.pp', []),
     ('uniform', 'uniform_multiplicative.pp', []),
 )
 

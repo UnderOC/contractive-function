@@ -2,7 +2,7 @@
 
 `--tail-variables wealth` 将 tailbound 的待合成函数限制为所列程序变量的多项式。
 默认仍使用全部程序变量；这个选项目前是显式选择，不会自动猜测哪些变量无关。
-与 `--assertion-variables` 相互独立。
+该参数用于主分支的 tailbound 分析。
 
 ```bash
 python -m contractive_tool solve kelly_double_bound.pp --goal tailbound \
@@ -25,7 +25,7 @@ python -m contractive_tool evaluate generated/kelly_tail_selected_new --n 100
   显式 workflow 配置若含被排除的变量，该联合阶段报告冲突，不会悄悄加入这些变量。
 - 源程序、初始化、不变量、转移、随机分布、存活守卫及循环时钟均保留。
   变量筛选仅限制函数的形式，不是删除源程序语句。
-- 直接多项式正性编码复用 assertion 的域约简：对每条证明义务，保留残差涉及的变量
+- 直接多项式正性编码使用共享的域约简：对每条证明义务，保留残差涉及的变量
   以及由域约束与之相连的全部变量。仅删除断开的约束分量，在投影的超集上证明。
   比如 `wealth := round` 会让 round 重新出现在残差和认证域中。
   因而用户即使省略一个真正影响行为的变量，也不会因此得到不健全的证明。
@@ -40,4 +40,4 @@ python -m contractive_tool evaluate generated/kelly_tail_selected_new --n 100
 模板变量减少在数学上缩小了函数搜索空间。实际改善来自降低数值问题维度、启用
 现有一维区间编码及更容易搜索高次模板，不意味着受限模板在理论上比全变量模板更强。
 
-[Kelly 实验结果和重现命令](../generated/tail_kelly_variables_20261104/RESULTS.md)
+[Kelly 实验结果和复核命令](../experiments/paper_tailbounds/README.md)

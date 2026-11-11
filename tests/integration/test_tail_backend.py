@@ -177,7 +177,7 @@ def test_previously_proved_certificate_survives_later_solver_failure(tmp_path,mo
 def test_round_tail_synthesis_recovers_exact_coupon_certificate(tmp_path,mosek_available,filename,count,c):
     from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
     out = tmp_path/'round'
-    result = run_analysis(PROJECT/'tailbound_benchmark_pack/pp'/filename,'tailbound',out,
+    result = run_analysis(PROJECT/'tests/fixtures'/filename,'tailbound',out,
                           options=SearchOptions(max_degree=1))
     assert result['status'] == 'proved', result
     assert result['tail_rule'] == 'round_survival'
@@ -205,7 +205,7 @@ def test_round_tail_synthesis_recovers_exact_coupon_certificate(tmp_path,mosek_a
     assert verification['round_evidence'] == 'round_evidence.json'
 
 
-def test_round_mode_rejects_unsupported_input_and_assertion_builds_its_own_model(tmp_path):
+def test_round_mode_rejects_unsupported_input(tmp_path):
     from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
     options = SearchOptions(initial_degree=1,max_degree=1,tail_rule='round_survival')
     source=tmp_path/'nested.pp'
@@ -213,12 +213,6 @@ def test_round_mode_rejects_unsupported_input_and_assertion_builds_its_own_model
     unsupported = run_analysis(source,'tailbound',tmp_path/'unsupported',options=options)
     assert unsupported['status'] == 'unsupported'
     assert unsupported['stop_reason'] == 'round_evidence_unavailable'
-    assertion = run_analysis(PROJECT/'tailbound_benchmark_pack/pp/02_coupon4.pp','assertion_violation',
-                             tmp_path/'assertion',options=options,model_only=True)
-    assert assertion['status'] == 'not_solved'
-    assert assertion['stop_reason'] == 'model_only'
-    assert list((tmp_path/'assertion').rglob('conic_model.json'))
-    assert not list((tmp_path/'assertion').rglob('solver.json'))
 
 
 def test_bisection_preserves_verified_certificate_on_inconclusive_next_point(tmp_path,mosek_available,monkeypatch):

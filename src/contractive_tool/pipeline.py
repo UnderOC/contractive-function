@@ -75,6 +75,9 @@ def compile_to_cfg(source: str | Path, out_dir: str | Path) -> dict[str, object]
                     }
                 )
     artifact_hashes = {name: _sha256(output_path / name) for name in sorted(artifacts)}
+    # Preserve exact input bytes for replay from a different checkout path.
+    (output_path / "source.pp").write_bytes(source_path.read_bytes())
+    artifact_hashes["source.pp"] = _sha256(output_path / "source.pp")
     manifest = {
         "schema_version": 1,
         "tool": {"name": "contractive-tool", "version": __version__},

@@ -20,7 +20,7 @@ def compile_round(source):
 
 
 def test_coupon_kernel_strict_boundary_and_exact_moment_are_generic():
-    source = (PROJECT/'tailbound_benchmark_pack/pp/02_coupon4.pp').read_text()
+    source = (PROJECT/'tests/fixtures/02_coupon4.pp').read_text()
     for i in range(4):
         source = source.replace(f'c{i}',f'flag{i}')
     cfg,kernel = compile_round(source)

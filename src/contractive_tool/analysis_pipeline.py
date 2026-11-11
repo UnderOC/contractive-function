@@ -55,19 +55,23 @@ class SearchOptions:
     verbose: bool = True
     family: str = 'polynomial'
     tail_rule: str = 'auto'
-    assertion_margin: str = '1/1000000'
-    assertion_variables: tuple[str, ...] | None = None
     tail_variables: tuple[str, ...] | None = None
     symbolic_workflow: bool = True
     reciprocal_seconds: float = 60
     workflow_config: str | None = None
     comparison_ns: tuple[int, ...] = (5, 20, 100)
 
+    @classmethod
+    def from_artifact(cls, options):
+        """Read historical tail metadata without restoring the removed analysis."""
+        return cls(**{key: value for key, value in options.items()
+                      if key not in {'assertion_margin', 'assertion_variables'}})
+
     def validate(self):
         degrees = DegreePolicy(self.initial_degree,self.max_degree,self.degree_step,self.continue_after_success)
         list(degrees.degrees())
         get_family(self.family)
-        for name in ('assertion_variables', 'tail_variables'):
+        for name in ('tail_variables',):
             selected = getattr(self, name)
             if selected is not None and (
                     not isinstance(selected, (tuple, list)) or
@@ -129,11 +133,8 @@ def _run_polynomial_analysis(source, goal, out_dir=None, *, options=None, model_
     policy,cs=options.validate()
     family=get_family(options.family)
     goal={'tail_bound':'tailbound','exponential_tail':'tailbound'}.get(goal,goal)
-    if goal == 'assertion_violation':
-        from contractive_tool.assertion_pipeline import run_assertion_analysis
-        return run_assertion_analysis(source, out_dir, options=options, model_only=model_only)
-    if goal not in {'tailbound','assertion_violation'}:
-        raise AnalysisError('Goal must be tailbound or assertion_violation')
+    if goal != 'tailbound':
+        raise AnalysisError('Only tailbound analysis is supported on main; use develop for assertion analysis')
     source=Path(source).resolve()
     if out_dir is None:
         stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S_%fZ')
@@ -361,12 +362,10 @@ def run_analysis(source, goal, out_dir=None, *, options=None, model_only=False):
     options = options or SearchOptions()
     options.validate()
     normalized_goal = {'tail_bound':'tailbound','exponential_tail':'tailbound'}.get(goal, goal)
-    if normalized_goal == 'assertion_violation':
-        from contractive_tool.assertion_pipeline import run_assertion_analysis
-        return run_assertion_analysis(source, out_dir, options=options, model_only=model_only)
-    if (not options.symbolic_workflow or model_only or normalized_goal != 'tailbound'
-            or options.tail_rule == 'late_bad_exit'):
-        return _run_polynomial_analysis(source, goal, out_dir, options=options, model_only=model_only)
+    if normalized_goal != 'tailbound':
+        raise AnalysisError('Only tailbound analysis is supported on main; use develop for assertion analysis')
+    if not options.symbolic_workflow or model_only or options.tail_rule == 'late_bad_exit':
+        return _run_polynomial_analysis(source, normalized_goal, out_dir, options=options, model_only=model_only)
     started = time.monotonic()
     prepared = None
     try:

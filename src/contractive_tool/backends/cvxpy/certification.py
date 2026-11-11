@@ -31,7 +31,7 @@ def exact_template_check(problem, numerical_values):
 
 def certify_candidate(model, problem, values, *, options, deadline, bounded_reconstruction=False,
                       reconstruction_objective_cap=None):
-    """Same recovery sequence for tail and assertion; no solver status is a proof."""
+    """Shared certificate recovery; no solver status is a proof."""
     verified = reconstruct(model, values, deadline=deadline if bounded_reconstruction else None,
                            objective_cap=reconstruction_objective_cap)
     audit = None

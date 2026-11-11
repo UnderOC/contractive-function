@@ -29,7 +29,7 @@ def _parser():
         command = commands.add_parser(name, help='search uniform polynomial certificates' if name=='solve'
                                       else 'generate polynomial obligations/conic model without solving')
         command.add_argument('source', type=Path)
-        command.add_argument('--goal', choices=('tailbound','assertion_violation'), required=True)
+        command.add_argument('--goal', choices=('tailbound',), required=True)
         command.add_argument('--out-dir', type=Path)
         for field in ('initial_degree','max_degree','degree_step','max_order','max_attempts_per_point',
                       'max_parameter_points','max_c_steps','max_products','max_psd_dimension','max_decisions',
@@ -42,11 +42,7 @@ def _parser():
                                       'separate soft budgets for numerical repair and post-solve exact recovery; capped by search deadline'
                                       if field=='repair_seconds' else None)
         command.add_argument('--c-values', nargs='+', default=None,
-                             help='explicit c grid; defaults: tail bisection, assertion near-one grid')
-        command.add_argument('--assertion-margin', default=defaults.assertion_margin,
-                             help='positive rational lower bound for raw assertion eta (H=1)')
-        command.add_argument('--assertion-variables', nargs='+', default=None,
-                             help='restrict assertion templates to these program variables; default: all')
+                             help='explicit c grid; default: tail bisection')
         command.add_argument('--tail-variables', nargs='+', default=None,
                              help='restrict tailbound templates to these program variables; default: all')
         command.add_argument('--continue-after-success', action='store_true')
@@ -70,9 +66,7 @@ def _parser():
     evaluate = commands.add_parser('evaluate', help='evaluate an already proved uniform bound; no new solve')
     evaluate.add_argument('artifacts', type=Path)
     evaluate.add_argument('--n', type=int)
-    evaluate.add_argument('--event', choices=('eventual','late_failure','point_failure'), default='eventual')
-    evaluate.add_argument('--clock', choices=('after_initialization','program_entry'), default='after_initialization')
-    verify = commands.add_parser('verify', help='independently replay assertion or symbolic tail certificates without solving')
+    verify = commands.add_parser('verify', help='independently replay symbolic tail certificates without solving')
     verify.add_argument('artifacts', type=Path)
     return parser
 
@@ -85,24 +79,21 @@ def main(argv=None):
             result = StrategyRegistry().snapshot()
         elif args.command == 'verify':
             summary = json.loads((args.artifacts/'summary.json').read_text())
-            if summary.get('goal') == 'assertion_violation':
-                from contractive_tool.assertion_pipeline import verify_assertion
-                result = verify_assertion(args.artifacts)
-            else:
-                from contractive_tool.analysis.symbolic_workflow import verify_workflow
-                result = verify_workflow(args.artifacts)
+            if summary.get('goal') != 'tailbound':
+                raise AnalysisError('Only tailbound artifacts are supported on main; use develop for assertion analysis')
+            from contractive_tool.analysis.symbolic_workflow import verify_workflow
+            result = verify_workflow(args.artifacts)
         elif args.command == 'evaluate':
             if args.n is not None and not 0 <= args.n <= 10000:
                 raise AnalysisError('n must be an integer in [0,10000] for numeric evaluation')
             summary = json.loads((args.artifacts/'summary.json').read_text())
             if summary.get('status') != 'proved' or not summary.get('selection'):
                 raise AnalysisError('Artifact has no proved uniform bound')
-            if summary.get('goal') != 'assertion_violation' and args.n is None:
+            if summary.get('goal') != 'tailbound':
+                raise AnalysisError('Only tailbound artifacts are supported on main; use develop for assertion analysis')
+            if args.n is None:
                 raise AnalysisError('Tail evaluation requires --n')
-            if summary.get('goal') == 'assertion_violation':
-                from contractive_tool.assertion_pipeline import evaluate_assertion
-                result = evaluate_assertion(args.artifacts, event=args.event, n=args.n, clock=args.clock)
-            elif 'symbolic_workflow' in summary:
+            if 'symbolic_workflow' in summary:
                 from contractive_tool.analysis.symbolic_workflow import compare_candidates, verify_workflow
                 checked = verify_workflow(args.artifacts)
                 if checked['status'] != 'proved':
@@ -131,7 +122,7 @@ def main(argv=None):
             result = {'status':'ok',**compile_to_cfg(args.source,args.out_dir or Path('generated')/args.source.stem)}
         else:
             fields = {field:getattr(args,field) for field in SearchOptions.__dataclass_fields__ if hasattr(args,field)}
-            for field in ('c_values','enabled_strategies','comparison_ns','assertion_variables','tail_variables'):
+            for field in ('c_values','enabled_strategies','comparison_ns','tail_variables'):
                 if fields[field] is not None:
                     fields[field] = tuple(fields[field])
             result = run_analysis(args.source,args.goal,args.out_dir,options=SearchOptions(**fields),

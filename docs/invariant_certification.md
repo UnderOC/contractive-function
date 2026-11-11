@@ -52,7 +52,7 @@ call the numerical solver. The public workflow verifier and the standalone
 Cauchy/reciprocal verify/evaluate commands use these replay paths. Old evidence
 using only the existing algebraic rules remains supported.
 
-The low-level `semantics.prepare_program` default and the assertion-analysis
-pipeline retain their existing certification rules. Random initialization and
+The low-level `semantics.prepare_program` default retains its existing
+certification rules; assertion analysis is archived on develop. Random initialization and
 probability checks also retain their existing semantics; this extension targets
 inductive invariant preservation in tail analysis.

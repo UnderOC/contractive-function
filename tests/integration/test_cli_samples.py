@@ -43,6 +43,7 @@ def test_actual_sample_runs_complete_cli_pipeline(
         assert summary[key] == value
 
     expected_files = {
+        "source.pp",
         "source.normalized.pp",
         "ast.json",
         "cfg.json",
@@ -62,6 +63,7 @@ def test_actual_sample_runs_complete_cli_pipeline(
     assert manifest["phase"] == "frontend_pcfg"
     assert manifest["statistics"]["locations"] == expected["locations"]
     assert set(manifest["artifacts"]) == expected_files - {"manifest.json"}
+    assert (out_dir / "source.pp").read_bytes() == (PROJECT / sample).read_bytes()
     # The normalized artifact is itself valid source, not merely a debug dump.
     check_program(parse_file(out_dir / "source.normalized.pp"))
 

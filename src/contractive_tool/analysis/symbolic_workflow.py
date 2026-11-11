@@ -568,13 +568,15 @@ def verify_workflow(root):
         if summary['status'] != 'proved':
             raise AnalysisError('No proved symbolic workflow')
         source = Path(manifest['source'])
+        if not source.is_file():
+            source = root/'shared/source.pp'
         if sha256(source.read_bytes()).hexdigest() != manifest['source_sha256']:
             raise AnalysisError('Source hash mismatch')
         workflow = summary['symbolic_workflow']
         cfg = build_cfg(check_program(parse_file(source)))
         evidence = prepare_certified_program(cfg, saved_evidence=_json(root/'analyses/tailbound/domain_evidence.json'))
         kernel = prepare_symbolic_round_kernel(cfg,evidence)
-        options = SearchOptions(**workflow['direct_options'])
+        options = SearchOptions.from_artifact(workflow['direct_options'])
         options.validate()
         if options.tail_variables != manifest['options'].get('tail_variables'):
             raise AnalysisError('Tail variable selection differs from run options')
@@ -600,7 +602,7 @@ def verify_workflow(root):
                 if round_ is None:
                     round_ = prepare_random_round(source, invariant_evidence=evidence.to_data())
                 result = _json(root/stage['artifact'])
-                requested = SearchOptions(**manifest['options'])
+                requested = SearchOptions.from_artifact(manifest['options'])
                 local = reciprocal_options(requested,workflow['config'])
                 template = polynomial_template(round_,local)
                 if (not requested.reciprocal_seconds or result['options'] != _canonical(asdict(local))

@@ -182,7 +182,7 @@ def main():
         '- 整数正幂不同模板之间也有前因子与衰减率的权衡，不能只报告最小 q 的一个模板。',
         '- 本轮非整数结果是 Jensen 保底派生界。Cauchy 的失败是有限模板、随机基、编码及预算下未找到证书，不是不可行性证明。',
         '- 当前结果没有穷尽更高次数、其他随机基或参数；也没有证明某一证书族普遍更优。',
-        '- 倒数目前接入符号轮级尾界流程；布尔宏步、显式 late_bad_exit 和断言入口仍走原流程。',
+        '- 倒数目前接入符号轮级尾界流程；布尔宏步、显式 late_bad_exit 仍走原流程；断言分析在 develop。',
         '- 本轮未引入基于跨路线收益的动态预算调度。预算固定独立，便于复现和判断每条线的贡献。','',
         '## 验证与复现','',
         f"- 本轮源码重放验证通过：{checked['portfolio_candidates']} 个候选；见 [verification.json](verification.json)。",
@@ -192,7 +192,7 @@ def main():
         '报告绘图使用本机已有 Matplotlib 的 `/Anaconda/bin/python`，证书重放不需要求解器。', '',
         '在项目目录执行（输出目录须为新目录）：','', '```bash',
         'conda activate contractive-frontend-test-20260814',
-        'python -m contractive_tool solve kelly_double_bound.pp --goal tailbound \\\n  --tail-variables wealth --initial-degree 2 --max-degree 4 --max-c-steps 12 \\\n  --total-seconds 180 --reciprocal-seconds 120 --per-attempt-seconds 10 --repair-seconds 5 \\\n  --comparison-n 5 10 20 50 100 200 500 1000 \\\n  --workflow-config generated/kelly_routes_20261108/workflow.json \\\n  --out-dir generated/kelly_routes_reproduce/run',
+        'python -m contractive_tool solve kelly_double_bound.pp --goal tailbound \\\n  --tail-variables wealth --initial-degree 2 --max-degree 4 --max-c-steps 12 \\\n  --total-seconds 180 --reciprocal-seconds 120 --per-attempt-seconds 10 --repair-seconds 5 \\\n  --comparison-n 5 10 20 50 100 200 500 1000 \\\n  --workflow-config examples/tailbound_comparison.json \\\n  --out-dir generated/kelly_routes_reproduce/run',
         'python -m contractive_tool verify generated/kelly_routes_reproduce/run',
         'python -m contractive_tool evaluate generated/kelly_routes_reproduce/run --n 1000',
         'PYTHONPATH=src /Anaconda/bin/python examples/report_kelly_routes.py generated/kelly_routes_reproduce/run \\\n  --out-dir generated/kelly_routes_reproduce', '```','']
