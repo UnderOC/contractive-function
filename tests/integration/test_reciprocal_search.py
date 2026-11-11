@@ -20,7 +20,7 @@ def results():
         cp.Problem(cp.Minimize(x), [x >= 1]).solve(solver=cp.MOSEK)
     except cp.error.SolverError as error:
         pytest.skip(str(error))
-    round_ = prepare_random_round(PROJECT/'kelly_double_bound.pp')
+    round_ = prepare_random_round(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp')
     fixed = search_reciprocal(round_, eta=sp.Symbol('wealth'))
     template = search_reciprocal(round_, options=ReciprocalOptions(feedback_points=0))
     return round_, fixed, template
@@ -71,8 +71,8 @@ def test_tampered_proofs_are_rejected(results, field):
     assert verify_result(round_, bad)['status'] == 'verification_failed'
 
 
-def test_unbounded_kelly_cannot_use_bounded_reciprocal_theorem(results):
-    round_ = prepare_random_round(PROJECT/'kelly_unbounded.pp')
+def test_unbounded_kelly_cannot_use_bounded_reciprocal_theorem(results, unbounded_kelly_source):
+    round_ = prepare_random_round(unbounded_kelly_source)
     fixed = search_reciprocal(round_, eta=sp.Symbol('wealth'))
     template = search_reciprocal(round_, options=ReciprocalOptions(growth_values=('33/32',)))
     assert fixed['status'] == template['status'] == 'no_certificate_found'
@@ -128,12 +128,11 @@ def test_unknown_after_success_keeps_certificates(results, monkeypatch):
 def test_standalone_cli_and_unsupported_inputs(tmp_path, results, capsys):
     from contractive_tool.reciprocal_cli import main
     output = tmp_path/'result'
-    assert main(['run', str(PROJECT/'kelly_double_bound.pp'), '--out-dir', str(output)]) == 0
+    assert main(['run', str(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp'), '--out-dir', str(output)]) == 0
     assert main(['verify', str(output)]) == 0
     assert main(['evaluate', str(output), '--n', '100']) == 0
     assert main(['evaluate', str(output), '--n', '-1']) == 2
-    assert main(['run', str(PROJECT/'uniform_multiplicative.pp'), '--out-dir', str(tmp_path/'unsupported')]) == 3
-    assert 'unsupported' in capsys.readouterr().out
+    capsys.readouterr()
     source = tmp_path/'continuous.pp'
     source.write_text('x := 1; while x < 2 do x := Uniform(1,3) od; refute true;')
     assert main(['run', str(source), '--out-dir', str(tmp_path/'continuous')]) == 3

@@ -132,15 +132,15 @@ Schur 补乘 eta 恰好为 `D*eta^2-sum(p_j*eta_j'^2)`。
 ```bash
 conda activate contractive-frontend-test-20260814
 
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --out-dir generated/reciprocal_kelly_new
 
 # 只在指定程序变量上合成二次分母
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --degree 2 --variables wealth --out-dir generated/reciprocal_kelly_d2_new
 
 # 固定分母作为对照；b,c,D,r0 仍由求解器求出并认证
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --eta wealth --out-dir generated/reciprocal_kelly_fixed_new
 
 python -m contractive_tool.reciprocal_cli verify generated/reciprocal_kelly_new
@@ -148,20 +148,20 @@ python -m contractive_tool.reciprocal_cli verify generated/reciprocal_kelly_new
 python -m contractive_tool.reciprocal_cli evaluate generated/reciprocal_kelly_new --n 1000
 
 # 原始流程，作为同环境基线
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --no-adaptive-k --feedback-points 0 --out-dir generated/reciprocal_baseline_new
 
 # 只启用阶段 1
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --feedback-points 0 --out-dir generated/reciprocal_stage1_new
 
 # 阶段 2 的受控实验：指定矩参数，但 eta 的系数仍自动求解
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --growth-values 26/25 --support-values 4/5 --moment-values 28/25 \
   --feedback-points 0 --out-dir generated/reciprocal_stage2_new
 
 # 增加全自动反馈预算，无需指定 eta 或矩参数
-python -m contractive_tool.reciprocal_cli run kelly_double_bound.pp \
+python -m contractive_tool.reciprocal_cli run contractive_examples/kelly/K6_two_sided_exit.pp \
   --feedback-points 24 --out-dir generated/reciprocal_stage3_24_new
 ```
 
@@ -186,7 +186,7 @@ from contractive_tool.analysis.random_rounds import prepare_random_round
 from contractive_tool.analysis.reciprocal import ReciprocalOptions, search_reciprocal, evaluate
 from contractive_tool.analysis.reciprocal_verification import verify_result
 
-round_ = prepare_random_round('kelly_double_bound.pp')
+round_ = prepare_random_round('contractive_examples/kelly/K6_two_sided_exit.pp')
 result = search_reciprocal(round_, options=ReciprocalOptions(variables=('wealth',)))
 if result['status'] == 'proved':
     assert verify_result(round_, result)['status'] == 'proved'

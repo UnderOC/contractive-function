@@ -30,7 +30,7 @@ def kelly_workflow(tmp_path_factory):
         tail_variables=('wealth',),total_seconds=30,reciprocal_seconds=30,
         per_attempt_seconds=5,repair_seconds=3,workflow_config=str(config),verbose=False,
         comparison_ns=(20,100,1000))
-    result = run_analysis(PROJECT/'kelly_double_bound.pp','tailbound',root/'run',options=options)
+    result = run_analysis(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','tailbound',root/'run',options=options)
     return root/'run',result,options
 
 
@@ -94,7 +94,7 @@ def test_integrated_provenance_tampering_is_rejected(kelly_workflow,field):
 def test_positive_budget_exhaustion_does_not_cancel_reciprocal(kelly_workflow,tmp_path):
     from dataclasses import replace
     _,_,options=kelly_workflow
-    result=run_analysis(PROJECT/'kelly_double_bound.pp','tailbound',tmp_path/'run',
+    result=run_analysis(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','tailbound',tmp_path/'run',
         options=replace(options,total_seconds=.001))
     workflow=result['symbolic_workflow']
     assert result['status']=='proved'
@@ -109,7 +109,7 @@ def test_reciprocal_failure_retains_positive_proofs(kelly_workflow,tmp_path,monk
     def fail(*a,**kw): raise module.AnalysisError('simulated reciprocal failure')
     monkeypatch.setattr(module,'search_reciprocal',fail)
     _,_,options=kelly_workflow
-    result=run_analysis(PROJECT/'kelly_double_bound.pp','tailbound',tmp_path/'run',options=options)
+    result=run_analysis(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','tailbound',tmp_path/'run',options=options)
     assert result['status']=='proved'
     workflow=result['symbolic_workflow']
     assert next(s for s in workflow['stages'] if s['stage']=='reciprocal')['status']=='unknown'

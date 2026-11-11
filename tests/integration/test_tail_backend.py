@@ -126,11 +126,11 @@ def test_real_degree_escalation_exact_uniform_bound_and_evaluation(tmp_path,mose
     assert main(['evaluate',str(out),'--n','50'])==0
 
 
-def test_real_kelly_pipeline_is_generic_and_reports_search_scope(tmp_path,mosek_available):
+def test_real_kelly_pipeline_is_generic_and_reports_search_scope(tmp_path,mosek_available,unbounded_kelly_source):
     from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
     # Renaming the file and variables cannot activate another certificate family.
     source=tmp_path/'renamed.pp'
-    source.write_text((PROJECT/'kelly_unbounded.pp').read_text().replace('wealth','capital').replace('round','steps'))
+    source.write_text(unbounded_kelly_source.read_text().replace('wealth','capital').replace('round','steps'))
     result=run_analysis(source,'tailbound',tmp_path/'solve',
         options=SearchOptions(initial_degree=2,max_degree=3,c_values=('1/2',),max_attempts_per_point=1))
     assert result['status']=='no_certificate_found',result
@@ -240,7 +240,7 @@ def test_bisection_preserves_verified_certificate_on_inconclusive_next_point(tmp
 def test_rcd_symbolic_round_synthesis_is_generic_and_matches_exact_tail(tmp_path,mosek_available):
     from contractive_tool.analysis_pipeline import run_analysis, SearchOptions
     source=tmp_path/'renamed_coordinates.pp'
-    source.write_text((PROJECT/'RCD_example.pp').read_text().replace('x','u').replace('y','v'))
+    source.write_text((PROJECT/'contractive_examples/rcd/rcd_06_equality_reference.pp').read_text().replace('x','u').replace('y','v'))
     out=tmp_path/'rcd'
     result=run_analysis(source,'tailbound',out,options=SearchOptions(max_degree=2,max_c_steps=5))
     assert result['status']=='proved',result

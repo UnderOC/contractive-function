@@ -95,7 +95,7 @@ def main():
     regression_lines=(out/'regression.log').read_text().splitlines() if (out/'regression.log').exists() else []
     regression_result=next((line.strip() for line in reversed(regression_lines) if ' passed' in line),'见日志')
     lines=['# kelly_double_bound：正幂与倒数模板比较报告','',
-        '本报告只分析 `kelly_double_bound.pp`。所有状态模板系数均由本轮主入口自动求解；',
+        '本报告只分析 `contractive_examples/kelly/K6_two_sided_exit.pp`。所有状态模板系数均由本轮主入口自动求解；',
         '没有固定 `eta=wealth`，没有读取旧实验的模板或证书。模板变量选择为 `wealth`，',
         '`round` 仍保留在程序语义及不变量中。','',
         '## 结果','',
@@ -192,7 +192,7 @@ def main():
         '报告绘图使用本机已有 Matplotlib 的 `/Anaconda/bin/python`，证书重放不需要求解器。', '',
         '在项目目录执行（输出目录须为新目录）：','', '```bash',
         'conda activate contractive-frontend-test-20260814',
-        'python -m contractive_tool solve kelly_double_bound.pp --goal tailbound \\\n  --tail-variables wealth --initial-degree 2 --max-degree 4 --max-c-steps 12 \\\n  --total-seconds 180 --reciprocal-seconds 120 --per-attempt-seconds 10 --repair-seconds 5 \\\n  --comparison-n 5 10 20 50 100 200 500 1000 \\\n  --workflow-config examples/tailbound_comparison.json \\\n  --out-dir generated/kelly_routes_reproduce/run',
+        'python -m contractive_tool solve contractive_examples/kelly/K6_two_sided_exit.pp --goal tailbound \\\n  --tail-variables wealth --initial-degree 2 --max-degree 4 --max-c-steps 12 \\\n  --total-seconds 180 --reciprocal-seconds 120 --per-attempt-seconds 10 --repair-seconds 5 \\\n  --comparison-n 5 10 20 50 100 200 500 1000 \\\n  --workflow-config examples/tailbound_comparison.json \\\n  --out-dir generated/kelly_routes_reproduce/run',
         'python -m contractive_tool verify generated/kelly_routes_reproduce/run',
         'python -m contractive_tool evaluate generated/kelly_routes_reproduce/run --n 1000',
         'PYTHONPATH=src /Anaconda/bin/python examples/report_kelly_routes.py generated/kelly_routes_reproduce/run \\\n  --out-dir generated/kelly_routes_reproduce', '```','']

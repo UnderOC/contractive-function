@@ -29,7 +29,7 @@ def matrix_result():
         cp.Problem(cp.Minimize(x), [x >= 1]).solve(solver=cp.MOSEK)
     except cp.error.SolverError as error:
         pytest.skip(str(error))
-    round_ = prepare_random_round(PROJECT/'kelly_double_bound.pp')
+    round_ = prepare_random_round(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp')
     options = ReciprocalOptions(growth_values=('26/25',), support_values=('4/5',),
                                 moment_values=('28/25',), feedback_points=0)
     return round_, options, search_reciprocal(round_, options=options)

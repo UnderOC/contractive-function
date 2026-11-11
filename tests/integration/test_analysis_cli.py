@@ -12,7 +12,7 @@ def cli(*args):
 
 def test_model_only_and_source_derived_goal(tmp_path):
     out=tmp_path/'model'
-    process=cli('build-model',PROJECT/'kelly_unbounded.pp','--goal','tailbound','--out-dir',out,
+    process=cli('build-model',PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','--goal','tailbound','--out-dir',out,
                 '--enabled-strategies','putinar')
     assert process.returncode==0,process.stderr
     summary=json.loads(process.stdout)
@@ -29,7 +29,7 @@ def test_model_only_and_source_derived_goal(tmp_path):
 def test_assertion_goal_is_unavailable_without_creating_output(tmp_path):
     out = tmp_path/'assertion'
     for command in ('solve', 'analyze', 'build-model'):
-        process = cli(command, PROJECT/'kelly_unbounded.pp', '--goal',
+        process = cli(command, PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp', '--goal',
                       'assertion_violation', '--out-dir', out)
         assert process.returncode == 2
         assert 'invalid choice' in process.stderr
@@ -54,9 +54,9 @@ def test_only_source_and_target_are_required(tmp_path):
 
 
 def test_old_arguments_and_fractional_family_rejected(tmp_path):
-    process=cli('solve',PROJECT/'kelly_unbounded.pp','--goal','tailbound','--horizon','16')
+    process=cli('solve',PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','--goal','tailbound','--horizon','16')
     assert process.returncode==2
-    process=cli('solve',PROJECT/'kelly_unbounded.pp','--goal','tailbound','--family','fractional_power')
+    process=cli('solve',PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','--goal','tailbound','--family','fractional_power')
     assert process.returncode==2 and 'fractional_k_not_implemented' in process.stderr
 
 

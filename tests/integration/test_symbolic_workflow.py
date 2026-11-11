@@ -168,7 +168,7 @@ def test_kelly_variable_selection_improves_fixed_c_and_replays(tmp_path, backend
     config.write_text(json.dumps({'direct_fraction':0.9, 'max_fixed_seeds':1,
         'guided_t':False, 't_values':['1'], 'exponents':{'interval':None,'values':['1']}}))
     out = tmp_path/'kelly'
-    result = run_analysis(PROJECT/'kelly_double_bound.pp','tailbound',out,options=SearchOptions(
+    result = run_analysis(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp','tailbound',out,options=SearchOptions(
         initial_degree=2,max_degree=2,c_values=('99/100',),tail_variables=('wealth',),
         total_seconds=45,verbose=False,workflow_config=str(config)))
     assert result['status']=='proved'

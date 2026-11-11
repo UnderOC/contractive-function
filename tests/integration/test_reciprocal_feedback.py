@@ -23,7 +23,7 @@ def feedback_result():
         cp.Problem(cp.Minimize(x), [x >= 1]).solve(solver=cp.MOSEK)
     except cp.error.SolverError as error:
         pytest.skip(str(error))
-    round_ = prepare_random_round(PROJECT/'kelly_double_bound.pp')
+    round_ = prepare_random_round(PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp')
     options = ReciprocalOptions(growth_values=('33/32',), feedback_points=6)
     result = search_reciprocal(round_, options=options)
     return round_, options, result
@@ -93,7 +93,7 @@ def test_all_unknown_feedback_shrinks_steps_without_losing_proof(feedback_result
 def test_feedback_is_independent_of_program_variable_names(feedback_result, tmp_path):
     _, options, _ = feedback_result
     source = tmp_path/'renamed.pp'
-    source.write_text((PROJECT/'kelly_double_bound.pp').read_text().replace('wealth', 'capital').replace('round', 'ticks'))
+    source.write_text((PROJECT/'contractive_examples/kelly/K6_two_sided_exit.pp').read_text().replace('wealth', 'capital').replace('round', 'ticks'))
     round_ = prepare_random_round(source)
     result = search_reciprocal(round_, options=replace(options, feedback_points=1))
     assert evaluate(result, 1000)['upper_bound_approx'] < 0.05

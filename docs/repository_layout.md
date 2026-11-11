@@ -15,7 +15,8 @@
 - 保留每个最终运行的完整尝试与证书，以及论文引用的 Q3 修复对照；按哈希补存原输入供跨路径复核。
 - 旧 reprsm benchmark、旧 tailbound benchmark 批次、过期诊断、assertion 产物、
   framework 备份及旧开发综述从 main 移除。两个 coupon 输入迁入 tests/fixtures 用于回归。
-- 根目录少量 `.pp` 兼容输入继续供历史 manifest 或测试使用，规范论文名称以 benchmark_index 为准。
+- 根目录 6 个旧 `.pp` 输入已移除；已有副本的调用改用规范 K6/Q6/R6。
+  历史 manifest 通过保存的输入快照复核，负例测试使用临时构造输入。
 - 新增实验索引和统一 report / verify / ablate 命令，不重跑合成或改变已有概率结果。
 
 原始记录可能仍包含已停用字段或旧绝对路径，这是历史证据；不批量改写它们。

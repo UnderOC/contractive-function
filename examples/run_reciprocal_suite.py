@@ -12,17 +12,15 @@ from contractive_tool.analysis.reciprocal import evaluate
 
 PROJECT = Path(__file__).resolve().parents[1]
 CASES = (
-    ('kelly_auto', 'kelly_double_bound.pp', []),
-    ('kelly_fixed', 'kelly_double_bound.pp', ['--eta', 'wealth']),
-    ('kelly_refined', 'kelly_double_bound.pp', ['--growth-values', '33/32', '67/64', '133/128']),
-    ('kelly_unbounded', 'kelly_unbounded.pp', []),
+    ('kelly_auto', 'contractive_examples/kelly/K6_two_sided_exit.pp', []),
+    ('kelly_fixed', 'contractive_examples/kelly/K6_two_sided_exit.pp', ['--eta', 'wealth']),
+    ('kelly_refined', 'contractive_examples/kelly/K6_two_sided_exit.pp', ['--growth-values', '33/32', '67/64', '133/128']),
     ('halving', 'tests/fixtures/halving.pp', []),
     ('geometric_exit', 'tests/fixtures/geometric_exit.pp', []),
-    ('RCD', 'RCD_example.pp', []),
+    ('RCD', 'contractive_examples/rcd/rcd_06_equality_reference.pp', []),
     ('cauchy_notes', 'examples/cauchy_notes.pp', []),
-    ('qlearning', 'qlearning.pp', []),
+    ('qlearning', 'contractive_examples/qlearning/Q6_two_action_noisy_reference.pp', []),
     ('coupon2', 'tests/fixtures/01_coupon2.pp', []),
-    ('uniform', 'uniform_multiplicative.pp', []),
 )
 
 

@@ -26,7 +26,7 @@ def holds(domain, values):
 
 
 def test_rcd_symbolic_expectation_and_nonzero_exit_boundary():
-    cfg,kernel=compile_round((PROJECT/'RCD_example.pp').read_text())
+    cfg,kernel=compile_round((PROJECT/'contractive_examples/rcd/rcd_06_equality_reference.pp').read_text())
     x,y=sp.symbols('x y')
     f=(x*x+x*y+y*y)/2
     cases=kernel.partitioned_preconditions(f)

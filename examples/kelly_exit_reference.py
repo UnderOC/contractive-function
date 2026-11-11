@@ -1,4 +1,4 @@
-"""Exact independent probability enclosure for kelly_double_bound.pp.
+"""Exact independent probability enclosure for contractive_examples/kelly/K6_two_sided_exit.pp.
 
 This experiment is not part of the certificate synthesis pipeline. At round n,
 wealth is (6**wins * 4**(n-wins))/5**n and path weights have denominator 5**n.
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args()
     result = enclose(args.rounds)
-    source = Path(__file__).resolve().parents[1]/'kelly_double_bound.pp'
+    source = Path(__file__).resolve().parents[1]/'contractive_examples/kelly/K6_two_sided_exit.pp'
     result['source_sha256'] = hashlib.sha256(source.read_bytes()).hexdigest()
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2)+'\n')

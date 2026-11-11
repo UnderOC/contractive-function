@@ -5,7 +5,7 @@
 该参数用于主分支的 tailbound 分析。
 
 ```bash
-python -m contractive_tool solve kelly_double_bound.pp --goal tailbound \
+python -m contractive_tool solve contractive_examples/kelly/K6_two_sided_exit.pp --goal tailbound \
   --tail-rule round_survival --tail-variables wealth \
   --initial-degree 2 --max-degree 8 --degree-step 2 --continue-after-success \
   --c-values 47/50 19/20 97/100 99/100 --max-attempts-per-point 3 \

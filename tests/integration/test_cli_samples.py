@@ -17,12 +17,12 @@ PROJECT = Path(__file__).resolve().parents[2]
     "sample, expected",
     [
         (
-            "kelly_simple.pp",
+            "contractive_examples/kelly/K6_two_sided_exit.pp",
             {"locations": 10, "transition_groups": 12, "branches": 13, "random_samples": 0},
         ),
         (
-            "uniform_multiplicative.pp",
-            {"locations": 7, "transition_groups": 9, "branches": 9, "random_samples": 1},
+            "contractive_examples/stochastic_affine_examples/positive/S7_memory_switched_contraction.pp",
+            {"locations": 11, "transition_groups": 13, "branches": 13, "random_samples": 1},
         ),
     ],
 )
@@ -71,7 +71,7 @@ def test_actual_sample_runs_complete_cli_pipeline(
 def test_parse_subcommand_writes_semantically_checked_ast(tmp_path: Path) -> None:
     output = tmp_path / "ast.json"
     process = subprocess.run(
-        ["contractive", "parse", str(PROJECT / "kelly_simple.pp"), "--out", str(output)],
+        ["contractive", "parse", str(PROJECT / "contractive_examples/kelly/K6_two_sided_exit.pp"), "--out", str(output)],
         text=True,
         capture_output=True,
         check=False,
