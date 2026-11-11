@@ -82,9 +82,7 @@ S7 使用仿射基函数，并非所有样例都采用同一搜索预算。运�
 详细说明：
 [符号完整流程](docs/symbolic_workflow.md)、[Cauchy](docs/cauchy_search.md)、
 [倒数幂](docs/reciprocal_tailbound.md)、[不变量认证](docs/invariant_certification.md)、
-[模板变量选择](docs/tail_variable_selection.md)、
-[尾界证明](Contractive_尾界_Markov证明版.md)、
-[Cauchy 推导笔记](cauchy_contractive_certificate_notes.md)。
+[模板变量选择](docs/tail_variable_selection.md)。
 
 ## 测试
 
